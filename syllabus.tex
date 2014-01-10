@@ -1,12 +1,15 @@
 \documentclass[12pt]{article}
-\textwidth=7in
-\textheight=9.5in
-\topmargin=-1in
-\headheight=0in
-\headsep=.5in
-\hoffset  -.85in
+%\textwidth=7in
+%\textheight=9.5in
+%\topmargin=-1in
+%\headheight=0in
+%\headsep=.5in
+%\hoffset=-.85in
 
+%\usepackage[cm]{fullpage}
+\usepackage[top=0.75in, bottom=0.75in, left=1in, right=1in]{geometry}
 \pagestyle{empty}
+\usepackage{tabu}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \begin{document}
@@ -24,7 +27,7 @@
 \renewcommand{\arraystretch}{2}
 
 \vskip.25in
-\noindent\textbf{Instructor:} Rachel Slaybaugh,  4173 Etcheverry Hall, slaybaugh@berkeley.edu, 570-850-3385
+\noindent\textbf{Instructor:} Rachel Slaybaugh,  4173 Etcheverry Hall,\\ \hspace*{0.9 in}slaybaugh@berkeley.edu,  570-850-3385
 \vskip.25in
 \noindent\textbf{Office Hours:} 2:00-3:00 PM MF and by  appointment.
 
@@ -41,8 +44,7 @@ Computational methods used to analyze radiation transport described by various d
 \noindent\textbf{Prerequisites:} Math 53 and 54 (Eng 7 recommended)
 
 \vskip.25in
-\noindent\textbf{Textbooks and References:}\footnotemark  
-\footnotetext{There are no required textbooks.}
+\noindent\textbf{Textbooks and References:}
 \begin{itemize}
 \item Course notes + handouts
 \item Either \emph{Numerical Computing with MATLAB} by Cleve Moler \\(http://www.mathworks.com/moler/index\_ncm.html)
@@ -138,106 +140,105 @@ http://rsicc.ornl.gov/Registration.aspx (apply for the EXE package only)
 \vskip.25in
 \noindent\textbf{Attendance}: Students are expected to attend classes regularly. A student who incurs an excessive number of absences may be withdrawn from a class at the discretion of the professor.
 
-\clearpage
-\noindent\textbf{Schedule}:
-
-\begin{tabular}{| c | l | l | c |}\hline
-Lecture & Date & Topic & HW Due?\\
-\hline
-1 & Jan 22 & Intro, organization, overview \& goals &   \\
-\hline
-2 & Jan 24 & Intro to computational science and engineering & \\                                                                  
-\hline
-3 & Jan 27 & A brief history of computer technology and architecture & \\
-\hline
-4 & Jan 29 & Intro to nuclear reactor modelling and simulation & \\
-\hline
-% word wrap
-& & Types of differential and integral equations & \\ [-1ex]
-\raisebox{1.5ex}{5} & \raisebox{1.5ex}{Jan 31} & in radiation transport & \\
-\hline
-6 & Feb 3 & Fundamentals of numerical methods - matrix algebra & \\
-\hline
-% word wrap
-& & Vector and matrix norms; eigenvalues and eigenvectors of a matrix; & \\ [-1ex]
-\raisebox{1.5ex}{7} & \raisebox{1.5ex}{Feb 5} & spectral radius of a matrix & 1 \\
-\hline 
-8 & Feb 7 & Approximation and interpolations & \\
-\hline 
-9 & Feb 10 & Numerical differentiation and integration & \\
-\hline 
-10 & Feb 12 & Legendre polynomials and Gauss-­Legendre quadratures & \\
-\hline 
-11 & Feb 14 & Direct solution by Gaussian elimination. & \\
-\hline 
-& Feb 17 & President's Day - no class & \\
-\hline 
-12 & Feb 19 & Jacobi, Gauss ­Seidel and SOR methods & \\
-\hline 
-13 & Feb 21 & Introduction to Matlab & \\
-\hline 
-14 & Feb 24 & Intro to the finite difference method for 1-D diffusion & \\
-\hline 
-15 & Feb 26 & Intro to the finite volume method for 1-D diffusion & \\
- \hline 
-16 & Mar 1 & Fixed-source problems using finitie differenc and finitie volume methods & \\
-\hline 
-17 & Mar 3 & Eigenvalue problems using finitie differenc and finitie volume methods & \\
-\hline 
-18 & Mar 5 & Finite difference method for 1-D diffusion & \\
-\hline 
-19 & Mar 7 & Finite element method for 1-D diffusion & \\
-\hline 
-20 & Mar 10 & Introduction to Monte Carlo method & \\
-\hline 
-21 & Mar 12 & Introduction to the MCNP & \\
-\hline 
-22 & Mar 14 & Analog Monte Carlo; non-analog Monte Carlo; categories of random sampling; ariance reduction methods & \\
-\hline 
-23 & Mar 17 & Monte Carlo ­ random number generators; basic statistics definitions; error estimates. & \\
-\hline 
-24 & Mar 19 & Monte Carlo method for neutron and photon transport & \\
-\hline 
-25 & Mar 21 & Monte Carlo method for neutron and photon transport & \\
-\hline 
-& Mar 24-28 & Spring Recess - no class & \\
- \hline  
-26 & Mar 31 &  & \\
-\hline 
-27 & Apr 2 &  & \\
-\hline 
-28 & Apr 4 &  & \\
-\hline 
-29 & Apr 7 &  & \\
-\hline 
-30 & Apr 9 &  & \\
-\hline 
-31 & Apr 11 &  & \\
-\hline 
-32 & Apr 14 &  & \\
-\hline 
-33 & Apr 16 &  & \\
-\hline 
-34 & Apr 18 &  & \\
-\hline 
-35 & Apr 21 &  & \\
-\hline 
-36 & Apr 23 &  & \\
-\hline 
-37 & Apr 25 &  & \\
-\hline 
-38 & Apr 28 &  & \\
-\hline 
-39 & Apr 30 &  & \\
-\hline 
-40 & May 2 &  & \\
-\hline 
-41 & May 5 &  & \\
-\hline 
-42 & May 7 &  & \\
-\hline 
-43 & May 9 &  & \\
-\hline 
-\end{tabular}
+%\vskip.25in
+%\noindent\textbf{Schedule}:
+%
+%\begin{tabu}{| c | l | X | c |}\hline
+%Lecture & Date & Topic & HW Due\\
+%\hline
+%1 & Jan 22 & Intro, organization, overview \& goals &   \\
+%\hline
+%2 & Jan 24 & Intro to computational science and engineering & \\                                                                  
+%\hline
+%3 & Jan 27 & Types of differential and integral equations in radiation transport & \\
+%\hline
+%4 & Jan 29 & Types of differential and integral equations in radiation transport cont'd & \\
+%\hline
+%5 & Jan 31 & Fundamentals of numerical methods - matrix algebra & \\
+%\hline
+%6 & Feb 3 & Vector and matrix norms; eigenvalues and eigenvectors of a matrix; spectral radius of a matrix & \\
+%\hline
+%7 & Feb 5 &  & 1 \\
+%\hline 
+%8 & Feb 7 & Approximation and interpolations & \\
+%\hline 
+%9 & Feb 10 & Numerical differentiation and integration & \\
+%\hline 
+%10 & Feb 12 & Legendre polynomials and Gauss-­Legendre quadratures & \\
+%\hline 
+%11 & Feb 14 & Direct solution by Gaussian elimination. & \\
+%\hline 
+%& Feb 17 & President's Day - no class & \\
+%\hline 
+%12 & Feb 19 & Jacobi, Gauss ­Seidel and SOR methods & \\
+%\hline 
+%13 & Feb 21 & Introduction to Matlab & \\
+%\hline 
+%14 & Feb 24 & Intro to the finite difference method for 1-D diffusion & \\
+%\hline 
+%15 & Feb 26 & Intro to the finite volume method for 1-D diffusion & \\
+% \hline 
+%16 & Mar 1 & Fixed-source problems using finite difference and finiie volume methods & \\
+%\hline 
+%17 & Mar 3 & Eigenvalue problems using finite difference and finiie volume methods & \\
+%\hline 
+%18 & Mar 5 & Finite difference method for 1-D diffusion & \\
+%\hline 
+%19 & Mar 7 & Finite element method for 1-D diffusion & \\
+%\hline 
+%20 & Mar 10 & Introduction to Monte Carlo method & \\
+%\hline 
+%\end{tabu}
+%
+%\begin{tabu}{| c | l | X | c |}\hline
+%21 & Mar 12 & Introduction to the MCNP & \\
+%\hline 
+%22 & Mar 14 & Analog Monte Carlo; non-analog Monte Carlo; categories of random sampling; ariance reduction methods & \\
+%\hline 
+%23 & Mar 17 & Monte Carlo ­ random number generators; basic statistics definitions; error estimates. & \\
+%\hline 
+%24 & Mar 19 & Monte Carlo method for neutron and photon transport & \\
+%\hline 
+%25 & Mar 21 & Monte Carlo method for neutron and photon transport & \\
+%\hline 
+%& Mar 24-28 & Spring Recess - no class & \\
+% \hline  
+%26 & Mar 31 &  & \\
+%\hline 
+%27 & Apr 2 &  & \\
+%\hline 
+%28 & Apr 4 &  & \\
+%\hline 
+%29 & Apr 7 &  & \\
+%\hline 
+%30 & Apr 9 &  & \\
+%\hline 
+%31 & Apr 11 &  & \\
+%\hline 
+%32 & Apr 14 &  & \\
+%\hline 
+%33 & Apr 16 &  & \\
+%\hline 
+%34 & Apr 18 &  & \\
+%\hline 
+%35 & Apr 21 &  & \\
+%\hline 
+%36 & Apr 23 &  & \\
+%\hline 
+%37 & Apr 25 &  & \\
+%\hline 
+%38 & Apr 28 &  & \\
+%\hline 
+%39 & Apr 30 &  & \\
+%\hline 
+%40 & May 2 &  & \\
+%\hline 
+%41 & May 5 &  & \\
+%\hline 
+%42 & May 7 &  & \\
+%\hline 
+%43 & May 9 &  & \\
+%\hline 
+%\end{tabu}
 
 \end{document}
