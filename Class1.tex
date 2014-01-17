@@ -39,6 +39,25 @@
 \renewcommand{\)}{\end{columns}}
 \newcommand{\<}[1]{\begin{column}{#1}}
 \renewcommand{\>}{\end{column}}
+
+% adding slide numbers
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+% equation stuff
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\Sn}{\ensuremath{S_N} }
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{amsmath}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -67,13 +86,14 @@
       Email: slaybaugh@berkeley.edu \\
       Phone: 570-850-3385
 \item Office Hours: MF, 2 - 3 pm
-\item GSI: 
+\item GSI: Madicken Munk, madicken@berkeley.edu\\
+      office hours:
 \item Prerequisites: Math 53 and 54
 \item Prerequisite knowledge and skills: 
 \begin{itemize}
 \item Solve linear, first, and second order differential equations
 \item Linear algebra, vector calculus
-\item Computer language knowledge (C, C++, FORTRAN), Python or MATLAB	
+\item Computer language knowledge: C, C++, FORTRAN, Python, or MATLAB	
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -81,7 +101,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{References}
-Textbooks and References:
 \begin{itemize}
 \item Course notes + handouts
 \item E. E. Lewis, W. E. Miller Jr., ``Computational Methods of Neutron Transport," J. Wiley \& Sons, 1984.
@@ -105,10 +124,11 @@ Final Project & 30\%
 \end{itemize}
 Class computer lab accounts
 \begin{itemize}
-\item All students will get class computer lab accounts at Davis Etcheverry Computing Facility
+\item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF)
 \item DECF (1171 and 1111 Etcheverry): http://www.decf.berkeley.edu/
-\item License for MCNP6 (B00004-MNYCP-02) is obtained through RSICC: http://rsicc.ornl.gov/Registration.aspx
-\item Apply for the EXE package only
+%\item License for MCNP6 (B00004-MNYCP-02) is obtained through RSICC: http://rsicc.ornl.gov/Registration.aspx
+%\item Apply for the EXE package only
+\item We will use the Serpent Monte Carlo code (http://montecarlo.vtt.fi/)
 \end{itemize}
 \end{frame}
 
@@ -127,9 +147,9 @@ Class computer lab accounts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Course Objectives}
 \begin{itemize}
-\item Introduce the specific features of MCNP, a production level Monte Carlo code for simulation of neutron and photon transport in complex geometries, and illustrate the use of MCNP in various areas of nuclear engineering.
-\item Introduction to the SERPENT Monte Carlo code.
-\item Develop computational skills that may be required for the upper-division design course (NE 170) and/or graduate-level reactor physics, reactor design or numerical analysis courses.
+\item Introduce the specific features of Serpent, a production level Monte Carlo code for simulation of neutron and photon transport in complex geometries, and illustrate the use of Serpent in various areas of nuclear engineering.
+\item Introduction to the Monte Carlo N Particle (MCNP) code.
+\item Develop computational skills that will be useful in many upper-division courses and/or in future employment.%may be required for the upper-division design course (NE 170) and/or graduate-level reactor physics, reactor design or numerical analysis courses.
 \item Introduction to parallel computing concepts.
 \end{itemize}
 \end{frame}
@@ -160,6 +180,26 @@ Class computer lab accounts
 \item National Energy Research Scientific Computing Center (NERSC): http://www.nersc.gov	
 \item LBNL Computational Research Division (CRD): http://crd.lbl.gov/
 \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Preview}
+\begin{align}
+  [\vOmega \cdot \nabla + \Macro(\vec{r}, E)] &\psi(\vec{r}, \vOmega, E)  = \chi(E) \int_0^{\infty} dE' \:\nu \Macro_{f}(\vec{r}, E') \int_{4\pi} d\vOmega' \:\psi(\vec{r}, \vOmega', E')  \nonumber \\
+   &+ \int_0^{\infty} dE' \int_{4\pi} d\vOmega' \:\Macro_{s}(\vec{r}, E' \to E, \vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', E')  \nonumber
+\end{align}
+\vspace{-2em}
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    Learn methods to translate equations like the \\\emph{Boltzmann Transport equation} \\into computer-generated solutions.
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \begin{figure}
+    \includegraphics[height=1.75in,clip]{UNIC_powerDist}
+    \end{figure}
+  \end{column}
+\end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
