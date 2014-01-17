@@ -3,3 +3,7 @@
 *.log
 *.pdf
 *.synctex.gz
+*.snm
+*.toc
+*.nav
+*.out
