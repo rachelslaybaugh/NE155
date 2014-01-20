@@ -1,0 +1,452 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Class 2, NE 155
+%%
+
+\documentclass[xcolor=x11names,compress]{beamer}
+
+\definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{decorations.fractals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+\usepackage{tabu}
+
+% addition of color
+\usepackage{xcolor}
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=CoolBlack} 
+\setbeamercolor*{normal text}{fg=black,bg=white} 
+\setbeamercolor*{alerted text}{fg=red} 
+\setbeamercolor*{example text}{fg=black} 
+\setbeamercolor*{structure}{fg=black} 
+ 
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+% adding slide numbers
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+% equation stuff
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\Sn}{\ensuremath{S_N} }
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
+\subtitle{Lecture 2: Computers}
+\author{
+        Rachel Slaybaugh\\
+        \vspace*{1em}
+        {\it University of California, Berkeley\\
+         Department of Nuclear Engineering}\\
+}
+\date{January 24, 2014}
+\titlepage
+\end{frame}
+
+% Outline
+% 1) History
+%  - define flops as measure of what we care about
+%  - chronological highlights of a few machines; show pictures, state details
+%  - table of flops increasing number over years
+% 2) Basic architecture
+%  - hardware v software; we're talking about hardware now but the rest of the class will focus on software. We will care a little bit about the interface
+%  - definitions
+%  - Moore's law
+% 3) Parallelism
+%  - basic considerations
+%  - types of parallelism
+%  - speedup
+%  - increase in use and potential
+%  - current status
+% 4) (if time; thw topic?) Discussion of parallelism architecture issues?
+%  - Moore's law continuation?
+%  - GPUs
+%  - mic chips
+%  - What happens may have a large impact on algorithms
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+\begin{enumerate}
+\item History and terminology
+%  - define flops as measure of what we care about
+%  - chronological highlights of a few machines; show pictures, state details
+%  - table of flops increasing number over years
+\item Basic computer architecture
+%  - hardware v software; we're talking about hardware now but the rest of the class will focus on software. We will care a little bit about the interface
+%  - definitions
+%  - Moore's law
+\item Introduction to Parallelism
+%  - basic considerations
+%  - types of parallelism
+%  - speedup
+%  - increase in use and potential
+%  - current status
+\item Current issues in hardware
+%  - Moore's law continuation?
+%  - GPUs
+%  - mic chips
+%  - What happens may have a large impact on algorithms
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How do we measure utility?\footnote{en.wikipedia.org}}
+
+\textbf{IPS} (Instructions Per Second) is a measure of a computer's processor speed. IPS can be useful when comparing performance between processors made from a similar architecture but are difficult to compare between CPU architectures
+
+\textbf{Clock rate} typically refers to the frequency at which a CPU is running. It is measured in the SI unit Hertz.
+
+\textbf{FLOPS} (FLoating-point Operations Per Second) is a measure of computer performance, useful in fields of scientific calculations that make heavy use of floating-point calculations. 
+
+%\begin{equation}
+%\text{FLOPS} = \text{cores} \times \text{clock} \times \frac{\text{FLOPs}}{\text{cycle}}
+%\end{equation}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computational Science/Engineering}
+\textcolor{dgreen}{Computational Science} seeks to gain understanding principally through the analysis of mathematical models on high performance computers.\\
+\vspace*{0.25 in}
+The term \textcolor{dgreen}{computational scientists} has been coined to describe scientists, engineers, and mathematicians who apply high performance computer technology in innovative and essential ways to advance the state of knowledge in their respective disciplines.\\
+\vspace*{0.25 in}
+Thus, we distinguish it from \textcolor{dgreen}{computer science}, which is the study of \emph{computer and computation} and \emph{theory and experiment}, the traditional form of science. 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The Hacker Within}
+Learn/teach skills to be a successful computational scientist
+\begin{itemize}
+\item Brand new chapter at Berkeley
+\item Wednesdays, 4-6 pm, 2nd floor of Chase Building (by the BART)
+\item Will teach skills useful for this course
+\item Valuable resource; lots of fun
+\item Website: http://thehackerwithin.github.io/berkeley/
+\item GitHub: https://github.com/thehackerwithin/berkeley
+\item in the news: http://www.news.wisc.edu/19236
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Solving Problems}
+\begin{enumerate}
+\item Identify the problem
+\item Pose the problem in terms of a mathematical model
+\item Identify a computational method for solving the model
+\item Implement the computational method on a computer
+\item Asses the answer in the context of the
+\begin{itemize}
+\item Implementation (computer language and architecture)
+\item Method (discrete or continuous)
+\item Model (symbolic or numerical)
+\end{itemize}
+Using
+\begin{itemize}
+\item Visualization and interpretation
+\item Experimental comparisons
+\item Analytical comparisons
+\item Engineering judgement
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Big Challenges}
+\begin{itemize}
+\item Science
+\begin{itemize}
+\item Global climate modeling
+\item Astrophysical modeling
+\item Biology: genomics; protein folding; drug design
+\item Computational Material Sciences and Nano-sciences
+\end{itemize}
+\item Engineering
+\begin{itemize}
+\item Semiconductor design
+\item Earthquake and structural modeling
+\item Computational fluid dynamics (air plane design)
+\item Combustion (engine design)
+\item Analysis and design of nuclear reactors
+\end{itemize}
+\item Business
+\begin{itemize}
+\item Financial and economic modeling
+\item Transaction processing, web services and search engines
+\end{itemize}
+\item Defense
+\begin{itemize}
+\item Nuclear weapons -- test by simulations
+\item Cryptography
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Big Potential}
+\begin{itemize}
+\item ``Periods of rapid advancements in the sciences have often been sparked by timely technology breakthroughs in experimental technique." 
+\item ``The next epochal period of scientific growth maybe unleashed by major design breakthroughs in computer architectures and advances in modeling approaches, where supercomputers become the laboratories to test and advance new theories for which no practical experimental apparatus can be built." (1990)
+%\item Why the 90s? What's the history of computers?
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}{Big Resources?}
+%\begin{itemize}
+%\item ``I think there is a world market for maybe five computers."\\
+%\hspace*{0.5 in}Thomas Watson, chairman of IBM, 1943
+%\item ``There is no reason for any individual to have a computer in their home."\\
+%\hspace*{0.5 in}Ken Olson, president and founder of \\
+%\hspace*{0.5 in}Digital Equipment Corporation, 1977
+%\item ``640K [of memory] ought to be enough for anybody."\\
+%\hspace*{0.5 in}Bill Gates, chairman of Microsoft, 1981
+%\vspace*{0.25 in}
+%\item ``Reaching a teraflop is the single biggest computer science achievement in two decades. Ten years ago, the most credible leaders in computing said it was not possible."\\
+%\hspace*{0.5 in}Gil Weigand, supercomputing guru, 1996
+%\end{itemize}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What are we trying to accomplish?}
+\begin{itemize}
+\item The challenge of designing a nuclear reactor is to make it as economical as possible while insuring its safety.
+\item This is not an easy task!
+\item The principle of a nuclear reactor is relatively simple:
+\begin{itemize}
+\item Fission creates heat within the nuclear fuel,
+\item The heat is conducted to the fuel cladding surface and to the coolant,
+\item The heat is subsequently transported by a coolant through heat exchangers and ultimately to a steam conversion plant.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Easy?}
+ \begin{figure}
+   \begin{center}
+     %\includegraphics[height=2.5in,clip]{TeaPot}
+   \end{center}
+ \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What are we trying to accomplish?}
+\begin{itemize}
+\item In order to design economical and safe reactors, one must choose among a vast range of competing designs:
+\begin{itemize}
+\item What are the best fuels, structure, and coolant materials; what are their appropriate ratios?
+\item How does the reactor respond to component failures?
+\item How does one balance those choices given competing goals of performance, lifetime, safety, and capital cost?
+\end{itemize}
+\item Ideally, one would like to base these choices on theory rather than experimental trial and error.
+\item This is where \textcolor{dgreen}{computational science} fits in...
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Early Days}
+Before much computer use (e.g., 1943), things took a long time
+\begin{tabu}{|X | l|}
+\hline
+Project & Est. Time \\\hline
+Density distribution in difficult system & 2 weeks \\
+Integral equation for absorption in Al slab & 2 weeks \\
+Slowing-down length in H$_2$O \& related calcs & 3 weeks \\
+Albedo problems & 1 week \\\hline
+\end{tabu}
+\begin{center}
+%\includegraphics[height=1.5in,clip]{ACRM}
+\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Adolescence -- Early 1980s}
+\begin{itemize}
+\item NE was at the forefront of computer applications (!)
+%pushing the envelope for ever greater computing resources and related advances in computational science.
+\item Major early success story in the computational sciences:
+\begin{itemize}
+\item Reduced the burden of experiment
+\item Contributed greatly to reactor design
+\end{itemize}
+\item However, modeling was severely constrained 
+%Even state-of-the-art machines such as Cray-1 were 
+\begin{itemize}
+\item Unable to explicitly model the key physical phenomena within a reactor
+\item Low-dimensional representation
+\item Lumped parameter models
+\item Empirical correlations with tunable parameters established largely by experiments
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Adolescence $\rightarrow$ Today's Challenges}
+\begin{itemize}
+\item Computing limitations caused
+\begin{itemize}
+\item Heavy reliance on expensive and often complicated experiments
+\item Inaccuracy resulted in \emph{significant design margins} $\rightarrow$ negative impact on plant economics
+\item Exploration of novel reactor design concepts was greatly constrained 
+%by fundamental limitations in the predictability of the models
+\end{itemize}
+\item Many codes developed then are still used 
+\item Can we update these tools?
+\item Do we need to design new tools?
+\item What methods will take us into the future?
+\item What will the architectures look like?
+\item How do we successfully navigate that interplay?
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Current State}
+2010: the DOE announced \emph{Oak Ridge National Laboratory} won the Nuclear Energy Modeling and Simulation Energy Innovation Hub (\$122 million for 5 years), including:	
+\begin{itemize}
+\item Electric Power Research Institute (EPRI), Palo Alto, CA
+\item Idaho National Laboratory, Idaho Falls, ID
+\item Los Alamos National Laboratory, Los Alamos, NM
+\item Massachusetts Institute of Technology, Cambridge, MA
+\item North Carolina State University, Raleigh, NC
+\item Sandia National Laboratories, Albuquerque, NM
+\item Tennessee Valley Authority, Knoxville, TN
+\item University of Michigan, Ann Arbor, MI
+\item Westinghouse Electric Company, Pittsburgh, PA
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Consortium for Advanced Simulation of Light Water Reactors}
+\begin{center}
+%\includegraphics[height=0.75in,clip]{CASL}
+\end{center}
+\begin{itemize}
+\item \textcolor{RawSienna}{TASK 1}: develop computer models that simulate nuclear power plant operations, forming a ``virtual reactor" for the predictive simulations of light water reactors. 
+\item \textcolor{RawSienna}{TASK 2}: use computer models to reduce capital and operating costs per unit of energy, extend the lifetime of the existing U.S. reactor fleet, and reduce nuclear waste volume generated by enabling higher fuel burn-ups... %\\The CASL virtual reactor will also be used to accelerate the deployment of next-generation reactor designs, particularly advanced nuclear fuel technologies and structural materials within the reactor core.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Supercomputing in Research}
+These kinds of simulations require time on the fastest computers in the world
+\begin{itemize}
+\item \textcolor{RawSienna}{Titan} (ORNL): 299,008 Opteron Cores (CPU) + 18,688 K21 Keplers (GPU); 27 petaflops 
+\item \textcolor{RawSienna}{IBM Sequoia} (LLNL): 1,572,864 cores (CPU); \\16.32 petaflops
+\end{itemize}
+\begin{figure}
+%\includegraphics[height=1.1in,clip]{Titan}
+\hfill
+%\includegraphics[height=1.1in,clip]{Sequoia}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{It's Important}
+``. . . At Oak Ridge National Laboratory, they're using supercomputers to get a lot more power out of our nuclear facilities . . . . "
+
+\vspace*{0.5 in}
+President Obama, 2011 State of the Union\\
+http://www.casl.gov/media/20110127\_news.shtml
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What Can We Accomplish?}
+\begin{itemize}
+\item Predictive simulation 
+\item Model entire facilities at a new level of fidelity
+\item Coupled multi-physics
+%Lets us reduce margins, extend existing reactor lifetimes, and consider new designs.
+\end{itemize}
+\begin{figure}
+%\includegraphics[height=1.2in,clip]{WattsBar}
+\hfill
+%\includegraphics[height=1.2in,clip]{DenovoCore}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What Can We Accomplish?}
+\underline{Integrate}
+\begin{itemize}
+\item existing nuclear energy and nuclear national security modeling and simulation capabilities
+\item and associated expertise
+\item with high-performance computing
+\end{itemize}    
+to solve problems that were \emph{previously unthinkable or impractical} in terms of the computing power required to address them
+
+\vspace*{1em}
+However, these computer simulations will not completely eliminate the need for \emph{experimental or measurement data} to confirm or ``validate" the software. 
+
+\vspace*{1em}
+\hspace*{0.25 in} John Wagner, ORNL
+\end{frame}
+
+%"Traditionally, reactor models for radiation dose assessments have considered just the reactor core, or a small part of the core," Wagner says. "However, we're now simulating entire nuclear facilities, such as a nuclear power reactor facility with its auxiliary buildings and the ITER fusion reactor, with much greater accuracy than any other organization that we're aware of." 
+%
+%More accurate models enable nuclear plants to be designed with more accurate safety margins and shielding requirements, which helps to improve safety and reduce costs. The technology that makes this sort of leading-edge simulation possible is a combination of ORNL's Jaguar, the world's fastest supercomputer; advanced transport methods; and a next-generation software package called Denovo.
+%
+%DENOVO is a Scalable HPC Transport Code for Multi-Scale Nuclear Energy Applications
+%http://computing.ornl.gov/SC09/videos/tomevans_1Mb.mov
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Questions?}
+\begin{figure}
+%\includegraphics[height=3in,clip]{math07}
+\end{figure}
+\end{frame}
+
+\end{document}
