@@ -1,18 +1,45 @@
-\documentclass[12pt]{article}
+\documentclass[12pt, ]{article}
 
 \title{NE 155, Class 2, S14}
 \author{Rachel Slaybaugh}
 \date{January 24, 2014}
 
+\usepackage{setspace}
+\onehalfspacing
+
 \begin{document}
 \maketitle
 
-\noident \textbf{How do we measure utility?}
+\noindent \textbf{How do we measure utility?}
 
-IPS is often specified in the millions, giving MIPS. MIPS is used to measure the integer performance of a computer. Examples of integer operation include data movement (A to B) or value testing (If A = B, then C). MIPS as a performance benchmark is adequate for the computer when it is used in database query, word processing, spreadsheets, or to run multiple virtual operating systems (http://en.wikipedia.org/wiki/FLOPS).
+IPS is often specified in the millions, giving MIPS. MIPS is used to measure the integer performance of a computer. Examples of integer operation include data movement (A to B) or value testing (If $A = B$, then $C$). MIPS as a performance benchmark is adequate for the computer when it is used in database query, word processing, spreadsheets, or to run multiple virtual operating systems (http://en.wikipedia.org/wiki/FLOPS).
 
-The clock rate of a CPU is normally determined by the frequency of an oscillator crystal. Typically a crystal oscillator produces a fixed sine wave—the frequency reference signal. Electronic circuitry translates that into a square wave at the same frequency for digital electronics applications (or, in using a CPU multiplier, some fixed multiple of the crystal reference frequency). The clock distribution network inside the CPU carries that clock signal to all the parts that need it. (http://en.wikipedia.org/wiki/Clock_rate)
+The clock rate of a CPU is normally determined by the frequency of an oscillator crystal. Typically a crystal oscillator produces a fixed sine wave - the frequency reference signal. Electronic circuitry translates that into a square wave at the same frequency for digital electronics applications (or, in using a CPU multiplier, some fixed multiple of the crystal reference frequency). The clock distribution network inside the CPU carries that clock signal to all the parts that need it. (http://en.wikipedia.org/wiki/Clock\_rate)
 
 FLOPS measures the computing ability of a computer and includes the concept of clock rate. An example of a floating-point operation is the calculation of mathematical equations; as such, FLOPS is a useful measure of supercomputer performance. This is the term we will use most frequently in this class. 
+
+\begin{equation}
+FLOPS = cores \times clock \times \frac{FLOPs}{cycle} \nonumber
+\end{equation}
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{Computing Machines, Origins}
+
+The earliest known tool for use in computation was the abacus, and it was thought to have been invented in Babylon circa 2400 BC. Its original style of usage was by lines drawn in sand with pebbles. Abaci, of a more modern design, are still used as calculation tools today. This was the first known computer and most advanced system of calculation known to date - preceding Greek methods by 2,000 years. 
+
+Following the abacus there were a series of analog computers - machines designed to aid in the computation of specific tasks. These were found in ancient China, India, Greece, etc. None of the early computational devices were really computers in the modern sense, and it took considerable advancement in mathematics and theory before the first modern computers could be designed. (http://en.wikipedia.org/wiki/History\_of\_computing)
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{First Electromechanical Computer}
+
+The Z3 was an electromechanical computer designed by Konrad Zuse and was completed in Berlin in 1941. It was the world's first working programmable, fully automatic digital computer. The Z3 was built with 2000 relays, implementing a 22-bit words that operated at a clock frequency of about 5–10 Hz. Program code and data were stored on punched film. (en.wikipedia.org/wiki/Z3\_(computer))
+
+The ENIAC (Electronic Numerical Integrator And Computer) was the first electronic general-purpose computer, announced to the public in 1946. It was Turing-complete, digital, and capable of being reprogrammed to solve a full range of computing problems.
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{First Electromechanical Computer}
 
 \end{document}
