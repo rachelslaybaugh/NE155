@@ -249,13 +249,13 @@ With the advent of the transistor and the work on semi-conductors generally, it 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Types of Memory}
-\begin{itemize}
-\item \textbf{Read-only memory} (ROM): storage medium in which data cannot be modified, so it is mainly used to distribute firmware 
-\item \textbf{Random Access Memory} (RAM): allows stored data to be accessed directly in any random order\footnote{Many computer systems have a memory hierarchy consisting different systems referred to collectively as ``RAM". The various subsystems can have very different access times.}
-\item Other data storage media only read and write data consecutively (time impact)
-\end{itemize}
-\end{frame}
+%\begin{frame}{Types of Memory}
+%\begin{itemize}
+%\item \textbf{Read-only memory} (ROM): storage medium in which data cannot be modified, so it is mainly used to distribute firmware 
+%\item \textbf{Random Access Memory} (RAM): allows stored data to be accessed directly in any random order\footnote{Many computer systems have a memory hierarchy consisting different systems referred to collectively as ``RAM". The various subsystems can have very different access times.}
+%\item Other data storage media only read and write data consecutively (time impact)
+%\end{itemize}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -290,23 +290,85 @@ The number of transistors on integrated circuits doubles approximately every 18 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Parallelism}
+\subsection{Parallelism}
 \begin{frame}{What is Parallel Architecture?}
 A \textcolor{dgreen}{parallel computer} is a collection of processing elements that cooperate to solve large problems
-fast
+quickly
+
+\begin{itemize}
+\item Resource allocation
+  \begin{itemize}
+  \item How much \textcolor{dgreen}{memory}?
+  \item How \textcolor{dgreen}{many} elements?
+  \item How \textcolor{dgreen}{powerful} are the elements?
+  \end{itemize}
+\item Data access, Communication, and Synchronization
+  \begin{itemize}
+  \item How do the elements cooperate and \textcolor{dgreen}{communicate}?
+  \item How are \textcolor{dgreen}{data transmitted} between processors?
+  \item What are the \textcolor{dgreen}{abstractions} and primitives for cooperation?
+  \end{itemize}
+\item Performance and Scalability
+  \begin{itemize}
+  \item How does it all translate into \textcolor{dgreen}{performance}?
+  \item How does it \textcolor{dgreen}{scale}?
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Forms of Parallelism}
+\begin{itemize}
+\item \textbf{Bit level}: increases in word size reduced the \# of instructions the processor needs
+\item \textbf{Instruction level}: hardware and/or software perform operations simultaneously when possible
+\item \textbf{Memory system}: overlap of memory operations with computation
+\item \textbf{Operating system}: multiple jobs run in parallel on commodity symmetric multiprocessors (SMPs) 
+\end{itemize}
+There are limitations to all of these
+\vspace*{1.5 em}
+To achieve high performance, the programmer needs to identify, schedule, and coordinate parallel tasks and data
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Performance}
+
+\begin{columns}
+  \begin{column}{0.65\textwidth}
+\begin{itemize}
+\item \textbf{Strong Scaling}: increase element count with problems size fixed (solve a problem faster)\\
+\vspace*{0.5 em}
+$Speedup = \frac{\text{T with P cores}}{\text{T with 1 core}}$
+\item \textbf{Weak Scaling}: increase element count and problem size to keep problem size per element fixed (solve bigger problems)\\
+\vspace*{0.5 em}
+$Speedup = \frac{\text{T with 1 core}}{\text{T with P cores}}$
+\end{itemize}
+  \end{column}
+  \begin{column}{0.35\textwidth}
+    \includegraphics[height=2in,clip]{PerformanceGap}
+  \end{column}
+\end{columns}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Types of Memory}
-\begin{itemize}
-\item \textbf{Shared Memory}: single memory space used by all processors; processors do not have to know where data resides
-\item \textbf{Distributed Memory}: each processor has its own private memory; tasks can only operate on local data; communication with a remote processor to get remote data
-\item \textbf{Distributed Shared Memory}: each node of a cluster has access to a large shared memory in addition to each node's limited non-shared private memory.
-\end{itemize}
+
+%\begin{itemize}
+%\item \textbf{Shared Memory}: single memory space used by all processors; processors do not have to know where data resides
+%\item \textbf{Distributed Memory}: each processor has its own private memory; tasks can only operate on local data; communication with a remote processor to get remote data
+%\item \textbf{Distributed Shared Memory}: each node of a cluster has access to a large shared memory in addition to each node's limited non-shared private memory.
+%\end{itemize}
+\begin{center}
+Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
+\includegraphics[height=2.5in,clip]{MemorySystems}
+\end{center}
+
 \end{frame}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

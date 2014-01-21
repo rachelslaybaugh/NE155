@@ -109,6 +109,33 @@ This revolution led to the third generation of computers, and the developments s
 %
 %Many computer systems have a memory hierarchy consisting of CPU registers, on-die SRAM caches, external caches, DRAM, paging systems and virtual memory or swap space on a hard drive. This entire pool of memory may be referred to as "RAM" by many developers, even though the various subsystems can have very different access times, violating the original concept behind the random access term in RAM. Even within a hierarchy level such as DRAM, the specific row, column, bank, rank, channel, or interleave organization of the components make the access time variable, although not to the extent that rotating storage media or a tape is variable. (en.wikipedia.org/wiki/RAM\#Memory\_hierarchy)
 
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{Moore's Law (2)}
+
+It shows transistor counts (which is an analogue for integrated circuit complexity), clock speeds (how fast bits can be flipped), power consumption, and instruction-level parallelism (ILP). The doubling of transistor counts every two years is known as Moore’s law, but over time, assumptions about performance and power consumption were also made and shown to advance along similar lines. Moore got all the credit, but he wasn’t the only visionary at work. For decades, microprocessors followed what’s known as Dennard scaling. Dennard predicted that oxide thickness, transistor length, and transistor width could all be scaled by a constant factor. Dennard scaling is what gave Moore’s law its teeth; it’s the reason the general-purpose microprocessor was able to overtake and dominate other types of computers. 
+
+CPU power consumption increased by 17.9x while CPU frequency improved by 125x. Moore’s law held true into the mid-2000s, at which point the power consumption and clock speed improvements collapsed. The problem at 90nm was that transistor gates became too thin to prevent current from leaking out into the substrate. From 2007 to 2011, maximum CPU clock speed (with Turbo Mode enabled) rose from 2.93GHz to 3.9GHz, an increase of 33\%. From 1994 to 1998, CPU clock speeds rose by 300%.
+
+The death of conventional scaling has sparked a sharp increase in the number of companies researching various types of specialized CPU cores.
+
+The fact that transistor density continues to scale while power consumption and clock speed do not has given rise to a new term: dark silicon. It refers to the percentage of silicon on a processor that can’t be powered up simultaneously without breaching the chip’s TDP. 
+
+(http://www.extremetech.com/computing/116561-the-death-of-cpu-scaling-from-one-core-to-many-and-why-were-still-stuck)
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{Forms of Parallelism}
+
+Bit-level parallelism is a form of parallel computing based on increasing processor word size. Increasing the word size reduces the number of instructions the processor must execute in order to perform an operation on variables whose sizes are greater than the length of the word. (For example, consider a case where an 8-bit processor must add two 16-bit integers. The processor must first add the 8 lower-order bits from each integer, then add the 8 higher-order bits, requiring two instructions to complete a single operation. A 16-bit processor would be able to complete the operation with single instruction.)
+
+A goal of compiler and processor designers is to identify and take advantage of as much ILP as possible. Ordinary programs are typically written under a sequential execution model where instructions execute one after the other and in the order specified by the programmer. ILP allows the compiler and the processor to overlap the execution of multiple instructions or even to change the order in which instructions are executed.
+
+OS parallelism can be broken into 
+\begin{itemize}
+\item \textbf{data}: distributing the data across different parallel computing nodes, each processor performs the same task on different pieces of distributed data
+\item \textbf{task}: distributing execution processes (threads) across different parallel computing nodes, each processor executes a different thread (or process) on the same or different data
+\end{itemize}
 
 
 %------------------------------------------------------
