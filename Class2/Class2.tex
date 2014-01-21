@@ -77,13 +77,8 @@
 \titlepage
 \end{frame}
 
-% Outline
-% 1) History
-%  - define flops as measure of what we care about
-%  - chronological highlights of a few machines; show pictures, state details
 %  - table of flops increasing number over years
 % 2) Basic architecture
-%  - hardware v software; we're talking about hardware now but the rest of the class will focus on software. We will care a little bit about the interface
 %  - definitions
 %  - Moore's law
 % 3) Parallelism
@@ -101,6 +96,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Outline}
+%\tableofcontents
 \begin{enumerate}
 \item History and terminology
 %  - define flops as measure of what we care about
@@ -126,20 +122,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{History}
+\section{\scshape History}
+\subsection{Definitions}
 \begin{frame}{How do we measure utility?\footnote{en.wikipedia.org}}
 
 \textbf{IPS} (Instructions Per Second) is a measure of a computer's processor speed. IPS can be useful when comparing performance between processors made from a similar architecture, but are difficult to compare between CPU architectures
 
+\vspace*{1 em}
 \textbf{Clock rate} typically refers to the frequency at which a CPU is running. It is measured in the SI unit Hertz.
 
+\vspace*{1 em}
 \textbf{FLOPS} (FLoating-point Operations Per Second) is a measure of computer performance, useful in fields of scientific calculations that make heavy use of floating-point calculations. 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computing Machines, Origins}
-
+\subsection{Hardware History}
 \begin{figure}
 \includegraphics[height=2.25in,clip]{RomanAbacus}
 \caption{Roman Abacus, http://history-computer.com/CalculatingTools/abacus.html}
@@ -229,26 +228,33 @@ With the advent of the transistor and the work on semi-conductors generally, it 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Easy?}
+\section{\scshape Computer Architecture}
+\subsection{Computer Architecture}
+\begin{frame}{Computer Architecture}
  \begin{figure}
    \begin{center}
-     %\includegraphics[height=2.5in,clip]{TeaPot}
+     \includegraphics[height=2.25in,clip]{ComputerArchitecture}
    \end{center}
  \end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{What are we trying to accomplish?}
+\begin{frame}{Components}
+\subsection{Computer Architecture}
+ \begin{figure}
+   \begin{center}
+     \includegraphics[height=2.25in,clip]{Components}
+   \end{center}
+ \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Types of Memory}
 \begin{itemize}
-\item In order to design economical and safe reactors, one must choose among a vast range of competing designs:
-\begin{itemize}
-\item What are the best fuels, structure, and coolant materials; what are their appropriate ratios?
-\item How does the reactor respond to component failures?
-\item How does one balance those choices given competing goals of performance, lifetime, safety, and capital cost?
-\end{itemize}
-\item Ideally, one would like to base these choices on theory rather than experimental trial and error.
-\item This is where \textcolor{dgreen}{computational science} fits in...
+\item \textbf{Random Access Memory} (RAM): allows stored data to be accessed directly in any random order \footnote{Many computer systems have a memory hierarchy consisting different systems referred to collectively as ``RAM". The various subsystems can have very different access times.}
+\item Other data storage media only read and write data consecutively (time impact)
 \end{itemize}
 \end{frame}
 
