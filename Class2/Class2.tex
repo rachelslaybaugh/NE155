@@ -77,14 +77,6 @@
 \titlepage
 \end{frame}
 
-%  - table of flops increasing number over years
-
-% 3) Parallelism
-%  - basic considerations
-%  - types of parallelism
-%  - speedup
-%  - increase in use and potential
-%  - current status
 % 4) (if time; thw topic?) Discussion of parallelism architecture issues?
 %  - Moore's law continuation?
 %  - GPUs
@@ -99,7 +91,6 @@
 \item History and terminology
 %  - define flops as measure of what we care about
 %  - chronological highlights of a few machines; show pictures, state details
-%  - table of flops increasing number over years
 \item Basic computer architecture
 %  - hardware v software; we're talking about hardware now but the rest of the class will focus on software. We will care a little bit about the interface
 %  - definitions
@@ -110,7 +101,7 @@
 %  - speedup
 %  - increase in use and potential
 %  - current status
-\item Current issues in hardware
+\item Current supercomputers
 %  - Moore's law continuation?
 %  - GPUs
 %  - mic chips
@@ -366,6 +357,58 @@ $Speedup = \frac{\text{T with 1 core}}{\text{T with P cores}}$
 \begin{center}
 Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
 \includegraphics[height=2.5in,clip]{MemorySystems}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Supercomputing}
+\subsection{Supercomputing}
+\begin{frame}{Scientific Computing Demand}
+
+\begin{center}
+\includegraphics[height=2.25in,clip]{MemoryNeeds}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Top 500 Computers, Nov 2013}
+
+\begin{center}
+\includegraphics[height=2.5in]{Top500-2013}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Top 10 Computers, Nov 2013}
+
+\begin{center}
+\includegraphics[height=2.75in]{Top10}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Power Consumption, Nov 2013}
+
+\begin{center}
+\includegraphics[height=2.25in]{Top500-power}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Power Efficiency, Nov 2013}
+
+\begin{center}
+\includegraphics[height=2.25in]{Top500-efficiency}
 \end{center}
 
 \end{frame}

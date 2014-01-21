@@ -142,6 +142,12 @@ OS parallelism can be broken into
 \vspace*{2em}
 \noindent \textbf{Types of Memory}
 
+\begin{itemize}
+\item \textbf{Shared Memory}: single memory space used by all processors; processors do not have to know where data resides
+\item \textbf{Distributed Memory}: each processor has its own private memory; tasks can only operate on local data; communication with a remote processor to get remote data
+\item \textbf{Distributed Shared Memory}: each node of a cluster has access to a large shared memory in addition to each node's limited non-shared private memory.
+\end{itemize}
+
 In a distributed memory system there is typically a processor, a memory, and some form of interconnection that allows programs on each processor to interact with each other. The interconnect can be organised with point to point links or separate hardware can provide a switching network. The network topology is a key factor in determining how the multi-processor machine scales. The links between nodes can be implemented using some standard network protocol (for example Ethernet), using bespoke network links (used in for example the Transputer), or using dual ported memories.
 
 The key issue in programming distributed memory systems is how to distribute the data over the memories. Depending on the problem solved, the data can be distributed statically, or it can be moved through the nodes. Data can be moved on demand, or data can be pushed to the new nodes in advance. 
@@ -155,5 +161,12 @@ The advantage of distributed (shared) memory is that it is easier to design a ma
 Distributed shared memory hides the mechanism of communication - it does not hide the latency of communication.
 
 (http://en.wikipedia.org/wiki/Distributed\_memory)
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{Top 500 Computers}
+Research is steadily ahead of industry (the fastest machines are built with government grants and time on them is awarded through a competitive bid process)
+
+53\% of these machines are in the U.S., 12\% in China, 6\% in Japan.
 
 \end{document}
