@@ -78,9 +78,7 @@
 \end{frame}
 
 %  - table of flops increasing number over years
-% 2) Basic architecture
-%  - definitions
-%  - Moore's law
+
 % 3) Parallelism
 %  - basic considerations
 %  - types of parallelism
@@ -253,164 +251,62 @@ With the advent of the transistor and the work on semi-conductors generally, it 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Types of Memory}
 \begin{itemize}
-\item \textbf{Random Access Memory} (RAM): allows stored data to be accessed directly in any random order \footnote{Many computer systems have a memory hierarchy consisting different systems referred to collectively as ``RAM". The various subsystems can have very different access times.}
+\item \textbf{Read-only memory} (ROM): storage medium in which data cannot be modified, so it is mainly used to distribute firmware 
+\item \textbf{Random Access Memory} (RAM): allows stored data to be accessed directly in any random order\footnote{Many computer systems have a memory hierarchy consisting different systems referred to collectively as ``RAM". The various subsystems can have very different access times.}
 \item Other data storage media only read and write data consecutively (time impact)
 \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Early Days}
-Before much computer use (e.g., 1943), things took a long time
-\begin{tabu}{|X | l|}
-\hline
-Project & Est. Time \\\hline
-Density distribution in difficult system & 2 weeks \\
-Integral equation for absorption in Al slab & 2 weeks \\
-Slowing-down length in H$_2$O \& related calcs & 3 weeks \\
-Albedo problems & 1 week \\\hline
-\end{tabu}
-\begin{center}
-%\includegraphics[height=1.5in,clip]{ACRM}
-\end{center}
+\begin{frame}{Moore's ``Law"}
+The number of transistors on integrated circuits doubles approximately every two years. 
+
+\begin{columns}
+  \begin{column}{0.7\textwidth}
+\begin{itemize}
+\item In 1965 Gordon E. Moore described this trend in 1965 and predicted it to hold for at least 10 years
+\item He worked at Intel
+\item The trend has held, but is expected to change around now...
+\end{itemize}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+    \includegraphics[height=1.5in,clip]{GordonMoore1975}
+  \end{column}
+\end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Adolescence -- Early 1980s}
-\begin{itemize}
-\item NE was at the forefront of computer applications (!)
-%pushing the envelope for ever greater computing resources and related advances in computational science.
-\item Major early success story in the computational sciences:
-\begin{itemize}
-\item Reduced the burden of experiment
-\item Contributed greatly to reactor design
-\end{itemize}
-\item However, modeling was severely constrained 
-%Even state-of-the-art machines such as Cray-1 were 
-\begin{itemize}
-\item Unable to explicitly model the key physical phenomena within a reactor
-\item Low-dimensional representation
-\item Lumped parameter models
-\item Empirical correlations with tunable parameters established largely by experiments
-\end{itemize}
-\end{itemize}
-\end{frame}
+\begin{frame}{Moore's ``Law"}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Adolescence $\rightarrow$ Today's Challenges}
-\begin{itemize}
-\item Computing limitations caused
-\begin{itemize}
-\item Heavy reliance on expensive and often complicated experiments
-\item Inaccuracy resulted in \emph{significant design margins} $\rightarrow$ negative impact on plant economics
-\item Exploration of novel reactor design concepts was greatly constrained 
-%by fundamental limitations in the predictability of the models
-\end{itemize}
-\item Many codes developed then are still used 
-\item Can we update these tools?
-\item Do we need to design new tools?
-\item What methods will take us into the future?
-\item What will the architectures look like?
-\item How do we successfully navigate that interplay?
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Current State}
-2010: the DOE announced \emph{Oak Ridge National Laboratory} won the Nuclear Energy Modeling and Simulation Energy Innovation Hub (\$122 million for 5 years), including:	
-\begin{itemize}
-\item Electric Power Research Institute (EPRI), Palo Alto, CA
-\item Idaho National Laboratory, Idaho Falls, ID
-\item Los Alamos National Laboratory, Los Alamos, NM
-\item Massachusetts Institute of Technology, Cambridge, MA
-\item North Carolina State University, Raleigh, NC
-\item Sandia National Laboratories, Albuquerque, NM
-\item Tennessee Valley Authority, Knoxville, TN
-\item University of Michigan, Ann Arbor, MI
-\item Westinghouse Electric Company, Pittsburgh, PA
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Consortium for Advanced Simulation of Light Water Reactors}
-\begin{center}
-%\includegraphics[height=0.75in,clip]{CASL}
-\end{center}
-\begin{itemize}
-\item \textcolor{RawSienna}{TASK 1}: develop computer models that simulate nuclear power plant operations, forming a ``virtual reactor" for the predictive simulations of light water reactors. 
-\item \textcolor{RawSienna}{TASK 2}: use computer models to reduce capital and operating costs per unit of energy, extend the lifetime of the existing U.S. reactor fleet, and reduce nuclear waste volume generated by enabling higher fuel burn-ups... %\\The CASL virtual reactor will also be used to accelerate the deployment of next-generation reactor designs, particularly advanced nuclear fuel technologies and structural materials within the reactor core.
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Supercomputing in Research}
-These kinds of simulations require time on the fastest computers in the world
-\begin{itemize}
-\item \textcolor{RawSienna}{Titan} (ORNL): 299,008 Opteron Cores (CPU) + 18,688 K21 Keplers (GPU); 27 petaflops 
-\item \textcolor{RawSienna}{IBM Sequoia} (LLNL): 1,572,864 cores (CPU); \\16.32 petaflops
-\end{itemize}
 \begin{figure}
-%\includegraphics[height=1.1in,clip]{Titan}
-\hfill
-%\includegraphics[height=1.1in,clip]{Sequoia}
+\includegraphics[height=2.75in,clip]{CPU-Scaling}
+%\caption{CPU scaling showing transistor density, power consumption, and efficiency, http://www.extremetech.com/computing/116561-the-death-of-cpu-scaling-from-one-core-to-many-and-why-were-still-stuck}
 \end{figure}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Parallelism}
+\begin{frame}{words}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{It's Important}
-``. . . At Oak Ridge National Laboratory, they're using supercomputers to get a lot more power out of our nuclear facilities . . . . "
-
-\vspace*{0.5 in}
-President Obama, 2011 State of the Union\\
-http://www.casl.gov/media/20110127\_news.shtml
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{What Can We Accomplish?}
+\begin{frame}{Types of Memory}
 \begin{itemize}
-\item Predictive simulation 
-\item Model entire facilities at a new level of fidelity
-\item Coupled multi-physics
-%Lets us reduce margins, extend existing reactor lifetimes, and consider new designs.
+\item \textbf{Shared Memory}: single memory space used by all processors; processors do not have to know where data resides
+\item \textbf{Distributed Memory}: each processor has its own private memory; tasks can only operate on local data; communication with a remote processor to get remote data
+\item \textbf{Distributed Shared Memory}: each node of a cluster has access to a large shared memory in addition to each node's limited non-shared private memory.
 \end{itemize}
-\begin{figure}
-%\includegraphics[height=1.2in,clip]{WattsBar}
-\hfill
-%\includegraphics[height=1.2in,clip]{DenovoCore}
-\end{figure}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{What Can We Accomplish?}
-\underline{Integrate}
-\begin{itemize}
-\item existing nuclear energy and nuclear national security modeling and simulation capabilities
-\item and associated expertise
-\item with high-performance computing
-\end{itemize}    
-to solve problems that were \emph{previously unthinkable or impractical} in terms of the computing power required to address them
 
-\vspace*{1em}
-However, these computer simulations will not completely eliminate the need for \emph{experimental or measurement data} to confirm or ``validate" the software. 
-
-\vspace*{1em}
-\hspace*{0.25 in} John Wagner, ORNL
-\end{frame}
-
-%"Traditionally, reactor models for radiation dose assessments have considered just the reactor core, or a small part of the core," Wagner says. "However, we're now simulating entire nuclear facilities, such as a nuclear power reactor facility with its auxiliary buildings and the ITER fusion reactor, with much greater accuracy than any other organization that we're aware of." 
-%
-%More accurate models enable nuclear plants to be designed with more accurate safety margins and shielding requirements, which helps to improve safety and reduce costs. The technology that makes this sort of leading-edge simulation possible is a combination of ORNL's Jaguar, the world's fastest supercomputer; advanced transport methods; and a next-generation software package called Denovo.
-%
-%DENOVO is a Scalable HPC Transport Code for Multi-Scale Nuclear Energy Applications
-%http://computing.ornl.gov/SC09/videos/tomevans_1Mb.mov
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
