@@ -1,4 +1,4 @@
-\documentclass[12pt, ]{article}
+\documentclass[12pt]{article}
 
 \title{NE 155, Class 2, S14}
 \author{Rachel Slaybaugh}
@@ -12,11 +12,12 @@
 
 \noindent \textbf{How do we measure utility?}
 
-IPS is often specified in the millions, giving MIPS. MIPS is used to measure the integer performance of a computer. Examples of integer operation include data movement (A to B) or value testing (If $A = B$, then $C$). MIPS as a performance benchmark is adequate for the computer when it is used in database query, word processing, spreadsheets, or to run multiple virtual operating systems (http://en.wikipedia.org/wiki/FLOPS).
+IPS is often specified in the millions, giving MIPS. MIPS is used to measure the integer performance of a computer. Examples of integer operation include data movement (A to B) or value testing (If $A = B$, then $C$). MIPS as a performance benchmark is adequate for the computer when it is used in database query, word processing, spreadsheets, or to run multiple virtual operating systems %(http://en.wikipedia.org/wiki/FLOPS).
 
-The clock rate of a CPU is normally determined by the frequency of an oscillator crystal. Typically a crystal oscillator produces a fixed sine wave - the frequency reference signal. Electronic circuitry translates that into a square wave at the same frequency for digital electronics applications (or, in using a CPU multiplier, some fixed multiple of the crystal reference frequency). The clock distribution network inside the CPU carries that clock signal to all the parts that need it. (http://en.wikipedia.org/wiki/Clock\_rate)
+The clock rate of a CPU is normally determined by the frequency of an oscillator crystal. The clock rate determines how fast a processor can do work - it controls how quickly bits can be flipped (remember, what's really happening is switching between 1s and 0s).
+% (http://en.wikipedia.org/wiki/Clock\_rate)
 
-FLOPS measures the computing ability of a computer and includes the concept of clock rate. An example of a floating-point operation is the calculation of mathematical equations; as such, FLOPS is a useful measure of supercomputer performance. This is the term we will use most frequently in this class. 
+FLOPS measures the computing ability of a computer and includes the concept of clock rate. As such, FLOPS is a useful measure of supercomputer performance. This is the term we will use most frequently in this class. 
 
 \begin{equation}
 FLOPS = cores \times clock \times \frac{FLOPs}{cycle} \nonumber
@@ -26,23 +27,28 @@ FLOPS = cores \times clock \times \frac{FLOPs}{cycle} \nonumber
 \vspace*{2em}
 \noindent \textbf{Computing Machines, Origins}
 
-Devices have been used to aid computation for thousands of years, mostly using one-to-one correspondence with fingers. The earliest counting device was probably a form of tally stick. 
+Devices have been used to aid computation for thousands of years, mostly using one-to-one correspondence with fingers. 
 
-The abacus was a key early invention used for arithmetic tasks. What we now call the Roman abacus was used in Babylonia as early as 2400 BC. This was the first known computer: the construction of a tool that extended computation beyond one-to-one correspondence. 
+The abacus was a key early invention used for arithmetic tasks. What we now call the Roman abacus was used in Babylonia as early as 2400 BC. This was the first known computer: the construction of \textbf{a tool that extended computation beyond one-to-one correspondence.} 
 
-Following the abacus there were a series of analog computers - machines designed to aid in the computation of specific tasks. These were found in ancient China, India, Greece, etc. None of the early computational devices were really computers in the modern sense, but they took the concept of building a tool to do computation, and extended it to complex machinery.
+Following the abacus there were a series of analog computers - machines designed to aid in the computation of specific tasks. These were found in ancient China, India, Greece, etc. None of the early computational devices were really computers in the modern sense, but they \textbf{took the concept of building a tool to do computation, and extended it to complex machinery.}
 
-Scottish mathematician and physicist John Napier discovered that the multiplication and division of numbers could be performed by the addition and subtraction, respectively, of the logarithms of those numbers. The slide rule was thus invented in the 1620s to allow multiplication and division operations to be carried out significantly faster than was previously possible. Now we're combining machines with improved ways to think about computation.
+Scottish mathematician and physicist John Napier discovered that the multiplication and division of numbers could be performed by the addition and subtraction, respectively, of the logarithms of those numbers. The slide rule was thus invented in the 1620s to allow multiplication and division operations to be carried out significantly faster than was previously possible. 
 
- (http://en.wikipedia.org/wiki/History\_of\_computing,\\ http://en.wikipedia.org/wiki/History\_of\_computing\_hardware\\
- \#Punched\_card\_data\_processing)
+\textbf{Now we're combining machines with improved ways to think about computation.}
+
+%(http://en.wikipedia.org/wiki/History\_of\_computing,\\ http://en.wikipedia.org/wiki/History\_of\_computing\_hardware\\
+% \#Punched\_card\_data\_processing)
 
 %------------------------------------------------------
 \vspace*{2em}
 \noindent \textbf{Early Development of Computing}
-Next mechanical calculators, punched card data processing, and calculators using electric motors were developed. 
 
-Charles Babbage, an English mechanical engineer, originated the concept of a programmable computer. Considered the ``father of the computer", he conceptualized and invented the first mechanical computer in the early 19th century. After working on his revolutionary difference engine, designed to aid in navigational calculations, in 1833 he realized that a much more general design, an Analytical Engine, was possible. The input of programs and data was to be provided to the machine via punched cards, a method being used at the time to direct mechanical looms. For output, the machine had a printer, a curve plotter, and a bell. The machine was also be able to punch numbers onto cards to be read in later. 
+Next, mechanical calculators, punched card data processing, and calculators using electric motors were developed. 
+
+Charles Babbage, an English mechanical engineer, originated the concept of a programmable computer. Considered the ``father of the computer", he conceptualized and invented the first mechanical computer in the early 19th century. After working on his revolutionary difference engine, designed to aid in navigational calculations, he realized in 1833 that a much more general design, an Analytical Engine, was possible. 
+
+The input of programs and data was to be provided to the machine via punched cards, a method being used at the time to direct mechanical looms. For output, the machine had a printer, a curve plotter, and a bell. The machine was also be able to punch numbers onto cards to be read in later. 
 
 %------------------------------------------------------
 \vspace*{2em}
@@ -50,10 +56,10 @@ Charles Babbage, an English mechanical engineer, originated the concept of a pro
 
 The era of modern computing began with a flurry of development before and during World War II. 
 
-The Z3 was an electromechanical computer designed by Konrad Zuse and was completed in Berlin in 1941. It was the world's first working programmable, fully automatic digital computer. The Z3 was built with 2000 relays, implementing 22-bit words that operated at a clock frequency of about 5–10 Hz. Program code and data were stored on punched film. (en.wikipedia.org/wiki/Z3\_(computer))
+The Z3 was an electromechanical computer designed by Konrad Zuse and was completed in Berlin in 1941. It was the world's first working programmable, fully automatic digital computer. The Z3 was built with 2000 relays, implementing 22-bit words that operated at a clock frequency of about 5–10 Hz. Program code and data were stored on punched film. %(en.wikipedia.org/wiki/Z3\_(computer))
 
 The ENIAC (Electronic Numerical Integrator And Computer) was the first electronic programmable computer built in the U.S., announced to the public in 1946. It was digital, and capable of being reprogrammed (defined by the states of its patch cables and switches) to solve a full range of computing problems. %It could add or subtract 5000 times a second, a thousand times faster than any other machine. It also had modules to multiply, divide, and square root. High speed memory was limited to 20 words (about 80 bytes). Built under the direction of John Mauchly and J. Presper Eckert at the University of Pennsylvania, ENIAC's development and construction lasted from 1943 to full operation at the end of 1945. 
-The machine was huge, weighing 30 tons, using 200 kilowatts of electric power and contained over 18,000 vacuum tubes, 1,500 relays, and hundreds of thousands of resistors, capacitors, and inductors.
+The machine weighed 30 tons, used 200 kilowatts of electric power and contained over 18,000 vacuum tubes, 1,500 relays, and hundreds of thousands of resistors, capacitors, and inductors.
 
 %------------------------------------------------------
 \vspace*{2em}
@@ -61,7 +67,7 @@ The machine was huge, weighing 30 tons, using 200 kilowatts of electric power an
 
 Early computing machines had fixed programs. For example, a desk calculator is a fixed program computer. It can do basic mathematics, but it cannot be used as a word processor or a gaming console. A stored-program computer includes by design an instruction set and can store in memory a set of instructions (a program) that details the computation.
 
-The Manchester Small-Scale Experimental Machine, nicknamed Baby, was the world's first stored-program computer. It was built at the Victoria University of Manchester by Frederic C. Williams, Tom Kilburn and Geoff Tootill, and ran its first program on 21 June 1948. It had a demonstrated speed of 1.1 kIPS.
+The Manchester Small-Scale Experimental Machine was the world's first stored-program computer. It was built at the Victoria University of Manchester by Frederic C. Williams, Tom Kilburn, and Geoff Tootill, and ran its first program on 21 June 1948. It had a demonstrated speed of 1.1 kIPS.
 
 %Although the computer was considered "small and primitive" by the standards of its time, 
 It was the first working machine to contain all of the elements essential to a modern electronic computer. As soon as the SSEM had demonstrated the feasibility of its design, a project was initiated at the university to develop it into a more usable computer, the Manchester Mark 1. The Mark 1 in turn quickly became the prototype for the Ferranti Mark 1, the world's first commercially available, general-purpose computer.
@@ -80,7 +86,7 @@ Transistorized electronics improved not only the CPU, but also the peripheral de
 \vspace*{2em}
 \noindent \textbf{Supercomputers}
 
-The early 1960s saw the advent of supercomputing. The Atlas Computer was a joint development between the University of Manchester, Ferranti, and Plessey, and was first installed at Manchester University and officially commissioned in 1962 as one of the world's first supercomputers% - considered to be the most powerful computer in the world at that time. It was a second-generation machine, using discrete germanium transistors. Atlas also pioneered the Atlas Supervisor, "considered by many to be the first recognisable modern operating system".
+The early 1960s saw the advent of supercomputing. The Atlas Computer was a joint development between the University of Manchester, Ferranti, and Plessey, and was first installed at Manchester University and officially commissioned in 1962 as one of the world's first supercomputers.% - considered to be the most powerful computer in the world at that time. It was a second-generation machine, using discrete germanium transistors. Atlas also pioneered the Atlas Supervisor, "considered by many to be the first recognisable modern operating system".
 
 In the U.S., a series of computers at Control Data Corporation (CDC) were designed by Seymour Cray to use innovative designs and parallelism to achieve superior computational peak performance.
 
@@ -113,25 +119,27 @@ This revolution led to the third generation of computers, and the developments s
 \vspace*{2em}
 \noindent \textbf{Moore's Law (2)}
 
-It shows transistor counts (which is an analogue for integrated circuit complexity), clock speeds (how fast bits can be flipped), power consumption, and instruction-level parallelism (ILP). The doubling of transistor counts every two years is known as Moore’s law, but over time, assumptions about performance and power consumption were also made and shown to advance along similar lines. Moore got all the credit, but he wasn’t the only visionary at work. For decades, microprocessors followed what’s known as Dennard scaling. Dennard predicted that oxide thickness, transistor length, and transistor width could all be scaled by a constant factor. Dennard scaling is what gave Moore’s law its teeth; it’s the reason the general-purpose microprocessor was able to overtake and dominate other types of computers. 
+This plot shows transistor counts (which is an analogue for integrated circuit complexity), clock speeds (how fast bits can be flipped), power consumption, and instruction-level parallelism (ILP). The doubling of transistor counts every $\approx$18 months is known as Moore's law, but over time, assumptions about performance and power consumption were also made and shown to advance along similar lines. %Moore got all the credit, but he wasn’t the only visionary at work. 
 
-CPU power consumption increased by 17.9x while CPU frequency improved by 125x. Moore’s law held true into the mid-2000s, at which point the power consumption and clock speed improvements collapsed. The problem at 90nm was that transistor gates became too thin to prevent current from leaking out into the substrate. From 2007 to 2011, maximum CPU clock speed (with Turbo Mode enabled) rose from 2.93GHz to 3.9GHz, an increase of 33\%. From 1994 to 1998, CPU clock speeds rose by 300%.
+For decades, microprocessors followed what's known as Dennard scaling. Dennard predicted that oxide thickness, transistor length, and transistor width could all be scaled by a constant factor. Dennard scaling is what gave Moore's law its teeth.%; it's the reason the general-purpose microprocessor was able to overtake and dominate other types of computers. 
+
+CPU power consumption increased by 17.9x while CPU frequency improved by 125x. Moore's law held true into the mid-2000s, at which point the power consumption and clock speed improvements collapsed. The problem at 90nm was that transistor gates became too thin to prevent current from leaking out into the substrate. From 2007 to 2011, maximum CPU clock speed (with Turbo Mode enabled) rose from 2.93GHz to 3.9GHz, an increase of 33\%. From 1994 to 1998, CPU clock speeds rose by 300\%.
 
 The death of conventional scaling has sparked a sharp increase in the number of companies researching various types of specialized CPU cores.
 
-The fact that transistor density continues to scale while power consumption and clock speed do not has given rise to a new term: dark silicon. It refers to the percentage of silicon on a processor that can’t be powered up simultaneously without breaching the chip’s TDP. 
+The fact that transistor density continues to scale while power consumption and clock speed do not has given rise to a new term: dark silicon. It refers to the percentage of silicon on a processor that can’t be powered up simultaneously without breaching the chip's thermal design power (TDP). 
 
-(http://www.extremetech.com/computing/116561-the-death-of-cpu-scaling-from-one-core-to-many-and-why-were-still-stuck)
+%(http://www.extremetech.com/computing/116561-the-death-of-cpu-scaling-from-one-core-to-many-and-why-were-still-stuck)
 
 %------------------------------------------------------
 \vspace*{2em}
 \noindent \textbf{Forms of Parallelism}
 
-Bit-level parallelism is a form of parallel computing based on increasing processor word size. Increasing the word size reduces the number of instructions the processor must execute in order to perform an operation on variables whose sizes are greater than the length of the word. (For example, consider a case where an 8-bit processor must add two 16-bit integers. The processor must first add the 8 lower-order bits from each integer, then add the 8 higher-order bits, requiring two instructions to complete a single operation. A 16-bit processor would be able to complete the operation with single instruction.)
+\underline{Bit-level parallelism} is a form of parallel computing based on increasing processor word size. Increasing the word size reduces the number of instructions the processor must execute in order to perform an operation on variables whose sizes are greater than the length of the word. (For example, consider a case where an 8-bit processor must add two 16-bit integers. The processor must first add the 8 lower-order bits from each integer, then add the 8 higher-order bits, requiring two instructions to complete a single operation. A 16-bit processor would be able to complete the operation with single instruction.)
 
-A goal of compiler and processor designers is to identify and take advantage of as much ILP as possible. Ordinary programs are typically written under a sequential execution model where instructions execute one after the other and in the order specified by the programmer. ILP allows the compiler and the processor to overlap the execution of multiple instructions or even to change the order in which instructions are executed.
+A goal of compiler and processor designers is to identify and take advantage of as much \underline{ILP} as possible. Ordinary programs are typically written under a sequential execution model where instructions execute one after the other and in the order specified by the programmer. ILP allows the compiler and the processor to overlap the execution of multiple instructions or even to change the order in which instructions are executed.
 
-OS parallelism can be broken into 
+\underline{OS parallelism} can be broken into 
 \begin{itemize}
 \item \textbf{data}: distributing the data across different parallel computing nodes, each processor performs the same task on different pieces of distributed data
 \item \textbf{task}: distributing execution processes (threads) across different parallel computing nodes, each processor executes a different thread (or process) on the same or different data
@@ -144,29 +152,31 @@ OS parallelism can be broken into
 
 \begin{itemize}
 \item \textbf{Shared Memory}: single memory space used by all processors; processors do not have to know where data resides
-\item \textbf{Distributed Memory}: each processor has its own private memory; tasks can only operate on local data; communication with a remote processor to get remote data
+\item \textbf{Distributed Memory}: each processor has its own private memory; tasks can only operate on local data; communicate with a remote processor to get remote data
 \item \textbf{Distributed Shared Memory}: each node of a cluster has access to a large shared memory in addition to each node's limited non-shared private memory.
 \end{itemize}
 
-In a distributed memory system there is typically a processor, a memory, and some form of interconnection that allows programs on each processor to interact with each other. The interconnect can be organised with point to point links or separate hardware can provide a switching network. The network topology is a key factor in determining how the multi-processor machine scales. The links between nodes can be implemented using some standard network protocol (for example Ethernet), using bespoke network links (used in for example the Transputer), or using dual ported memories.
+In a \underline{distributed memory} system there is typically a processor, a memory, and some form of interconnection that allows programs on each processor to interact with each other. %The interconnect can be organised with point to point links, or separate hardware can provide a switching network. 
+The network topology is a key factor in determining how the multi-processor machine scales. %The links between nodes can be implemented using some standard network protocol (for example Ethernet), using bespoke network links (used in for example the Transputer), or using dual ported memories.
 
 The key issue in programming distributed memory systems is how to distribute the data over the memories. Depending on the problem solved, the data can be distributed statically, or it can be moved through the nodes. Data can be moved on demand, or data can be pushed to the new nodes in advance. 
 
-The advantage of (distributed) shared memory is that it offers a unified address space in which all data can be found.
+The advantage of shared memory is that it offers a unified address space in which all data can be found.
 
 The advantage of distributed memory is that it excludes race conditions, and that it forces the programmer to think about data distribution.
 
-The advantage of distributed (shared) memory is that it is easier to design a machine that scales with the algorithm
+%The advantage of distributed memory is that it is easier to design a machine that scales with the algorithm.
 
-Distributed shared memory hides the mechanism of communication - it does not hide the latency of communication.
+%Distributed shared memory hides the mechanism of communication - it does not hide the latency of communication.
 
-(http://en.wikipedia.org/wiki/Distributed\_memory)
+%(http://en.wikipedia.org/wiki/Distributed\_memory)
 
 %------------------------------------------------------
-\vspace*{2em}
-\noindent \textbf{Top 500 Computers}
-Research is steadily ahead of industry (the fastest machines are built with government grants and time on them is awarded through a competitive bid process)
-
-53\% of these machines are in the U.S., 12\% in China, 6\% in Japan.
+%\vspace*{2em}
+%\noindent \textbf{Top 500 Computers}
+%
+%Research is steadily ahead of industry (the fastest machines are built with government grants and time on them is awarded through a competitive bid process)
+%
+%53\% of these machines are in the U.S., 12\% in China, 6\% in Japan.
 
 \end{document}

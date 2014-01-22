@@ -111,8 +111,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape History}
-\subsection{Definitions}
 \begin{frame}{How do we measure utility?\footnote{en.wikipedia.org}}
 
 \textbf{IPS} (Instructions Per Second) is a measure of a computer's processor speed. IPS can be useful when comparing performance between processors made from a similar architecture, but are difficult to compare between CPU architectures
@@ -126,8 +124,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape History}
+\subsection{History}
 \begin{frame}{Computing Machines, Origins}
-\subsection{Hardware History}
 \begin{figure}
 \includegraphics[height=2.25in,clip]{RomanAbacus}
 \caption{Roman Abacus, http://history-computer.com/CalculatingTools/abacus.html}
@@ -230,7 +229,6 @@ With the advent of the transistor and the work on semi-conductors generally, it 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Components}
-\subsection{Computer Architecture}
  \begin{figure}
    \begin{center}
      \includegraphics[height=2.25in,clip]{Components}
@@ -256,7 +254,7 @@ The number of transistors on integrated circuits doubles approximately every 18 
 \begin{columns}
   \begin{column}{0.7\textwidth}
 \begin{itemize}
-\item In 1965 Gordon E. Moore described this trend in 1965 and predicted it to hold for at least 10 years
+\item In 1965 Gordon E. Moore described this trend and predicted it to hold for at least 10 years
 \item He worked at Intel
 \item The trend has held, but is expected to change around now...
 \end{itemize}
@@ -318,7 +316,8 @@ quickly
 \item \textbf{Operating system}: multiple jobs run in parallel on commodity symmetric multiprocessors (SMPs) 
 \end{itemize}
 There are limitations to all of these
-\vspace*{1.5 em}
+
+\vspace*{1 em}
 To achieve high performance, the programmer needs to identify, schedule, and coordinate parallel tasks and data
 
 \end{frame}
@@ -332,10 +331,10 @@ To achieve high performance, the programmer needs to identify, schedule, and coo
 \begin{itemize}
 \item \textbf{Strong Scaling}: increase element count with problems size fixed (solve a problem faster)\\
 \vspace*{0.5 em}
-$Speedup = \frac{\text{T with P cores}}{\text{T with 1 core}}$
+$Speedup = \frac{\text{Time with P cores}}{\text{Time with 1 core}}$
 \item \textbf{Weak Scaling}: increase element count and problem size to keep problem size per element fixed (solve bigger problems)\\
 \vspace*{0.5 em}
-$Speedup = \frac{\text{T with 1 core}}{\text{T with P cores}}$
+$Speedup = \frac{\text{Time with 1 core}}{\text{Time with P cores}}$
 \end{itemize}
   \end{column}
   \begin{column}{0.35\textwidth}
@@ -415,10 +414,15 @@ Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Questions?}
-\begin{figure}
-%\includegraphics[height=3in,clip]{math07}
-\end{figure}
+\section*{}
+\begin{frame}{Recap}
+\begin{itemize}
+\item Humans have been working to use machines for computation for a very long time
+\item The 20th century saw the development of the computers we know today $\rightarrow$ development of computational science as a field
+\item A revolution in supercomputing began at the end of the 20th century $\rightarrow$ computational science is a major contributor to knowledge
+\item We are reaching the limits of ``traditional" architecture growth
+\item What we can compute and how is tightly tied to computer architecture development
+\end{itemize}
 \end{frame}
 
 \end{document}
