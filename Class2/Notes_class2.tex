@@ -172,11 +172,31 @@ The advantage of distributed memory is that it excludes race conditions, and tha
 %(http://en.wikipedia.org/wiki/Distributed\_memory)
 
 %------------------------------------------------------
-%\vspace*{2em}
-%\noindent \textbf{Top 500 Computers}
-%
-%Research is steadily ahead of industry (the fastest machines are built with government grants and time on them is awarded through a competitive bid process)
-%
-%53\% of these machines are in the U.S., 12\% in China, 6\% in Japan.
+\vspace*{2em}
+\noindent \textbf{Top 500 Computers}
+
+Research is steadily ahead of industry (the fastest machines are built with government grants and time on them is awarded through a competitive bid process)
+
+53\% of these machines are in the U.S., 12\% in China, 6\% in Japan.
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{Other Hardware}
+
+\underline{GPUs} were originally developed for graphics processing (shocking) and area heavily used by the gaming industry. It turns out that the types of things needed in graphics processing are also needed by engineers and scientists (recent developments have branched into matrix and vector operations). Scientists and engineers are starting to use GPUs for non-graphics computations, which is an interesting and challenging development. 
+
+GPUs can be 
+\begin{itemize}
+\item dedicated: has RAM just for it
+\item integrated (IGP): use a portion of the computer's RAM rather than a dedicated amount (cheaper but less useful for gaming)
+\item hybrid: shared memory with a small amount of dedicated RAM
+\end{itemize}
+%http://en.wikipedia.org/wiki/Graphics_processing_unit#Computational_functions
+
+General Purpose GPU (GPGPU): using a GPU for computation applications usually handled by the CPU. Any GPU providing a functionally complete set of operations performed on arbitrary bits can compute any computable value. Additionally, the use of multiple graphics cards in one computer, or large numbers of graphics chips, further parallelizes the already parallel nature of graphics processing. OpenCL is the currently dominant open general-purpose GPU computing language. The dominant proprietary framework is Nvidia's CUDA.
+%http://en.wikipedia.org/wiki/GPGPU
+
+\underline{MIC}: Many Integrated Core architecture  combines many Intel CPU cores onto a single chip. Developers interested in programming these cores can use standard C, C++, and FORTRAN source code. The same program source code written for Intel MIC products can be compiled and run on a standard Intel Xeon processor. The MIC architecture utilizes a high degree of parallelism in smaller, lower-power performance Intel processor cores. The result is advanced performance on highly parallel applications.
+%http://www.intel.com/content/www/us/en/architecture-and-technology/many-integrated-core/intel-many-integrated-core-architecture.html
 
 \end{document}
