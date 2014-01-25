@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
 \title{NE 155, Class 3, S14 \\
 Types of Equations in the Engineering Fields}
@@ -10,11 +11,24 @@ Types of Equations in the Engineering Fields}
 
 \usepackage{amsmath}
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+%\newcommand{\1st}{\ensuremath{1^{\text{st}}} }
+%\newcommand{\3rd}{\ensuremath{3^{\text{rd}}} }
+
 
 \begin{document}
-\maketitle
+\begin{center}
+{\bf NE 155, Class 3, S14 \\
+Types of Equations in the Engineering Fields \\ January 27, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
 
 \noindent \textbf{Introduction}
+
 In science and engineering in general, and nuclear engineering and reactor analysis in specific, we encounter a wide range of mathematical physics equations. In today's lecture we will introduce some of them.
 
 \begin{itemize}
@@ -31,10 +45,10 @@ In science and engineering in general, and nuclear engineering and reactor analy
 
 \section{ODEs}
 
-The most general form of an \nth-order linear ordinary differential eqn.\ is
+The most general form of an \nth order linear ordinary differential eqn.\ is
 %
 \begin{equation}
-a_{n+1}(x)y^{(n)} + a_{n}(x)y^{(n-1)} + \cdots + a_{2}(x)y^{(1)} + a_{1}(x)y + a_0 = f(x)
+a_{n+1}(x)y^{(n)} + a_{n}(x)y^{(n-1)} + \cdots + a_{2}(x)y^{(1)} + a_{1}(x)y + a_0 = f(x) \nonumber
 \end{equation}
 %
 \noindent where
@@ -42,6 +56,58 @@ a_{n+1}(x)y^{(n)} + a_{n}(x)y^{(n-1)} + \cdots + a_{2}(x)y^{(1)} + a_{1}(x)y + a
 \item $a_n$ are coefficients
 \item $y^{(n)}$ is the \nth derivative of $y$.
 \end{itemize}
+
+Boundary conditions:
+\begin{enumerate}
+\item if y and its derivatives are given at one end of the domain/interval (time 0 if there's time or x 0 if there's only space, etc.): Initial Value Problem (IVP)
+\item if y and/or its derivatives are given at \underline{each} end of the interval: Boundary Value Problem (BVP)
+\end{enumerate}
+
+\noindent \textbf{Linear 1st order ODE's}
+
+\underline{Reminders}
+\begin{itemize}
+\item Linear means each term is either a constant or the product of a constant and the first power of a single variable (in this case y).
+\item the highest derivative is to the first power.
+\end{itemize}
+
+\noindent \underline{Example}:
+\begin{equation}
+y' + 3y = sin(x) \nonumber
+\end{equation}
+%
+\begin{itemize}
+\item IVP if boundary conditions are y(0) = 1; y'(0) = 2
+\item BVP if boundary conditions are y(0)=-1, y(1) = 3 on the domain [0,1]
+\end{itemize}
+%
+In this case the general solution is obtained through the use of an integrating factor.
+
+\noindent \underline{Example}:
+
+Point Kinetics analysis of a nuclear reactor is an IVP, linear 1st order ODE.
+%
+\begin{align}
+\frac{dn(t)}{dt} &= \frac{\rho(t) - \beta}{l^*}n(t) + \sum_{i=1}^{N} \lambda_i C_i(t) \nonumber \\
+%
+\frac{dC_i(t)}{dt} &= \frac{\beta_i}{l^*}n(t) - \lambda_i C_i(t) \qquad i=1,\dots,N \nonumber
+\end{align}
+%
+Where
+%
+\begin{itemize}
+\item n = \# neutrons / s
+\item $\beta$ = fraction of delayed neutrons
+\item $\lambda_i$ = effective decay constant of the ith precursor
+\item $C_i(t)$ = delayed neutron concentration of the ith precursor
+\item $l^*$ = mean neutron lifetime
+\item $\rho = \frac{k-1}{k}$ = reactivity
+\end{itemize}
+%
+BCs: $n(t=0) = n_0$ and $C_i(t=0) = C_{i,0}$ for $i=1,\dots,N$.
+
+
+
 
 
 \end{document}
