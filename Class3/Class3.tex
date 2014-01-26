@@ -35,6 +35,7 @@ Types of Equations in the Engineering Fields}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
 
 
 \begin{document}
@@ -158,7 +159,7 @@ note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and
 This has
 \begin{itemize}
 \item Neumann BCs if $\gamma = 0$ (specifies the values that the derivative of a solution is to take on the boundary of the domain)
-\item Dirichet BCs: if $\gamma \rightarrow \infty, \sigma / \gamma = $constant then the BD reduces to $\phi = $constant (specifies the values that a solution needs to take on the boundary of the domain)
+\item Dirichet BCs: if $\gamma \rightarrow \infty, \Macro / \gamma = $constant then the BD reduces to $\phi = $constant (specifies the values that a solution needs to take on the boundary of the domain)
 \item Mixed BCs if $\gamma \ne 0$ (different boundary conditions are used on different parts of the boundary of the domain of the equation.)
 \item If $S(x)$ is nonzero at least somewhere over the physical range, a unique solution exists.
 \end{itemize}
@@ -184,8 +185,8 @@ The homogeneous equation [If  $\phi(x)$  is a solution, so is  $c \phi(x)$, wher
 \begin{align}
 -\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = \lambda f(x) \phi(x) \nonumber \\
 \text{where }p(x) > 0, f(x) \geq 0, \text{ and }& \lambda = \text{ eigenvalue, and}\nonumber \\
-\frac{d\phi}{dx} + \gamma_L \phi &= \sigma \qquad \text{at }x=\alpha \nonumber \\
-\frac{d\phi}{dx} + \gamma_R \phi &= \sigma \qquad \text{at }x=\beta \nonumber
+\frac{d\phi}{dx} + \gamma_L \phi &= \Macro \qquad \text{at }x=\alpha \nonumber \\
+\frac{d\phi}{dx} + \gamma_R \phi &= \Macro \qquad \text{at }x=\beta \nonumber
 \end{align}
 %
 with $\gamma_L \geq 0$ and $\gamma_R \geq 0$ this is known as the \underline{Sturm-Liouville} eigenvalue problem. If $\gamma_L = \gamma_R = 0$, the BCs become $\phi(\alpha) = \phi(\beta) = 0$.
@@ -203,8 +204,8 @@ If $q(x) /geq 0$, then all $\lambda_i$ are positive.
 1-D, 1-group, time-independent neutron diffusion equation:
 %
 \begin{align}
--\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Sigma_a(x)\phi(x) &= S(x) \qquad \text{Fixed Source} \nonumber \\
--\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Sigma_a(x)\phi(x) &= \frac{1}{k} \nu \Sigma_f(x) \phi(x)\qquad \text{Fission / Eigenvalue} \nonumber
+-\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Macro_a(x)\phi(x) &= S(x) \qquad \text{Fixed Source} \nonumber \\
+-\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Macro_a(x)\phi(x) &= \frac{1}{k} \nu \Macro_f(x) \phi(x)\qquad \text{Fission / Eigenvalue} \nonumber
 \end{align}
 %
 BCs: (BVP) vacuum, $phi(\pm a) = 0$
@@ -226,10 +227,169 @@ is a 2nd order PDE in two variables.
 If the PDE is linear in U and all derivatives of U, then we say that the PDE is linear.
 %
 \begin{equation}
-A\frac{\partial^2 U}{\partial^2 x} + B\frac{\partial^2 U}{\partial x \partial  y} + C\frac{\partial^2 U}{\partial^2 y} + D\frac{\partial U}{\partial x} + E\frac{\partial U}{\partial y} + FU = G \nonumber
+A\frac{\partial^2 U}{\partial x^2} + B\frac{\partial^2 U}{\partial x \partial  y} + C\frac{\partial^2 U}{\partial y^2} + D\frac{\partial U}{\partial x} + E\frac{\partial U}{\partial y} + FU = G \nonumber
 \end{equation}
 %
 This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ depend on $x$ or $y$, but not on $U$.
 
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Classification}:
+
+\begin{itemize}
+\item Elliptic if $B^2 - 4 AC < 0$
+\item Hyperbolic if $B^2 - 4 AC > 0$
+  \begin{itemize}
+  \item if $U$ and its first $x$ derivative are arbitrarily specified initial data on the initial line $x = boundary$ (with sufficient smoothness properties), then there exists a solution for all of $x$.
+  \item The solutions of hyperbolic equations are ``wave-like." If a disturbance is made in the initial data of a hyperbolic differential equation, then not every point of space feels the disturbance at once.
+  \item Relative to a fixed time coordinate, disturbances have a finite propagation speed. They travel along the characteristics of the equation.
+  \end{itemize}
+\item Parabolic if $B^2 - 4 AC = 0$\\ A perturbation of the initial (or boundary) data of an elliptic or parabolic equation is felt at once by essentially all points in the domain.
+\end{itemize}
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Elliptic example}:
+
+1-group, 2-D, steady-state neutron diffusion equation
+%
+\begin{equation}
+\frac{\partial}{\partial x}D\frac{\partial}{\partial x}\phi + \frac{\partial}{\partial y}D\frac{\partial}{\partial y}\phi + (\frac{1}{k} \nu \Macro_f(x) - \Macro_a(x)) \phi = 0 \nonumber
+\end{equation}
+%
+There's no $B$ term, so $-4AC < 0$ since $D$ is positive.
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Elliptic example}:
+
+Poisson's equation (stationary heat conduction with a volumetric source:
+%
+\begin{equation}
+\nabla \cdot (k \nabla T) + q''' = 0 \nonumber
+\end{equation}
+% 
+where
+\begin{itemize}
+\item $T$ is temperature
+\item $k$ is thermal conductivity
+\item $q'''$ is volumetric heat generation rate
+\end{itemize}
+%
+recall
+%
+\begin{align}
+\text{gradient is } \nabla T &= \vec{i}\frac{\partial T}{\partial x} + \vec{j}\frac{\partial T}{\partial y} + \vec{k}\frac{\partial T}{\partial z} \nonumber \\
+%
+\text{divergence is } \nabla \cdot \vec{v} &= \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z} \nonumber
+\end{align}
+%
+There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
+
+\begin{itemize}
+\item Dirichlet BCs if $f(a,b) =$ constant
+\item Neumann BCs if 
+\begin{equation}
+\vec{n} \cdot \nabla f = n_x \frac{\partial f} {\partial x} + n_y \frac{\partial f} {\partial y}  +n_z \frac{\partial f} {\partial z} \nonumber
+\end{equation}
+\end{itemize}
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Parabolic Examples}:
+
+(1) Transient heat conduction in a slab:
+%
+\begin{equation}
+\frac{\partial T(x,t)}{\partial t} = \frac{\partial}{\partial x} \frac{k}{\rho c} \frac{\partial}{\partial x} T(x,t) + q'''(x,t) \nonumber
+\end{equation}
+%
+where $\rho$ = mass density and $c$ = specific heat capacity
+
+\noindent There aren't $B$ or $C$ terms, so $-4AC = 0$
+
+
+\vspace*{2em}
+(2) Time-dependent, 1-group neutron diffusion equation
+%
+\begin{equation}
+\frac{1}{v} \frac{\partial \phi(x,t)}{\partial t} = \frac{\partial}{\partial x} D \frac{\partial}{\partial x} \phi(x,t) + (\nu \Macro_f - \Macro_a) \phi(x,t) + S(x,t) \nonumber
+\end{equation}
+%
+There aren't $B$ or $C$ terms, so $-4AC = 0$
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Hyperbolic Examples}:
+
+(1) The wave equation
+%
+\begin{equation}
+\frac{\partial^2 f}{\partial t^2} - c \frac{\partial^2 f}{\partial x^2} = 0
+\end{equation}
+%
+where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
+
+\noindent There's no $B$ term, and $C$ is negative so $-4AC > 0$
+
+
+%\vspace*{2em}
+%(2) 1-D, unsteady flow of compressible fluids (in a uniform conduit)
+%%
+%\begin{equation}
+%\frac{\partial \rho}{\partial t} + \gamma \frac{\partial \rho}{\partial x} + \rho \frac{\partial v}{\partial x} = 0
+%\end{equation}
+%%
+%where $\rho$ is the fluid density and $v$ is the fluid velocity.
+
+\vspace*{2em}
+(2) The equation of motion under the influence of gravity 
+
+
+%-------------------------------------------------------------
+\section{Integro-Differential Equations}
+
+Equations containing both derivatives and integrals. An example we care about is the 1-group, time-independent neutron transport equation in slab geometry
+%
+\begin{equation}
+\mu \frac{\partial \psi(x,\mu)}{\partial x} + \Macro_t \psi(x,\mu) = \frac{\Macro_s}{2} \int_{-1}^1 d\mu' \psi(x, \mu') + S(x, \mu) \nonumber
+\end{equation}
+%
+where $\psi$ is angular neutron flux and $\mu$ is the cosine of the angle
+
+The general energy-dependent, time-dependent, 3-D neutron transport equation is 
+\begin{align}
+\frac{1}{v} \frac{\partial}{\partial t}\psi(\vec{r}, \hat{\Omega}, E, t) &+ [\hat{\Omega} \cdot \nabla + \Macro(\vec{r}, E)] \psi(\vec{r}, \hat{\Omega}, E, t)  =  \int_0^{\infty} dE' \int_{4\pi} d\hat{\Omega'} \:\Macro_{s}(\vec{r}, E' \to E, \hat{\Omega'} \cdot \hat{\Omega}) \psi(\vec{r}, \hat{\Omega'}, E', t) \nonumber \\
+   %
+&+\frac{ \chi(E)}{4 \pi} \int_0^{\infty} dE' \:\nu \Macro_{f}(\vec{r}, E') \int_{4\pi} d\hat{\Omega'} \:\psi(\vec{r}, \hat{\Omega'}, E', t) \nonumber
+\end{align}
+%
+\noindent where the quantities are at location $\vec{r}$, travelling in directions $\hat{\Omega}$, at energy $E$ and time $t$ and are defined as:
+\begin{list}{}{\hspace{2em}}
+  \item $\psi(\vec{r}, \hat{\Omega}, E, t)$ is the angular neutron flux in neutrons per unit length squared per steradian per second and expresses where all the neutrons are in phase space, 
+  \item $\chi(E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission,
+%  \item $k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
+\end{list}
+
+%-------------------------------------------------------------
+\section{Integral Equations}
+
+Steady state integral neutron transport equation
+%
+\begin{equation}
+\phi(\vec{r}, E) = \int_V d\vec{r'} \int dE' K(\vec{r}, E, \vec{r'}, E') \phi(\vec{r'}, E') + f(\vec{r}, E) + S(\vec{r}, E) \nonumber
+\end{equation}
+%
+where
+%%
+\begin{align}
+K(\vec{r}, E, \vec{r'}, E') &= \frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{4\pi |\vec{r'} - \vec{r}|^2} \Macro_s(\vec{r}, E' \rightarrow E) \nonumber \\
+%
+\tau(\vec{r}, \vec{r'}, E) &= \int_0^R d\vec{r'} \Macro_t(\vec{r'}, E) \qquad \text{``optical length"} \nonumber \\
+%
+f(\vec{r}, E) &= \int_V d\vec{r'}\frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{4\pi |\vec{r'} - \vec{r}|^2} F(\vec{r}, E) \qquad \text{fission source}\nonumber \\
+%
+S(\vec{r}, E) &= \int_S d\vec{r'}\frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{2\pi |\vec{r'} - \vec{r}|^2} J(\vec{r}, E) \qquad \text{``surface" source, i.e\ incoming current} \nonumber
+\end{align}
 
 \end{document}
