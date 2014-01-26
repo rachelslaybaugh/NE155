@@ -9,10 +9,32 @@ Types of Equations in the Engineering Fields}
 \usepackage{setspace}
 \onehalfspacing
 
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
 \usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo Methods Manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
-%\newcommand{\1st}{\ensuremath{1^{\text{st}}} }
-%\newcommand{\3rd}{\ensuremath{3^{\text{rd}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
 
 
 \begin{document}
@@ -65,13 +87,14 @@ Boundary conditions:
 
 \noindent \textbf{Linear 1st order ODE's}
 
-\underline{Reminders}
+\noindent \underline{Reminders}
 \begin{itemize}
 \item Linear means each term is either a constant or the product of a constant and the first power of a single variable (in this case y).
 \item the highest derivative is to the first power.
 \end{itemize}
 
-\noindent \underline{Example}:
+%-------------------------------------------------------------
+\noindent \underline{1st order ODE Example}:
 \begin{equation}
 y' + 3y = sin(x) \nonumber
 \end{equation}
@@ -83,7 +106,8 @@ y' + 3y = sin(x) \nonumber
 %
 In this case the general solution is obtained through the use of an integrating factor.
 
-\noindent \underline{Example}:
+\vspace*{1em}
+\noindent \underline{1st order ODE Example}:
 
 Point Kinetics analysis of a nuclear reactor is an IVP, linear 1st order ODE.
 %
@@ -93,7 +117,7 @@ Point Kinetics analysis of a nuclear reactor is an IVP, linear 1st order ODE.
 \frac{dC_i(t)}{dt} &= \frac{\beta_i}{l^*}n(t) - \lambda_i C_i(t) \qquad i=1,\dots,N \nonumber
 \end{align}
 %
-Where
+Where (we'll talk  more about what these terms mean later)
 %
 \begin{itemize}
 \item n = \# neutrons / s
@@ -106,8 +130,106 @@ Where
 %
 BCs: $n(t=0) = n_0$ and $C_i(t=0) = C_{i,0}$ for $i=1,\dots,N$.
 
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{1st order ODE Example}:
 
+The number of atoms in during radioactive decay (assuming decay only here) is described by the Bateman equation, which is a linear, 1st order ODE that is in a IVP:
+%
+\begin{align}
+\frac{dN_1(t)}{dt} &= -\lambda_1 N_1(t) \nonumber \\
+\frac{dN_i(t)}{dt} &= -\lambda_i N_i(t) + \lambda_{i-1}N_{i-1}(t) + \alpha_i F_i \qquad 1 < k < I \nonumber\\
+\frac{dN_I(t)}{dt} &= -\lambda_{I-1} N_{I-1}(t) \nonumber \\
+\text{BC: }& N_i(t=0) = N_{i,0}\nonumber
+\end{align}
+%
+note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and becomes more complicated if we have neutrons that transmute isotopes. 
 
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{2nd order ODE Example}:
+
+\begin{align}
+-\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = S(x) \nonumber \\
+\text{defined for }& \alpha \le x \le \beta \nonumber \\
+\text{BC: }& \frac{d\phi}{dx} + \gamma \phi = \sigma \qquad \text{at } x=\alpha \text{ and } x = \beta \text{ (BVP)}\nonumber
+\end{align}
+%
+This has
+\begin{itemize}
+\item Neumann BCs if $\gamma = 0$ (specifies the values that the derivative of a solution is to take on the boundary of the domain)
+\item Dirichet BCs: if $\gamma \rightarrow \infty, \sigma / \gamma = $constant then the BD reduces to $\phi = $constant (specifies the values that a solution needs to take on the boundary of the domain)
+\item Mixed BCs if $\gamma \ne 0$ (different boundary conditions are used on different parts of the boundary of the domain of the equation.)
+\item If $S(x)$ is nonzero at least somewhere over the physical range, a unique solution exists.
+\end{itemize}
+
+%-------------------------------------------------------
+\vspace*{1 em} \underline{Reminder: eigenpairs}
+
+We can formulate systems of equations as matrix-vector systems that look like \ve{A}$x = \lambda x$. 
+\begin{itemize}
+\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
+\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
+\item There can be more than one eigenvalue, and more than one eigenvector. 
+\item Several eigenvectors can have the same eigenvalue
+\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
+\end{itemize}
+%-------------------------------------------------------------
+
+\vspace*{1em}
+\noindent \underline{2nd order ODE Example}:
+
+The homogeneous equation [If  $\phi(x)$  is a solution, so is  $c \phi(x)$, where $c$ is an arbitrary (non-zero) constant. Note that in order for this condition to hold, each term in a linear differential equation of the dependent variable $y$ must contain $y$ or any derivative of $y$; a constant term breaks homogeneity]:
+%
+\begin{align}
+-\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = \lambda f(x) \phi(x) \nonumber \\
+\text{where }p(x) > 0, f(x) \geq 0, \text{ and }& \lambda = \text{ eigenvalue, and}\nonumber \\
+\frac{d\phi}{dx} + \gamma_L \phi &= \sigma \qquad \text{at }x=\alpha \nonumber \\
+\frac{d\phi}{dx} + \gamma_R \phi &= \sigma \qquad \text{at }x=\beta \nonumber
+\end{align}
+%
+with $\gamma_L \geq 0$ and $\gamma_R \geq 0$ this is known as the \underline{Sturm-Liouville} eigenvalue problem. If $\gamma_L = \gamma_R = 0$, the BCs become $\phi(\alpha) = \phi(\beta) = 0$.
+
+The solution has an infinite number of eigenfunctions, $\phi_i(x)$ with corresponding \textbf{REAL} and \textbf{DISTINCT} eigenvalues, $\lambda_i$. 
+
+If we number them in sequence: $\lambda_0 < \lambda_1 < \lambda_2 < \dots < \lambda_{\infty}$, then $\lambda_0$ is the lowest eigenvalue and $\phi_0(x)$ is the fundamental eigenmode. 
+
+If $q(x) /geq 0$, then all $\lambda_i$ are positive.
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{2nd order ODE Example}:
+
+1-D, 1-group, time-independent neutron diffusion equation:
+%
+\begin{align}
+-\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Sigma_a(x)\phi(x) &= S(x) \qquad \text{Fixed Source} \nonumber \\
+-\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Sigma_a(x)\phi(x) &= \frac{1}{k} \nu \Sigma_f(x) \phi(x)\qquad \text{Fission / Eigenvalue} \nonumber
+\end{align}
+%
+BCs: (BVP) vacuum, $phi(\pm a) = 0$
+
+%-------------------------------------------------------------
+\section{PDEs}
+
+A partial differential equation is an equation containing an unknown function of two or more variables and its derivatives with respect to those variables. 
+
+\vspace*{1em}
+\noindent \underline{Example}:
+%
+\begin{equation}
+\frac{\partial^2 U}{\partial x \partial  y} = 4x + 3y \nonumber
+\end{equation}
+%
+is a 2nd order PDE in two variables. 
+
+If the PDE is linear in U and all derivatives of U, then we say that the PDE is linear.
+%
+\begin{equation}
+A\frac{\partial^2 U}{\partial^2 x} + B\frac{\partial^2 U}{\partial x \partial  y} + C\frac{\partial^2 U}{\partial^2 y} + D\frac{\partial U}{\partial x} + E\frac{\partial U}{\partial y} + FU = G \nonumber
+\end{equation}
+%
+This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ depend on $x$ or $y$, but not on $U$.
 
 
 \end{document}
