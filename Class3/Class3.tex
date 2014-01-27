@@ -219,15 +219,15 @@ A partial differential equation is an equation containing an unknown function of
 \noindent \underline{Example}:
 %
 \begin{equation}
-\frac{\partial^2 U}{\partial x \partial  y} = 4x + 3y \nonumber
+\frac{\partial^2 u}{\partial x \partial  y} = 4x + 3y \nonumber
 \end{equation}
 %
 is a 2nd order PDE in two variables. 
 
-If the PDE is linear in U and all derivatives of U, then we say that the PDE is linear.
+If the PDE is linear in u and all derivatives of u, then we say that the PDE is linear.
 %
 \begin{equation}
-A\frac{\partial^2 U}{\partial x^2} + B\frac{\partial^2 U}{\partial x \partial  y} + C\frac{\partial^2 U}{\partial y^2} + D\frac{\partial U}{\partial x} + E\frac{\partial U}{\partial y} + FU = G \nonumber
+A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu = G \nonumber
 \end{equation}
 %
 This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ depend on $x$ or $y$, but not on $U$.
@@ -332,6 +332,29 @@ where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
 
 \noindent There's no $B$ term, and $C$ is negative so $-4AC > 0$
 
+%\noindent \textbf{1st order Hyperbolic equations}
+%
+%For a system of the form
+%%
+%\begin{equation}
+%\frac{\partial u}{\partial t} + A \frac{\partial u}{\partial x} + B u = F(t,x)
+%\end{equation}
+%%
+%is hyperbolic if the matrix $A$ is diagonalizable with real eigenvalues.
+%
+%Diagonalizable means there is a nonsingular matrix $P$ such that
+%%
+% \begin{align}
+%    PA^{-1}P &=    &=    \begin{pmatrix}
+%      a_{1} & 0 & 0 & \cdots & 0 \\
+%      0 & a_{2} & 0 & \cdots & 0 \\
+%      0 & 0 & a_{3} & \cdots & 0 \\
+%      \vdots & \vdots & \vdots & \ddots   & \vdots \\
+%      0 & 0 & 0 & \cdots & a_{d} \\
+%    \end{pmatrix} \nonumber  & = \lambda
+%    %
+%\end{align} 
+%http://www.siam.org/books/textbooks/OT88sample.pdf
 
 %\vspace*{2em}
 %(2) 1-D, unsteady flow of compressible fluids (in a uniform conduit)
@@ -342,8 +365,8 @@ where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
 %%
 %where $\rho$ is the fluid density and $v$ is the fluid velocity.
 
-\vspace*{2em}
-(2) The equation of motion under the influence of gravity 
+%\vspace*{2em}
+%(2) The equation of motion under the influence of gravity 
 
 
 %-------------------------------------------------------------
@@ -370,6 +393,13 @@ The general energy-dependent, time-dependent, 3-D neutron transport equation is
   \item $\chi(E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission,
 %  \item $k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
 \end{list}
+
+\begin{itemize}
+\item In a void, the transport equation is like a hyperbolic wave equation. 
+\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes elliptic for the steady-state case. 
+\item If the scattering is forward-peaked then the equation is parabolic.
+\end{itemize}
+
 
 %-------------------------------------------------------------
 \section{Integral Equations}
