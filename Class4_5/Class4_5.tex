@@ -1,0 +1,294 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\title{NE 155, Class 4 and 5, S14 \\
+Types of Equations + TE + DE}
+\author{Rachel Slaybaugh}
+\date{January 29 and 31, 2014}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage[hang,flushmargin]{footmisc} 
+% 'hang' flushes the footnote marker to the left,  'flushmargin'  flushes the text as well.
+
+\def\baselinestretch{1}
+\setlength{\parindent}{0mm} \setlength{\parskip}{0.8em}
+
+\newlength{\up}
+\setlength{\up}{-4mm}
+
+\newlength{\hup}
+\setlength{\hup}{-2mm}
+
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo Methods Manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\begin{document}
+\begin{center}
+{\bf NE 155, Class 3, S14 \\
+Types of Equations in the Engineering Fields \\ January 27, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+
+\noindent \textbf{Wrapping up PDEs}
+
+Recall
+%
+\begin{align}
+\text{gradient is } \nabla T &= \vec{i}\frac{\partial T}{\partial x} + \vec{j}\frac{\partial T}{\partial y} + \vec{k}\frac{\partial T}{\partial z} \nonumber \\
+%
+\text{divergence is } \nabla \cdot \vec{v} &= \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z} \nonumber
+\end{align}
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Elliptic example}:
+
+\noindent Poisson's equation (stationary heat conduction with a volumetric source):
+%
+\begin{equation}
+\nabla \cdot (k \nabla T) + q''' = 0 \nonumber
+\end{equation}
+% 
+where
+\begin{itemize}
+\item $T$ is temperature
+\item $k$ is thermal conductivity
+\item $q'''$ is volumetric heat generation rate
+\end{itemize}
+%
+There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
+
+%\begin{itemize}
+%\item Dirichlet BCs if $f(a,b) =$ constant
+%\item Neumann BCs if 
+%\begin{equation}
+%\vec{n} \cdot \nabla f = n_x \frac{\partial f} {\partial x} + n_y \frac{\partial f} {\partial y}  +n_z \frac{\partial f} {\partial z} \nonumber
+%\end{equation}
+%\end{itemize}
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Parabolic Examples}:
+
+(1) Transient heat conduction in a slab:
+%
+\begin{equation}
+\frac{\partial T(x,t)}{\partial t} = \frac{\partial}{\partial x} \frac{k}{\rho c} \frac{\partial}{\partial x} T(x,t) + q'''(x,t) \nonumber
+\end{equation}
+%
+where $\rho$ = mass density and $c$ = specific heat capacity
+
+\noindent There aren't $B$ or $C$ terms, so $-4AC = 0$
+
+
+\vspace*{2em}
+(2) Time-dependent, 1-group neutron diffusion equation
+%
+\begin{equation}
+\frac{1}{v} \frac{\partial \phi(x,t)}{\partial t} = \frac{\partial}{\partial x} D \frac{\partial}{\partial x} \phi(x,t) + (\nu \Macro_f - \Macro_a) \phi(x,t) + S(x,t) \nonumber
+\end{equation}
+%
+There aren't $B$ or $C$ terms, so $-4AC = 0$
+
+%-------------------------------------------------------------
+\vspace*{1em}
+\noindent \underline{Hyperbolic Example}:
+
+(1) The wave equation
+%
+\begin{equation}
+\frac{\partial^2 f}{\partial t^2} - c \frac{\partial^2 f}{\partial x^2} = 0
+\end{equation}
+%
+where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
+
+\noindent There's no $B$ term, and $C$ is negative so $-4AC > 0$
+
+%\noindent \textbf{1st order Hyperbolic equations}
+%
+%For a system of the form
+%%
+%\begin{equation}
+%\frac{\partial u}{\partial t} + A \frac{\partial u}{\partial x} + B u = F(t,x)
+%\end{equation}
+%%
+%is hyperbolic if the matrix $A$ is diagonalizable with real eigenvalues.
+%
+%Diagonalizable means there is a nonsingular matrix $P$ such that
+%%
+% \begin{align}
+%    PA^{-1}P &=    &=    \begin{pmatrix}
+%      a_{1} & 0 & 0 & \cdots & 0 \\
+%      0 & a_{2} & 0 & \cdots & 0 \\
+%      0 & 0 & a_{3} & \cdots & 0 \\
+%      \vdots & \vdots & \vdots & \ddots   & \vdots \\
+%      0 & 0 & 0 & \cdots & a_{d} \\
+%    \end{pmatrix} \nonumber  & = \lambda
+%    %
+%\end{align} 
+%http://www.siam.org/books/textbooks/OT88sample.pdf
+
+%\vspace*{2em}
+%(2) 1-D, unsteady flow of compressible fluids (in a uniform conduit)
+%%
+%\begin{equation}
+%\frac{\partial \rho}{\partial t} + \gamma \frac{\partial \rho}{\partial x} + \rho \frac{\partial v}{\partial x} = 0
+%\end{equation}
+%%
+%where $\rho$ is the fluid density and $v$ is the fluid velocity.
+
+%\vspace*{2em}
+%(2) The equation of motion under the influence of gravity 
+
+
+%-------------------------------------------------------------
+\section{Integro-Differential Equations $\rightarrow$ TE}
+
+Equations containing both derivatives and integrals. 
+
+I'm going to take a small detour to cover the transport equation and the diffusion equation as well as some NE basic terms. This isn't an in-depth coverage,  but because we will use this equation in many examples, it seems useful to me to cover some background (so you all have some idea what I'm talking about).
+
+Neutrons can have many different kinds of interactions that influence a system's behavior. These interactions are described by cross sections, which reflect the likelihood of a particular interaction occurring and are given in units of inverse length. Of particular interest is the total cross section, $\Macro$, which includes all possible interactions; the scattering cross section, $\Macro_{s}$, where scattering can change the momentum and kinetic energy of a neutron; the absorption cross section, $\Macro_{as}$, where the neutron ``leaves" the system; and the fission cross section, $\Macro_{f}$.   
+
+Fission is the process through which a nucleus splits into (typically two) smaller atoms. Through this process a relatively large amount of energy is released along with several neutrons. These neutron are available to go on to cause other fissions, creating a chain reaction. The quantity $\nu$ is the average number of neutrons released per fission. Most of the energy released from fission is kinetic, which creates the heat used to make electricity.  
+
+If fission is occurring, it is often of interest to know the asymptotic behavior of the system. A reactor is called ``critical'' if the chain reaction is self-sustaining and time-independent. If the system is not in equilibrium then the asymptotic neutron distribution, or the fundamental mode, will grow or decay exponentially over time. A convenient way to capture this behavior is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
+
+This substitution changes the transport equation into an eigenvalue problem. A spectrum of eigenvalues can be found, but at long times only the non-negative solution corresponding to the largest real eigenvalue will dominate. The general energy-dependent, steady-state, 3-D neutron transport eigenproblem can be written as:
+%
+\begin{align}
+%\frac{1}{v} \frac{\partial}{\partial t}\psi(\vec{r}, \hat{\Omega}, E, t) &+ 
+[\hat{\Omega} \cdot \nabla &+ \Macro(\vec{r}, E)] \psi(\vec{r}, \hat{\Omega}, E, t)  =  \int_0^{\infty} dE' \int_{4\pi} d\hat{\Omega'} \:\Macro_{s}(\vec{r}, E' \to E, \hat{\Omega'} \cdot \hat{\Omega}) \psi(\vec{r}, \hat{\Omega'}, E', t) \nonumber \\
+   %
+&+\frac{ \chi(E)}{k} \int_0^{\infty} dE' \:\nu \Macro_{f}(\vec{r}, E') \int_{4\pi} d\hat{\Omega'} \:\psi(\vec{r}, \hat{\Omega'}, E', t) \nonumber
+\end{align}
+%
+\noindent where the quantities are at location $\vec{r}$, travelling in directions $\hat{\Omega}$, at energy $E$ and time $t$ and are defined as:
+\begin{list}{}{\hspace{2em}}
+  \item $\psi(\vec{r}, \hat{\Omega}, E, t)$ is the angular neutron flux in neutrons per unit length squared per steradian per second and expresses where all the neutrons are in phase space, 
+  \item $\chi(E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission,
+  \item $k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
+\end{list}
+
+If fission is not present the transport equation becomes a fixed source rather than eigenvalue problem. The term containing $k$ is replaced by an external source, $q_{ex}(\vec{r}, \hat{\Omega}, E)$, and the equation becomes a standard linear system. 
+
+\underline{To numerically solve this equation it is discretized in space, angle, and energy.} We'll get to that later.
+
+%-------------------------------------------------------------
+\section{Diffusion Equation}
+
+The diffusion approximation is a widely used simplification that reduces the computational complexity of the transport equation. The approximation is that the angular dependence of the flux is unimportant, so the direction component of the transport equation can be discarded. Physically this means that neutrons move against their concentration gradient like just heat diffuses through a conductor. The information in this section is derived from Duderstadt and Hamilton's \emph{Nuclear Reactor Analysis} and neglects fission for simplicity. 
+
+The first step in applying this approximation is to integrate the angular dependence out of the transport equation, resulting in the neutron continuity equation:
+%
+\begin{equation}
+  \nabla \cdot J(\vec{r},E) + \Macro(\vec{r},E)\phi(\vec{r},E) = \int \:dE' \:\Macro_{s}(\vec{r}, E' \to E)\phi(\vec{r},E') + Q_{ex}(\vec{r},E) \:,
+  \label{eq:continuity} 
+\end{equation}
+%
+where the following definitions have been used:\\
+\indent $J(\vec{r},E) = \int d\vOmega \:\vOmega \psi(\vec{r}, \vOmega, E)$ is the neutron current \\
+\indent  $\phi(\vec{r},E) = \int d\vOmega \:\psi(\vec{r}, \vOmega, E)$ is the scalar flux, and \\
+\indent $Q_{ex} (\vec{r},E)= \int d\vOmega \:q_{ex}(\vec{r}, \vOmega, E)$ is the external source.
+
+Unfortunately, this simplifying approximation added another unknown, $J$, which leaves one equation with two unknowns. In an attempt to eliminate one of these unknowns, Equation \eqref{eq:continuity} is multiplied by $\hat{\Omega}$ and integrated over angle again to obtain the first angular moment:
+%
+\begin{align}
+  \nabla \cdot \int  d\vOmega \:\vOmega \vOmega \psi(\vec{r}, \vOmega, E) &+ \Macro(\vec{r},E) J(\vec{r},E)= \nonumber \\
+  &\int dE' \:\Macro_{s1}(\vec{r}, E' \to E)J(\vec{r},E') + \int d\vOmega \int d\vOmega \:\vOmega q_{ex} \:,
+  \label{eq:current1}
+\end{align}
+%
+where $\Macro_{s1}  = \int d\vOmega \:\vOmega \Macro_{s}$. The first angular moment form of the equation cannot be solved either because the streaming (first) term is still unknown. 
+
+To make Equation \eqref{eq:current1} solvable, the original assumption is modified to assert that the angular flux is weakly, in fact linearly, dependent on angle rather than independent of angle. To implement this assumption the angular flux is expanded in angle and only the first two terms are retained:  
+%
+\begin{equation}
+  \psi(\vec{r}, \vOmega, E) \cong \frac{1}{4 \pi} \phi(\vec{r}, E) + \frac{3}{4 \pi}J(\vec{r}, E) \cdot \vOmega \:.
+  \label{eq:angExpand} 
+\end{equation}
+The truncated angular flux is then inserted into the streaming term in Equation \eqref{eq:current1}, giving 
+%
+\begin{equation}
+  \nabla \cdot \int d \vOmega \:\vOmega \vOmega \psi(\vec{r}, \vOmega, E)  \cong \frac{1}{3} \nabla \phi(\vec{r}, E) \:. 
+  \label{eq:firstTerm}
+\end{equation}
+
+Next, the scattering source term is simplified in angle and energy. To address the angular dependence define $\bar{\mu}_{0}$ as the average cosine of the scattering angle, which, temporarily suppressing energy, gives $\Macro_{s1} = \bar{\mu}_{0}\Macro_{s}$. For elastic scattering from stationary nuclei when s-wave scattering is present in the center of mass frame, $\bar{\mu_{0}} = \frac{2}{3A}$ where $A$ is atomic mass number. A common procedure to simplify the energy dependence is to neglect the anisotropic contribution to energy transfer in a scattering collision. Mathematically this means $\Macro_{s1}(E' \to E) = \Macro_{s1}(E) \delta(E' = E)$, giving $\int dE' \:\Macro_{s1}(\vec{r}, E' \to E)J(\vec{r},E') = \bar{\mu_{0}}\Macro_{s}(\vec{r},E)J(\vec{r},E)$. Finally, it is assumed that the external source is isotropic, $\int  d\vOmega \int d\vOmega \:\vOmega q_{ex} = 0$.
+
+If these approximations are all included and Equation \eqref{eq:current1} is solved for $J$, the result is Fick's Law:
+%
+\begin{equation}
+  J(\vec{r},E) \cong -\frac{1}{3(\Macro(\vec{r},E) - \bar{\mu_{0}}\Macro_{s}(\vec{r},E))} \nabla \phi (\vec{r},E) = -D(\vec{r},E) \nabla \phi (\vec{r},E) \:.
+\end{equation}
+%
+Fick's Law [which postulates that the flux goes from regions of high concentration to regions of low concentration, with a magnitude that is proportional to the concentration gradient (spatial derivative) ] can be introduced back into Equation \eqref{eq:continuity} to obtain the diffusion equation:
+%
+\begin{equation}
+  -\nabla \cdot D(\vec{r},E) \nabla \phi(\vec{r},E) + \Macro(\vec{r},E)\phi(\vec{r},E) = \int dE' \:\Macro_{s}(\vec{r}, E' \to E)\phi(\vec{r},E') + q_{ex}(\vec{r},E) \:.
+  \label{eq:diffusion}
+\end{equation}
+
+This equation now includes several assumptions which are valid when the solution is not near a void, boundary, source, or strong absorber. While these requirements can be quite restrictive, the diffusion equation has been used frequently for analysis of nuclear systems throughout the history of the nuclear industry.
+
+Some terms from this section that are used in this course:
+\begin{align}
+  \Macro_{tr} &= \Macro(\vec{r},E) - \bar{\mu_{0}}\Macro_{s}(\vec{r},E) \qquad \text{is the transport cross section,}\\
+  \vec{D} &= \frac{1}{\Macro_{tr}} \qquad \text{is the diffusion coefficient, and}\\
+  \ve{C} &= -\nabla \cdot \frac{1}{3\Macro_{tr}}\nabla+ \Macro(\vec{r},E) \qquad \text{is the diffusion operator.}
+\end{align}
+
+%-------------------------------------------------------------
+\section{Integral Equations}
+
+Steady state integral neutron transport equation
+%
+\begin{equation}
+\phi(\vec{r}, E) = \int_V d\vec{r'} \int dE' K(\vec{r}, E, \vec{r'}, E') \phi(\vec{r'}, E') + f(\vec{r}, E) + S(\vec{r}, E) \nonumber
+\end{equation}
+%
+where
+%%
+\begin{align}
+K(\vec{r}, E, \vec{r'}, E') &= \frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{4\pi |\vec{r'} - \vec{r}|^2} \Macro_s(\vec{r}, E' \rightarrow E) \nonumber \\
+%
+\tau(\vec{r}, \vec{r'}, E) &= \int_0^R d\vec{r'} \Macro_t(\vec{r'}, E) \qquad \text{``optical length"} \nonumber \\
+%
+f(\vec{r}, E) &= \int_V d\vec{r'}\frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{4\pi |\vec{r'} - \vec{r}|^2} F(\vec{r}, E) \qquad \text{fission source}\nonumber \\
+%
+S(\vec{r}, E) &= \int_S d\vec{r'}\frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{2\pi |\vec{r'} - \vec{r}|^2} J(\vec{r}, E) \qquad \text{``surface" source, i.e\ incoming current} \nonumber
+\end{align}
+
+\end{document}

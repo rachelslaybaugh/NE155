@@ -171,8 +171,8 @@ We can formulate systems of equations as matrix-vector systems that look like \v
 \begin{itemize}
 \item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
 \item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
-\item There can be more than one eigenvalue, and more than one eigenvector. 
-\item Several eigenvectors can have the same eigenvalue
+\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
+%\item Several eigenvectors can have the same eigenvalue
 \item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
 \end{itemize}
 %-------------------------------------------------------------
@@ -195,7 +195,7 @@ The solution has an infinite number of eigenfunctions, $\phi_i(x)$ with correspo
 
 If we number them in sequence: $\lambda_0 < \lambda_1 < \lambda_2 < \dots < \lambda_{\infty}$, then $\lambda_0$ is the lowest eigenvalue and $\phi_0(x)$ is the fundamental eigenmode. 
 
-If $q(x) /geq 0$, then all $\lambda_i$ are positive.
+If $q(x) \geq 0$, then all $\lambda_i$ are positive.
 
 %-------------------------------------------------------------
 \vspace*{1em}
@@ -208,21 +208,12 @@ If $q(x) /geq 0$, then all $\lambda_i$ are positive.
 -\frac{d}{dx}D(x)\frac{d}{dx}\phi(x) + \Macro_a(x)\phi(x) &= \frac{1}{k} \nu \Macro_f(x) \phi(x)\qquad \text{Fission / Eigenvalue} \nonumber
 \end{align}
 %
-BCs: (BVP) vacuum, $phi(\pm a) = 0$
+BCs: (BVP) vacuum, $\phi(\pm a) = 0$
 
 %-------------------------------------------------------------
 \section{PDEs}
 
 A partial differential equation is an equation containing an unknown function of two or more variables and its derivatives with respect to those variables. 
-
-\vspace*{1em}
-\noindent \underline{Example}:
-%
-\begin{equation}
-\frac{\partial^2 u}{\partial x \partial  y} = 4x + 3y \nonumber
-\end{equation}
-%
-is a 2nd order PDE in two variables. 
 
 If the PDE is linear in u and all derivatives of u, then we say that the PDE is linear.
 %
@@ -245,6 +236,13 @@ This equation is a 2nd order PDE in two variables. It is linear if $A$ through $
   \item Relative to a fixed time coordinate, disturbances have a finite propagation speed. They travel along the characteristics of the equation.
   \end{itemize}
 \item Parabolic if $B^2 - 4 AC = 0$\\ A perturbation of the initial (or boundary) data of an elliptic or parabolic equation is felt at once by essentially all points in the domain.
+\end{itemize}
+
+\noindent The reason we care based on the TE
+\begin{itemize}
+\item In a void, the transport equation is like a hyperbolic wave equation. 
+\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes elliptic for the steady-state case. 
+\item If the scattering is forward-peaked then the equation is parabolic.
 \end{itemize}
 
 %-------------------------------------------------------------
@@ -393,13 +391,6 @@ The general energy-dependent, time-dependent, 3-D neutron transport equation is
   \item $\chi(E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission,
 %  \item $k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
 \end{list}
-
-\begin{itemize}
-\item In a void, the transport equation is like a hyperbolic wave equation. 
-\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes elliptic for the steady-state case. 
-\item If the scattering is forward-peaked then the equation is parabolic.
-\end{itemize}
-
 
 %-------------------------------------------------------------
 \section{Integral Equations}
