@@ -178,15 +178,39 @@ where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
 
 Equations containing both derivatives and integrals. 
 
-I'm going to take a small detour to cover the transport equation and the diffusion equation as well as some NE basic terms. This isn't an in-depth coverage,  but because we will use this equation in many examples, it seems useful to me to cover some background (so you all have some idea what I'm talking about).
+I'm going to take a small detour to cover the transport equation and the diffusion equation as well as some NE basic terms. 
 
-Neutrons can have many different kinds of interactions that influence a system's behavior. These interactions are described by cross sections, which reflect the likelihood of a particular interaction occurring and are given in units of inverse length. Of particular interest is the total cross section, $\Macro$, which includes all possible interactions; the scattering cross section, $\Macro_{s}$, where scattering can change the momentum and kinetic energy of a neutron; the absorption cross section, $\Macro_{as}$, where the neutron ``leaves" the system; and the fission cross section, $\Macro_{f}$.   
+This is going to be a serious fly-by,  but because we will use this equation in many examples, hopefully it will give you all have some idea what I'm talking about.
 
-Fission is the process through which a nucleus splits into (typically two) smaller atoms. Through this process a relatively large amount of energy is released along with several neutrons. These neutron are available to go on to cause other fissions, creating a chain reaction. The quantity $\nu$ is the average number of neutrons released per fission. Most of the energy released from fission is kinetic, which creates the heat used to make electricity.  
+Neutrons can have many different kinds of interactions that influence a system's behavior. 
 
-If fission is occurring, it is often of interest to know the asymptotic behavior of the system. A reactor is called ``critical'' if the chain reaction is self-sustaining and time-independent. If the system is not in equilibrium then the asymptotic neutron distribution, or the fundamental mode, will grow or decay exponentially over time. A convenient way to capture this behavior is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
+These interactions are described by \underline{cross sections}, which reflect the \textbf{likelihood of a particular interaction occurring} and are given in units of inverse length. 
 
-This substitution changes the transport equation into an eigenvalue problem. A spectrum of eigenvalues can be found, but at long times only the non-negative solution corresponding to the largest real eigenvalue will dominate. The general energy-dependent, steady-state, 3-D neutron transport eigenproblem can be written as:
+Of particular interest are
+\begin{itemize}
+\item the total cross section, $\Macro$, which includes all possible interactions; 
+\item the scattering cross section, $\Macro_{s}$, where scattering can change the momentum and kinetic energy of a neutron; 
+\item the absorption cross section, $\Macro_{as}$, where the neutron ``leaves" the system; and 
+\item the fission cross section, $\Macro_{f}$. 
+\end{itemize}   
+
+Fission is the process through which a nucleus splits into (typically two) smaller atoms. 
+
+Through this process a relatively large amount of energy is released along with several neutrons. 
+
+These neutron are available to go on to cause other fissions, creating a chain reaction. 
+
+The quantity \textbf{$\nu$ is the average number of neutrons released per fission}. Most of the energy released from fission is kinetic, which creates the heat used to make electricity.  
+
+If fission is occurring, it is often of interest to know the \textbf{asymptotic behavior} of the system. A reactor is called \textbf{``critical''} if the chain reaction is self-sustaining and time-independent. 
+
+If the system is not in equilibrium, then the asymptotic neutron distribution, or the fundamental mode, will grow or decay exponentially over time. 
+
+A convenient way to capture this behavior is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
+
+This substitution changes the transport equation into an \textbf{eigenvalue problem.} A spectrum of eigenvalues can be found, but at \textbf{long times only the non-negative solution corresponding to the largest real eigenvalue will dominate}. 
+
+The general energy-dependent, steady-state, 3-D neutron transport eigenproblem can be written as:
 %
 \begin{align}
 %\frac{1}{v} \frac{\partial}{\partial t}\psi(\vec{r}, \hat{\Omega}, E, t) &+ 
@@ -209,7 +233,7 @@ If fission is not present the transport equation becomes a fixed source rather t
 %-------------------------------------------------------------
 \section{Diffusion Equation}
 
-The diffusion approximation is a widely used simplification that reduces the computational complexity of the transport equation. The approximation is that the angular dependence of the flux is unimportant, so the direction component of the transport equation can be discarded. Physically this means that neutrons move against their concentration gradient like just heat diffuses through a conductor. The information in this section is derived from Duderstadt and Hamilton's \emph{Nuclear Reactor Analysis} and neglects fission for simplicity. 
+The \underline{diffusion approximation} is a widely used simplification that reduces the computational complexity of the transport equation. The approximation is that the angular dependence of the flux is unimportant, so the direction component of the transport equation can be discarded. Physically this means that neutrons move against their concentration gradient like just heat diffuses through a conductor. The information in this section is derived from Duderstadt and Hamilton's \emph{Nuclear Reactor Analysis} and neglects fission for simplicity. 
 
 The first step in applying this approximation is to integrate the angular dependence out of the transport equation, resulting in the neutron continuity equation:
 %
