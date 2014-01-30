@@ -49,6 +49,7 @@ Types of Equations in the Engineering Fields \\ January 27, 2014}
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
 
+ADD DEPENDENCIES TO ALL EQUATIONS TO CLARIFY THEM!
 
 \noindent \textbf{Introduction}
 
@@ -218,25 +219,48 @@ A partial differential equation is an equation containing an unknown function of
 If the PDE is linear in u and all derivatives of u, then we say that the PDE is linear.
 %
 \begin{equation}
-A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu = G \nonumber
+A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + Lower Order Terms = 0 \nonumber
 \end{equation}
 %
-This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ depend on $x$ or $y$, but not on $U$.
+This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ do not depend on $u$ (they may depend on $x$ and $y$. If $A^2 + B^2 + C^2 > 0$ over a region of the $xy$ plane, the PDE is second-order in that region (analogous to the eqn for a conic section: $Ax^2 + Bxy + Cy^2 + \cdots = 0$. 
 
 %-------------------------------------------------------------
 \vspace*{1em}
-\noindent \underline{Classification}:
+\noindent \underline{Classification}:%http://en.wikipedia.org/wiki/Partial_differential_equation#Classification
+
+Replacing $\partial x$ by $x$, and likewise for other variables (formally this is done by a Fourier transform), converts a constant-coefficient PDE into a polynomial of the same degree, with the top degree (a homogeneous polynomial, here a quadratic form) being most significant for the classification.
+
+Just as one classifies conic sections and quadratic forms into parabolic, hyperbolic, and elliptic based on the discriminant $B^2 - 4AC$, the same can be done for a second-order PDE at a given point. 
+
+\underline{Note:} these classifications only apply to second order PDEs. 
 
 \begin{itemize}
-\item Elliptic if $B^2 - 4 AC < 0$
+\item Elliptic if $B^2 - 4 AC < 0$. Solutions of elliptic PDEs are as smooth as the coefficients allow, within the interior of the region where the equation and solutions are defined. For example, solutions of Laplace's equation are analytic within the domain where they are defined, but solutions may assume boundary values that are not smooth. The motion of a fluid at subsonic speeds can be approximated with elliptic PDEs, and the Euler–Tricomi equation is elliptic where $x < 0$.
 \item Hyperbolic if $B^2 - 4 AC > 0$
   \begin{itemize}
   \item if $U$ and its first $x$ derivative are arbitrarily specified initial data on the initial line $x = boundary$ (with sufficient smoothness properties), then there exists a solution for all of $x$.
   \item The solutions of hyperbolic equations are ``wave-like." If a disturbance is made in the initial data of a hyperbolic differential equation, then not every point of space feels the disturbance at once.
   \item Relative to a fixed time coordinate, disturbances have a finite propagation speed. They travel along the characteristics of the equation.
   \end{itemize}
-\item Parabolic if $B^2 - 4 AC = 0$\\ A perturbation of the initial (or boundary) data of an elliptic or parabolic equation is felt at once by essentially all points in the domain.
+\item Parabolic if $B^2 - 4 AC = 0$\\ A perturbation of the initial (or boundary) data of an elliptic or parabolic equation is felt at once by essentially all points in the domain. 
+
+Equations that are parabolic at every point can be transformed into a form analogous to the heat equation by a change of independent variables. Solutions smooth out as the transformed time variable increases. The Euler–Tricomi equation has parabolic type on the line where $x = 0$.
 \end{itemize}
+
+If there are $n$ independent variables $x_1, x_2 , \dots, x_n$, a general linear partial differential equation of second order has the form
+%
+\begin{equation}
+Lu = \sum_{i=1}^n \sum_{j=1}^n a_{i,j} \frac{\partial^2 u}{\partial x_i x_j} + \text{ Lower Order Terms } = 0 \nonumber
+\end{equation}
+%
+The classification depends upon the signature of the eigenvalues of the coefficient matrix $a_{i,j}$.
+\begin{enumerate}
+\item \underline{Elliptic}: The eigenvalues are all positive or all negative.
+\item \underline{Parabolic}: The eigenvalues are all positive or all negative, save one that is zero.
+\item \underline{Hyperbolic}: There is only one negative eigenvalue and all the rest are positive, or there is only one positive eigenvalue and all the rest are negative.
+\item \underline{Ultrahyperbolic}: There is more than one positive eigenvalue and more than one negative eigenvalue, and there are no zero eigenvalues. There is only limited theory for ultrahyperbolic equations (Courant and Hilbert, 1962).
+\end{enumerate}
+
 
 \noindent The reason we care based on the TE
 \begin{itemize}
@@ -258,10 +282,18 @@ This equation is a 2nd order PDE in two variables. It is linear if $A$ through $
 There's no $B$ term, so $-4AC < 0$ since $D$ is positive.
 
 %-------------------------------------------------------------
+Recall
+%
+\begin{align}
+\text{gradient is } \nabla T &= \vec{i}\frac{\partial T}{\partial x} + \vec{j}\frac{\partial T}{\partial y} + \vec{k}\frac{\partial T}{\partial z} \nonumber \\
+%
+\text{divergence is } \nabla \cdot \vec{v} &= \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z} \nonumber
+\end{align}
+%-------------------------------------------------------------
 \vspace*{1em}
 \noindent \underline{Elliptic example}:
 
-Poisson's equation (stationary heat conduction with a volumetric source:
+\noindent Poisson's equation (stationary heat conduction with a volumetric source):
 %
 \begin{equation}
 \nabla \cdot (k \nabla T) + q''' = 0 \nonumber
@@ -274,29 +306,21 @@ where
 \item $q'''$ is volumetric heat generation rate
 \end{itemize}
 %
-recall
-%
-\begin{align}
-\text{gradient is } \nabla T &= \vec{i}\frac{\partial T}{\partial x} + \vec{j}\frac{\partial T}{\partial y} + \vec{k}\frac{\partial T}{\partial z} \nonumber \\
-%
-\text{divergence is } \nabla \cdot \vec{v} &= \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z} \nonumber
-\end{align}
-%
 There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
 
-\begin{itemize}
-\item Dirichlet BCs if $f(a,b) =$ constant
-\item Neumann BCs if 
-\begin{equation}
-\vec{n} \cdot \nabla f = n_x \frac{\partial f} {\partial x} + n_y \frac{\partial f} {\partial y}  +n_z \frac{\partial f} {\partial z} \nonumber
-\end{equation}
-\end{itemize}
+%\begin{itemize}
+%\item Dirichlet BCs if $f(a,b) =$ constant
+%\item Neumann BCs if 
+%\begin{equation}
+%\vec{n} \cdot \nabla f = n_x \frac{\partial f} {\partial x} + n_y \frac{\partial f} {\partial y}  +n_z \frac{\partial f} {\partial z} \nonumber
+%\end{equation}
+%\end{itemize}
 
 %-------------------------------------------------------------
 \vspace*{1em}
 \noindent \underline{Parabolic Examples}:
 
-(1) Transient heat conduction in a slab:
+Transient heat conduction in a slab:
 %
 \begin{equation}
 \frac{\partial T(x,t)}{\partial t} = \frac{\partial}{\partial x} \frac{k}{\rho c} \frac{\partial}{\partial x} T(x,t) + q'''(x,t) \nonumber
@@ -307,18 +331,18 @@ where $\rho$ = mass density and $c$ = specific heat capacity
 \noindent There aren't $B$ or $C$ terms, so $-4AC = 0$
 
 
-\vspace*{2em}
-(2) Time-dependent, 1-group neutron diffusion equation
-%
-\begin{equation}
-\frac{1}{v} \frac{\partial \phi(x,t)}{\partial t} = \frac{\partial}{\partial x} D \frac{\partial}{\partial x} \phi(x,t) + (\nu \Macro_f - \Macro_a) \phi(x,t) + S(x,t) \nonumber
-\end{equation}
-%
-There aren't $B$ or $C$ terms, so $-4AC = 0$
+%\vspace*{2em}
+%(2) Time-dependent, 1-group neutron diffusion equation
+%%
+%\begin{equation}
+%\frac{1}{v} \frac{\partial \phi(x,t)}{\partial t} = \frac{\partial}{\partial x} D \frac{\partial}{\partial x} \phi(x,t) + (\nu \Macro_f - \Macro_a) \phi(x,t) + S(x,t) \nonumber
+%\end{equation}
+%%
+%There aren't $B$ or $C$ terms, so $-4AC = 0$
 
 %-------------------------------------------------------------
 \vspace*{1em}
-\noindent \underline{Hyperbolic Examples}:
+\noindent \underline{Hyperbolic Example}:
 
 (1) The wave equation
 %
@@ -367,50 +391,6 @@ where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
 %(2) The equation of motion under the influence of gravity 
 
 
-%-------------------------------------------------------------
-\section{Integro-Differential Equations}
 
-Equations containing both derivatives and integrals. An example we care about is the 1-group, time-independent neutron transport equation in slab geometry
-%
-\begin{equation}
-\mu \frac{\partial \psi(x,\mu)}{\partial x} + \Macro_t \psi(x,\mu) = \frac{\Macro_s}{2} \int_{-1}^1 d\mu' \psi(x, \mu') + S(x, \mu) \nonumber
-\end{equation}
-%
-where $\psi$ is angular neutron flux and $\mu$ is the cosine of the angle
-
-The general energy-dependent, time-dependent, 3-D neutron transport equation is 
-\begin{align}
-\frac{1}{v} \frac{\partial}{\partial t}\psi(\vec{r}, \hat{\Omega}, E, t) &+ [\hat{\Omega} \cdot \nabla + \Macro(\vec{r}, E)] \psi(\vec{r}, \hat{\Omega}, E, t)  =  \int_0^{\infty} dE' \int_{4\pi} d\hat{\Omega'} \:\Macro_{s}(\vec{r}, E' \to E, \hat{\Omega'} \cdot \hat{\Omega}) \psi(\vec{r}, \hat{\Omega'}, E', t) \nonumber \\
-   %
-&+\frac{ \chi(E)}{4 \pi} \int_0^{\infty} dE' \:\nu \Macro_{f}(\vec{r}, E') \int_{4\pi} d\hat{\Omega'} \:\psi(\vec{r}, \hat{\Omega'}, E', t) \nonumber
-\end{align}
-%
-\noindent where the quantities are at location $\vec{r}$, travelling in directions $\hat{\Omega}$, at energy $E$ and time $t$ and are defined as:
-\begin{list}{}{\hspace{2em}}
-  \item $\psi(\vec{r}, \hat{\Omega}, E, t)$ is the angular neutron flux in neutrons per unit length squared per steradian per second and expresses where all the neutrons are in phase space, 
-  \item $\chi(E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission,
-%  \item $k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
-\end{list}
-
-%-------------------------------------------------------------
-\section{Integral Equations}
-
-Steady state integral neutron transport equation
-%
-\begin{equation}
-\phi(\vec{r}, E) = \int_V d\vec{r'} \int dE' K(\vec{r}, E, \vec{r'}, E') \phi(\vec{r'}, E') + f(\vec{r}, E) + S(\vec{r}, E) \nonumber
-\end{equation}
-%
-where
-%%
-\begin{align}
-K(\vec{r}, E, \vec{r'}, E') &= \frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{4\pi |\vec{r'} - \vec{r}|^2} \Macro_s(\vec{r}, E' \rightarrow E) \nonumber \\
-%
-\tau(\vec{r}, \vec{r'}, E) &= \int_0^R d\vec{r'} \Macro_t(\vec{r'}, E) \qquad \text{``optical length"} \nonumber \\
-%
-f(\vec{r}, E) &= \int_V d\vec{r'}\frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{4\pi |\vec{r'} - \vec{r}|^2} F(\vec{r}, E) \qquad \text{fission source}\nonumber \\
-%
-S(\vec{r}, E) &= \int_S d\vec{r'}\frac{\mathsf{e}^{\tau(\vec{r}, \vec{r'}, E)}}{2\pi |\vec{r'} - \vec{r}|^2} J(\vec{r}, E) \qquad \text{``surface" source, i.e\ incoming current} \nonumber
-\end{align}
 
 \end{document}
