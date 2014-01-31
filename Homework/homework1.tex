@@ -51,17 +51,6 @@
 \runningheader{\class}{\assignment\ - Page \thepage\ of \numpages}{Due \duedate}
 \runningheadrule
 
-%\begin{flushright}
-%\begin{tabular}{p{2.8in} r l}
-%\textbf{\class} & \textbf{Name (Print):} & \makebox[2in]{\hrulefill}\\
-%\textbf{\term} &&\\
-%\textbf{\assignment} &&\\
-%\textbf{Due \duedate} &&\\
-%%\textbf{Time Limit: \timelimit} & Teaching Assistant & \makebox[2in]{\hrulefill}
-%\end{tabular}\\
-%\end{flushright}
-%\rule[1ex]{\textwidth}{.1pt}
-
 \begin{flushright}
 \begin{tabular}{p{5in} r l}
 NE 155 & Spring 2014 \\
@@ -81,35 +70,58 @@ Homework \#1 & Due February 5, 2014
 
 \begin{questions}
 
-% Basic question
 \addpoints
-\question[10] Differentiate $f(x)=x^2$ with respect to $x$.
-
-% Question with parts
-\newpage
-\addpoints
-\question Consider the function $f(x)=x^2$.
+\question 
 \begin{parts}
-\part[5] Find $f'(x)$ using the limit definition of derivative.
-\vfill
-\part[5] Find the line tangent to the graph of $y=f(x)$ at the point where $x=2$.
-\vfill
+\part[5] Why are you taking this class? 
+\part[5] Is there a specific, non-grade related outcome you would like?
 \end{parts}
 
-% If you want the total number of points for a question displayed at the top,
-% as well as the number of points for each part, then you must turn off the point-counter
-% or they will be double counted.
-\newpage
+\vspace*{2em}
 \addpoints
-\question[10] Consider the function $f(x)=x^3$.
-\noaddpoints % If you remove this line, the grading table will show 20 points for this problem.
+\question 
 \begin{parts}
-\part[5] Find $f'(x)$ using the limit definition of derivative.
-\vspace{4.5in}
-\part[5] Find the line tangent to the graph of $y=f(x)$ at the point where $x=2$.
+\part[5] In your opinion, what was the most interesting development in the history of computing? 
+\part[5] Why?
 \end{parts}
 
+\vspace*{2em}
+\addpoints
+\question[10] Describe a challenge you can imagine having when writing a program to use \textbf{shared} memory.
 
+\vspace*{2em}
+\addpoints
+\question[10] Describe a challenge you can imagine having when writing a program to use \textbf{distributed} memory.
+
+%------------------------------------
+\vspace*{2em}
+\addpoints
+\question[20] Briefly describe what each term in the Transport Equation [ eqn.~\eqref{eq:TE}] physically represents.
+
+\begin{align}
+[\underbrace{\hat{\Omega} \cdot \nabla\psi(\vec{r}, \hat{\Omega}, E)}_A &+
+%
+ \underbrace{\Macro(\vec{r}, E)\psi(\vec{r}, \hat{\Omega}, E)}_B   = 
+%
+ \underbrace{\int_0^{\infty} dE' \int_{4\pi} d\hat{\Omega'} \:\Macro_{s}(\vec{r}, E' \to E, \hat{\Omega'} \cdot \hat{\Omega}) \psi(\vec{r}, \hat{\Omega'}, E')}_C \nonumber \\
+%
+&+\underbrace{\frac{ \chi(E)}{k} \int_0^{\infty} dE' \:\nu \Macro_{f}(\vec{r}, E') \int_{4\pi} d\hat{\Omega'} \:\psi(\vec{r}, \hat{\Omega'}, E')}_D
+\label{eq:TE}
+\end{align}
+
+%------------------------------------
+\vspace*{2em}
+\addpoints
+\question[10] List a major assumption needed to get from the Transport Equation to the Diffusion Equation.
+
+\begin{solution}
+
+\end{solution}
+
+\vspace*{2em}
+\addpoints
+\question[10] List four locations where the Diffusion Equation is not valid because the underlying assumptions do not hold.
 
 \end{questions}
+
 \end{document}
