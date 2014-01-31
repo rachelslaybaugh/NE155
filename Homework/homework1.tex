@@ -1,0 +1,115 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Homework 1
+% Spring 2014
+
+% Exam Template from UMTYMP and Math Department courses
+%
+% Using Philip Hirschhorn's exam.cls: http://www-math.mit.edu/~psh/#ExamCls
+%
+% run pdflatex on a finished exam at least three times to do the grading table on front page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% These lines can probably stay unchanged, although you can remove the last
+% two packages if you're not making pictures with tikz.
+\documentclass[12pt]{exam}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz, pgflibraryplotmarks}
+
+% By default LaTeX uses large margins.  This doesn't work well on exams; problems
+% end up in the "middle" of the page, reducing the amount of space for students
+% to work on them.
+\usepackage[margin=1in]{geometry}
+
+
+% Here's where you edit the Class, Exam, Date, etc.
+\newcommand{\class}{NE 155}
+\newcommand{\term}{Spring 2014}
+\newcommand{\assignment}{HW 1}
+\newcommand{\duedate}{2/5/14}
+%\newcommand{\timelimit}{50 Minutes}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+% For an exam, single spacing is most appropriate
+\singlespacing
+% \onehalfspacing
+% \doublespacing
+
+% For an exam, we generally want to turn off paragraph indentation
+\parindent 0ex
+
+\begin{document} 
+
+% These commands set up the running header on the top of the exam pages
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\assignment\ - Page \thepage\ of \numpages}{Due \duedate}
+\runningheadrule
+
+%\begin{flushright}
+%\begin{tabular}{p{2.8in} r l}
+%\textbf{\class} & \textbf{Name (Print):} & \makebox[2in]{\hrulefill}\\
+%\textbf{\term} &&\\
+%\textbf{\assignment} &&\\
+%\textbf{Due \duedate} &&\\
+%%\textbf{Time Limit: \timelimit} & Teaching Assistant & \makebox[2in]{\hrulefill}
+%\end{tabular}\\
+%\end{flushright}
+%\rule[1ex]{\textwidth}{.1pt}
+
+\begin{flushright}
+\begin{tabular}{p{5in} r l}
+NE 155 & Spring 2014 \\
+Homework \#1 & Due February 5, 2014
+\end{tabular}
+\end{flushright}
+\rule[1ex]{\textwidth}{.1pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% See http://www-math.mit.edu/~psh/#ExamCls for full documentation, but the questions
+% below give an idea of how to write questions [with parts] and have the points
+% tracked automatically on the cover page.
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{questions}
+
+% Basic question
+\addpoints
+\question[10] Differentiate $f(x)=x^2$ with respect to $x$.
+
+% Question with parts
+\newpage
+\addpoints
+\question Consider the function $f(x)=x^2$.
+\begin{parts}
+\part[5] Find $f'(x)$ using the limit definition of derivative.
+\vfill
+\part[5] Find the line tangent to the graph of $y=f(x)$ at the point where $x=2$.
+\vfill
+\end{parts}
+
+% If you want the total number of points for a question displayed at the top,
+% as well as the number of points for each part, then you must turn off the point-counter
+% or they will be double counted.
+\newpage
+\addpoints
+\question[10] Consider the function $f(x)=x^3$.
+\noaddpoints % If you remove this line, the grading table will show 20 points for this problem.
+\begin{parts}
+\part[5] Find $f'(x)$ using the limit definition of derivative.
+\vspace{4.5in}
+\part[5] Find the line tangent to the graph of $y=f(x)$ at the point where $x=2$.
+\end{parts}
+
+
+
+\end{questions}
+\end{document}

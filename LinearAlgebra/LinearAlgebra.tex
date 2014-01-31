@@ -1,5 +1,5 @@
 %--------------------------------------------------------------------
-% NE 155 (intro to numerical simulation of radiation transport)
+% nE 155 (intro to numerical simulation of radiation transport)
 % Linear Algebra Lecture
 % Spring 2014
 
@@ -30,7 +30,7 @@
 \usepackage{float} % for psuedocode formatting
 \usepackage{xspace}
 
-% from Denovo Methods Manual
+% from Denovo methods manual
 \usepackage{mathrsfs}
 \usepackage[mathcal]{euscript}
 \usepackage{color}
@@ -40,7 +40,7 @@
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
 \newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
 
 
@@ -48,7 +48,7 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Class 4 and 5, S14 \\
+{\bf nE 155, Class 4 and 5, S14 \\
 Types of Equations cont'd + TE + DE \\ January 29 and 31, 2014}
 \end{center}
 
@@ -71,7 +71,7 @@ Replacing $\partial x$ by $x$, and likewise for other variables (formally this i
 
 Just as one classifies conic sections and quadratic forms into parabolic, hyperbolic, and elliptic based on the discriminant $B^2 - 4AC$, the same can be done for a second-order PDE at a given point. 
 
-\underline{Note:} these classifications only apply to second order PDEs. 
+\underline{note:} these classifications only apply to second order PDEs. 
 
 If there are $n$ independent variables $x_1, x_2 , \dots, x_n$, a general linear partial differential equation of second order has the form
 %
@@ -91,50 +91,62 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 %-------------------------------------------------------------
 \section{Vector Review}
 
-A real $N$-dimensional vector $\bar{x}$ is an ordered set of $N$ real numbers:
+A real $n$-dimensional vector $\bar{x}$ is an ordered set of $n$ real numbers:
 %
 \begin{equation}
-\bar{x} = (x_1, x_2, \dots, x_N) \nonumber
+\bar{x} = (x_1, x_2, \dots, x_n) \nonumber
 \end{equation}
 
 \textbf{Properties}:
 %
 \begin{enumerate}
-\item sum: $\bar{x} + \bar{y} = (x_1 + y_1, x_2 + y_2, \dots, x_N + y_N)$
-\item scalar multiple: $c\bar{x} = (cx_1, cx_2, \dots, cx_N)$
-\item dot product: $\bar{x} \cdot \bar{y} = (x_1 y_1, x_2 y_2, \dots, x_N y_N)$
-\item Euclidean norm (length): $||\bar{x}|| = (x_1^2 + x_2^2 + \dots + x_N^2)^{1/2}$
+\item sum: $\bar{x} + \bar{y} = (x_1 + y_1, x_2 + y_2, \dots, x_n + y_n)$
+\item scalar multiple: $c\bar{x} = (cx_1, cx_2, \dots, cx_n)$
+\item dot product: $\bar{x} \cdot \bar{y} = (x_1 y_1, x_2 y_2, \dots, x_n y_n)$
+\item Euclidean norm (length): $||\bar{x}|| = (x_1^2 + x_2^2 + \dots + x_n^2)^{1/2}$
 \item $||\bar{x}||^2 = \bar{x} \cdot \bar{x}$
-\item distance from $\bar{x}$ to $\bar{y}$: $||\bar{x} - \bar{y}|| = ((x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_N - y_N)^2)^{1/2}$
+\item distance from $\bar{x}$ to $\bar{y}$: $||\bar{x} - \bar{y}|| = ((x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_n - y_n)^2)^{1/2}$
 \item commutative property: $\bar{x} + \bar{y} = \bar{y} + \bar{x}$
 \item associative property: $(\bar{x} + \bar{y}) + \bar{z} = \bar{x} + (\bar{y} + \bar{z})$
-\item distributive property: $a(\bar{x} + \bar{y}) = a\bar{x} + a\bar{y}$
+\item distributive property: $c(\bar{x} + \bar{y}) = c\bar{x} + c\bar{y}$
 \end{enumerate}
 
 
 %-------------------------------------------------------------
 %-------------------------------------------------------------
-\section{Matrices}
+\section{matrices}
 
 \begin{align}
-    \ve{A} &= [a_{ij}]_{M\times N}   =    \begin{pmatrix}
-      a_{11} & a_{12} & \cdots & a_{1j} & \cdots & a_{1N} \\
-      a_{21} & a_{22} & \cdots & a_{2j} & \cdots & a_{2N} \\
+    \ve{A} &= [a_{ij}]_{m\times n}   =    \begin{pmatrix}
+      a_{11} & a_{12} & \cdots & a_{1j} & \cdots & a_{1n} \\
+      a_{21} & a_{22} & \cdots & a_{2j} & \cdots & a_{2n} \\
        \vdots & \vdots & \ddots & \vdots & \vdots   & \vdots \\     
-      a_{31} & a_{32} & \cdots & a_{ij} & \cdots & a_{iN} \\
+      a_{31} & a_{32} & \cdots & a_{ij} & \cdots & a_{in} \\
       \vdots & \vdots & \vdots & \vdots & \ddots   & \vdots \\
-      a_{M1} & a_{M2} & \cdots & a_{Mj} & \cdots & a_{MN} \\
+      a_{m1} & a_{m2} & \cdots & a_{mj} & \cdots & a_{mn} \\
     \end{pmatrix} \nonumber   
 \end{align} 
 %
-where $i = 1, \dots, M$ is the row index and $j = 1, \dots, N$ is the column index.
+where $i = 1, \dots, m$ is the row index and $j = 1, \dots, n$ is the column index.
 
-$\ve{A} \in \mathcal{R}^{M \times N}$ is an $M \times N$ real matrix\\
-$\ve{A} \in \mathcal{C}^{M \times N}$ is an $M \times N$ complex matrix
+$\ve{A} \in \mathbb{R}^{m \times n}$ is an $m \times n$ real matrix\\
+$\ve{A} \in \mathbb{C}^{m \times n}$ is an $m \times n$ complex matrix
+
+\textbf{Properties}:
+%
+\begin{enumerate}
+\item sum: $\ve{A} + \ve{B} = [a_{ij} + b_{ij}]_{m \times n}$
+\item scalar multiple: $c\ve{A} = [c a_{ij}]_{m \times n}$
+\item multiplication: $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times p}$, and $\ve{C} \in \mathbb{C}^{m \times p}$, then $c_{ij} = \sum_{k=1}^n a_{ik} b_{kj}$
+\item commutative property: $\ve{A} + \ve{B} = \ve{B} + \ve{A}$
+\item associative property: $(\ve{A} + \ve{B}) + \ve{C} = \ve{A} + (\ve{B} + \ve{C})$
+\item distributive property: $c(\ve{A} + \ve{B}) = c\ve{A} + c\ve{A}$
+\end{enumerate}
+
 
 \subsection{Definitions}
 
-Given $\ve{A} \in \mathcal{C}^{M \times N}$, \ve{A} is
+Given $\ve{A} \in \mathbb{C}^{m \times n}$, \ve{A} is
 %
 \begin{enumerate}
 \item Symmetric if $\ve{A} = \ve{A}^T$; to create $\ve{A}^T$ $a_{ij} \rightarrow a_{ji}$
