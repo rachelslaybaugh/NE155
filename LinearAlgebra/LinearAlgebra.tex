@@ -58,40 +58,10 @@ Types of Equations cont'd + TE + DE \\ January 29 and 31, 2014}
 \end{picture}
 
 %-------------------------------------------------------------
-\noindent \textbf{Clarification on PDE Classification}
-%http://en.wikipedia.org/wiki/Partial_differential_equation#Classification
-
-\begin{equation}
-A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + \text{ Lower Order Terms } = 0 \nonumber
-\end{equation}
-%
-This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ do not depend on $u$ (they may depend on $x$ and $y$. If $A^2 + B^2 + C^2 > 0$ over a region of the $xy$ plane, the PDE is second-order in that region (analogous to the eqn for a conic section: $Ax^2 + Bxy + Cy^2 + \cdots = 0$. 
-
-Replacing $\partial x$ by $x$, and likewise for other variables (formally this is done by a Fourier transform), converts a constant-coefficient PDE into a polynomial of the same degree, with the top degree (a homogeneous polynomial, here a quadratic form) being most significant for the classification.
-
-Just as one classifies conic sections and quadratic forms into parabolic, hyperbolic, and elliptic based on the discriminant $B^2 - 4AC$, the same can be done for a second-order PDE at a given point. 
-
-\underline{note:} these classifications only apply to second order PDEs. 
-
-If there are $n$ independent variables $x_1, x_2 , \dots, x_n$, a general linear partial differential equation of second order has the form
-%
-\begin{equation}
-Lu = \sum_{i=1}^n \sum_{j=1}^n a_{i,j} \frac{\partial^2 u}{\partial x_i x_j} + \text{ Lower Order Terms } = 0 \nonumber
-\end{equation}
-%
-The classification depends upon the signature of the eigenvalues of the coefficient matrix $a_{i,j}$.
-\begin{enumerate}
-\item \underline{Elliptic}: The eigenvalues are all positive or all negative.
-\item \underline{Parabolic}: The eigenvalues are all positive or all negative, save one that is zero.
-\item \underline{Hyperbolic}: There is only one negative eigenvalue and all the rest are positive, or there is only one positive eigenvalue and all the rest are negative.
-\item \underline{Ultrahyperbolic}: There is more than one positive eigenvalue and more than one negative eigenvalue, and there are no zero eigenvalues. There is only limited theory for ultrahyperbolic equations (Courant and Hilbert, 1962).
-\end{enumerate}
-
-%-------------------------------------------------------------
 %-------------------------------------------------------------
 \section{Vector Review}
 
-A real $n$-dimensional vector $\bar{x}$ is an ordered set of $n$ real numbers:
+A real $n$-dimensional vector $\bar{x}$ is an ordered set of $n$ real numbers that expresses magnitude and direction:
 %
 \begin{equation}
 \bar{x} = (x_1, x_2, \dots, x_n) \nonumber
@@ -100,21 +70,33 @@ A real $n$-dimensional vector $\bar{x}$ is an ordered set of $n$ real numbers:
 \textbf{Properties}:
 %
 \begin{enumerate}
-\item sum: $\bar{x} + \bar{y} = (x_1 + y_1, x_2 + y_2, \dots, x_n + y_n)$
+\item sum: two vectors of the same size give a new vector of that size: $\bar{x} + \bar{y} = (x_1 + y_1, x_2 + y_2, \dots, x_n + y_n)$
+
 \item scalar multiple: $c\bar{x} = (cx_1, cx_2, \dots, cx_n)$
-\item dot product: $\bar{x} \cdot \bar{y} = (x_1 y_1, x_2 y_2, \dots, x_n y_n)$
+
 \item Euclidean norm (length): $||\bar{x}|| = (x_1^2 + x_2^2 + \dots + x_n^2)^{1/2}$
+
+\item dot product: takes two equal length vectors and results in a scalar. 
+
+Algebraically, it is the sum of the products of the corresponding entries of the two sequences of numbers: $\bar{x} \cdot \bar{y} = \sum_{i=1}^n a_i b_i = x_1 y_1 + x_2 y_2 + \dots + x_n y_n$
+
+Geometrically, it is the product of the magnitudes of the two vectors and the cosine of the angle between them. $\bar{x} \cdot \bar{y} = ||\bar{x}|| ||\bar{y}|| cos\theta$.
+
 \item $||\bar{x}||^2 = \bar{x} \cdot \bar{x}$
+
 \item distance from $\bar{x}$ to $\bar{y}$: $||\bar{x} - \bar{y}|| = ((x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_n - y_n)^2)^{1/2}$
+
 \item commutative property: $\bar{x} + \bar{y} = \bar{y} + \bar{x}$
+
 \item associative property: $(\bar{x} + \bar{y}) + \bar{z} = \bar{x} + (\bar{y} + \bar{z})$
+
 \item distributive property: $c(\bar{x} + \bar{y}) = c\bar{x} + c\bar{y}$
 \end{enumerate}
 
 
 %-------------------------------------------------------------
 %-------------------------------------------------------------
-\section{matrices}
+\section{Matrices}
 
 \begin{align}
     \ve{A} &= [a_{ij}]_{m\times n}   =    \begin{pmatrix}
@@ -136,22 +118,168 @@ $\ve{A} \in \mathbb{C}^{m \times n}$ is an $m \times n$ complex matrix
 %
 \begin{enumerate}
 \item sum: $\ve{A} + \ve{B} = [a_{ij} + b_{ij}]_{m \times n}$
+
 \item scalar multiple: $c\ve{A} = [c a_{ij}]_{m \times n}$
-\item multiplication: $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times p}$, and $\ve{C} \in \mathbb{C}^{m \times p}$, then $c_{ij} = \sum_{k=1}^n a_{ik} b_{kj}$
+
+\item multiplication: $\ve{C} = \ve{A}\ve{B}$;
+
+$\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times p}$, and $\ve{C} \in \mathbb{C}^{m \times p}$, then $c_{ij} = \sum_{k=1}^n a_{ik} b_{kj}$
+
+$\ve{A}\ve{B} \neq \ve{B}\ve{A}$
+
 \item commutative property: $\ve{A} + \ve{B} = \ve{B} + \ve{A}$
+
 \item associative property: $(\ve{A} + \ve{B}) + \ve{C} = \ve{A} + (\ve{B} + \ve{C})$
-\item distributive property: $c(\ve{A} + \ve{B}) = c\ve{A} + c\ve{A}$
+
+\item distributive property: $c(\ve{A} + \ve{B}) = c\ve{A} + c\ve{B}$
+
 \end{enumerate}
 
 
+%-------------------------------------------------------------
 \subsection{Definitions}
 
 Given $\ve{A} \in \mathbb{C}^{m \times n}$, \ve{A} is
 %
 \begin{enumerate}
-\item Symmetric if $\ve{A} = \ve{A}^T$; to create $\ve{A}^T$ $a_{ij} \rightarrow a_{ji}$
-\item 
+\item Transpose: $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times m} = \ve{A}^T from$
+
+$b_{	ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
+
+\item Conjugate Transpose / adjoint, $\ve{A}^H = \bar{\ve{A}^T}$ is the complex conjugate of the transpose. 
+
+\item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal.
+
+If this exists, $\ve{A}$ is non-singular / invertible. If the inverse exists, it is unique.
+
+\item Symmetric if $\ve{A} = \ve{A}^T$
+
+\item Antisymmetric / skew-symmetric if $\ve{A}^H = -\ve{A}$
+
+\item Hermitian / self-adjoint if $\ve{A} = \ve{A}^H$
+
+\item Regular if $\ve{A}^{-1}$ exists
+
+\item Unitary if $\ve{A}\ve{A}^H = \ve{I}$
+
+\item Normal if $\ve{A}\ve{A}^H = \ve{A}^H\ve{A}$
 \end{enumerate}
+
+
+%-------------------------------------------------------------
+\subsection{Special Matrices}
+\begin{itemize}
+\item Tridiagonal matrix has entries on only the main, upper, and lower diagonal
+\item Lower triangular has entries on the diagonal and below
+\item Upper triangular has entries on the diagonal and above 
+\item Block Tridagonal has blocks of elements (like sub-matrices) on the diagonal. The blocks may be full or only partially full.
+\end{itemize}
+
+The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal matrix
+
+
+%-------------------------------------------------------------
+\subsection{Minors, Cofactors, Determinants}
+
+Good illustration: http://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html
+
+%If $\ve{A}$ is an $m \times n$ matrix and $k$ is an integer such that $0 < k \leq m$ and $k \leq n$ then a \textbf{$k \times k$ minor}, $M_{kk}$ of $\ve{A}$ is the determinant of the $k \times k$ matrix formed by deleting $m-k$ rows and $n-k$ columns. 
+
+For a square matrix, the \textbf{first order minor}, $M_{ij}$ just deletes the $i^{th}$ row and $j^{th}$ column and takes the determinant. E.g.
+%
+\begin{align}
+    \ve{A} &= \begin{pmatrix}
+        1 & 4 & 7 \\
+        3 & 0 & 5 \\
+        -1 & 9 & 11 \\
+    \end{pmatrix} 
+    \qquad
+    &M_{23} = \text{det}\begin{pmatrix}
+       1 & 4 \\
+       -1 & 9 
+    \end{pmatrix}   
+    = ((1 \times 9) - (4 \times -1)) = 13 \nonumber
+\end{align} 
+
+The corresponding $i,j$ \textbf{cofactor} of $\ve{A}$ is
+%
+\begin{equation}
+C_{ij} = (-1)^{i+j} M_{ij} \nonumber
+\end{equation}
+%
+You can compute minors and cofactors for all of $\ve{A}$. The $n \times n$ matrix containing all of the cofactors is denoted $\ve{C}$ in this context.
+
+Using these terms, the determinant can be defined in terms of the Laplace expansion
+%
+\begin{equation}
+\text{det}(\ve{A}) = \sum_{j=1}^n a_{ij} C_{ij} = \sum_{i=1}^n a_{ij} C_{ij} \nonumber
+\end{equation}
+
+For the above matrix, lets look at the laplace expansion along the second column ($j = 2$; sum runs over $i$)
+\begin{align}
+\text{det}(\ve{A}) &= (-1)^{1+2} a_{12} M_{12} + (-1)^{2+2} a_{22} M_{22} + (-1)^{3+2} a_{32} M_{32} \nonumber \\
+%
+&= (-1)^{1+2} \cdot 4 \cdot \text{det}\begin{pmatrix}
+        3 & 5 \\
+        -1 & 11 \\ \end{pmatrix} + (-1)^{2+2} \cdot 0 \cdot \text{det}\begin{pmatrix} 
+        1 & 7 \\
+        -1 & 11 \\ \end{pmatrix} + (-1)^{3+2} \cdot 9 \cdot \text{det}\begin{pmatrix} 
+        1 & 7 \\
+        3 & 5 \\\end{pmatrix} \nonumber \\
+%
+&= -4 \cdot ((3 \cdot 11) - (5 \cdot -1)) + 0 -9 \cdot ((1 \cdot 5) - (7 \cdot 3)) = -8 \nonumber
+\end{align}
+
+
+\textbf{Properties of Determinants}
+\begin{itemize}
+\item det($\alpha\ve{A}$) = $\alpha^N$ det($\ve{A}$)
+
+\item det($\ve{A}^T$) = det($\ve{A}$)
+
+\item det($\ve{A}^{-1}$) = 1/det($\ve{A}$)
+
+\item det($\ve{AB}$) = det($\ve{A}$)det($\ve{B}$)
+
+\item det($\ve{A}^n$) = [det($\ve{A}$)]$^n$
+
+\item in general, det($\ve{A + B}$) $\neq$ det($\ve{A}$) + det($\ve{B}$) 
+\end{itemize}
+
+The inverse of $\ve{A}$ can be obtained from the determinant and cofactor matrix:
+%
+\begin{equation}
+\ve{A}^{-1} = \frac{1}{\text{det}(\ve{A})}\ve{C}^T \nonumber
+\end{equation}
+%
+If the determinant is zero, then the matrix is singular.
+
+A real matrix where $\ve{A}^{-1} = \ve{A}^T$ is called \textbf{orthogonal}
+
+
+%-------------------------------------------------------------
+\subsection{Equations, Inverting $\ve{A}$}
+
+We often write systems of equations as $\ve{A}\bar{x} = \bar{b}$ from
+\begin{align}
+&a_{11} x_1 + a_{12} x_2 + \dots + a_{1n} x_n = b_1 \nonumber \\
+&\vdots \nonumber \\
+&a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nn} x_n = b_n \nonumber
+\end{align}
+
+To find $\bar{x}$, we need to find a way to affect $\ve{A}^{-1}\bar{b}$. This can be done many many ways, and the first thing we'll talk about are methods for inverting the matrix.
+
+\subsubsection{LU Decomposition}
+We can often decompose $\ve{A}$ into an upper and lower triangular matrix
+%
+\begin{align}
+\ve{A} &= \ve{L}\ve{U} \qquad \text{and then} \nonumber \\
+%
+\text{det}(\ve{A}) &= \text{det}(\ve{L}) \text{det}(\ve{U}) \qquad \text{and} \nonumber \\
+%
+\ve{A}^{-1} &= \ve{U}^{-1}\ve{L}^{-1} \nonumber
+\end{align}
+
 
 
 \end{document}
