@@ -1,5 +1,5 @@
 %--------------------------------------------------------------------
-% nE 155 (intro to numerical simulation of radiation transport)
+% NE 155 (intro to numerical simulation of radiation transport)
 % Linear Algebra Lecture
 % Spring 2014
 
@@ -48,7 +48,7 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf nE 155, Class 4 and 5, S14 \\
+{\bf NE 155, Class 4 and 5, S14 \\
 Types of Equations cont'd + TE + DE \\ January 29 and 31, 2014}
 \end{center}
 
@@ -92,7 +92,6 @@ Geometrically, it is the product of the magnitudes of the two vectors and the co
 
 \item distributive property: $c(\bar{x} + \bar{y}) = c\bar{x} + c\bar{y}$
 \end{enumerate}
-
 
 %-------------------------------------------------------------
 %-------------------------------------------------------------
@@ -167,15 +166,37 @@ If this exists, $\ve{A}$ is non-singular / invertible. If the inverse exists, it
 
 
 %-------------------------------------------------------------
-\subsection{Special Matrices}
+%-------------------------------------------------------------
+\subsection{Equations and Special Matrices}
+
+We often write systems of equations as $\ve{A}\bar{x} = \bar{b}$ from
+\begin{align}
+&a_{11} x_1 + a_{12} x_2 + \dots + a_{1n} x_n = b_1 \nonumber \\
+&\vdots \nonumber \\
+&a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nn} x_n = b_n \nonumber
+\end{align}
+
+To find $\bar{x}$, we need to find a way to affect $\ve{A}^{-1}\bar{b}$. This can be done many many ways, and the first thing we'll talk about are methods for inverting the matrix.
+
 \begin{itemize}
 \item Tridiagonal matrix has entries on only the main, upper, and lower diagonal
 \item Lower triangular has entries on the diagonal and below
 \item Upper triangular has entries on the diagonal and above 
-\item Block Tridagonal has blocks of elements (like sub-matrices) on the diagonal. The blocks may be full or only partially full.
+\item Block Tridagonal has blocks of elements (like sub-matrices) on the diagonal. The blocks may be full or only partially full. The blocks look like $\ve{D}_k = [\ve{D_{ij}}]_k$
 \end{itemize}
 
 The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal matrix
+
+\textbf{Theorem}: The following are equivalent (see Math 54 or a textbook for proof)
+%
+\begin{enumerate}
+\item $\ve{A}$ is regular
+\item Rank($\ve{A}$) = n
+\item $\ve{A}\bar{x} = 0$ iff $x=0$
+\item $\ve{A}\bar{x} = \bar{b}$ is uniquely solveable $\forall \bar{b}$
+\item det($\ve{A}) \neq 0$
+\end{enumerate}
+
 
 
 %-------------------------------------------------------------
@@ -258,27 +279,39 @@ A real matrix where $\ve{A}^{-1} = \ve{A}^T$ is called \textbf{orthogonal}
 
 
 %-------------------------------------------------------------
-\subsection{Equations, Inverting $\ve{A}$}
-
-We often write systems of equations as $\ve{A}\bar{x} = \bar{b}$ from
-\begin{align}
-&a_{11} x_1 + a_{12} x_2 + \dots + a_{1n} x_n = b_1 \nonumber \\
-&\vdots \nonumber \\
-&a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nn} x_n = b_n \nonumber
-\end{align}
-
-To find $\bar{x}$, we need to find a way to affect $\ve{A}^{-1}\bar{b}$. This can be done many many ways, and the first thing we'll talk about are methods for inverting the matrix.
-
-\subsubsection{LU Decomposition}
-We can often decompose $\ve{A}$ into an upper and lower triangular matrix
+\section{Norms}
+\subsection{Vector Norms}
+Given $\bar{x}, \bar{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
 %
-\begin{align}
-\ve{A} &= \ve{L}\ve{U} \qquad \text{and then} \nonumber \\
+\begin{enumerate}
+\item $||\bar{x}|| > 0$ and $||\bar{x}|| = 0$ iff $\bar{•} = 0$ (positive definite)
+\item $||\bar{x} + \bar{y}|| \leq ||\bar{x}|| + ||\bar{y}||$ (triangle inequality)
+\item $||\alpha \bar{x}|| = |\alpha| ||\bar{x}||$ (homogeneous)
+\end{enumerate}
+
+The p-norm:
 %
-\text{det}(\ve{A}) &= \text{det}(\ve{L}) \text{det}(\ve{U}) \qquad \text{and} \nonumber \\
+\begin{equation}
+||\bar{x}||_p \equiv (|x_1|^p + |x_2|^p + \dots + |x_n|^p)^{1/p} \qquad p \geq 1 \nonumber
+\end{equation}
 %
-\ve{A}^{-1} &= \ve{U}^{-1}\ve{L}^{-1} \nonumber
-\end{align}
+\begin{itemize}
+\item $||\bar{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
+\item $||\bar{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
+\item $||\bar{x}||_{\infty} \equiv \text{max}_{1 \leq i \leq n} |x_1|$
+\end{itemize}
+
+
+%\subsubsection{LU Decomposition}
+%We can often decompose $\ve{A}$ into an upper and lower triangular matrix
+%%
+%\begin{align}
+%\ve{A} &= \ve{L}\ve{U} \qquad \text{and then} \nonumber \\
+%%
+%\text{det}(\ve{A}) &= \text{det}(\ve{L}) \text{det}(\ve{U}) \qquad \text{and} \nonumber \\
+%%
+%\ve{A}^{-1} &= \ve{U}^{-1}\ve{L}^{-1} \nonumber
+%\end{align}
 
 
 
