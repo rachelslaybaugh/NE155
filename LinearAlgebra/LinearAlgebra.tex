@@ -101,9 +101,9 @@ Geometrically, it is the product of the magnitudes of the two vectors and the co
     \ve{A} &= [a_{ij}]_{m\times n}   =    \begin{pmatrix}
       a_{11} & a_{12} & \cdots & a_{1j} & \cdots & a_{1n} \\
       a_{21} & a_{22} & \cdots & a_{2j} & \cdots & a_{2n} \\
-       \vdots & \vdots & \ddots & \vdots & \vdots   & \vdots \\     
+       \vdots & \vdots & \ddots & \vdots & \ddots   & \vdots \\     
       a_{31} & a_{32} & \cdots & a_{ij} & \cdots & a_{in} \\
-      \vdots & \vdots & \vdots & \vdots & \ddots   & \vdots \\
+      \vdots & \vdots & \ddots & \vdots & \ddots   & \vdots \\
       a_{m1} & a_{m2} & \cdots & a_{mj} & \cdots & a_{mn} \\
     \end{pmatrix} \nonumber   
 \end{align} 
@@ -145,7 +145,7 @@ Given $\ve{A} \in \mathbb{C}^{m \times n}$, \ve{A} is
 
 $b_{	ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
 
-\item Conjugate Transpose / adjoint, $\ve{A}^H = \bar{\ve{A}^T}$ is the complex conjugate of the transpose. 
+\item Conjugate Transpose / adjoint, $\ve{A}^H = \overline{\ve{A}^T}$ is the complex conjugate of the transpose. 
 
 \item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal.
 
@@ -284,7 +284,7 @@ A real matrix where $\ve{A}^{-1} = \ve{A}^T$ is called \textbf{orthogonal}
 Given $\bar{x}, \bar{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
 %
 \begin{enumerate}
-\item $||\bar{x}|| > 0$ and $||\bar{x}|| = 0$ iff $\bar{•} = 0$ (positive definite)
+\item $||\bar{x}|| > 0$ and $||\bar{x}|| = 0$ iff $\bar{x} = 0$ (positive definite)
 \item $||\bar{x} + \bar{y}|| \leq ||\bar{x}|| + ||\bar{y}||$ (triangle inequality)
 \item $||\alpha \bar{x}|| = |\alpha| ||\bar{x}||$ (homogeneous)
 \end{enumerate}
@@ -298,8 +298,12 @@ The p-norm:
 \begin{itemize}
 \item $||\bar{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
 \item $||\bar{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
-\item $||\bar{x}||_{\infty} \equiv \displaystyle\text{max}_{1 \leq i \leq n} |x_1|$
+\item $||\bar{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
 \end{itemize}
+
+------------------------------------------------------------------
+Does anyone have a preference for a first midterm date of Monday, March 17 vs.\ Wednesday, March 19? Straw poll... The second midterm will be in either the last week or second-to-last week of April. Likely the second-to-last.
+------------------------------------------------------------------ 
 
 \subsection{Inner Products}
 Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
@@ -336,6 +340,8 @@ This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offe
 %
 & ||\bar{x}||_2 \leq ||\bar{x}||_1 \leq \sqrt[]{n} ||\bar{x}||_2 \nonumber
 \end{align}
+
+The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
 
 Example: let's show the last item. We will use the Signum function, which extracts the sign of a real number
 \begin{align}
@@ -376,6 +382,100 @@ Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, w
 \end{equation}
 
 \subsection{Matrix Norms}
+Given $\ve{A}, \ve{B} \in \mathcal{R}^{m \times n}$, a matrix norm, denoted by $|| \cdot ||$, has the following properties:
+%
+\begin{enumerate}
+\item $||\ve{A}|| > 0$ and $||\ve{A}|| = 0$ iff $\ve{A} = 0$ (positive definite)
+\item $||\ve{A} + \ve{B}|| \leq ||\ve{A}|| + ||\ve{B}||$ (triangle inequality)
+\item $||\alpha \ve{A}|| = |\alpha| ||\ve{A}||$ (homogeneous)
+\end{enumerate}
+
+E.g., the Frobenius norm 
+%
+\begin{equation}
+||\ve{A}||_F = ( \sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2 )^2 \nonumber
+\end{equation}
+
+\textbf{Definitions}:
+\begin{itemize}
+\item submultiplicative if $||\ve{A} \ve{B}|| \leq ||\ve{A}|| ||\ve{B}||$
+
+\item Not all norms are submultiplicative, we will only deal with those that are. 
+
+\item subordinate matrix norm for $\ve{A} \in \mathcal{R}_{m \times n}$ and $\bar{x} \in \mathcal{R}_n$:
+
+$||\ve{A}|| \equiv \displaystyle \sup_{\bar{x} \neq \bar{0}} ||\ve{A}\bar{x}|| / ||\bar{x}||$
+
+\item \textbf{supremum}, or least upper bound, of a set S of real numbers is denoted by sup S and is defined to be the smallest real number that is greater than or equal to every number in S.
+\end{itemize}
+
+\textbf{examples:}
+%
+\begin{align}
+||\ve{A}||_{1} &= \displaystyle \sup_{\bar{x} \neq \bar{0}} \frac{||\ve{A}\bar{x}||_{1}}{||\bar{x}||_{1}} =
+\displaystyle \max_{1 \leq j \leq n} \sum_{j=1}^m |a_{ij}| \qquad \text{max absolute col sum} \nonumber \\
+%
+||\ve{A}||_{\infty} &= \displaystyle \sup_{\bar{x} \neq \bar{0}} \frac{||\ve{A}\bar{x}||_{\infty}}{||\bar{x}||_{\infty}} = 
+\displaystyle \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| \qquad \text{max absolute row sum}\nonumber \\
+%
+||\ve{A}||_{2} &= \displaystyle \sup_{\bar{x} \neq \bar{0}} \frac{||\ve{A}\bar{x}||_{2}}{||\bar{x}||_{2}} = \text{ the spectral radius of }\ve{A} \nonumber 
+\end{align}
+
+The equivalence of norms we talked about with vectors also holds here. Some of the relationships are
+%
+\begin{align}
+||\ve{A}||_{2} &\leq ||\ve{A}||_{F} \leq \sqrt{n}||\ve{A}||_{2} \nonumber \\
+%
+\frac{1}{\sqrt{n}}||\ve{A}||_{\infty} &\leq ||\ve{A}||_{2} \leq \sqrt{m}||\ve{A}||_{\infty} \nonumber \\
+%
+\frac{1}{\sqrt{m}}||\ve{A}||_{1} &\leq ||\ve{A}||_{2} \leq \sqrt{n}||\ve{A}||_{2} \nonumber
+\end{align}
+
+Again, as with vector norms, showing a property in some matrix norms implies that property in other matrix norms (which may be harder to compute). The inequalities above may not be `sharp'.
+
+%--------------------------------------------------------------------------
+\section{Eigenvalues}
+
+The spectrum of eigenvalues of a matrix $\ve{A}$ are defined formally as
+\[\sigma(\ve{A}) = [ \lambda \in \mathcal{C} : \det(\ve{A} - \lambda \ve{I})=0] \] 
+and an eigenvalue is 
+\[ \lambda \in \sigma(\ve{A}) \]
+%
+\begin{itemize}
+\item The `characteristic polynomial' of $\ve{A}$ is
+\[P(\lambda) = \det(\ve{A} - \lambda \ve{I})\]
+\item Eigenvalues may be real or complex. 
+\item $\sigma(\ve{A}) = \sigma(\ve{A}^T)$
+\item $\overline{\sigma(\ve{A})} = \sigma(\ve{A}^H)$
+\end{itemize}
+
+\subsection{Spectral radius} 
+
+The spectral radius of $\ve{A}$ is defined as 
+\[\rho(\ve{A}) \equiv \max \lbrace |\lambda|, \lambda \in \sigma(\ve{A})\]
+With the properties:
+%
+\begin{itemize}
+\item $\rho(\ve{A})^k = \rho(\ve{A}^k)$
+\item $\rho(\ve{A}) = \rho(\ve{A}^T)$
+\item $\rho(\xi \ve{A})^k = |\xi| \rho(\ve{A})$
+\end{itemize}
+
+%\subsection{Information}
+%The eigenvalues of a matrix satisfy $\ve{A}x = \lambda x$. 
+%%
+%\begin{itemize}
+%\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
+%\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
+%\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
+%%\item Several eigenvectors can have the same eigenvalue
+%\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
+%\end{itemize}
+
+\textbf{example}
+Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
+\[\ve{A}\bar{x} = \lambda x \qquad \text{and } \bar{x} \neq \bar{0}\]
+and recall that $\ve{A} = \ve{A}^H = \overline{\ve{A}^T}$ defines a Hermitian matrix. 
 
 
 %\subsubsection{LU Decomposition}
