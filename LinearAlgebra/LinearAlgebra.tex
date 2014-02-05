@@ -43,6 +43,9 @@
 \newcommand{\macro}{\ensuremath{\Sigma}}
 \newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
 
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
@@ -61,36 +64,36 @@ Types of Equations cont'd + TE + DE \\ January 29 and 31, 2014}
 %-------------------------------------------------------------
 \section{Vector Review}
 
-A real $n$-dimensional vector $\bar{x}$ is an ordered set of $n$ real numbers that expresses magnitude and direction:
+A real $n$-dimensional vector $\vec{x}$ is an ordered set of $n$ real numbers that expresses magnitude and direction:
 %
 \begin{equation}
-\bar{x} = (x_1, x_2, \dots, x_n) \nonumber
+\vec{x} = (x_1, x_2, \dots, x_n) \nonumber
 \end{equation}
 
 \textbf{Properties}:
 %
 \begin{enumerate}
-\item sum: two vectors of the same size give a new vector of that size: $\bar{x} + \bar{y} = (x_1 + y_1, x_2 + y_2, \dots, x_n + y_n)$
+\item sum: two vectors of the same size give a new vector of that size: $\vec{x} + \vec{y} = (x_1 + y_1, x_2 + y_2, \dots, x_n + y_n)$
 
-\item scalar multiple: $c\bar{x} = (cx_1, cx_2, \dots, cx_n)$
+\item scalar multiple: $c\vec{x} = (cx_1, cx_2, \dots, cx_n)$
 
-\item Euclidean norm (length): $||\bar{x}|| = (x_1^2 + x_2^2 + \dots + x_n^2)^{1/2}$
+\item Euclidean norm (length): $||\vec{x}|| = (x_1^2 + x_2^2 + \dots + x_n^2)^{1/2}$
 
 \item dot product: takes two equal length vectors and results in a scalar. 
 
-Algebraically, it is the sum of the products of the corresponding entries of the two sequences of numbers: $\bar{x} \cdot \bar{y} = \sum_{i=1}^n a_i b_i = x_1 y_1 + x_2 y_2 + \dots + x_n y_n$
+Algebraically, it is the sum of the products of the corresponding entries of the two sequences of numbers: $\vec{x} \cdot \vec{y} = \sum_{i=1}^n a_i b_i = x_1 y_1 + x_2 y_2 + \dots + x_n y_n$
 
-Geometrically, it is the product of the magnitudes of the two vectors and the cosine of the angle between them. $\bar{x} \cdot \bar{y} = ||\bar{x}|| ||\bar{y}|| cos\theta$.
+Geometrically, it is the product of the magnitudes of the two vectors and the cosine of the angle between them. $\vec{x} \cdot \vec{y} = ||\vec{x}|| ||\vec{y}|| cos\theta$.
 
-\item $||\bar{x}||^2 = \bar{x} \cdot \bar{x}$
+\item $||\vec{x}||^2 = \vec{x} \cdot \vec{x}$
 
-\item distance from $\bar{x}$ to $\bar{y}$: $||\bar{x} - \bar{y}|| = ((x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_n - y_n)^2)^{1/2}$
+\item distance from $\vec{x}$ to $\vec{y}$: $||\vec{x} - \vec{y}|| = ((x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_n - y_n)^2)^{1/2}$
 
-\item commutative property: $\bar{x} + \bar{y} = \bar{y} + \bar{x}$
+\item commutative property: $\vec{x} + \vec{y} = \vec{y} + \vec{x}$
 
-\item associative property: $(\bar{x} + \bar{y}) + \bar{z} = \bar{x} + (\bar{y} + \bar{z})$
+\item associative property: $(\vec{x} + \vec{y}) + \vec{z} = \vec{x} + (\vec{y} + \vec{z})$
 
-\item distributive property: $c(\bar{x} + \bar{y}) = c\bar{x} + c\bar{y}$
+\item distributive property: $c(\vec{x} + \vec{y}) = c\vec{x} + c\vec{y}$
 \end{enumerate}
 
 %-------------------------------------------------------------
@@ -145,7 +148,7 @@ Given $\ve{A} \in \mathbb{C}^{m \times n}$, \ve{A} is
 
 $b_{	ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
 
-\item Conjugate Transpose / adjoint, $\ve{A}^H = \overline{\ve{A}^T}$ is the complex conjugate of the transpose. 
+\item Conjugate Transpose / adjoint, $\ve{A}^H = \cc{\ve{A}^T}$ is the complex conjugate of the transpose. 
 
 \item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal.
 
@@ -169,14 +172,14 @@ If this exists, $\ve{A}$ is non-singular / invertible. If the inverse exists, it
 %-------------------------------------------------------------
 \subsection{Equations and Special Matrices}
 
-We often write systems of equations as $\ve{A}\bar{x} = \bar{b}$ from
+We often write systems of equations as $\ve{A}\vec{x} = \vec{b}$ from
 \begin{align}
 &a_{11} x_1 + a_{12} x_2 + \dots + a_{1n} x_n = b_1 \nonumber \\
 &\vdots \nonumber \\
 &a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nn} x_n = b_n \nonumber
 \end{align}
 
-To find $\bar{x}$, we need to find a way to affect $\ve{A}^{-1}\bar{b}$. This can be done many many ways, and the first thing we'll talk about are methods for inverting the matrix.
+To find $\vec{x}$, we need to find a way to affect $\ve{A}^{-1}\vec{b}$. This can be done many many ways, and the first thing we'll talk about are methods for inverting the matrix.
 
 \begin{itemize}
 \item Tridiagonal matrix has entries on only the main, upper, and lower diagonal
@@ -192,8 +195,8 @@ The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal 
 \begin{enumerate}
 \item $\ve{A}$ is regular
 \item Rank($\ve{A}$) = n
-\item $\ve{A}\bar{x} = 0$ iff $x=0$
-\item $\ve{A}\bar{x} = \bar{b}$ is uniquely solveable $\forall \bar{b}$
+\item $\ve{A}\vec{x} = 0$ iff $x=0$
+\item $\ve{A}\vec{x} = \vec{b}$ is uniquely solveable $\forall \vec{b}$
 \item det($\ve{A}) \neq 0$
 \end{enumerate}
 
@@ -281,38 +284,38 @@ A real matrix where $\ve{A}^{-1} = \ve{A}^T$ is called \textbf{orthogonal}
 %-------------------------------------------------------------
 \section{Norms and Convergence}
 \subsection{Vector Norms}
-Given $\bar{x}, \bar{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
+Given $\vec{x}, \vec{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
 %
 \begin{enumerate}
-\item $||\bar{x}|| > 0$ and $||\bar{x}|| = 0$ iff $\bar{x} = 0$ (positive definite)
-\item $||\bar{x} + \bar{y}|| \leq ||\bar{x}|| + ||\bar{y}||$ (triangle inequality)
-\item $||\alpha \bar{x}|| = |\alpha| ||\bar{x}||$ (homogeneous)
+\item $||\vec{x}|| > 0$ and $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
+\item $||\vec{x} + \vec{y}|| \leq ||\vec{x}|| + ||\vec{y}||$ (triangle inequality)
+\item $||\alpha \vec{x}|| = |\alpha| ||\vec{x}||$ (homogeneous)
 \end{enumerate}
 
 The p-norm:
 %
 \begin{equation}
-||\bar{x}||_p \equiv (|x_1|^p + |x_2|^p + \dots + |x_n|^p)^{1/p} \qquad p \geq 1 \nonumber
+||\vec{x}||_p \equiv (|x_1|^p + |x_2|^p + \dots + |x_n|^p)^{1/p} \qquad p \geq 1 \nonumber
 \end{equation}
 %
 \begin{itemize}
-\item $||\bar{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
-\item $||\bar{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
-\item $||\bar{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
+\item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
+\item $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
+\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
 \end{itemize}
 
-------------------------------------------------------------------
-Does anyone have a preference for a first midterm date of Monday, March 17 vs.\ Wednesday, March 19? Straw poll... The second midterm will be in either the last week or second-to-last week of April. Likely the second-to-last.
+------------------------------------------------------------------\\
+Does anyone have a preference for a first midterm date of Monday, March 17 vs.\ Wednesday, March 19? Straw poll... The second midterm will be in either the last week or second-to-last week of April. Likely the second-to-last.\\
 ------------------------------------------------------------------ 
 
 \subsection{Inner Products}
 Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
 %
 \begin{itemize}
-\item bi-linear (depends on two arguments) $< \bar{x}, \bar{y} >$
-\item symmetric $< \bar{x}, \bar{y} > = < \bar{y}, \bar{x} >$
-\item linear $< \bar{x} + \alpha \bar{z}, \bar{y} > = < \bar{x}, \bar{y} > + \alpha < \bar{y}, \bar{z} >$
-\item positive $< \bar{x}, \bar{x} >$ $>$ 0 for $\bar{x} \neq 0$
+\item bi-linear (depends on two arguments) $< \vec{x}, \vec{y} >$
+\item symmetric $< \vec{x}, \vec{y} > = < \vec{y}, \vec{x} >$
+\item linear $< \vec{x} + \alpha \vec{z}, \vec{y} > = < \vec{x}, \vec{y} > + \alpha < \vec{y}, \vec{z} >$
+\item positive $< \vec{x}, \vec{x} >$ $>$ 0 for $\vec{x} \neq 0$
 \end{itemize}
 
 The dot product is also known as the Euclidean inner product. One can define many inner products, but in this class assume we're using the Euclidean inner product (dot product) unless otherwise specified. 
@@ -323,22 +326,22 @@ We can use the concepts of norms and inner products to develop some relationship
 The Cauchy-Schwartz inequality states
 %
 \begin{equation}
-< \bar{x}, \bar{y} > \leq ||\bar{x}||_2 ||\bar{y}||_2 \nonumber
+< \vec{x}, \vec{y} > \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
 \end{equation}
 %
-Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \bar{x} \in \mathcal{R}^n$
+Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \vec{x} \in \mathcal{R}^n$
 %
 \begin{equation}
-C_1 ||\bar{x}||_a \leq ||\bar{x}||_b \leq C_2 ||\bar{x}||_a \qquad \text{where } C_1, C_2 = f(n) \nonumber
+C_1 ||\vec{x}||_a \leq ||\vec{x}||_b \leq C_2 ||\vec{x}||_a \qquad \text{where } C_1, C_2 = f(n) \nonumber
 \end{equation}
 %
 This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offered without proof). E.g.:
 \begin{align}
-& ||\bar{x}||_{\infty} \leq ||\bar{x}||_2 \leq \sqrt[]{n} ||\bar{x}||_{\infty} \nonumber \\
+& ||\vec{x}||_{\infty} \leq ||\vec{x}||_2 \leq \sqrt[]{n} ||\vec{x}||_{\infty} \nonumber \\
 %
-& ||\bar{x}||_{\infty} \leq ||\bar{x}||_1 \leq n ||\bar{x}||_{\infty} \nonumber \\
+& ||\vec{x}||_{\infty} \leq ||\vec{x}||_1 \leq n ||\vec{x}||_{\infty} \nonumber \\
 %
-& ||\bar{x}||_2 \leq ||\bar{x}||_1 \leq \sqrt[]{n} ||\bar{x}||_2 \nonumber
+& ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
 \end{align}
 
 The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
@@ -353,32 +356,32 @@ Example: let's show the last item. We will use the Signum function, which extrac
 Let's define $v_i$ as sign$(x_i)$. Then
 %
 \begin{align}
-&< \bar{x}, \bar{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| \nonumber \\
+&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| \nonumber \\
 %
 &\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
 %
-&< \bar{x}, \bar{v} > \leq ||\bar{x}||_2 ||\bar{v}||_2 \nonumber \\
+&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
 %
-&\text{and we can give an upper bound of } ||\bar{v}||_2 \leq \sqrt[]{n} \nonumber \\ 
+&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt[]{n} \nonumber \\ 
 %
-&\text{thus } ||\bar{x}||_2 \leq ||\bar{x}||_1 \leq \sqrt[]{n} ||\bar{x}||_2 \nonumber
+&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
 \end{align}
 
 Norm equivalence is very important because if we can prove some property (usually convergence or an error bound) in \textbf{some} norm, we have effectively proven it in \textbf{all} norms. 
 
 \subsubsection{Error}
-For $\bar{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm p we define
+For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm p we define
 %
 \begin{itemize}
-\item Absolute error: $||\hat{x} - \bar{x}||_p$
-\item Relative error: $||\hat{x} - \bar{x}||_p / ||\bar{x}||$, where $\bar{x} \neq 0$
+\item Absolute error: $||\hat{x} - \vec{x}||_p$
+\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||$, where $\vec{x} \neq 0$
 \end{itemize}
 
 \subsubsection{Convergence}
-Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, we say that $\lbrace x^{(k)} \rbrace$ converges to $\bar{x}$ if
+Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, we say that $\lbrace x^{(k)} \rbrace$ converges to $\vec{x}$ if
 %
 \begin{equation}
-\displaystyle\text{lim}_{k \rightarrow \infty} ||x^{(k)} - \bar{x}|| = 0 \nonumber
+\displaystyle\text{lim}_{k \rightarrow \infty} ||x^{(k)} - \vec{x}|| = 0 \nonumber
 \end{equation}
 
 \subsection{Matrix Norms}
@@ -402,9 +405,9 @@ E.g., the Frobenius norm
 
 \item Not all norms are submultiplicative, we will only deal with those that are. 
 
-\item subordinate matrix norm for $\ve{A} \in \mathcal{R}_{m \times n}$ and $\bar{x} \in \mathcal{R}_n$:
+\item subordinate matrix norm for $\ve{A} \in \mathcal{R}_{m \times n}$ and $\vec{x} \in \mathcal{R}_n$:
 
-$||\ve{A}|| \equiv \displaystyle \sup_{\bar{x} \neq \bar{0}} ||\ve{A}\bar{x}|| / ||\bar{x}||$
+$||\ve{A}|| \equiv \displaystyle \sup_{\vec{x} \neq \vec{0}} ||\ve{A}\vec{x}|| / ||\vec{x}||$
 
 \item \textbf{supremum}, or least upper bound, of a set S of real numbers is denoted by sup S and is defined to be the smallest real number that is greater than or equal to every number in S.
 \end{itemize}
@@ -412,13 +415,13 @@ $||\ve{A}|| \equiv \displaystyle \sup_{\bar{x} \neq \bar{0}} ||\ve{A}\bar{x}|| /
 \textbf{examples:}
 %
 \begin{align}
-||\ve{A}||_{1} &= \displaystyle \sup_{\bar{x} \neq \bar{0}} \frac{||\ve{A}\bar{x}||_{1}}{||\bar{x}||_{1}} =
+||\ve{A}||_{1} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{1}}{||\vec{x}||_{1}} =
 \displaystyle \max_{1 \leq j \leq n} \sum_{j=1}^m |a_{ij}| \qquad \text{max absolute col sum} \nonumber \\
 %
-||\ve{A}||_{\infty} &= \displaystyle \sup_{\bar{x} \neq \bar{0}} \frac{||\ve{A}\bar{x}||_{\infty}}{||\bar{x}||_{\infty}} = 
+||\ve{A}||_{\infty} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{\infty}}{||\vec{x}||_{\infty}} = 
 \displaystyle \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| \qquad \text{max absolute row sum}\nonumber \\
 %
-||\ve{A}||_{2} &= \displaystyle \sup_{\bar{x} \neq \bar{0}} \frac{||\ve{A}\bar{x}||_{2}}{||\bar{x}||_{2}} = \text{ the spectral radius of }\ve{A} \nonumber 
+||\ve{A}||_{2} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{2}}{||\vec{x}||_{2}} = \text{ the spectral radius of }\ve{A} \nonumber 
 \end{align}
 
 The equivalence of norms we talked about with vectors also holds here. Some of the relationships are
@@ -434,7 +437,10 @@ The equivalence of norms we talked about with vectors also holds here. Some of t
 Again, as with vector norms, showing a property in some matrix norms implies that property in other matrix norms (which may be harder to compute). The inequalities above may not be `sharp'.
 
 %--------------------------------------------------------------------------
+%--------------------------------------------------------------------------
 \section{Eigenvalues}
+
+Recall $\ve{A} \vec{u} = \lambda \vec{u}$ and thus $(\ve{A} - \lambda \ve{I}) \vec{u}=0$ given a non-zero $\vec{u}$.
 
 The spectrum of eigenvalues of a matrix $\ve{A}$ are defined formally as
 \[\sigma(\ve{A}) = [ \lambda \in \mathcal{C} : \det(\ve{A} - \lambda \ve{I})=0] \] 
@@ -443,12 +449,16 @@ and an eigenvalue is
 %
 \begin{itemize}
 \item The `characteristic polynomial' of $\ve{A}$ is
-\[P(\lambda) = \det(\ve{A} - \lambda \ve{I})\]
+\[P(\lambda) = \det(\ve{A} - \lambda \ve{I}) = 0\]
 \item Eigenvalues may be real or complex. 
+\item Since an \nth degree polynomial has $n$ roots, $\ve{A}_{n \times n}$ is guaranteed to have $n$ real and/or complex eigenvalues, some of which may be repeated: $\lambda_1, \lambda_2, \dots, \lambda_n$.
+
+This gives $\ve{A}\vec{u}_1 = \lambda_1 \vec{u}_1$, etc.
 \item $\sigma(\ve{A}) = \sigma(\ve{A}^T)$
-\item $\overline{\sigma(\ve{A})} = \sigma(\ve{A}^H)$
+\item $\cc{\sigma(\ve{A})} = \sigma(\ve{A}^H)$
 \end{itemize}
 
+%--------------------------------------------------------------------------
 \subsection{Spectral radius} 
 
 The spectral radius of $\ve{A}$ is defined as 
@@ -461,6 +471,7 @@ With the properties:
 \item $\rho(\xi \ve{A})^k = |\xi| \rho(\ve{A})$
 \end{itemize}
 
+%--------------------------------------------------------------------------
 %\subsection{Information}
 %The eigenvalues of a matrix satisfy $\ve{A}x = \lambda x$. 
 %%
@@ -472,10 +483,61 @@ With the properties:
 %\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
 %\end{itemize}
 
+
 \textbf{example}
 Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
-\[\ve{A}\bar{x} = \lambda x \qquad \text{and } \bar{x} \neq \bar{0}\]
-and recall that $\ve{A} = \ve{A}^H = \overline{\ve{A}^T}$ defines a Hermitian matrix. 
+\[\ve{A}\vec{x} = \lambda x \qquad \text{and } \vec{x} \neq \vec{0}\]
+and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
+%
+\begin{align}
+\cc{u}^T \ccm{A}^T &= \cc{\lambda} \cc{u}^T
+\qquad \text{The first step} \nonumber \\
+%
+\cc{u}^T \ve{A} &= \cc{\lambda} \cc{u}^T 
+\qquad \text{apply Hermitian definition}\nonumber \\
+%
+\cc{u}^T \ve{A} \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
+\qquad \text{right multiply by }\vec{u}\nonumber \\
+%
+\cc{u}^T \lambda \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
+\qquad \text{apply eigenvalue definition }\nonumber \\
+%
+\lambda &= \cc{\lambda} 
+\qquad \text{recognize that the }\vec{u}\text{s factor out}\nonumber
+\end{align}
+ 
+ %--------------------------------------------------------------------------
+\textbf{All matrix norms are bounded}: for $\lambda \in \sigma(\ve{A})$ 
+\[|\lambda | \leq ||\ve{A}||\]
+\[\rho(\ve{A}) \leq ||\ve{A}||\]
+
+\underline{proof:} 
+\begin{enumerate}
+\item The eigenvalues of $\ve{A}$ satisfy $\ve{A}\vec{x} = \lambda x$, $\vec{x} \neq \vec{0}$. 
+
+\item Let the eigenvectors of $\ve{A}$ be $\vec{v} = [\vec{v_1}, \vec{v_2}, \dots, \vec{v_n}]$
+
+\item then 
+\begin{align}
+|\lambda | ||\vec{v}|| &= ||\lambda \vec{v}|| 
+\qquad \text{property of norms} \nonumber \\
+%
+                     &= ||\ve{A}\vec{v}|| 
+                     \qquad \text{substitution} \nonumber \\
+%
+                     &\leq ||\ve{A}|| ||\vec{v}||
+                     \qquad \text{triangle inequality} \nonumber \\
+%
+\therefore |\lambda | &\leq ||\ve{A}|| 
+\qquad \text{cancellation}\nonumber \\
+%
+|\lambda| &\leq \rho(\ve{A}) \leq ||\ve{A}|| 
+\qquad \text{definition of }\rho\text{ as max }|\lambda | \nonumber
+\end{align}
+\end{enumerate}
+
+Note, we can use any submultiplicative matrix norm to bound from above the spectral radius (This will be important).
+
 
 
 %\subsubsection{LU Decomposition}
