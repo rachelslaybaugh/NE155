@@ -96,6 +96,106 @@ Geometrically, it is the product of the magnitudes of the two vectors and the co
 \item distributive property: $c(\vec{x} + \vec{y}) = c\vec{x} + c\vec{y}$
 \end{enumerate}
 
+
+%-------------------------------------------------------------
+\subsection{Vector Norms}
+Given $\vec{x}, \vec{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
+%
+\begin{enumerate}
+\item $||\vec{x}|| > 0$ and $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
+\item $||\vec{x} + \vec{y}|| \leq ||\vec{x}|| + ||\vec{y}||$ (triangle inequality)
+\item $||\alpha \vec{x}|| = |\alpha| ||\vec{x}||$ (homogeneous)
+\end{enumerate}
+
+The p-norm:
+%
+\begin{equation}
+||\vec{x}||_p \equiv (|x_1|^p + |x_2|^p + \dots + |x_n|^p)^{1/p} \qquad p \geq 1 \nonumber
+\end{equation}
+%
+\begin{itemize}
+\item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
+\item $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
+\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
+\end{itemize}
+
+%-------------------------------------------------------------------
+\subsection{Inner Products}
+Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
+%
+\begin{itemize}
+\item bi-linear (depends on two arguments) $< \vec{x}, \vec{y} >$
+\item symmetric $< \vec{x}, \vec{y} > = < \vec{y}, \vec{x} >$
+\item linear $< \vec{x} + \alpha \vec{z}, \vec{y} > = < \vec{x}, \vec{y} > + \alpha < \vec{y}, \vec{z} >$
+\item positive $< \vec{x}, \vec{x} >$ $>$ 0 for $\vec{x} \neq 0$
+\end{itemize}
+
+The dot product is also known as the Euclidean inner product. One can define many inner products, but in this class assume we're using the Euclidean inner product (dot product) unless otherwise specified. 
+
+\subsection{Convergence}
+We can use the concepts of norms and inner products to develop some relationships and talk about convergence. 
+
+The Cauchy-Schwartz inequality states
+%
+\begin{equation}
+< \vec{x}, \vec{y} > \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
+\end{equation}
+%
+Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \vec{x} \in \mathcal{R}^n$
+%
+\begin{equation}
+C_1 ||\vec{x}||_a \leq ||\vec{x}||_b \leq C_2 ||\vec{x}||_a \qquad \text{where } C_1, C_2 = f(n) \nonumber
+\end{equation}
+%
+This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offered without proof). E.g.:
+\begin{align}
+& ||\vec{x}||_{\infty} \leq ||\vec{x}||_2 \leq \sqrt[]{n} ||\vec{x}||_{\infty} \nonumber \\
+%
+& ||\vec{x}||_{\infty} \leq ||\vec{x}||_1 \leq n ||\vec{x}||_{\infty} \nonumber \\
+%
+& ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
+\end{align}
+
+The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
+
+Example: let's show the last item. We will use the Signum function, which extracts the sign of a real number
+\begin{align}
+              & -1 \text{ if } x < 0 \nonumber \\
+\text{sign}(x) \equiv &  0 \text{ if } x = 0 \nonumber \\
+              &  1 \text{ if } x > 0 \nonumber
+\end{align}
+%
+Let's define $v_i$ as sign$(x_i)$. Then
+%
+\begin{align}
+&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| \nonumber \\
+%
+&\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
+%
+&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
+%
+&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt[]{n} \nonumber \\ 
+%
+&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
+\end{align}
+
+Norm equivalence is very important because if we can prove some property (usually convergence or an error bound) in \textbf{some} norm, we have effectively proven it in \textbf{all} norms. 
+
+\subsubsection{Error}
+For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm p we define
+%
+\begin{itemize}
+\item Absolute error: $||\hat{x} - \vec{x}||_p$
+\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||$, where $\vec{x} \neq 0$
+\end{itemize}
+
+\subsubsection{Convergence}
+Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, we say that $\lbrace x^{(k)} \rbrace$ converges to $\vec{x}$ if
+%
+\begin{equation}
+\displaystyle\text{lim}_{k \rightarrow \infty} ||x^{(k)} - \vec{x}|| = 0 \nonumber
+\end{equation}
+
 %-------------------------------------------------------------
 %-------------------------------------------------------------
 \section{Matrices}
@@ -169,7 +269,6 @@ If this exists, $\ve{A}$ is non-singular / invertible. If the inverse exists, it
 
 
 %-------------------------------------------------------------
-%-------------------------------------------------------------
 \subsection{Equations and Special Matrices}
 
 We often write systems of equations as $\ve{A}\vec{x} = \vec{b}$ from
@@ -199,7 +298,6 @@ The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal 
 \item $\ve{A}\vec{x} = \vec{b}$ is uniquely solveable $\forall \vec{b}$
 \item det($\ve{A}) \neq 0$
 \end{enumerate}
-
 
 
 %-------------------------------------------------------------
@@ -281,109 +379,7 @@ If the determinant is zero, then the matrix is singular.
 A real matrix where $\ve{A}^{-1} = \ve{A}^T$ is called \textbf{orthogonal}
 
 
-%-------------------------------------------------------------
-\section{Norms and Convergence}
-\subsection{Vector Norms}
-Given $\vec{x}, \vec{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
-%
-\begin{enumerate}
-\item $||\vec{x}|| > 0$ and $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
-\item $||\vec{x} + \vec{y}|| \leq ||\vec{x}|| + ||\vec{y}||$ (triangle inequality)
-\item $||\alpha \vec{x}|| = |\alpha| ||\vec{x}||$ (homogeneous)
-\end{enumerate}
-
-The p-norm:
-%
-\begin{equation}
-||\vec{x}||_p \equiv (|x_1|^p + |x_2|^p + \dots + |x_n|^p)^{1/p} \qquad p \geq 1 \nonumber
-\end{equation}
-%
-\begin{itemize}
-\item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
-\item $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
-\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
-\end{itemize}
-
-------------------------------------------------------------------\\
-Does anyone have a preference for a first midterm date of Monday, March 17 vs.\ Wednesday, March 19? Straw poll... The second midterm will be in either the last week or second-to-last week of April. Likely the second-to-last.\\
------------------------------------------------------------------- 
-
-\subsection{Inner Products}
-Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
-%
-\begin{itemize}
-\item bi-linear (depends on two arguments) $< \vec{x}, \vec{y} >$
-\item symmetric $< \vec{x}, \vec{y} > = < \vec{y}, \vec{x} >$
-\item linear $< \vec{x} + \alpha \vec{z}, \vec{y} > = < \vec{x}, \vec{y} > + \alpha < \vec{y}, \vec{z} >$
-\item positive $< \vec{x}, \vec{x} >$ $>$ 0 for $\vec{x} \neq 0$
-\end{itemize}
-
-The dot product is also known as the Euclidean inner product. One can define many inner products, but in this class assume we're using the Euclidean inner product (dot product) unless otherwise specified. 
-
-\subsection{Convergence}
-We can use the concepts of norms and inner products to develop some relationships and talk about convergence. 
-
-The Cauchy-Schwartz inequality states
-%
-\begin{equation}
-< \vec{x}, \vec{y} > \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
-\end{equation}
-%
-Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \vec{x} \in \mathcal{R}^n$
-%
-\begin{equation}
-C_1 ||\vec{x}||_a \leq ||\vec{x}||_b \leq C_2 ||\vec{x}||_a \qquad \text{where } C_1, C_2 = f(n) \nonumber
-\end{equation}
-%
-This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offered without proof). E.g.:
-\begin{align}
-& ||\vec{x}||_{\infty} \leq ||\vec{x}||_2 \leq \sqrt[]{n} ||\vec{x}||_{\infty} \nonumber \\
-%
-& ||\vec{x}||_{\infty} \leq ||\vec{x}||_1 \leq n ||\vec{x}||_{\infty} \nonumber \\
-%
-& ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
-\end{align}
-
-The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
-
-Example: let's show the last item. We will use the Signum function, which extracts the sign of a real number
-\begin{align}
-              & -1 \text{ if } x < 0 \nonumber \\
-\text{sign}(x) \equiv &  0 \text{ if } x = 0 \nonumber \\
-              &  1 \text{ if } x > 0 \nonumber
-\end{align}
-%
-Let's define $v_i$ as sign$(x_i)$. Then
-%
-\begin{align}
-&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| \nonumber \\
-%
-&\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
-%
-&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
-%
-&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt[]{n} \nonumber \\ 
-%
-&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
-\end{align}
-
-Norm equivalence is very important because if we can prove some property (usually convergence or an error bound) in \textbf{some} norm, we have effectively proven it in \textbf{all} norms. 
-
-\subsubsection{Error}
-For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm p we define
-%
-\begin{itemize}
-\item Absolute error: $||\hat{x} - \vec{x}||_p$
-\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||$, where $\vec{x} \neq 0$
-\end{itemize}
-
-\subsubsection{Convergence}
-Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, we say that $\lbrace x^{(k)} \rbrace$ converges to $\vec{x}$ if
-%
-\begin{equation}
-\displaystyle\text{lim}_{k \rightarrow \infty} ||x^{(k)} - \vec{x}|| = 0 \nonumber
-\end{equation}
-
+%--------------------------------------------------------------------------
 \subsection{Matrix Norms}
 Given $\ve{A}, \ve{B} \in \mathcal{R}^{m \times n}$, a matrix norm, denoted by $|| \cdot ||$, has the following properties:
 %
@@ -436,6 +432,7 @@ The equivalence of norms we talked about with vectors also holds here. Some of t
 
 Again, as with vector norms, showing a property in some matrix norms implies that property in other matrix norms (which may be harder to compute). The inequalities above may not be `sharp'.
 
+
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 \section{Eigenvalues}
@@ -472,16 +469,16 @@ With the properties:
 \end{itemize}
 
 %--------------------------------------------------------------------------
-%\subsection{Information}
-%The eigenvalues of a matrix satisfy $\ve{A}x = \lambda x$. 
-%%
-%\begin{itemize}
-%\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
-%\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
-%\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
-%%\item Several eigenvectors can have the same eigenvalue
-%\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
-%\end{itemize}
+\subsection{Information}
+The eigenvalues of a matrix satisfy $\ve{A}x = \lambda x$. 
+%
+\begin{itemize}
+\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
+\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
+\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
+%\item Several eigenvectors can have the same eigenvalue
+\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
+\end{itemize}
 
 
 \textbf{example}
