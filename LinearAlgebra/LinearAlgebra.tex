@@ -444,9 +444,56 @@ Again, as with vector norms, showing a property in some matrix norms implies tha
 %--------------------------------------------------------------------------
 \section{Eigenvalues}
 
-BEEF UP THIS SECTION
+Eigenvalues are a special set of scalars associated with a linear system of equations (a matrix equation) that are sometimes also known as characteristic roots. 
 
-Recall $\ve{A} \vec{u} = \lambda \vec{u}$ and thus $(\ve{A} - \lambda \ve{I}) \vec{u}=0$ given a non-zero $\vec{u}$.
+Each eigenvalue is paired with a corresponding so-called eigenvector (or, in general, a corresponding right eigenvector and a corresponding left eigenvector; there is no analogous distinction between left and right for eigenvalues).
+
+The decomposition of a square matrix $\ve{A}$ into eigenvalues and eigenvectors is known as eigen decomposition, and the fact that \textbf{this decomposition is always possible as long as the matrix consisting of the eigenvectors of $\ve{A}$ is square} is known as the eigen decomposition theorem.
+
+Let $\ve{A} \in \mathcal{R}^{n \times n}$. If there is a vector $\vec{x} \in \mathcal{R}^{n}$ such that
+%
+\[\ve{A} \vec{x} = \lambda \vec{x}\]
+%
+for some scalar $\lambda$, then $\lambda$ is an eigenvalue of $\ve{A}$ with a corresponding (right) eigenvector $\vec{x}$.
+ 
+We find eigenvalues by re-writing the stated relationship as $(\ve{A} - \lambda \ve{I})\vec{x}=0$.
+
+A linear system of equations has nontrivial solutions iff the determinant vanishes (Cramer's rule), so the solutions of this equation are given by
+%
+\[\det(\ve{A} - \lambda \ve{I})=0 \:.\] 	
+%
+This equation is known as the characteristic equation of $\ve{A}$, and the left-hand side is known as the characteristic polynomial.
+
+\textbf{Example}
+\begin{align}
+    \ve{A} &= \begin{pmatrix}
+        2 & 3 \\
+        3 & -6
+    \end{pmatrix} 
+    &\ve{A} - \lambda \ve{I} = \text{det}\begin{pmatrix}
+        2 - \lambda & 3 \\
+        3 & -6 - \lambda
+    \end{pmatrix} \nonumber \\
+%  
+\det(\ve{A} - \lambda \vec{I}) &= (2 - \lambda)(-6 - \lambda) - (3)(3) \nonumber \\
+%
+&= -12 + 6\lambda -2\lambda + \lambda^2 -9 \nonumber \\
+&= \lambda^2 + 4\lambda -21 = 0 \nonumber \\
+0 &= (\lambda - 3)(\lambda + 7) \nonumber \\
+&\boxed{\lambda = 3, -7} \nonumber
+\end{align} 
+
+
+\begin{itemize}
+\item Eigenvalues may be real or complex. 
+
+\item Since an \nth degree polynomial has $n$ roots, $\ve{A}_{n \times n}$ is guaranteed to have $n$ real and/or complex eigenvalues, some of which may be repeated: $\lambda_1, \lambda_2, \dots, \lambda_n$.
+
+This gives $\ve{A}\vec{u}_1 = \lambda_1 \vec{u}_1$, etc.
+
+\item Left eigenvectors are found by reformulating the equation as $\vec{y}\ve{A} = \alpha \vec{y}$. In nuclear, we're used to seeing the right eigenvector formulation.
+\end{itemize}
+
 
 The spectrum of eigenvalues of a matrix $\ve{A}$ are defined formally as
 \[\sigma(\ve{A}) = [ \lambda \in \mathcal{C} : \det(\ve{A} - \lambda \ve{I})=0] \] 
@@ -454,15 +501,22 @@ and an eigenvalue is
 \[ \lambda \in \sigma(\ve{A}) \]
 %
 \begin{itemize}
-\item The `characteristic polynomial' of $\ve{A}$ is
-\[P(\lambda) = \det(\ve{A} - \lambda \ve{I}) = 0\]
-\item Eigenvalues may be real or complex. 
-\item Since an \nth degree polynomial has $n$ roots, $\ve{A}_{n \times n}$ is guaranteed to have $n$ real and/or complex eigenvalues, some of which may be repeated: $\lambda_1, \lambda_2, \dots, \lambda_n$.
-
-This gives $\ve{A}\vec{u}_1 = \lambda_1 \vec{u}_1$, etc.
 \item $\sigma(\ve{A}) = \sigma(\ve{A}^T)$
 \item $\cc{\sigma(\ve{A})} = \sigma(\ve{A}^H)$
 \end{itemize}
+
+%--------------------------------------------------------------------------
+\subsection{Aside about Singular Values}
+
+\underline{Note:} Eigenvalues/vectors are only for square matrices. The analog for rectangular matrices is singular values. We are not going to focus on these, since we will be dealing with square matrices. However, this came up last class and appeared to cause some confusion. So, here's a quick aside:
+
+If a square matrix $\ve{A}$ has linearly independent eigenvectors, it can be factored as $\ve{A} = \ve{P}\ve{D}\ve{P}^{-1}$. Here $\ve{D}$ is a diagonal matrix containing the eigenvalues of $\ve{A}$ and $\ve{P}$ contains the corresponding, linearly independent eigenvectors of $\ve{A}$.  
+
+You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathcal{R}^{m \times n}$ can be factored as $\ve{Q}\ve{D}\ve{P}^{-1}$, and this is called the singular value decomposition. 
+
+This comes from the notion that $\ve{A}^T\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). 
+
+The singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^T\ve{A}$, and are denoted by $\sigma_1, \sigma_2, \dots, \sigma_n$. 
 
 %--------------------------------------------------------------------------
 \subsection{Spectral radius} 
@@ -477,43 +531,32 @@ With the properties:
 \item $\rho(\xi \ve{A})^k = |\xi| \rho(\ve{A})$
 \end{itemize}
 
-%--------------------------------------------------------------------------
-\subsection{Information}
-The eigenvalues of a matrix satisfy $\ve{A}x = \lambda x$. 
-%
-\begin{itemize}
-\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
-\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
-\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
-%\item Several eigenvectors can have the same eigenvalue
-\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
-\end{itemize}
-
-
-\textbf{example}
-Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
-\[\ve{A}\vec{x} = \lambda x \qquad \text{and } \vec{x} \neq \vec{0}\]
-and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
-%
-\begin{align}
-\cc{u}^T \ccm{A}^T &= \cc{\lambda} \cc{u}^T
-\qquad \text{The first step} \nonumber \\
-%
-\cc{u}^T \ve{A} &= \cc{\lambda} \cc{u}^T 
-\qquad \text{apply Hermitian definition}\nonumber \\
-%
-\cc{u}^T \ve{A} \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
-\qquad \text{right multiply by }\vec{u}\nonumber \\
-%
-\cc{u}^T \lambda \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
-\qquad \text{apply eigenvalue definition }\nonumber \\
-%
-\lambda &= \cc{\lambda} 
-\qquad \text{recognize that the }\vec{u}\text{s factor out}\nonumber
-\end{align}
+%\textbf{example}
+%Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
+%\[\ve{A}\vec{x} = \lambda x \qquad \text{and } \vec{x} \neq \vec{0}\]
+%and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
+%%
+%\begin{align}
+%\cc{u}^T \ccm{A}^T &= \cc{\lambda} \cc{u}^T
+%\qquad \text{The first step} \nonumber \\
+%%
+%\cc{u}^T \ve{A} &= \cc{\lambda} \cc{u}^T 
+%\qquad \text{apply Hermitian definition}\nonumber \\
+%%
+%\cc{u}^T \ve{A} \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
+%\qquad \text{right multiply by }\vec{u}\nonumber \\
+%%
+%\cc{u}^T \lambda \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
+%\qquad \text{apply eigenvalue definition }\nonumber \\
+%%
+%\lambda &= \cc{\lambda} 
+%\qquad \text{recognize that the }\vec{u}\text{s factor out}\nonumber
+%\end{align}
  
  %--------------------------------------------------------------------------
-\textbf{All matrix norms are bounded}: for $\lambda \in \sigma(\ve{A})$ 
+\subsection{All matrix norms are bounded}
+
+For $\lambda \in \sigma(\ve{A})$ 
 \[|\lambda | \leq ||\ve{A}||\]
 \[\rho(\ve{A}) \leq ||\ve{A}||\]
 
@@ -543,5 +586,6 @@ and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
 \end{enumerate}
 
 Note, we can use any submultiplicative matrix norm to bound from above the spectral radius (This will be important).
+
 
 \end{document}
