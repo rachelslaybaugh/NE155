@@ -1,0 +1,101 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2014
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, Classes 8 \& 9, S14 \\
+Solutions for Linear Systems \\ February 7 and 10, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+\section{Solutions of Linear Systems}
+
+Given $\ve{A}\vec{x} = \vec{b}$, how do you find $\vec{x}$?
+%
+\begin{enumerate}
+\item Direct Methods
+  \begin{itemize}
+  \item compute (explicitly or implicitly) $\ve{A}^{-1} \rightarrow \vec{x} = \ve{A}^{-1}\vec{b}$
+  \item typically requires many operations (FLOPs), large storage (even if $\ve{A}$ is sparse, $\ve{A}^{-1}$ may not be)
+  \item seldom parallelizes well
+  \item \emph{not} used in practice
+  \item incomplete factorizations (which we'll cover) \emph{are} used as pre-conditioners for iterative methods
+  \end{itemize}
+  
+\item Iterative Methods
+  \begin{itemize}
+  \item produce a sequence of vectors, $\vec{x}_1, \vec{x}_2, \dots$ based on the prescription
+  \[\vec{x}^{(k+1)} = F(\vec{x}^{(k)}, \vec{b}) \qquad \text{where } \displaystyle \lim_{k \rightarrow \infty} \vec{x}^{(k)} = \vec{x}\]
+  \item can require many FLOPs; storage requirements for $\ve	{A}$ can be an issue (if stored)
+  \item may parallelize well
+  \item \emph{often} used in practice
+  \item used in smoothing methods and as pre-conditioners
+  \item Jacobi, Gauss-Seidel, SOR, Multigrid, ...
+  \end{itemize}
+\end{enumerate}
+
+%\subsubsection{LU Decomposition}
+%We can often decompose $\ve{A}$ into an upper and lower triangular matrix
+%
+%\begin{align}
+%\ve{A} &= \ve{L}\ve{U} \qquad \text{and then} \nonumber \\
+%%
+%\text{det}(\ve{A}) &= \text{det}(\ve{L}) \text{det}(\ve{U}) \qquad \text{and} \nonumber \\
+%%
+%\ve{A}^{-1} &= \ve{U}^{-1}\ve{L}^{-1} \nonumber
+%\end{align}
+
+
+
+\end{document}

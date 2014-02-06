@@ -1,6 +1,5 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Linear Algebra Lecture
 % Spring 2014
 
 % formatting
@@ -51,8 +50,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Class 4 and 5, S14 \\
-Types of Equations cont'd + TE + DE \\ January 29 and 31, 2014}
+{\bf NE 155, Classes 6 and 7, S14 \\
+ Linear Algebra \\ February 3 and 5, 2014}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -60,6 +59,8 @@ Types of Equations cont'd + TE + DE \\ January 29 and 31, 2014}
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
 
+
+ADD MORE MEANING
 %-------------------------------------------------------------
 %-------------------------------------------------------------
 \section{Vector Review}
@@ -77,7 +78,7 @@ A real $n$-dimensional vector $\vec{x}$ is an ordered set of $n$ real numbers th
 
 \item scalar multiple: $c\vec{x} = (cx_1, cx_2, \dots, cx_n)$
 
-\item Euclidean norm (length): $||\vec{x}|| = (x_1^2 + x_2^2 + \dots + x_n^2)^{1/2}$
+%\item Euclidean norm (length): $||\vec{x}|| = (x_1^2 + x_2^2 + \dots + x_n^2)^{1/2}$
 
 \item dot product: takes two equal length vectors and results in a scalar. 
 
@@ -102,7 +103,7 @@ Geometrically, it is the product of the magnitudes of the two vectors and the co
 Given $\vec{x}, \vec{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
 %
 \begin{enumerate}
-\item $||\vec{x}|| > 0$ and $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
+\item $||\vec{x}|| > 0$; $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
 \item $||\vec{x} + \vec{y}|| \leq ||\vec{x}|| + ||\vec{y}||$ (triangle inequality)
 \item $||\alpha \vec{x}|| = |\alpha| ||\vec{x}||$ (homogeneous)
 \end{enumerate}
@@ -115,7 +116,7 @@ The p-norm:
 %
 \begin{itemize}
 \item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
-\item $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
+\item Euclidean norm (length) $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
 \item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
 \end{itemize}
 
@@ -168,16 +169,20 @@ Example: let's show the last item. We will use the Signum function, which extrac
 Let's define $v_i$ as sign$(x_i)$. Then
 %
 \begin{align}
-&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| \nonumber \\
+&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| = ||\vec{x}||_1 \nonumber \\
 %
 &\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
 %
 &< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
 %
-&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt[]{n} \nonumber \\ 
+&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt{n} \:, \text{ the right side of the inequality} \nonumber \\ 
 %
-&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
+&\text{we can also say } ||\vec{x}||_2 \leq ||\vec{v}||_2 ||\vec{x}||_2 \leq \sqrt{n} ||\vec{x}||_2 \nonumber \\
+%
+&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt{n} ||\vec{x}||_2 \nonumber
 \end{align}
+
+NEED $||\vec{x}||_2 \leq ||\vec{x}||_1$ !!!!
 
 Norm equivalence is very important because if we can prove some property (usually convergence or an error bound) in \textbf{some} norm, we have effectively proven it in \textbf{all} norms. 
 
@@ -337,7 +342,7 @@ Using these terms, the determinant can be defined in terms of the Laplace expans
 \text{det}(\ve{A}) = \sum_{j=1}^n a_{ij} C_{ij} = \sum_{i=1}^n a_{ij} C_{ij} \nonumber
 \end{equation}
 
-For the above matrix, lets look at the laplace expansion along the second column ($j = 2$; sum runs over $i$)
+For the above matrix, lets look at the Laplace expansion along the second column ($j = 2$; sum runs over $i$)
 \begin{align}
 \text{det}(\ve{A}) &= (-1)^{1+2} a_{12} M_{12} + (-1)^{2+2} a_{22} M_{22} + (-1)^{3+2} a_{32} M_{32} \nonumber \\
 %
@@ -392,7 +397,7 @@ Given $\ve{A}, \ve{B} \in \mathcal{R}^{m \times n}$, a matrix norm, denoted by $
 E.g., the Frobenius norm 
 %
 \begin{equation}
-||\ve{A}||_F = ( \sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2 )^2 \nonumber
+||\ve{A}||_F = \sqrt{ \sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2 } \nonumber
 \end{equation}
 
 \textbf{Definitions}:
@@ -408,11 +413,13 @@ $||\ve{A}|| \equiv \displaystyle \sup_{\vec{x} \neq \vec{0}} ||\ve{A}\vec{x}|| /
 \item \textbf{supremum}, or least upper bound, of a set S of real numbers is denoted by sup S and is defined to be the smallest real number that is greater than or equal to every number in S.
 \end{itemize}
 
+ADD MORE INFO ABOUT SUP CHOICE/MEANING
+
 \textbf{examples:}
 %
 \begin{align}
 ||\ve{A}||_{1} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{1}}{||\vec{x}||_{1}} =
-\displaystyle \max_{1 \leq j \leq n} \sum_{j=1}^m |a_{ij}| \qquad \text{max absolute col sum} \nonumber \\
+\displaystyle \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}| \qquad \text{max absolute col sum} \nonumber \\
 %
 ||\ve{A}||_{\infty} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{\infty}}{||\vec{x}||_{\infty}} = 
 \displaystyle \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| \qquad \text{max absolute row sum}\nonumber \\
@@ -436,6 +443,8 @@ Again, as with vector norms, showing a property in some matrix norms implies tha
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 \section{Eigenvalues}
+
+BEEF UP THIS SECTION
 
 Recall $\ve{A} \vec{u} = \lambda \vec{u}$ and thus $(\ve{A} - \lambda \ve{I}) \vec{u}=0$ given a non-zero $\vec{u}$.
 
@@ -534,20 +543,5 @@ and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
 \end{enumerate}
 
 Note, we can use any submultiplicative matrix norm to bound from above the spectral radius (This will be important).
-
-
-
-%\subsubsection{LU Decomposition}
-%We can often decompose $\ve{A}$ into an upper and lower triangular matrix
-%%
-%\begin{align}
-%\ve{A} &= \ve{L}\ve{U} \qquad \text{and then} \nonumber \\
-%%
-%\text{det}(\ve{A}) &= \text{det}(\ve{L}) \text{det}(\ve{U}) \qquad \text{and} \nonumber \\
-%%
-%\ve{A}^{-1} &= \ve{U}^{-1}\ve{L}^{-1} \nonumber
-%\end{align}
-
-
 
 \end{document}
