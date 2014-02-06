@@ -13,7 +13,7 @@
 
 % These lines can probably stay unchanged, although you can remove the last
 % two packages if you're not making pictures with tikz.
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
 \RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
 \RequirePackage{tikz, pgflibraryplotmarks}
 
@@ -21,6 +21,7 @@
 % end up in the "middle" of the page, reducing the amount of space for students
 % to work on them.
 \usepackage[margin=1in]{geometry}
+\usepackage{enumerate}
 
 
 % Here's where you edit the Class, Exam, Date, etc.
@@ -77,6 +78,8 @@ Homework \#1 & Due February 5, 2014
 \part[5] Is there a specific, non-grade related outcome you would like?
 \end{parts}
 
+
+% ---------------------------------------------
 \vspace*{2em}
 \addpoints
 \question 
@@ -85,13 +88,43 @@ Homework \#1 & Due February 5, 2014
 \part[5] Why?
 \end{parts}
 
+
+% ---------------------------------------------
 \vspace*{2em}
 \addpoints
 \question[10] Describe a challenge you can imagine having when writing a program to use \textbf{shared} memory.
 
+\begin{solution}
+Some common challenges when using \textbf{shared} memory include:
+\begin{itemize}
+\item race conditions: two processes are trying to modify/access the same data, e.g.:
+\begin{itemize}
+\item Two processes are trying to access the same data at the same time 
+\item Two processes are trying to write to the same location in memory at the same time 
+\item One process is trying to write to a location that another process is trying to read
+\end{itemize}
+\item CPU-to-memory connection becomes a bottleneck.
+\item Cache coherence: each processor has it's own cache even though the memory is shared. There can be issues with mis-matches between the cache and the local memory. 
+\end{itemize}
+\end{solution}
+
+\newpage
+%------------------------------------
 \vspace*{2em}
 \addpoints
 \question[10] Describe a challenge you can imagine having when writing a program to use \textbf{distributed} memory.
+
+\begin{solution}
+Some common challenges when using \textbf{distributed} memory include:
+\begin{itemize}
+\item Each process has to know where the data it needs resides
+\item Accessing data in memory on other nodes can be slow
+\item Deciding how to most efficiently \underline{distribute} data is required
+\item Deciding how to most efficiently \underline{access} data is required
+\item The best way to distribute/access the data will probably change when the network topology (how the memory spaces are connected) changes
+\end{itemize}
+\end{solution}
+
 
 %------------------------------------
 \vspace*{2em}
@@ -109,18 +142,54 @@ Homework \#1 & Due February 5, 2014
 \label{eq:TE}
 \end{align}
 
+\begin{solution}
+\begin{enumerate}[A.]
+\item Streaming loss term: neutrons move to locations and/or directions of travel other than the one(s) we're interested in
+\item Total interaction loss term: neutrons experience an interaction and are absorbed or scatter into an energy or angle other than the one(s) we're interested in
+\item Scattering source term: neutrons scatter into the energy and direction of interest from any other energy and direction
+\item Fission source term: neutrons born at the location, energy, and angle of interest from fission
+\end{enumerate}
+
+\end{solution}
+
 %------------------------------------
 \vspace*{2em}
 \addpoints
 \question[10] List a major assumption needed to get from the Transport Equation to the Diffusion Equation.
 
 \begin{solution}
+There are several assumptions made in the derivation; listed in the order we used them in class.
+%
+\begin{enumerate}
+\item Angular dependence of the flux is unimportant (used when we integrated the TE over angle)
 
+\item Angular flux is weakly, in fact linearly, dependent on angle rather than independent of angle (used after obtaining the first moment of the TE; we expanded angular flux in angle and retained up through the term linearly dependent upon angle)
+
+\item $[$less major$]$ The anisotropic contribution to energy transfer in a scattering collision can be neglected (used to simplify the 1st moment of the scattering cross section, $\Macro_{s1}$)
+
+\item $[$less major$]$ The external source is isotropic (used to say the 1st moment of the external source is 0)
+
+\end{enumerate}
+%
 \end{solution}
 
+
+% ---------------------------------------------
 \vspace*{2em}
 \addpoints
 \question[10] List four locations where the Diffusion Equation is not valid because the underlying assumptions do not hold.
+
+\begin{solution}
+The diffusion equations is not valid near
+%
+\begin{enumerate}
+\item a void, 
+\item boundary, 
+\item source, 
+\item or strong absorber.
+\end{enumerate} 
+%
+\end{solution}
 
 \end{questions}
 
