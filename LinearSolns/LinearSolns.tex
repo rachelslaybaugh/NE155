@@ -166,21 +166,21 @@ These both require $O(n^2)$ operations, and each have the same caveats about zer
 
 \textbf{Theorem}
 
-Let $\ve{A} \in \mathcal{R}^{m \times n}$ be regular (recall: regular means $\ve{A}^{-1}$ exists). Then there are matrices $\ve{L}$ (lower triangular) with $l_{ii} = 1$ (not a requirement, but easier) and $\ve{U}$ (upper triangular) such that $\ve{A} = \ve{L}\ve{U}$ is unique.
+Let $\ve{A} \in \mathcal{R}^{m \times n}$ be regular (recall: regular means $\ve{A}^{-1}$ exists). Then there are matrices $\ve{L}$ (lower triangular) with $l_{ii} = 1$ and $\ve{U}$ (upper triangular) such that $\ve{A} = \ve{L}\ve{U}$ is unique.
 
 We want to solve $\ve{A}\vec{x} = \vec{b}$:
 %
 \begin{align}
 &\ve{A}\vec{x} = \ve{L}\ve{U}\vec{x} = \vec{b} \nonumber \\
 %
-&\text{define } \ve{U}\vec{x} = \vec{b}' \nonumber \\
+&\text{define } \ve{U}\vec{x} = \vec{y} \nonumber \\
 %
-&\text{then note }\ve{L}\vec{b}' = \vec{b} \nonumber
+&\text{then note }\ve{L}\vec{y} = \vec{b} \nonumber
 \end{align}
 %
 \begin{enumerate}
-\item Solve $\ve{L}\vec{b}' = \vec{b}$ for $\vec{b}'$ using forward substitution
-\item Solve $\ve{U}\vec{x} = \vec{b}'$ for $\vec{x}$ using backward substitution
+\item Solve $\ve{L}\vec{y} = \vec{b}$ for $\vec{y}$ using forward substitution
+\item Solve $\ve{U}\vec{x} = \vec{y}$ for $\vec{x}$ using backward substitution
 \end{enumerate}
 %
 This requires $O(n^2)$ operations.
@@ -202,6 +202,116 @@ The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^
     \end{pmatrix}
     \nonumber   
 \end{equation} 
+%
+For a given column, $j = 1, \dots, n$, the $m_{ij}$ are $a_{ij} / a_{jj}$ for $i = j, \dots, n$. 
+
+Caveat: we use the entries currently in $\ve{A}$ that come from the process of row-reducing $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
+
+\textbf{example}
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+  5  & 2 & 1 \\
+  4  & 1 & -1 \\
+  -2 & 3 & -3
+\end{pmatrix}
+\qquad 
+\vec{b}= \begin{pmatrix}
+3 \\ -3 \\ 5
+\end{pmatrix} \nonumber
+\end{equation}
+%
+%
+Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form. 
+\begin{align}
+\ve{U} &= \begin{pmatrix}
+  5  & 2 & 1 \\
+  4  & 1 & -1 \\
+  -2 & 3 & -3
+\end{pmatrix} 
+&\begin{pmatrix}
+ & \\ R_2 - m_{21}R_1, & m_{21} = 4/5 \\ 
+      R_3 - m_{31}R_1, & m_{31} = -2/5 \end{pmatrix} \nonumber \\
+%
+&= \begin{pmatrix}
+  5 & 2    & 1 \\
+  0 & -3/5 & -9/5 \\
+  0 & 19/5 & -13/5
+\end{pmatrix} 
+&\begin{pmatrix}
+ & \\ & \\ R_3 - m_{32}R_2, & m_{32} = -19/3 \end{pmatrix} \nonumber \\                   
+%
+&= \begin{pmatrix}
+  5 & 2    & 1 \\
+  0 & -3/5 & -9/5 \\
+  0 & 0    & -14
+\end{pmatrix} \nonumber
+\end{align}
+%
+Now, we fill the $m_{ij}$s we just discovered into the $\ve{L}$ matrix.
+%
+\begin{equation}
+\ve{L} = \begin{pmatrix}
+  1    & 0     & 0 \\
+  4/5  & 1     & 0 \\
+  -2/5 & -19/3 & 1
+\end{pmatrix} \nonumber
+\end{equation}
+
+Using all of this, we can finally solve our equation. Begin with $\ve{L}\vec{y} = \vec{b}$ for $\vec{y}$ using forward substitution:
+%
+\begin{equation}
+\ve{L} = \begin{pmatrix}
+  1    & 0     & 0 \\
+  4/5  & 1     & 0 \\
+  -2/5 & -19/3 & 1
+\end{pmatrix}
+\begin{pmatrix}
+y_1 \\ y_2 \\ y_3
+\end{pmatrix}
+= \begin{pmatrix}
+3 \\ -3 \\ 5
+\end{pmatrix} \nonumber
+\end{equation}
+%
+\begin{align}
+&\boxed{y_1 = 3} \nonumber \\
+&(\frac{4}{5})(3) + y_2 = -3 \rightarrow \boxed{y_2 = -\frac{27}{5}} \nonumber \\
+&(-\frac{2}{5})(3) + (-\frac{19}{3})(-\frac{27}{5}) + y_3 = 5
+\rightarrow \boxed{y_3 = -28} \nonumber
+\end{align}
+
+Now, we solve $\ve{U}\vec{x} = \vec{y}$ for $\vec{x}$
+%
+\begin{equation}
+\ve{U} = \begin{pmatrix}
+  5 & 2    & 1 \\
+  0 & -3/5 & -9/5 \\
+  0 & 0    & -14
+\end{pmatrix} 
+\begin{pmatrix}
+x_1 \\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}
+3 \\ -\frac{27}{5} \\ -28
+\end{pmatrix}\nonumber
+\end{equation}
+%
+\begin{align}
+&-14 x_3 = -28 \rightarrow \boxed{x_3 = 2} \nonumber \\
+&(-\frac{3}{5})x_2 + (-\frac{9}{5})(2) = -\frac{27}{5} \rightarrow \boxed{x_2 = 3} \nonumber \\
+&(5)x_1 + (2)(3) + (1)(2) = 3
+\rightarrow \boxed{x_1 = -1} \nonumber
+\end{align}
+
+\begin{itemize}
+\item The LU decomposition and solution is exact
+\item given the LU decomposition, multiple solution vectors can be computed for a small cost
+\item the LU decomposition can overwrite the original matrix, if desired
+\item the LU decomposition requires $O(n^3)$ FLOPS
+\item the LU decomposition `fills' a sparse matrix
+\end{itemize}	
+
+\subsection{Direct Factorization Algorithm}
 
 
 

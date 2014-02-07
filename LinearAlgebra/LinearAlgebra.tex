@@ -424,8 +424,11 @@ ADD MORE INFO ABOUT SUP CHOICE/MEANING
 ||\ve{A}||_{\infty} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{\infty}}{||\vec{x}||_{\infty}} = 
 \displaystyle \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| \qquad \text{max absolute row sum}\nonumber \\
 %
-||\ve{A}||_{2} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{2}}{||\vec{x}||_{2}} = \text{ the spectral radius of }\ve{A} \nonumber 
+||\ve{A}||_{2} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{2}}{||\vec{x}||_{2}} = \text{ the sqrt of the max  eigenvalue of }\ve{A}^H\ve{A} \nonumber \\
+&\text{ (largest singular value for any matrix) or the spectral radius of a square matrix} \nonumber 
 \end{align}
+
+For vectors, the infinity norm is the largest value. For matrices, it's the maximum absolute row sum - which is really the row that will most strongly change a vector, so that's analogous. For the 1 matrix norm, the maximum absolute column sum corresponds to the vector component that will, overall, be changed the most. We'll talk about the last after we talk about spectral radius.
 
 The equivalence of norms we talked about with vectors also holds here. Some of the relationships are
 %
@@ -512,16 +515,16 @@ and an eigenvalue is
 
 If a square matrix $\ve{A}$ has linearly independent eigenvectors, it can be factored as $\ve{A} = \ve{P}\ve{D}\ve{P}^{-1}$. Here $\ve{D}$ is a diagonal matrix containing the eigenvalues of $\ve{A}$ and $\ve{P}$ contains the corresponding, linearly independent eigenvectors of $\ve{A}$.  
 
-You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathcal{R}^{m \times n}$ can be factored as $\ve{Q}\ve{D}\ve{P}^{-1}$, and this is called the singular value decomposition. 
+You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathcal{C}^{m \times n}$ can be factored as $\ve{Q}\ve{D}\ve{P}^{-1}$, and this is called the singular value decomposition. 
 
-This comes from the notion that $\ve{A}^T\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). 
+This comes from the notion that $\ve{A}^H\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). 
 
-The singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^T\ve{A}$, and are denoted by $\sigma_1, \sigma_2, \dots, \sigma_n$. 
+The singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^H\ve{A}$, and are denoted by $\sigma_1, \sigma_2, \dots, \sigma_n$. 
 
 %--------------------------------------------------------------------------
 \subsection{Spectral radius} 
 
-The spectral radius of $\ve{A}$ is defined as 
+The spectral radius of $\ve{A} \in \mathcal{C}^{n \times n}$ is defined as 
 \[\rho(\ve{A}) \equiv \max \lbrace |\lambda|, \lambda \in \sigma(\ve{A})\]
 With the properties:
 %
@@ -530,6 +533,8 @@ With the properties:
 \item $\rho(\ve{A}) = \rho(\ve{A}^T)$
 \item $\rho(\xi \ve{A})^k = |\xi| \rho(\ve{A})$
 \end{itemize}
+%
+Let's think about the meaning of the spectral radius. This is the largest change a matrix can induce on a vector while maintaining it's direction. That is what the matrix 2-norm means, which is analogous to the vector idea of length.
 
 %\textbf{example}
 %Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
