@@ -50,8 +50,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 8 \& 9, S14 \\
-Solutions for Linear Systems \\ February 7 and 10, 2014}
+{\bf NE 155, Classes 8 \& 9 \& 10, S14 \\
+Solutions for Linear Systems \\ February 7 and 10 and 12, 2014}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -445,13 +445,13 @@ Thus, a sufficient and necessary condition for convergence is:
 In non-stationary Richardson iteration using some scalar $\omega$, the $k$th step is
 %
 \begin{equation}
-  \vec{x}^{(k+1)} = (\ve{I} - \omega^{k}\ve{A})\vec{x}^{(k)} + \omega^{k}\vec{b}^{(k)} \:. \nonumber
+  \vec{x}^{(k+1)} = (\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b} \:. \nonumber
 \end{equation}
 %
-$\ve{P} = (\ve{I} - \omega^{k}\ve{A})$. If $\omega^{k}$ is constant then this is the stationary Richardson method. 
+$\ve{P} = (\ve{I} - \omega^{(k)}\ve{A})$. If $\omega^{(k)}$ is constant then this is the stationary Richardson method. 
 
 The algorithm for this method is, for $i = 1, \dots, n$:
-\[ x^{(k+1)}_i =  x^{(k)}_i - \omega^{k} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{k} b_i^{(k)} \]
+\[ x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \]
 
 People still use these methods. I've written a preconditioner that uses Richardson Iteration. The spectral radius determines the speed of convergence and is $c = \Sigma_s / \Sigma$. For problems dominated by scattering, SI will converge very slowly \cite{Evans2009d}. While this is the simplest iterative method used, there are other more sophisticated methods available. 
 
@@ -475,7 +475,7 @@ Jacobi will converge (perhaps quite slowly) if $\ve{P}_J$'s spectral radius is $
 
 A \underline{sufficient} but not necessary condition for convergence is that $\ve{A}$ or $\ve{A}^T$ is \textbf{diagonally dominant}:
 %
-\[|a_{ii}| \geq \sum_{j \ neq 1} |aij| \qquad \forall i \:.\]
+\[|a_{ii}| \geq \sum_{j \neq 1} |aij| \qquad \forall i \:.\]
 
 Jacobi isn't a very sophisticated method, but it's easy to parallelize. Why might that be? The Jacobi method is order independent since all terms on the right are at the old iteration level. 
 
@@ -570,6 +570,8 @@ The \textbf{condition number} of a matrix $\mathbf{A}$ is defined as
 \]
 %
 If the 2-norm, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. If $\mathbf{A}$ is singular, its condition number is infinity. 
+
+The base-b logarithm of $\kappa$ is an estimate of how many base-b digits are lost in solving a linear system with that matrix. In other words, it estimates worst-case loss of precision. A system is said to be singular if the condition number is infinite, and ill-conditioned if it is too large, where ``too large" means roughly $\log(\kappa) >\sim$ the precision of matrix entries. %http://mathworld.wolfram.com/ConditionNumber.html
 
 The general idea of \textbf{preconditioning} is to transform the system of interest into another equivalent system that has more favorable properties, for example one with a smaller condition number. 
 
