@@ -139,7 +139,20 @@ L_k(x) &= \frac{(x-x_0)(x-x_1)\cdots(x-x_{k-1})(x-x_{k+1})\cdots(x-x_n)}{(x_k-x_
 \end{align}
 
 
+\subsubsection{Error}
+If $f$ is $n+1$ times continuously differentiable on a closed interval $I$
 
+and $P_{n}(x)$ is a polynomial of degree at most $n$ that interpolates $f$ at $n + 1$ distinct points ${x_i}, (i=0,1,\dots,n)$ in that interval,
+
+then for each $x$ in the interval there exists $\xi$  in that interval such that
+%http://en.wikipedia.org/wiki/Polynomial_interpolation
+\begin{align}
+f(x) - P_n(x) &= \frac{f^{n+1}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n) \\
+e &= \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{i=0}^n (x-x_i)
+\end{align}
+
+The Lagrange polynomial of degree $n$ uses information at the
+distinct numbers $x_0, x_1,\dots, x_n$ and, in place of $(x-x_0)^n$, its error formula uses a product of the $n+1$ terms.
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
