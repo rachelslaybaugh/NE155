@@ -1,5 +1,8 @@
+*.ipynb_checkpoints/
+*.bbl
+*.blg
 *.aux
-*.tex.bak
+*.bak
 *.log
 *.pdf
 *.synctex.gz
