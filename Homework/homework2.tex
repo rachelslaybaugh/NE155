@@ -8,6 +8,7 @@
 % Using Philip Hirschhorn's exam.cls: http://www-math.mit.edu/~psh/#ExamCls
 %
 % run pdflatex on a finished exam at least three times to do the grading table on front page.
+
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -15,7 +16,8 @@
 % two packages if you're not making pictures with tikz.
 \documentclass[12pt, answers]{exam}
 \RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
-\RequirePackage{tikz, pgflibraryplotmarks}
+\RequirePackage{tikz}
+\usetikzlibrary {plotmarks}
 
 % By default LaTeX uses large margins.  This doesn't work well on exams; problems
 % end up in the "middle" of the page, reducing the amount of space for students
@@ -76,19 +78,39 @@ Show your work so that partial credit may be awarded.
 \addpoints
 \question[10] 
 Determine which of the following matrices are non-singular and compute the inverse of these matrices:
-%
+% a values
+\newcommand{\aaa}{4}
+\newcommand{\aab}{2}
+\newcommand{\aac}{6}
+\newcommand{\aba}{3}
+\newcommand{\abb}{0}
+\newcommand{\abc}{7}
+\newcommand{\aca}{-2}
+\newcommand{\acb}{-1}
+\newcommand{\acc}{-1}
+% b values
+\newcommand{\baa}{2}
+\newcommand{\bab}{0}
+\newcommand{\bac}{0}
+\newcommand{\bba}{0}
+\newcommand{\bbb}{-3}
+\newcommand{\bbc}{0}
+\newcommand{\bca}{0}
+\newcommand{\bcb}{0}
+\newcommand{\bcc}{1}
 \begin{equation}
 \text{a.} \begin{pmatrix}
-   4 &  2 &  6 \\
-   3 &  0 &  7 \\
-  -2 & -1 & -3
+   \aaa & \aab & \aac \\
+   \aba & \abb & \abc \\
+   \aca & \acb & \acc \\
 \end{pmatrix} \qquad
 %
 \text{b.} \begin{pmatrix}
-  2 &  0 & 0 \\
-  0 & -3 & 0 \\
-  0 &  0 & 1
-\end{pmatrix} \qquad 
+   \baa & \bab & \bac \\
+   \bba & \bbb & \bbc \\
+   \bca & \bcb & \bcc \\
+\end{pmatrix} \qquad
+%
 \text{c.} \begin{pmatrix}
   1  & 1 & -1 & -1 \\
   1  & 2 & -4 & -2 \\
@@ -96,6 +118,32 @@ Determine which of the following matrices are non-singular and compute the inver
   -1 & 0 & -2 & -4
 \end{pmatrix} \nonumber
 \end{equation}
+
+\begin{solution}
+A way to tell if $\ve{A}$ is singular that we discussed in class is that the determinant of $\ve{A}=0$.
+
+\begin{parts}
+\part Since \ve{a} has a zero on the diagonal, we know that it's determinant is zero. Thus, \ve{a} is singular.
+
+\part Computing the determinant of \ve{b} is easy since it's diagonal:
+\begin{align}
+\det(\ve{b}) &= \baa ( \bbb \cdot \bcc ) - \bbb ( \baa \cdot \bcc ) + \bcc ( \baa \cdot \bbb ) \nonumber \\
+\det(\ve{b}) &= -6 + 6 -6 = -6 \rightarrow \boxed{\text{non-singular}}\nonumber
+\end{align}
+%
+Since \ve{b} is non-singular, we only need to compute it's inverse. Recall that for the inverse of a diagonal matrix $d^{-1}_{ii} = 1/d_{ii}$. Thus,
+\[\ve{b}^{-1} = \begin{pmatrix}
+  \frac{1}{2} &  0 & 0 \\
+  0 & -\frac{1}{3} & 0 \\
+  0 &  0 & 1
+\end{pmatrix}\]
+
+\part 
+
+\end{parts}
+
+
+\end{solution}
 
 
 % ---------------------------------------------
@@ -121,6 +169,12 @@ Determine which of the following matrices are non-singular and compute the inver
 \end{pmatrix} \nonumber
 \end{equation}
 
+\begin{solution}
+To find eigenvalues, we need to compute $\det(\ve{A} - \lambda \ve{I})=0$ for each system.
+
+
+
+\end{solution}
 
 
 %------------------------------------
