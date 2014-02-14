@@ -87,7 +87,7 @@ Determine which of the following matrices are non-singular and compute the inver
 \newcommand{\abc}{7}
 \newcommand{\aca}{-2}
 \newcommand{\acb}{-1}
-\newcommand{\acc}{-1}
+\newcommand{\acc}{-3}
 % b values
 \newcommand{\baa}{2}
 \newcommand{\bab}{0}
@@ -98,6 +98,23 @@ Determine which of the following matrices are non-singular and compute the inver
 \newcommand{\bca}{0}
 \newcommand{\bcb}{0}
 \newcommand{\bcc}{1}
+% c values
+\newcommand{\caa}{1}
+\newcommand{\cab}{1}
+\newcommand{\cac}{-1}
+\newcommand{\cad}{-1}
+\newcommand{\cba}{1}
+\newcommand{\cbb}{2}
+\newcommand{\cbc}{-4}
+\newcommand{\cbd}{-2}
+\newcommand{\cca}{2}
+\newcommand{\ccb}{1}
+\newcommand{\ccc}{1}
+\newcommand{\ccd}{5}
+\newcommand{\cda}{-1}
+\newcommand{\cdb}{0}
+\newcommand{\cdc}{-2}
+\newcommand{\cdd}{-4}
 \begin{equation}
 \text{a.} \begin{pmatrix}
    \aaa & \aab & \aac \\
@@ -112,23 +129,47 @@ Determine which of the following matrices are non-singular and compute the inver
 \end{pmatrix} \qquad
 %
 \text{c.} \begin{pmatrix}
-  1  & 1 & -1 & -1 \\
-  1  & 2 & -4 & -2 \\
-  2  & 1 &  1 & 5 \\
-  -1 & 0 & -2 & -4
+  \caa & \cab & \cac & \cad \\
+  \cba & \cbb & \cbc & \cbd \\
+  \cca & \ccb & \ccc & \ccd \\
+  \cda & \cdb & \cdc & \cdd \\
 \end{pmatrix} \nonumber
 \end{equation}
 
+%-------------------------------------------------------
+%-------------------------------------------------------
 \begin{solution}
 A way to tell if $\ve{A}$ is singular that we discussed in class is that the determinant of $\ve{A}=0$.
 
 \begin{parts}
-\part Since \ve{a} has a zero on the diagonal, we know that it's determinant is zero. Thus, \ve{a} is singular.
+\part To find the \ve{a} determinant, use the cofactor method and select $i$ or $j$ = 2 to include the zero entry.
+%
+\begin{align}
+\det(\ve{a})_{j=2} = &\sum_{i=1}^3 a_{i2}(-1)^{i+2}M_{i2} \nonumber \\
+%
+= &a_{12} (-1)^3 M_{12} + a_{22} (-1)^4 M_{22} + a_{32} (-1)^5 M_{32} \nonumber \\
+%
+= &-\aab \cdot \det\begin{pmatrix}
+   \aba & \abc \\
+   \aca & \acc \\ \end{pmatrix} 
++ \abb \cdot \det\begin{pmatrix}
+   \aaa & \aac \\
+   \aca & \acc \\ \end{pmatrix} \nonumber \\
+&- \acb \cdot \det\begin{pmatrix}
+   \aaa & \aac \\
+   \aba & \abc \\  \end{pmatrix}\nonumber \\
+%
+= &-\aab [(\aba \cdot \acc) - (\abc \cdot \aca)]% + \abb [(\aaa \cdot \acc) - (\aac \cdot \aca)] 
+- \acb [(\aaa \cdot \abc) - (\aac \cdot \aba)] \nonumber \\
+%
+\det(\ve{a}) = & -2(-9 + 14) + 1(28 - 16) = \boxed{0 \rightarrow \text{singular}} \nonumber
+\end{align}
 
+%-------------------------------------------------------
 \part Computing the determinant of \ve{b} is easy since it's diagonal:
 \begin{align}
 \det(\ve{b}) &= \baa ( \bbb \cdot \bcc ) - \bbb ( \baa \cdot \bcc ) + \bcc ( \baa \cdot \bbb ) \nonumber \\
-\det(\ve{b}) &= -6 + 6 -6 = -6 \rightarrow \boxed{\text{non-singular}}\nonumber
+\det(\ve{b}) &= -6 + 6 -6 = \boxed{-6 \rightarrow \text{non-singular}}\nonumber
 \end{align}
 %
 Since \ve{b} is non-singular, we only need to compute it's inverse. Recall that for the inverse of a diagonal matrix $d^{-1}_{ii} = 1/d_{ii}$. Thus,
@@ -138,41 +179,213 @@ Since \ve{b} is non-singular, we only need to compute it's inverse. Recall that 
   0 &  0 & 1
 \end{pmatrix}\]
 
-\part 
+%-------------------------------------------------------
+\part To find the \ve{c} determinant, use the cofactor method and select $i$ = 4 or $j$ = 2 to include the zero entry.
+%
+\begin{align}
+\det(\ve{c})_{j=2} = &\sum_{i=1}^4 c_{i2}(-1)^{i+2}M_{i2} \nonumber \\
+%
+= &c_{12} (-1)^3 M_{12} + c_{22} (-1)^4 M_{22} + c_{32} (-1)^5 M_{32} + c_{42} (-1)^6 M_{42}\nonumber \\
+%
+= &-\cab \cdot \det\begin{pmatrix}
+  \cba & \cbc & \cbd \\
+  \cca & \ccc & \ccd \\
+  \cda & \cdc & \cdd \\ \end{pmatrix} 
++ \cbb\cdot \det\begin{pmatrix}
+  \caa & \cac & \cad \\
+  \cca & \ccc & \ccd \\
+  \cda & \cdc & \cdd \\ \end{pmatrix} \nonumber \\
+&- \ccb \cdot \det\begin{pmatrix}
+  \caa & \cac & \cad \\
+  \cba & \cbc & \cbd \\
+  \cda & \cdc & \cdd \\ \end{pmatrix}
++ \cdb \cdot \det\begin{pmatrix}
+  \caa & \cac & \cad \\
+  \cba & \cbc & \cbd \\
+  \cca & \ccc & \ccd \\ \end{pmatrix} \nonumber \\
+  %
+\det(\ve{c}) = &\cdots = \boxed{0 \rightarrow \text{singular}} \nonumber
+\end{align}
 
 \end{parts}
-
 
 \end{solution}
 
 
+
+% --------------------------------------------
 % ---------------------------------------------
 \vspace*{3em}
 \addpoints
 \question[10] Determine the eigenvalues and associated eigenvectors of the following matrices:
 %
+% a values
+\renewcommand{\aaa}{2}
+\renewcommand{\aab}{-1}
+\renewcommand{\aba}{-1}
+\renewcommand{\abb}{2}
+% b values
+\renewcommand{\baa}{2}
+\renewcommand{\bab}{1}
+\renewcommand{\bac}{0}
+\renewcommand{\bba}{1}
+\renewcommand{\bbb}{2}
+\renewcommand{\bbc}{0}
+\renewcommand{\bca}{0}
+\renewcommand{\bcb}{0}
+\renewcommand{\bcc}{3}
+% c values
+\renewcommand{\caa}{3}
+\renewcommand{\cab}{2}
+\renewcommand{\cac}{-1}
+\renewcommand{\cba}{1}
+\renewcommand{\cbb}{-2}
+\renewcommand{\cbc}{3}
+\renewcommand{\cca}{2}
+\renewcommand{\ccb}{0}
+\renewcommand{\ccc}{4}
 \begin{equation}
 \text{a.} \begin{pmatrix}
-   2  & -1 \\
-   -1 &  2  
+   \aaa & \aab \\
+   \aba & \abb \\
 \end{pmatrix} \qquad
 %
 \text{b.} \begin{pmatrix}
-  2 &  1 & 0 \\
-  1 &  2 & 0 \\
-  0 &  0 & 3
-\end{pmatrix} \qquad 
+   \baa & \bab & \bac \\
+   \bba & \bbb & \bbc \\
+   \bca & \bcb & \bcc \\
+\end{pmatrix} \qquad
+%
 \text{c.} \begin{pmatrix}
-  3  &  2 & -1 \\
-  1  & -2 &  3 \\
-  2  &  0 &  4
+  \caa & \cab & \cac \\
+  \cba & \cbb & \cbc \\
+  \cca & \ccb & \ccc \\
 \end{pmatrix} \nonumber
 \end{equation}
 
+% ---------------------------------------------
 \begin{solution}
 To find eigenvalues, we need to compute $\det(\ve{A} - \lambda \ve{I})=0$ for each system.
 
+\begin{parts}
+\part 
+\begin{align}
+\det(\ve{a} - \lambda \ve{I}) = &\det\begin{pmatrix}
+   \aaa - \lambda & \aab \\
+   \aba & \abb - \lambda \\
+\end{pmatrix} = 0\nonumber \\
+%
+= &[(\aaa - \lambda)\cdot(\abb - \lambda) - (\aab \cdot \aba)] \nonumber \\
+%
+= & \lambda^2 -4 \lambda + 3\nonumber \\
+%
+= & (\lambda - 3)(\lambda - 1) = 0 \nonumber \\
+%
+&\boxed{\lambda = 3, 1} \nonumber
+\end{align}
+ 
+And the associated right eigenvectors come from $(\ve{a} - \lambda_i \ve{I})\vec{x}_i = \vec{0}$. Use this formula to get the relationship among entries in the eigenvector set the entries. 
 
+E.g., for $\lambda = 3$:
+%
+\begin{align}
+\begin{pmatrix}
+   \aaa - 3 & \aab \\
+   \aba & \abb - 3 \\
+\end{pmatrix} 
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix} &= 
+\begin{pmatrix} 0 \\ 0 \end{pmatrix} \nonumber \\
+%
+-x_1 - x_2 &= 0  \nonumber \\
+-x_1 - x_2 &= 0  \nonumber \\
+%
+\text{Thus } x_1 &= -x_2\:, \qquad \text{Choose }x_1 = 1 \nonumber
+\end{align}
+This strategy then gives
+\begin{equation}
+\vec{x}_{\lambda =3} = \begin{pmatrix} 1 \\ -1 \end{pmatrix} \qquad
+\vec{x}_{\lambda =1} = \begin{pmatrix} 1 \\ 1 \end{pmatrix} \nonumber
+\end{equation}
+
+%------------------------------------
+\part 
+There are several ways to do this, but we'll again use the cofactors with $j=2$ (like question 1).
+\begin{align}
+\det(\ve{b} - \lambda \ve{I}) = &\det\begin{pmatrix}
+   \baa - \lambda & \bab & \bac \\
+   \bba & \bbb - \lambda & \bbc \\
+   \bca & \bcb & \bcc - \lambda \\
+\end{pmatrix}  = 0\nonumber \\
+%
+= &-\bab \cdot \det\begin{pmatrix}
+   \bba & \bbc \\
+   \bca & (\bcc - \lambda) \\ \end{pmatrix} 
++ (\bbb - \lambda) \cdot \det\begin{pmatrix}
+   (\baa - \lambda) & \bac \\
+   \bca & (\bcc - \lambda) \\ \end{pmatrix} \nonumber \\
+&- \bcb \cdot \det\begin{pmatrix}
+   (\baa - \lambda) & \bac \\
+   \bba & \bbc \\  \end{pmatrix} \nonumber \\
+%
+= &-\bab [(\bba \cdot (\bcc - \lambda)) - (\bbc \cdot \bca)] + (\bbb - \lambda) [((\baa - \lambda) \cdot (\bcc - \lambda)) - (\bac \cdot \bca)] 
+\nonumber \\
+%&- \bcb [((\baa - \lambda) \cdot \bbc) - (\bac \cdot \bba)] \nonumber 
+%
+= & - \lambda^3 + 7 \lambda^2 - 15 \lambda + 9  \nonumber \\
+%
+= & (\lambda - 3)(\lambda - 3)(-\lambda + 1) = 0 \nonumber \\
+%
+&\boxed{\lambda = 3, 3, 1} \nonumber
+\end{align}
+%
+And the associated eigenvectors are
+%
+\begin{equation}
+\vec{x}_{\lambda =3} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \qquad
+\vec{x}_{\lambda =3} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}\qquad
+\vec{x}_{\lambda =1} = \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} \nonumber
+\end{equation}
+
+%------------------------------------
+\part 
+Just like part (b):
+\begin{align}
+\det(\ve{b} - \lambda \ve{I}) = &\det\begin{pmatrix}
+   \caa - \lambda & \cab & \cac \\
+   \cba & \cbb - \lambda & \cbc \\
+   \cca & \ccb & \ccc - \lambda \\
+\end{pmatrix}  = 0\nonumber \\
+%
+= &-\cab \cdot \det\begin{pmatrix}
+   \cba & \cbc \\
+   \cca & (\ccc - \lambda) \\ \end{pmatrix} 
++ (\cbb - \lambda) \cdot \det\begin{pmatrix}
+   (\caa - \lambda) & \cac \\
+   \cca & (\ccc - \lambda) \\ \end{pmatrix} \nonumber \\
+&- \ccb \cdot \det\begin{pmatrix}
+   (\caa - \lambda) & \cac \\
+   \cba & \cbc \\  \end{pmatrix} \nonumber \\
+%
+= &-\cab [(\cba \cdot (\ccc - \lambda)) - (\cbc \cdot \cca)] + (\cbb - \lambda) [((\caa - \lambda) \cdot (\ccc - \lambda)) - (\cac \cdot \cca)] 
+\nonumber \\
+%&- \ccb [((\caa - \lambda) \cdot \cbc) - (\cac \cdot \cba)] \nonumber 
+%
+= & - \lambda^3 + 5 \lambda^2 + 2 \lambda -24  \nonumber \\
+%
+= & (\lambda - 4)(-\lambda + 3)(\lambda + 2) = 0 \nonumber \\
+%
+&\boxed{\lambda = 4, 3, -2} \nonumber
+\end{align}
+%
+And the associated eigenvectors are
+%
+\begin{equation}
+\vec{x}_{\lambda =4} = \begin{pmatrix} 0 \\ 1 \\ 2 \end{pmatrix} \qquad
+\vec{x}_{\lambda =3} = \begin{pmatrix} -1 \\ 1 \\ 2 \end{pmatrix}\qquad
+\vec{x}_{\lambda =-2} = \begin{pmatrix} 3 \\ -8 \\ 1 \end{pmatrix} \nonumber
+\end{equation}
+
+\end{parts}
 
 \end{solution}
 
