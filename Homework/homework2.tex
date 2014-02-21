@@ -14,7 +14,7 @@
 
 % These lines can probably stay unchanged, although you can remove the last
 % two packages if you're not making pictures with tikz.
-\documentclass[12pt, answers]{exam}
+\documentclass[12pts, answers]{exam}
 \RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
 \RequirePackage{tikz}
 \usetikzlibrary {plotmarks}
@@ -512,6 +512,8 @@ Using this information we can select $x_1$ and determine a solution for the syst
 \end{solution}
 
 
+
+% ---------------------------------------------
 % ---------------------------------------------
 \vspace*{3em}
 \addpoints
@@ -521,44 +523,263 @@ that passes through the points $(1,1)$, $(2,-1)$, and $(3,1)$.
 
 Use Gaussian elimination and backward substitution as your solution technique.
 
+\begin{solution}
+We have three points and three unknowns in $y = a + bx + cx^2$. We can therefore create system of equations to create a matrix problem:
+%
+\newcommand{\pxa}{1}
+\newcommand{\pya}{1}
+\newcommand{\pxb}{2}
+\newcommand{\pyb}{-1}
+\newcommand{\pxc}{3}
+\newcommand{\pyc}{1}
+\begin{align}
+(\pxa,\pya): &\qquad a + b(\pxa) + c(\pxa^2) = \pya \nonumber \\
+%
+(\pxb,\pyb): &\qquad a + b(\pxb) + c(\pxb^2) = \pyb \nonumber \\
+%
+(\pxc,\pyc): &\qquad a + b(\pxc) + c(\pxc^2) = \pyc \nonumber \\
+%
+\text{This all gives } &\begin{pmatrix}
+1 & \pxa & \pxa^2 \\
+1 & \pxb & \pxb^2 \\
+1 & \pxc & \pxc^2 \\
+\end{pmatrix}
+\begin{pmatrix} a \\ b \\ c \end{pmatrix} =
+\begin{pmatrix} \pya \\ \pyb \\ \pyc \end{pmatrix} \nonumber
+\end{align}
+%
+Use Gaussian elimination to get this matrix into echelon form:
+\begin{align}
+\begin{pmatrix}
+1 & \pxa & 1 \\
+0 & 1 & 3 \\
+0 & 2 & 8 \\
+\end{pmatrix}
+\begin{pmatrix} a \\ b \\ c \end{pmatrix} &=
+\begin{pmatrix} \pya \\ -2 \\ 0 \end{pmatrix} \qquad \text{R2 - R1; R3 - R1}\nonumber \\
+%
+\begin{pmatrix}
+1 & \pxa & 1 \\
+0 & 1 & 3 \\
+0 & 0 & 2 \\
+\end{pmatrix}
+\begin{pmatrix} a \\ b \\ c \end{pmatrix} &=
+\begin{pmatrix} \pya \\ -2 \\ 4 \end{pmatrix} \qquad \text{R3 - 2R1}\nonumber
+\end{align}
+%
+Using backward substitution, we can see
+%
+\begin{align}
+c &= 4/2 = 2 \nonumber \\
+b &= -2 - 3(2) \nonumber \\
+a &= 1 +8 -2 = 7 \nonumber
+\end{align}
 
+Thus, the equation for the parabola is
+\begin{equation}
+\boxed{y = 7 - 8x + 2 x^2} \:. \nonumber
+\end{equation}
+\end{solution}
+
+
+% ---------------------------------------------
 % ---------------------------------------------
 \vspace*{3em}
 \addpoints
 \question[10] Determine the spectral radii of the following matrices:
 %
+% a values
+\renewcommand{\aaa}{0}
+\renewcommand{\aab}{1/2}
+\renewcommand{\aba}{1/2}
+\renewcommand{\abb}{0}
+% b values
+\renewcommand{\baa}{-1}
+\renewcommand{\bab}{2}
+\renewcommand{\bac}{0}
+\renewcommand{\bba}{0}
+\renewcommand{\bbb}{3}
+\renewcommand{\bbc}{4}
+\renewcommand{\bca}{0}
+\renewcommand{\bcb}{0}
+\renewcommand{\bcc}{7}
+%
 \begin{equation}
 \text{a.} \begin{pmatrix}
-   0   & 1/2 \\
-   1/2 &  0  
+   \aaa & \aab \\
+   \aba & \abb \\
 \end{pmatrix} \qquad
 %
 \text{b.} \begin{pmatrix}
-  -1 &  2 & 0 \\
-   0 &  3 & 4 \\
-   0 &  0 & 7
+   \baa & \bab & \bac \\
+   \bba & \bbb & \bbc \\
+   \bca & \bcb & \bcc \\
 \end{pmatrix} \nonumber
 \end{equation}
 %
 Discuss the significance of the spectral radius for the iterative solution of $\ve{A}\vec{x} = \vec{b}$.
 
+\begin{solution}
+To find the spectral radius we need to find the (absolute value) largest of the eigenvalues, so we need to compute $\det(\ve{A} - \lambda \ve{I})=0$ for each system.
 
+\begin{parts}
+\part 
+\begin{align}
+\det(\ve{a} - \lambda \ve{I}) = &\det\begin{pmatrix}
+   \aaa - \lambda & \aab \\
+   \aba & \abb - \lambda \\
+\end{pmatrix} = 0\nonumber \\
+%
+= &[(\aaa - \lambda)\cdot(\abb - \lambda) - (\aab \cdot \aba)] \nonumber \\
+%
+= & \lambda^2 - \frac{1}{4}\nonumber \\
+%
+= & (\lambda - \frac{1}{2})(\lambda +  \frac{1}{2}) = 0 \nonumber \\
+%
+&\boxed{\rho(\ve{A}) = \frac{1}{2}} \nonumber
+\end{align}
+ 
+%------------------------------------
+\part 
+There are several ways to do this, but we'll use the cofactors with $j=1$ since that column has two zeros.
+%
+\begin{align}
+\det(\ve{b} - \lambda \ve{I}) = &\det\begin{pmatrix}
+   \baa - \lambda & \bab & \bac \\
+   \bba & \bbb - \lambda & \bbc \\
+   \bca & \bcb & \bcc - \lambda \\
+\end{pmatrix}  = 0\nonumber \\
+%
+= &-(\baa - \lambda) \cdot \det \begin{pmatrix}
+   (\bbb - \lambda) & \bbc \\
+   \bcb & (\bcc - \lambda) \\ \end{pmatrix} 
++ 0 + 0\nonumber \\
+%
+= & -(\baa - \lambda)[(\bbb - \lambda)(\bcc - \lambda) - \bbc \cdot  \bcb] \nonumber \\
+%
+= & (-\lambda - 1)(\lambda - 3)(\lambda - 7) = 0 \nonumber \\
+%
+&\boxed{\rho(\ve{b}) = 7} \nonumber
+\end{align}
+%
+\end{parts}
+
+The spectral radius of a matrix $\ve{A}$ will affect if and how fast the iterative solution converges. If we define $\ve{P} = \ve{Q}^{-1}(\ve{Q}-\ve{A})$ as in class, then the spectral radius of \ve{P}, $\rho(\ve{P})$, determines the convergence of the iterative method to the true solution. 
+
+If $\rho(\ve{P}) > 1$, the method will not converge. If $\rho(\ve{P}) < 1$, the method will converge. The magnitude of $\rho(\ve{P})$ will dictate how fast convergence/divergence happens. 
+
+It is important to note the if $\rho(\ve{A})$ is always $<$ 1, the solution will go to 0 as iteration index $k \rightarrow \infty$, which we do not want. We want the error to go to zero, which matrix \ve{P} reflects, so \ve{P}'s spectral radius should be less than 1.
+
+\end{solution}
+
+
+% ---------------------------------------------
 % ---------------------------------------------
 \vspace*{3em}
 \addpoints
 \question[10] Find the LU Decomposition of $\ve{A}$ using Gaussian elimination and use it to solve $\ve{A}\vec{x} = \vec{b}$.
 %
+% b values
+\renewcommand{\baa}{10}
+\renewcommand{\bab}{-7}
+\renewcommand{\bac}{0}
+\renewcommand{\bba}{-3}
+\renewcommand{\bbb}{2}
+\renewcommand{\bbc}{6}
+\renewcommand{\bca}{5}
+\renewcommand{\bcb}{-1}
+\renewcommand{\bcc}{5}
+% soln vector
+\newcommand{\ba}{7}
+\newcommand{\bb}{4}
+\newcommand{\bc}{6}
+%
 \begin{equation}
 \ve{A} = \begin{pmatrix}
-  10 & -7 & 0 \\
-  -3 &  2 & 6 \\
-   5 & -1 & 5
+   \baa & \bab & \bac \\
+   \bba & \bbb & \bbc \\
+   \bca & \bcb & \bcc \\
 \end{pmatrix} \; \qquad
 %
-\vec{b} = \begin{pmatrix} 7 \\ 4 \\ 6 \end{pmatrix} \nonumber
+\vec{b} = \begin{pmatrix} \ba \\ \bb \\ \bc \end{pmatrix} \nonumber
 \end{equation}
 
 \begin{solution}
+Create $\ve{U}$ by row-reducing $\ve{A}$:
+%
+\begin{equation}
+\begin{pmatrix}
+   \baa & \bab & \bac \\
+   0    & -1/10 & \bbc \\
+   0    & 2.5 & \bcc \\
+\end{pmatrix} \qquad \begin{pmatrix}
+ & \\ R_2 - m_{21}R_1, & m_{21} = (\bba / \baa) \\ 
+      R_3 - m_{31}R_1, & m_{31} = (\bca / \baa) \end{pmatrix} \nonumber 
+\end{equation}
+%
+Since the second pivot entry, -0.1, is much smaller than the other entries we will exchange (or pivot) the second and third rows. This requires that we create a pivot matrix to keep track of this:
+\[\ve{P} = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{pmatrix}\]
+Then we continue row-reducing \ve{U}.
+%
+\begin{align}
+\ve{U} &= \begin{pmatrix}
+   \baa & \bab & \bac \\
+   0    & 2.5 & \bcc \\
+   0    & -0.1 & \bbc \\
+\end{pmatrix} \:; 
+\qquad \vec{b} = \begin{pmatrix} \ba \\ \bc \\ \bb \end{pmatrix} \nonumber \\
+%
+&= \begin{pmatrix}
+   \baa & \bab & \bac \\
+   0    & 2.5  & \bcc \\
+   0    & 0    & 6.2 \\
+\end{pmatrix} 
+\qquad
+\begin{pmatrix} & \\ & \\ R_3 - m_{32}R_2, & m_{32} = (-0.1 / 2.5) \end{pmatrix} \nonumber 
+\end{align}
+
+We now have all of the parts to write out the LU decomposition, formulated as $\ve{P}\ve{A} = \ve{L}\ve{U}$:
+\begin{equation}
+\boxed{\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{pmatrix} % P
+\begin{pmatrix}
+   \baa & \bab & \bac \\
+   \bba & \bbb & \bbc \\
+   \bca & \bcb & \bcc \\
+\end{pmatrix} = % A
+%
+\begin{pmatrix}
+1 & 0 & 0 \\
+0.5 & 1 & 0 \\
+-0.3 & -0.04 & 1 \\
+\end{pmatrix} % L
+\begin{pmatrix}
+   \baa & \bab & \bac \\
+   0    & 2.5  & \bcc \\
+   0    & 0    & 6.2 \\
+\end{pmatrix} \nonumber} % U
+\end{equation}
+%
+To solve $\ve{A}\vec{x} = \vec{b}$ with this system, we 
+%
+\begin{enumerate}
+\item Solve $\ve{L}\vec{y} = \vec{b}$ for $\vec{y}$ using forward substitution
+\item Solve $\ve{U}\vec{x} = \vec{y}$ for $\vec{x}$ using backward substitution
+\end{enumerate}
+%
+And this gives
+\begin{equation}
+\boxed{\vec{x}= \begin{pmatrix} 0 \\ -1 \\ 1 \end{pmatrix}} \nonumber
+\end{equation}
+
+\textit{Note:} a faster way to get $\vec{x}$ if you're just solving this system once is to reduce $\vec{b}$ in the same way you reduce \ve{U} (we'll call this $\tilde{\vec{b}}$), and then solve $\ve{U}\vec{x} = \tilde{\vec{b}}$ using backward substitution.
 
 \end{solution}
 
