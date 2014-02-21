@@ -1,6 +1,11 @@
 NE155
 =====
 
-This is a repository with any .tex other version-controllable files for NE155, Introduction to Numerical Simulations in Radiation Transport. Latex files can be constructed using pdflatex. 
+This is a public repository with lesson files for NE155, Introduction to Numerical Simulations in Radiation Transport. 
 
 Initially taught Spring 2014.
+
+Latex files can be constructed using pdflatex.
+
+.ipynb notebooks can be launched from the command line with
+> ipython notebook -matplotlib
