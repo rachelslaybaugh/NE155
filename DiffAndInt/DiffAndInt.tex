@@ -1,0 +1,101 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2014
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, Classes 13 \& 14, S14 \\
+Differentiation \& Integration \\ February 24 and 26, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+%--------------------------------------------------------------------
+%\section{Differentiation}
+%Sometimes rather than calculating values of a function, we need to approximate or interpolate them instead. Why might we do this?
+%%
+%\begin{itemize}
+%\item It may be difficult or impossible to analytically evaluate the function
+%\item We may have only a table of values at certain points and need to
+%determine the values in between
+%\item It may be much faster to compute values of an approximation
+%function than of the original function, particularly if we have to
+%calculate the function values over and over again
+%\item A function may be defined implicitly
+%\end{itemize}
+
+\begin{tikzpicture}
+\draw (-.25,0)--(1.25,0);
+\draw[dotted] (1.25,0)--(2.75,0);
+\draw (2.75,0)--(5.25,0);
+\draw[dotted] (5.25,0)--(6.75,0);
+\draw (6.75,0)--(8.25,0);
+%\draw (4,0)--(5.25,0);
+\draw (0,-.25)--(0,.25);
+\node[below] at (0,-.25) {$x_0$}
+\draw (1,-.25)--(1,.25);
+%\draw (2,-.25)--(2,.25);
+\draw (3,-.25)--(3,.25);
+\draw (4,-.25)--(4,.25);
+\draw (5,-.25)--(5,.25);
+\draw (7,-.25)--(7,.25);
+\draw (8,-.25)--(8,.25);
+\end{tikzpicture}
+
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%\bibliographystyle{plain}
+%\bibliography{LinearSolns} 
+
+\end{document}

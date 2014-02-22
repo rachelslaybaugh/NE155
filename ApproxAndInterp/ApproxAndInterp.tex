@@ -150,7 +150,7 @@ UPDATE THE REST OF THIS SECTION FROM R NOTES!
 \begin{align}
 P(x) &= f(x_0)L_0(x) + \dots + f(x_n)L_n(x) = \sum_{k=0}^{n}f(x_k)L_k(x) \\
 %
-L_k(x) &= \prod_{i=0, i \neq k}^n \frac{(x-x_i)}{(x_k-x_i)}\\
+L_k(x) &= \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)}\\
 %
 L_k(x) &= \frac{(x-x_0)(x-x_1)\cdots(x-x_{k-1})(x-x_{k+1})\cdots(x-x_n)}{(x_k-x_0)(x_k-x_1)\cdots(x_k-x_{k-1})(x_k-x_{k+1})\cdots(x_k-x_n)}
 \end{align}
