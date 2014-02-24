@@ -185,8 +185,8 @@ Use points on either side (the average of forward and backward difference) $\rig
 \underline{$O(h^4)$}: combine two points on either side
 \[f'(x_0) = \frac{f(x_0 - 2h) - 8f(x_0 - h) + 8f(x_0 + h) - f(x_0 + 2h)}{2h} - \frac{1}{30}h^4 f^{(5)}(\mu)\]
 
-\textbf{Higher Order Derivatives}\\
-By solving for different terms in the taylor expansion, combining points, and solving for coefficients we can get other derivative terms as well. 
+\subsubsection{Higher Order Derivatives}
+By solving for different terms in the Taylor expansion, combining points, and solving for coefficients we can get other derivative terms as well. 
 
 E.g. $a f(x_0 + h) + b f(x_0) + c f(x_0 - h) = f''(x_0)$
 
@@ -198,6 +198,48 @@ f^{(3)}(x_0) &= \frac{-f(x_0 - 2h) + 2f(x_0 - h) - 2f(x_0 + h) + f(x_0 + 2h)}{2h
 %
 f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 + 2h)}{h^4}
 \end{align}
+
+\subsubsection{Two Variables}
+\begin{center}
+\begin{tikzpicture}
+\draw (-.25,0)--(7.25,0);
+\draw (1,-.25)--(1,.25);
+\draw (3,-.25)--(3,5.25);
+\draw (4,-.25)--(4,5.25);
+\draw (5,-.25)--(5,5.25);
+\draw (7,-.25)--(7,.25);
+\node[below] at (0,-.25) {$x_0$};
+\node[below] at (1,-.25) {$x_1$};
+\node[below] at (3,-.25) {$x_{i-1}$};
+\node[below] at (4,-.25) {$x_i$};
+\node[below] at (5,-.25) {$x_{i+1}$};
+\node[below] at (7,-.25) {$x_n$};
+\node at (3.5, 2) {$\Delta x$};
+% begin y
+\draw (0,-.25)--(0,7.25);
+\draw (-.25,1)--(.25,1);
+\draw (-.25,3)--(5.25,3);
+\draw (-.25,4)--(5.25,4);
+\draw (-.25,5)--(5.25,5);
+\draw (-.25,7)--(.25,7);
+\node[left] at (-.25, 0) {$y_0$};
+\node[left] at (-.25,1) {$y_1$};
+\node[left] at (-.25,3) {$y_{i-1}$};
+\node[left] at (-.25,4) {$y_i$};
+\node[left] at (-.25,5) {$y_{i+1}$};
+\node[left] at (-.25,7) {$y_n$};
+\node at (2,3.5) {$\Delta y$};
+\end{tikzpicture}
+\end{center}
+
+\begin{align}
+\frac{\partial^2 f_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial f_{i,j}}{\partial x}\bigr) =
+\frac{f_{i-1,j} - 2f_{i,j} + f_{i+1,j}}{\Delta x^2} \\
+%
+\frac{\partial^2 f_{i,j}}{\partial y^2} = \frac{\partial}{\partial y}\bigl(\frac{\partial f_{i,j}}{\partial y}\bigr) =
+\frac{f_{i,j-1} - 2f_{i,j} + f_{i,j+1}}{\Delta y^2}
+\end{align}
+
 
 
 %--------------------------------------------------------------------
