@@ -293,7 +293,9 @@ the \textbf{degree of precision} of a quadrature formula, $I_n(f)$, is the posit
 \item $I(p) \neq I_n(p)$ for some poly of degree $m+1$.
 \end{enumerate}
  
-\subsection{Newton-Cotes}
+ 
+%--------------------------------------------------------------------
+\subsection{Newton-Cotes formula}
  
 \underline{idea}: fix $x_0, x_1, \dots, x_n$ then interpolate $f(x)$ by a poly of degree $\leq n$.
 %
@@ -304,7 +306,8 @@ I(f) &\approx I_n(f) = I(p_n)\\
 %
 The only error is in the interpolation.
 
-\subsubsection{Lagrange form}
+%--------------------------------------------------------------------
+\subsection*{Lagrange form}
 Choosing Lagrange polynomials prevents us from needing to recalculate weights for every $f(x)$ (since we've fixed the points).
 
 \begin{align}
@@ -312,10 +315,36 @@ P_n(x) &= \sum_{i=0}^{n}f(x_i)L_i(x) \\
 %
 I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
 %
-&= \sum_{i=0}^{n} a_i f(x_i)
+&= \sum_{i=0}^{n} a_i f(x_i)\\
 \text{where } a_i &=  \int_a^b L_i(x)dx \qquad \therefore a_i \text{ are not dependent on } f(x)
 \end{align}
 
+%--------------------------------------------------------------------
+\subsubsection{Trapezoid Rule}
+This is the Lagrange form of Newton-Cotes integration with $n=1$.
+
+$x_0 = a$, $x_1 = b$, $h = x_1 - x_0$
+%
+\begin{align}
+&L_0(x) = \frac{x-x_1}{x_0-x_1} \qquad L_1(x) = \frac{x-x_0}{x_1-x_0} \\
+%
+a_0 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_1}{x_0-x_1}\bigr) dx \qquad \text{let } x = x_0 + th \:; dx = hdt \\
+%
+a_0 &= h \int_0^1 \bigl(\frac{x_1 - x_0 - ht}{h}dt = \int_0^1 h(1-t)dt \\
+%
+a_0 &= h\bigl(t - \frac{1}{2}t^2 \bigr) |_0^1 = \frac{1}{2}h\\
+%
+a_1 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_0}{x_1-x_0}\bigr) dx = \frac{1}{2}h\\
+%
+& \therefore I_1(f) = \frac{h}{2}\bigl(f(x_0) + f(x_1)\bigr) \rightarrow \text{area of a trapezoid}
+\end{align}
+
+The trapezoid rule has 1 as its degree of precision.
+
+\textbf{draw picture}
+
+%--------------------------------------------------------------------
+\subsubsection{Simpson's Rule}
  
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
