@@ -243,6 +243,81 @@ f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 +
 
 
 %--------------------------------------------------------------------
+%-------------------------------------------------------------------
+\section{Integration}
+Why might we need to numerically integrate?
+\begin{itemize}
+\item The integrand, $f(x)$, is complicated enough so that its
+indefinite or even definite integral over a special range cannot
+be found.
+\item The indefinite or definite integral can be found, but may take
+long time to calculate it analytically.
+\item The integrand is given in terms of a table. That is, we are
+provided with discrete values of $f(x)$ at $n+1$ data or base
+points.
+\end{itemize}
+
+The general strategy is:
+\begin{itemize}
+\item Approximate the integrand $f(x)$ with either a global interpolating
+polynomial defined over the whole domain of integration, or a
+collection of local interpolating polynomials defined over intervals
+that are subtended by a small group of data points.
+\item Integrate the interpolating polynomials over their individual
+domains of definition.
+\end{itemize}
+
+Thus, given $f \in C[a,b]$ compute $I(f) = \int_a^b f(x) dx$.
+
+The way we do this is called numerical integration or numerical quadrature:
+\[I(f) \approx I_n(f) = \sum_{i=0}^n a_i f(x_i)\]
+$a_i \equiv$ quadrature weights\\
+$x_i \equiv$ quadrature points
+
+\textbf{Approach \#1}\\
+Fix quadrature points ($x_i$), then choose quadrature weights ($a_i$). Usually fit a polynomial to $f(x_i)$ and integrate.
+%
+\begin{enumerate}%[a.]
+\item \underline{Newton-Cotes}: use a single poly over the entire interval
+\item \underline{composite Newton-Cotes}: split the interval
+\item \underline{Romberg integration}: extrapolation
+\end{enumerate}
+
+\textbf{Approach \#2}\\
+For a given $n$, choose the ``best" quadrature points ($x_i$) and quadrature weights ($a_i$):\\
+\underline{Gaussian Quadrature}
+
+the \textbf{degree of precision} of a quadrature formula, $I_n(f)$, is the positive integer $m$ s.t.:
+\begin{enumerate}
+\item $I(p) = I_n(p)$ for every poly of degree $\leq m$.
+\item $I(p) \neq I_n(p)$ for some poly of degree $m+1$.
+\end{enumerate}
+ 
+\subsection{Newton-Cotes}
+ 
+\underline{idea}: fix $x_0, x_1, \dots, x_n$ then interpolate $f(x)$ by a poly of degree $\leq n$.
+%
+\begin{align}
+I(f) &\approx I_n(f) = I(p_n)\\
+\text{true integral } &\approx \text{ N-C formula } = \text{ true integral of interpolating poly}
+\end{align}
+%
+The only error is in the interpolation.
+
+\subsubsection{Lagrange form}
+Choosing Lagrange polynomials prevents us from needing to recalculate weights for every $f(x)$ (since we've fixed the points).
+
+\begin{align}
+P_n(x) &= \sum_{i=0}^{n}f(x_i)L_i(x) \\
+%
+I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
+%
+&= \sum_{i=0}^{n} a_i f(x_i)
+\text{where } a_i &=  \int_a^b L_i(x)dx \qquad \therefore a_i \text{ are not dependent on } f(x)
+\end{align}
+
+ 
+%--------------------------------------------------------------------
 %--------------------------------------------------------------------
 %\bibliographystyle{plain}
 %\bibliography{LinearSolns} 
