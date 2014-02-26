@@ -339,13 +339,147 @@ a_1 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_0}{x_1-x_0}\bigr) dx = \frac{1}{2}h\\
 & \therefore I_1(f) = \frac{h}{2}\bigl(f(x_0) + f(x_1)\bigr) \rightarrow \text{area of a trapezoid}
 \end{align}
 
-The trapezoid rule has 1 as its degree of precision.
+The trapezoid rule has degree of precision 1.
 
-\textbf{draw picture}
+\textit{DRAW PICTURE}
+
+%--------------------------------------------------------------------
+\subsubsection{Error Analysis}
+\begin{enumerate}
+\item interpolate:
+\[f(x) = P_n(x) + R_n(x)\]
+\item integrate:
+\[\int_a^b f(x) dx = \int_a^b P_n(x) dx + \int_a^b R_n(x) dx\]
+\end{enumerate}
+
+\textbf{Example:} Trapezoid Rule\\
+\begin{align}
+R_1(x) &= \frac{f''(c)}{2!}(x-x_0)(x-x_1) \\
+I(f) - I_1(f) &= \int_{x_0}^{x_1} \frac{f''(c)}{2!}\underbrace{(x-x_0)(x-x_1)}_{\text{doesn't change sign over interval}} dx
+\end{align}
+%
+Recall that $c$ depends on $x$. To get an expression, we're going to use the mean value theorem (which I briefly referenced last time).
+
+\underline{Mean Value Theorem for Integrals}\\
+\[\int_a^b f(x)g(x)dx = f(\xi) \int_a^b g(x)dx \qquad a\leq \xi \leq b\]
+$g(x)$ must always be positive or always negative (cannot change sign over the interval).
+
+Thus, we can use MVT for our integral to see that
+\begin{align}
+I(f) - I_1(f) &= \frac{1}{2}f''(\nu) \int_{x_0}^{x_1} (x-x_0)(x-x_1) dx \\
+&= \frac{1}{2}f''(\eta) \bigl(\frac{-h^3}{6}\bigr) \rightarrow \boxed{\frac{-h^3}{12}f''(\eta)}
+\end{align}
+is the error term for trapezoid rule. You can see that it's first order b/c the second derivative drives the error.
+
 
 %--------------------------------------------------------------------
 \subsubsection{Simpson's Rule}
+This is the Lagrange form of Newton-Cotes integration with $n=2$.
+
+\begin{align}
+x_0 &= a \qquad x_1 = \frac{a+b}{2} \qquad x_2=b \qquad h=\frac{b-a}{2}\\
+%
+L_0 &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}\\
+L_0 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
+L_0 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}\\
+%
+a_0 &= \int_{a=x_0}^{b=x_2} L_0(x)dx = \frac{h}{3}\\
+a_1 &= \int_{a=x_0}^{b=x_2} L_1(x)dx = \frac{4h}{3}\\
+a_2 &= \int_{a=x_0}^{b=x_2} L_2(x)dx = \frac{h}{3}\\
+&\text{Note: $a$s sum to }2h\text{, the size of the interval}\nonumber\\
+%
+&\therefore I_2(f) = \frac{h}{3}\bigl(f(x_0) + 4f(x_1) + f(x_2)\bigr) \end{align}
  
+The error term comes from integrating $R_2 = \frac{1}{3!}f'''(c)(x-x_0)(x-x_1)(x-x_2)$. However, the middle term now changes sign over the interval and we can't just use MVT.
+
+We're going to skip the details, but what we get out is that the error for Simpson's Rule looks like:
+\[\frac{-f^{(4)}(\eta)}{4!}\frac{h^5}{\frac{4}{15}} \rightarrow \boxed{\frac{-f^{(4)}(\eta)}{90}h^5}\]
+
+Thus, Simpson's rule has degree of precision 3 and is $O(h^5)$.
+
+\vspace*{2em}
+\textbf{In General:}
+\begin{center}
+\begin{tabular}{c c c}
+$n$  & error        & precision \\ \hline
+odd  & $O(h^{n+2})$ & $n$ \\
+even & $O(h^{n+3})$ & $n+1$ \\
+\end{tabular}
+\end{center}
+
+\underline{Simpson's 3/8 rule}:\\
+If $n=3$:
+\[\int_{x_0}^{x_3} f(x)dx = \frac{3h}{8}\bigl(f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3)\bigr) - \frac{3h^5}{80}f^{(4)}(\xi)\]
+where $x_0 < \xi < x_3$ and $h=(x_3 - x_0)/3$.
+
+\subsubsection{Composite Newton-Cotes}
+Some difficulties:
+\begin{enumerate}
+\item To add points we must recompute the weights, $a_i$, which can be a lot of work.
+\item high order polynomial interpolation on equally spaced points is BAD. (using optimally-spaced points is Gaussian quadrature; we'll get to that).
+\end{enumerate}
+
+\underline{Idea:} subdivide $[a,b]$ into subintervals. On each of these apply a low-order Newton-cotes formula.
+
+\textbf{Composite Trapezoid}:\\
+Just apply the trapezoid rule on each subinterval. Given $x_0, x_1, \dots, x_n$ and $f(x_0), f(x_1), \dots f(x_n)$, the grid space is $h = \frac{x_n-x_0}{n}$.
+
+\textit{DRAW PICTURE}
+
+\begin{align}
+\int_{x_0}^{x_n} f(x)dx &= \sum_{i=1}^n \int_{x_{i-1}}^{x_i} f(x)dx\\
+&= \sum_{i=1}^n \bigl[ \frac{h}{2}\bigl(f(x_{i-1}) + f(x_i)\bigr) - \frac{h^3}{12}f''(c_i) \bigr] \\
+&= \frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^3}{12} \underbrace{\sum_{i=1}^n f''(c_i)}_{n f''(\mu), n = (x_n-x_0)/h}\\
+%
+\int_{a}^{b} f(x)dx &= \boxed{\frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^2}{12}(b-a)f''(\mu) }
+\end{align}
+ 
+\textbf{Composite Simpson}:\\
+Similarly, apply the Simpson rule on each subinterval. %Given $x_0, x_1, \dots, x_n$ and $f(x_0), f(x_1), \dots f(x_n)$, the grid space is $h = \frac{x_n-x_0}{n}$. 
+%
+\begin{align}
+\int_{x_0}^{x_n} f(x)dx &= \sum_{i=2}^n \bigl[ \frac{h}{3}\bigl(f(x_{i-2}) + 4f(x_{i-1}) + f(x_i)\bigr) - \frac{f^{(4)}(c_i)}{90}h^5 \bigr]\\
+&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{\substack{i=1\\i=\text{odd}}}^{n-1} f(x_i) + 2\sum_{\substack{i=2\\i=\text{even}}}^{n-1} f(x_i) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)
+\end{align}
+
+
+%--------------------------------------------------------------------
+\subsubsection{Open Newton-Cotes}
+The previous examples were called \textbf{closed} Newton-Cotes because $f(x)$ is evaluated at the first and last points.
+
+In \textbf{open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are defined as $x_{j} = x_0 + jh, j = 0, \dots, n$, $h = (b-a)/(n+2)$. However, we define $x_{0} = a + h$, which implies $x_{n} = b - h$. Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$).
+
+
+\begin{figure}
+\begin{center}
+  \includegraphics[height=2in,clip]{ClosedNewtonCotes}
+\end{center}
+\end{figure}
+\begin{figure}
+\begin{center}
+  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}
+\end{center}
+\end{figure}
+
+
+The \underline{midpoint rule} is what we get with \underline{$n=0$}: it only uses one point:
+\[\int_a^b f(x)dx = \int_{x_{-1}}^{x_{1}} f(x)dx = 2hf(x_0) + \frac{h^3}{3}f''(\xi)\]
+where $x_{-1} < \xi < x_{1}$ and $h=(b-a)/2$.
+
+\underline{$n=1$}:
+\[ \int_{x_{-1}}^{x_{2}} f(x)dx = \frac{3h}{2}[f(x_0) + f(x_1)] + \frac{3h^3}{4}f''(\xi)\]
+where $x_{-1} < \xi < x_{2}$ and $h=(b-a)/3$.
+
+\underline{$n=2$}:
+\[ \int_{x_{-1}}^{x_{3}} f(x)dx = \frac{4h}{3}[2f(x_0) - f(x_1) + 2f(x_2)] + \frac{14h^5}{45}f^{(4)}(\xi)\]
+where $x_{-1} < \xi < x_{3}$ and $h=(b-a)/4$.
+
+\begin{figure}
+\begin{center}
+  \includegraphics[height=3.5in,clip]{QuadratureComparison}
+\end{center}
+\end{figure}
+
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
 %\bibliographystyle{plain}
