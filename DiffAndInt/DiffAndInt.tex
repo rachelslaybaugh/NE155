@@ -366,7 +366,7 @@ $g(x)$ must always be positive or always negative (cannot change sign over the i
 
 Thus, we can use MVT for our integral to see that
 \begin{align}
-I(f) - I_1(f) &= \frac{1}{2}f''(\nu) \int_{x_0}^{x_1} (x-x_0)(x-x_1) dx \\
+I(f) - I_1(f) &= \frac{1}{2}f''(\eta) \int_{x_0}^{x_1} (x-x_0)(x-x_1) dx \\
 &= \frac{1}{2}f''(\eta) \bigl(\frac{-h^3}{6}\bigr) \rightarrow \boxed{\frac{-h^3}{12}f''(\eta)}
 \end{align}
 is the error term for trapezoid rule. You can see that it's first order b/c the second derivative drives the error.
@@ -380,8 +380,8 @@ This is the Lagrange form of Newton-Cotes integration with $n=2$.
 x_0 &= a \qquad x_1 = \frac{a+b}{2} \qquad x_2=b \qquad h=\frac{b-a}{2}\\
 %
 L_0 &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}\\
-L_0 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
-L_0 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}\\
+L_1 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
+L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}\\
 %
 a_0 &= \int_{a=x_0}^{b=x_2} L_0(x)dx = \frac{h}{3}\\
 a_1 &= \int_{a=x_0}^{b=x_2} L_1(x)dx = \frac{4h}{3}\\
