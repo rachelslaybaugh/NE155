@@ -67,7 +67,7 @@ Cool?
 
 \section{Transport Equation Redux}
 
-Largely from Lewis and Miller Chp.\ 1 and Duderstadt and Hamilton Chp.\ 4. 
+Largely from Lewis and Miller Chp.\ 1 and Duderstadt and Hamilton Chp.\ 4. Note: Duderstadt and Martin is a very good general reference. It goes through all of this same stuff, but from a slightly more generic point of view (since this applies to \underline{any} collection of neutral particles).
 
 \subsection{Definitions}
 
@@ -104,31 +104,38 @@ Physics terms given possible reactions we're generally going to worry about:
 
 \item \textbf{macroscopic x-sec} ($\Sigma$ [$cm^{-1}$]): measure of the probability per unit path length that an incident neutron will collide with a target
 \[\Sigma_j = \sigma_j N\]
-where N is the atomic densigy of the target.
+where N is the atomic density of the target.
 
-\item \textbf{double-differential scattering x-sec} ($\sigma(E, \vOmega \rightarrow E', \vOmega')dE' d\vOmega'$): measure of the probability that a neutron of energy $E$ and moving in direction $\vOmega$ scatters off of a specific nucleus into energy range $[E', E' + dE']$ and direction range $[\vOmega', \vOmega' + d\vOmega']$.
+\item \textbf{double-differential scattering x-sec} ($\sigma_s(E, \vOmega \rightarrow E', \vOmega')dE' d\vOmega'$): measure of the probability that a neutron of energy $E$ and moving in direction $\vOmega$ scatters off of a specific nucleus into energy range $[E', E' + dE']$ and direction range $[\vOmega', \vOmega' + d\vOmega']$.
 
 \item \textbf{fission yield} ($\nu(E)$): is the average number of neutrons released by a fission induced by a neutron of energy E.
 
 \item \textbf{fission spectrum} ($\chi(E)dE$): average \# of fission neutrons produced with energy in $[E, E + dE]$
 
-\item \textbf{particle angular density} ($n(\vec{r}, \vOmega, E, t)d\vec{r} d\vOmega dE dt$): expected number of particles in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$
+\item \textbf{particle angular density} ($n(\vec{r}, E, \vOmega, t)d\vec{r} d\vOmega dE dt$): expected number of particles in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$
+
+Note:
+\begin{align}
+n(\vec{r}, E, \vOmega, t) &= \frac{1}{mv}n(\vec{r}, v, \vOmega, t) \\
+n(\vec{r}, v, \vOmega, t) &= v^2 n(\vec{r}, \vec{v}, t) \\
+n(\vec{r}, \vec{v}, t) &= \frac{m}{v}n(\vec{r}, E, \vOmega, t)
+\end{align}
 
 \item \textbf{particle density}: ($N(\vec{r},E,t)d^3r dE$): expected number of particles in $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ at time $t$.
-\[N(\vec{r},E,t)d^3r dE = \int_{4\pi} d\vOmega n(\vec{r}, \vOmega, E, t) \]
+\[N(\vec{r},E,t)d^3r dE = \int_{4\pi} d\vOmega n(\vec{r}, E, \vOmega, t) \]
 
-\item \textbf{angular flux}: $\psi(\vec{r}, \vOmega, E, t) \equiv v n(\vec{r}, \vOmega, E, t)$ [not a vector]
+\item \textbf{angular flux}: $\psi(\vec{r}, E, \vOmega, t) \equiv v n(\vec{r}, E, \vOmega, t)$ [not a vector]
 
 \item \textbf{scalar flux}: $\phi(\vec{r},E,t) \equiv v N(\vec{r},E,t)$ [not a vector]
-\[= \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, E, t) \]
+\[= \int_{4\pi} d\vOmega \psi(\vec{r}, E, \vOmega, t) \]
 
 \item \textbf{interaction rate density}:
-\[\int_{4\pi} d\vOmega \Sigma_j v n(\vec{r}, \vOmega, E, t) = \Sigma_j \phi(\vec{r},E,t)\]
+\[\int_{4\pi} d\vOmega \Sigma_j v n(\vec{r}, E, \vOmega, t) = \Sigma_j \phi(\vec{r},E,t)\]
 expected number of $j$ reactions per volume per energy at time $t$.
 
-\item \textbf{angular current density}: $\vec{j}(\vec{r}, \vOmega, E, t) = \vec{v} n(\vec{r}, \vOmega, E, t)$ 
+\item \textbf{angular current density}: $\vec{j}(\vec{r}, E, \vOmega, t) = \vec{v} n(\vec{r}, E, \vOmega, t)$ 
 
-Note $\vec{j}(\vec{r}, \vOmega, E, t) \cdot \hat{n} dA dE d\vOmega$ is the expected number of particles crossing $dA$ along $\hat{n}$ with energy in $[E, E + dE]$ and direction in $[\vOmega, \vOmega + d\vOmega]$ at time $t$
+Note $\vec{j}(\vec{r}, E, \vOmega, t) \cdot \hat{e} dA dE d\vOmega$ is the expected number of particles crossing $dA$ along $\hat{e}$ with energy in $[E, E + dE]$ and direction in $[\vOmega, \vOmega + d\vOmega]$ at time $t$
 \end{enumerate}
 
 %-----------------------------------------
@@ -163,19 +170,110 @@ Then, for a this volume $V$ for a fixed $E$ and $\vOmega$, the general rate equa
 \hspace*{3 em} \boxed{\text{Rate of change of the particle (neutron) population 
  = rate of production - rate of loss}}
 
+%--------------
 \subsubsection{Rate of Change}
 Recall the definition of $n$: expected number of particles in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$
 
 To get the rate of change of particles within the volume, we need to integrate over volume and take the derivative with respect to time:
 
-\[\Biggl[ \int_V \frac{\partial}{\partial t} n(\vec{r}, E, \vOmega, t) d\vec{r} \Biggr] dE d\vOmega \]
+\[\boxed{\Bigl[ \int_V \frac{\partial}{\partial t} n(\vec{r}, E, \vOmega, t) d\vec{r} \Bigr] dE d\vOmega }\]
 
 
+%--------------
 \subsubsection{Production Mechanisms}
+How can we produce neutrons in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$?
+%
+\begin{enumerate}
+\item inscattering (from some other energy and angle into our energy and angle)
+\item fission neutrons 
+\item fixed/interior sources
+\end{enumerate}
 
+1) Scattering into $[E, E + dE]$ and $[\vOmega, \vOmega + d\vOmega]$
+
+This is the definition of the double differential scattering cross section:
+\[\boxed{\Bigl[\int_V d^3r \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') v' n(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega}\]
+
+2) Expected rate of neutron production by fission
+
+Note: fission neutrons are isotropic, thus they are produced at $\frac{1}{4\pi}$ per steradian. This means the fraction within $[\vOmega, \vOmega + d\vOmega]$ is $\frac{d\vOmega}{4\pi}$
+
+Also, recall that $\chi(E)dE$ is the fraction of neutrons born into $[E, E + dE]$. Thus
+%
+\[\boxed{\frac{\chi(E)}{4\pi}\Bigl[\int_V d^3r \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \nu(E') \Sigma_f(E') v' n(\vec{r}, E', \vOmega', t) \Bigr] dE d\vOmega}\]
+
+3) Production from a fixed source
+
+Sources are fully specified by a function reminiscent of the $n$ definition: $S(\vec{r}, E, \vOmega, t)$ s.t.\ $S(\vec{r}, E, \vOmega, t)d^3rdEd\vOmega \equiv$ the expected number of particles that are produced at time $t$ inside volume $d^3r$ at $\vec{r}$ with energy $[E, E + dE]$ and direction $[\vOmega, \vOmega + d\vOmega]$.
+
+Rate of production of such particles in $V$ is
+\[\boxed{\Bigl[\int_V d^3r S(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega }\]
+
+%--------------
 \subsubsection{Loss Mechanisms}
+How can we lose neutrons from volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$?
+%
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item neutrons can collide and exit the system
+\item neutrons can leak out of the system
+\end{enumerate}
 
+4) Total interaction: any collision can lead to (a) absorption or a (b) change in $E$ or $\vOmega$ or both.
 
+\[\boxed{\Bigl[\int_V d^3r \Sigma_t(E) v n(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega }\]
 
+5) Net leakage out of the system
 
-\end{document}
+\begin{figure}[h!]
+\begin{center}
+%\includegraphics[height=1in]{UnitXsecArea}
+\includegraphics[height=1in]{DifferentialArea}
+\end{center}
+\end{figure}
+
+Use the definition of $\vec{j} \rightarrow$ the expected number of particles crossing $dS$ along $\hat{e}_S$ with energy $[E, E + dE]$ and direction $[\vOmega, \vOmega + d\vOmega]$ at time $t$  
+\[= \vec{j}(\vec{r}_s, E, \vOmega, t) \cdot d\vec{S} dE d\vOmega\]
+($\vec{r}_s$ is a point on the surface, $d\vec{S} = \hat{e}_S dS$).
+
+Thus, the total leakage out of $V$ is
+\[\Bigl[\int_S \vec{j}(\vec{r}_s, E, \vOmega, t) \cdot d\vec{S} \Bigr] dE d\vOmega \]
+
+We can use divergence theorem to rewrite this w.r.t.\ $V$ (rather than $S$:
+\[\int_S \vec{e}_S \cdot \vec{F} (\vec{r}) dS = \int_V \nabla \cdot \vec{F} (\vec{r}) dV\]
+where
+\[\nabla = \vec{i}\frac{d}{dx} + \vec{j}\frac{d}{dy} + \vec{k}\frac{d}{dz}\]
+is the gradient operator.
+
+This gives
+\[\Bigl[\int_V d^3r \nabla \cdot \bigl( \underbrace{\vec{j}(\vec{r}_s, E, \vOmega, t)}_{\vec{v}n = v \vOmega n} \bigr) \Bigr] dE d\vOmega \]
+
+\[ \boxed{\Bigl[\int_V d^3r \vOmega \cdot \nabla \bigl(v n(\vec{r}_s, E, \vOmega, t) \bigr) \Bigr] dE d\vOmega }\]
+
+Note: $\vOmega \cdot \nabla$ represents the derivative along the direction of motion.
+
+%--------------
+\subsubsection{All Together Now}
+The balance of neutrons: rate of change - production + loss = 0
+
+Suppressing dependencies to save space for the moment
+%
+\begin{align}
+\int_V d^3r \Bigl[\frac{\partial n}{\partial t} &- 
+\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') v' n \nonumber\\&-
+\frac{\chi(E)}{4\pi} \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \nu(E') \Sigma_f(E') v' n -
+S +
+\Sigma_t v n + 
+\vOmega \cdot \nabla v n \Bigr] = 0
+\end{align}
+
+Now we rearrange and substitute in $\psi(\vec{r}, E, \vOmega, t) = vn(\vec{r}, E, \vOmega, t)$ to get what we usually call the Boltzmann Equation for neutron transport
+
+\begin{align}
+\frac{1}{v}\frac{\partial \psi(\vec{r}, E, \vOmega, t)}{\partial t} &+ 
+\vOmega \cdot \nabla \psi(\vec{r}, E, \vOmega, t) +
+\Sigma_t \psi(\vec{r}, E, \vOmega, t) =
+\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') \psi(\vec{r}, E', \vOmega', t) \nonumber \\&+
+\frac{\chi(E)}{4\pi} \int_0^{\infty} dE' \nu(E') \Sigma_f(E') \int_{4\pi} d\vOmega' \psi(\vec{r}, E', \vOmega, t) +
+S(\vec{r}, E, \vOmega, t)
+\end{align}
