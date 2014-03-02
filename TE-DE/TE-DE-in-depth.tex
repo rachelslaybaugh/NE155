@@ -272,8 +272,62 @@ Now we rearrange and substitute in $\psi(\vec{r}, E, \vOmega, t) = vn(\vec{r}, E
 \begin{align}
 \frac{1}{v}\frac{\partial \psi(\vec{r}, E, \vOmega, t)}{\partial t} &+ 
 \vOmega \cdot \nabla \psi(\vec{r}, E, \vOmega, t) +
-\Sigma_t \psi(\vec{r}, E, \vOmega, t) =
-\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') \psi(\vec{r}, E', \vOmega', t) \nonumber \\&+
-\frac{\chi(E)}{4\pi} \int_0^{\infty} dE' \nu(E') \Sigma_f(E') \int_{4\pi} d\vOmega' \psi(\vec{r}, E', \vOmega, t) +
+\Sigma_t \psi(\vec{r}, E, \vOmega, t) = \nonumber\\
+%
+& \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') \psi(\vec{r}, E', \vOmega', t)  +\nonumber\\
+%
+& \frac{\chi(E)}{4\pi} \int_0^{\infty} dE' \nu(E') \Sigma_f(E') \int_{4\pi} d\vOmega' \psi(\vec{r}, E', \vOmega, t) +
 S(\vec{r}, E, \vOmega, t)
 \end{align}
+
+%--------------
+\subsubsection{Initial and Boundary Conditions}
+\begin{enumerate}
+\item \underline{Initial Condition}: We start with some initial ``known" state:
+\[\psi(\vec{r}, E, \vOmega, 0) = \psi_0(\vec{r}, E, \vOmega)\]
+for the problem domain. Note, the initial flux can be a functional expression.
+
+\item \underline{Interface Condition}: the angular flux must be continuous along $\vOmega$ at all points, including material interfaces.
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[height=2in]{InterfaceCondition}
+%\caption{\label{fig:interfaceCondition} Interface Condition}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+$\psi_1(\vec{r}_S, E, \vOmega, t) = \psi_2(\vec{r}_S, E, \vOmega, t)$\\ $\forall E$ and $\vOmega$.
+\end{minipage}
+
+\item \underline{Fixed Condition}: you can specify incoming flux
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[height=2in]{FreeSurfaceCondition}
+%\caption{\label{fig:FixedCondition} Fixed Condition}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+$\psi(\vec{r}_S, E, \vOmega, t) = \psi_{IN}(\vec{r}_S, E, \vOmega, t)$ for $\vec{e} \cdot \vOmega < 0$: specifying incoming neutrons. Note, the incoming flux can be a functional expression; it can also be zero.
+
+This is also equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{r}_S, E, t) = \int_{\vec{e} \cdot \vOmega < 0} d\vOmega (\vec{e} \cdot \vOmega) \psi(\vec{r}_S, E, \vOmega, t)$$.
+\end{minipage}
+
+\item \underline{Reflective Condition}: there is mirror symmetry at some surface:
+\[\psi(\vOmega_{IN}) = \psi(\vOmega_{OUT})\]
+
+\item \underline{Periodic Condition}: you know there is a repetition in the system
+\[\psi(\vec{r}_S, E, \vOmega, t) = \psi(\vec{r}_S \pm \vec{p}, E, \vOmega, t)\]
+
+\item \underline{Finiteness Condition}: to by physically valid we need to meet the condition $0 < \psi(\vec{r}_S, E, \vOmega, t) < \infty$, with the possible exception of point sources,
+
+\item which we handle with the \underline{Source Condition}: localized sources are introduced as mathematical singularities at the location of the source.
+
+For a source $S(\vec{r}_0, E, \vOmega, t)$:
+\begin{align}
+&\lim_{\vec{r} \rightarrow \vec{r}_0} \int_S dS \vec{e} \cdot \vOmega \psi(\vec{r}, E, \vOmega, t) = S(\vec{r}_0, E, \vOmega, t) \\
+&S(\vec{r}, E, \vOmega, t) = S(\vec{r}_0, E, \vOmega, t)\delta(\vec{r} - \vec{r}_0)
+\end{align}
+\end{enumerate}
+
+\end{document}
