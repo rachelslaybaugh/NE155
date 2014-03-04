@@ -39,6 +39,7 @@
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
@@ -161,9 +162,9 @@ The TE is a \underline{detailed} balance of the particle population over phase s
 
 DRAW PICTURE
 
-Consider a volume $V$ with surface $S$. For each point $\vec{r} \in S$, let $\hat{n}_S$ be the outward normal vector.
+Consider a volume $V$ with surface $S$. For each point $\vec{r} \in S$, let $\hat{e}_S$ be the outward normal vector.
 
-For a given $\vOmega$, define $S^+$ as that part of $S$ for which $\hat{n}_S \cdot \vOmega > 0$ (outgoing particles) and $S^-$ as that part of $S$ for which $\hat{n}_S \cdot \vOmega < 0$ (incoming particles).
+For a given $\vOmega$, define $S^+$ as that part of $S$ for which $\hat{e}_S \cdot \vOmega > 0$ (outgoing particles) and $S^-$ as that part of $S$ for which $\hat{e}_S \cdot \vOmega < 0$ (incoming particles).
 
 Then, for a this volume $V$ for a fixed $E$ and $\vOmega$, the general rate equation can be written for particles satisfying $\vec{r} \in V$, energies in $[E, E+dE]$ and direction $[\vOmega, \vOmega + d\vOmega]$ as:
 
@@ -192,7 +193,7 @@ How can we produce neutrons in volume element $d^3r$ at $\vec{r}$ whose energies
 1) Scattering into $[E, E + dE]$ and $[\vOmega, \vOmega + d\vOmega]$
 
 This is the definition of the double differential scattering cross section:
-\[\boxed{\Bigl[\int_V d^3r \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') v' n(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega}\]
+\[\boxed{\Bigl[\int_V d^3r \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) v' n(\vec{r}, E', \vOmega', t) \Bigr] dE d\vOmega}\]
 
 2) Expected rate of neutron production by fission
 
@@ -260,7 +261,7 @@ Suppressing dependencies to save space for the moment
 %
 \begin{align}
 \int_V d^3r \Bigl[\frac{\partial n}{\partial t} &- 
-\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') v' n \nonumber\\&-
+\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) v' n' \nonumber\\&-
 \frac{\chi(E)}{4\pi} \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \nu(E') \Sigma_f(E') v' n -
 S +
 \Sigma_t v n + 
@@ -274,7 +275,7 @@ Now we rearrange and substitute in $\psi(\vec{r}, E, \vOmega, t) = vn(\vec{r}, E
 \vOmega \cdot \nabla \psi(\vec{r}, E, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, E, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E, \vOmega \rightarrow E', \vOmega') \psi(\vec{r}, E', \vOmega', t)  +\nonumber\\
+& \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) \psi(\vec{r}, E', \vOmega', t)  +\nonumber\\
 %
 & \frac{\chi(E)}{4\pi} \int_0^{\infty} dE' \nu(E') \Sigma_f(E') \int_{4\pi} d\vOmega' \psi(\vec{r}, E', \vOmega, t) +
 S(\vec{r}, E, \vOmega, t)
@@ -329,5 +330,71 @@ For a source $S(\vec{r}_0, E, \vOmega, t)$:
 &S(\vec{r}, E, \vOmega, t) = S(\vec{r}_0, E, \vOmega, t)\delta(\vec{r} - \vec{r}_0)
 \end{align}
 \end{enumerate}
+
+
+%---------------------------------------------
+%---------------------------------------------
+\subsection{Simplified Forms}
+
+\subsubsection{One Speed}
+
+We assume all particles have the same speed, $\vec{v} = v_0 \cdot \vOmega$. Thus
+%
+\begin{align}
+n(\vec{r}, v, \vOmega, t) &= n(\vec{r}, \vOmega, t) \delta(v - v_0) \\
+\Sigma_s(\underbrace{E' \rightarrow E, \vOmega' \cdot \vOmega}_{\text{another way to write this}}) &= \Sigma_s(E,\vOmega' \cdot \vOmega)\delta(E' - E)
+\end{align}
+%
+Now, we integrate the TE over $v(E)$:
+\begin{align}
+\frac{1}{v_0}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} &+ 
+\vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
+\Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
+%
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) +
+S(\vec{r}, \vOmega, t)
+\end{align}
+
+%---------------------------------------------
+\subsubsection{One Speed, One Dimensional}
+
+\begin{minipage}{0.5\textwidth}
+$\vec{r} = (x, y, z)$
+
+$d\vOmega = \sin(\theta) d\theta	d\phi = d\mu d\phi$
+
+$\Omega_x = \cos(\theta) = \mu$
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1in]{1Dspace}
+%\caption{\label{fig:FixedCondition} Fixed Condition}
+\end{figure}
+\end{minipage}
+
+\begin{align}
+\frac{1}{v_0}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
+\bigl(\Omega_x \frac{\partial}{\partial x} + \cancel{\Omega_y \frac{\partial}{\partial y}} + \cancel{\Omega_z \frac{\partial}{\partial z}} \bigr)\psi(x, \vOmega, t) +
+\Sigma_t \psi(x, \vOmega, t) = \nonumber\\
+%
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(x, \vOmega', t)  + Q(x, \vOmega, t)
+\end{align}
+
+Here, our integrals over angle are performed over $2\pi$, assuming azimuthal symmetry (no angular dependence on $\phi$):
+
+
+\begin{minipage}{0.3\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1.5in]{AzimuthalSymmetry}
+%\caption{\label{fig:FixedCondition} Fixed Condition}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.65\textwidth}
+\begin{align}
+\psi(x, \mu, t) &= \int_0^{2\pi} \psi(x, \vOmega, t) d\phi = 2\pi \psi(x, \vOmega, t) \\
+Q(x, \mu, t) &= \int_0^{2\pi} Q(x, \vOmega, t) d\phi = 2\pi Q(x, \vOmega, t)
+\end{align}
+\end{minipage}
+
 
 \end{document}
