@@ -205,10 +205,10 @@ Also, recall that $\chi(E)dE$ is the fraction of neutrons born into $[E, E + dE]
 
 3) Production from a fixed source
 
-Sources are fully specified by a function reminiscent of the $n$ definition: $S(\vec{r}, E, \vOmega, t)$ s.t.\ $S(\vec{r}, E, \vOmega, t)d^3rdEd\vOmega \equiv$ the expected number of particles that are produced at time $t$ inside volume $d^3r$ at $\vec{r}$ with energy $[E, E + dE]$ and direction $[\vOmega, \vOmega + d\vOmega]$.
+Sources are fully specified by a function reminiscent of the $n$ definition: $s(\vec{r}, E, \vOmega, t)$ s.t.\ $s(\vec{r}, E, \vOmega, t)d^3rdEd\vOmega \equiv$ the expected number of particles that are produced at time $t$ inside volume $d^3r$ at $\vec{r}$ with energy $[E, E + dE]$ and direction $[\vOmega, \vOmega + d\vOmega]$.
 
 Rate of production of such particles in $V$ is
-\[\boxed{\Bigl[\int_V d^3r S(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega }\]
+\[\boxed{\Bigl[\int_V d^3r s(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega }\]
 
 %--------------
 \subsubsection{Loss Mechanisms}
@@ -248,7 +248,14 @@ is the gradient operator.
 
 This gives
 \[\Bigl[\int_V d^3r \nabla \cdot \bigl( \underbrace{\vec{j}(\vec{r}_s, E, \vOmega, t)}_{\vec{v}n = v \vOmega n} \bigr) \Bigr] dE d\vOmega \]
-
+%
+And we can use this identity:
+\begin{align}
+%
+\vOmega \cdot (\nabla f) &= \nabla \cdot \vOmega f \text{ because }\vOmega\text{ is not a function.} \\
+\bigl[\nabla \cdot \vOmega f &= f(\underbrace{\nabla \cdot \vOmega}_{0}) + \vOmega \cdot (\nabla f)\bigr]
+\end{align}
+%
 \[ \boxed{\Bigl[\int_V d^3r \vOmega \cdot \nabla \bigl(v n(\vec{r}_s, E, \vOmega, t) \bigr) \Bigr] dE d\vOmega }\]
 
 Note: $\vOmega \cdot \nabla$ represents the derivative along the direction of motion.
@@ -263,13 +270,16 @@ Suppressing dependencies to save space for the moment
 \int_V d^3r \Bigl[\frac{\partial n}{\partial t} &- 
 \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) v' n' \nonumber\\&-
 \frac{\chi(E)}{4\pi} \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \nu(E') \Sigma_f(E') v' n -
-S +
+s +
 \Sigma_t v n + 
 \vOmega \cdot \nabla v n \Bigr] = 0
 \end{align}
 
-Now we rearrange and substitute in $\psi(\vec{r}, E, \vOmega, t) = vn(\vec{r}, E, \vOmega, t)$ to get what we usually call the Boltzmann Equation for neutron transport
+We note that since the volume was arbitrarily chosen, the integral will only vanish if the integrand is zero 
+\[\int_{\text{any }V} d^r f(\vec{r}) = 0 \rightarrow f(\vec{r}) = 0 \:.\]
 
+Now we have a balance relation that we can rearrange, and substitute in $\psi(\vec{r}, E, \vOmega, t) = vn(\vec{r}, E, \vOmega, t)$ to get what we usually call the Boltzmann Equation for neutron transport
+%
 \begin{align}
 \frac{1}{v}\frac{\partial \psi(\vec{r}, E, \vOmega, t)}{\partial t} &+ 
 \vOmega \cdot \nabla \psi(\vec{r}, E, \vOmega, t) +
@@ -278,7 +288,7 @@ Now we rearrange and substitute in $\psi(\vec{r}, E, \vOmega, t) = vn(\vec{r}, E
 & \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) \psi(\vec{r}, E', \vOmega', t)  +\nonumber\\
 %
 & \frac{\chi(E)}{4\pi} \int_0^{\infty} dE' \nu(E') \Sigma_f(E') \int_{4\pi} d\vOmega' \psi(\vec{r}, E', \vOmega, t) +
-S(\vec{r}, E, \vOmega, t)
+s(\vec{r}, E, \vOmega, t)
 \end{align}
 
 %--------------
@@ -300,6 +310,7 @@ for the problem domain. Note, the initial flux can be a functional expression.
 $\psi_1(\vec{r}_S, E, \vOmega, t) = \psi_2(\vec{r}_S, E, \vOmega, t)$\\ $\forall E$ and $\vOmega$.
 \end{minipage}
 
+\clearpage
 \item \underline{Fixed Condition}: you can specify incoming flux
 
 \begin{minipage}{0.5\textwidth}
@@ -324,10 +335,10 @@ This is also equivalent to specifying the incoming partial current, $$\vec{j}^-(
 
 \item which we handle with the \underline{Source Condition}: localized sources are introduced as mathematical singularities at the location of the source.
 
-For a source $S(\vec{r}_0, E, \vOmega, t)$:
+For a source $s(\vec{r}_0, E, \vOmega, t)$:
 \begin{align}
-&\lim_{\vec{r} \rightarrow \vec{r}_0} \int_S dS \vec{e} \cdot \vOmega \psi(\vec{r}, E, \vOmega, t) = S(\vec{r}_0, E, \vOmega, t) \\
-&S(\vec{r}, E, \vOmega, t) = S(\vec{r}_0, E, \vOmega, t)\delta(\vec{r} - \vec{r}_0)
+&\lim_{\vec{r} \rightarrow \vec{r}_0} \int_S dS \vec{e} \cdot \vOmega \psi(\vec{r}, E, \vOmega, t) = s(\vec{r}_0, E, \vOmega, t) \\
+&s(\vec{r}, E, \vOmega, t) = s(\vec{r}_0, E, \vOmega, t)\delta(\vec{r} - \vec{r}_0)
 \end{align}
 \end{enumerate}
 
@@ -337,34 +348,38 @@ For a source $S(\vec{r}_0, E, \vOmega, t)$:
 \subsection{Simplified Forms}
 
 \subsubsection{One Speed}
+Assume all particles are at the same speed or that we can group all the speeds together into one group.
 
-We assume all particles have the same speed, $\vec{v} = v_0 \cdot \vOmega$. Thus
-%
-\begin{align}
-n(\vec{r}, v, \vOmega, t) &= n(\vec{r}, \vOmega, t) \delta(v - v_0) \\
-\Sigma_s(\underbrace{E' \rightarrow E, \vOmega' \cdot \vOmega}_{\text{another way to write this}}) &= \Sigma_s(E,\vOmega' \cdot \vOmega)\delta(E' - E)
-\end{align}
+%We assume all particles have the same speed, $\vec{v} = v_0 \cdot \vOmega$. Thus
+%%
+%\begin{align}
+%n(\vec{r}, v, \vOmega, t) &= n(\vec{r}, \vOmega, t) \delta(v - v_0) \\
+%\Sigma_s(\underbrace{E' \rightarrow E, \vOmega' \cdot \vOmega}_{\text{another way to write this}}) &= \Sigma_s(E,\vOmega' \cdot \vOmega)\delta(E' - E)
+%\end{align}
 %
 % remove E integration and E dependence
-Now, we integrate the TE over $v(E)$:
+Integrate the TE over $v(E)$:
 \begin{align}
 \frac{1}{v_0}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} &+ 
 \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + Q(\vec{r}, \vOmega, t)
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) + s(\vec{r}, \vOmega, t) 
+%Q(\vec{r}, \vOmega, t)
 \end{align}
-
-Where:
-\begin{align}
-Q(\vec{r}, \vOmega, t) &= \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) + S(\vec{r}, \vOmega, t) \\
-&= \frac{1}{4\pi} \bigl( \nu \Sigma_f \phi(\vec{r}, t) + S(\vec{r}, t) \bigr)
-\end{align}
+%
+%Where:
+%\begin{align}
+%Q(\vec{r}, \vOmega, t) &= \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) + S(\vec{r}, \vOmega, t) \\
+%&= \frac{1}{4\pi} \bigl( \nu \Sigma_f \phi(\vec{r}, t) + s(\vec{r}, t) \bigr)
+%\end{align}
 
 
 
 %---------------------------------------------
 \subsubsection{One Speed, One Dimensional}
+
+We'd like to simplify even farther by only worrying about one dimension, so we'll get rid of $y$ and $z$.
 
 \begin{minipage}{0.5\textwidth}
 $\vec{r} = (x, y, z)$
@@ -386,25 +401,24 @@ $\Omega_x = \cos(\theta) = \mu$
 \bigl(\Omega_x \frac{\partial}{\partial x} + \cancel{\Omega_y \frac{\partial}{\partial y}} + \cancel{\Omega_z \frac{\partial}{\partial z}} \bigr)\psi(x, \vOmega, t) +
 \Sigma_t \psi(x, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(x, \vOmega', t)  + Q(x, \vOmega, t)
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(x, \vOmega', t)  + 
+\frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(x,  \vOmega, t) + s(x, \vOmega, t)%+ Q(x, \vOmega, t)
 \end{align}
 
 % -------- 
-Here, our integrals over angle are performed over $2\pi$, \textbf{assuming azimuthal symmetry} (no angular dependence on $\phi$):
+We often also assume $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu_0 =\vOmega' \cdot \vOmega$.  This implies
+\[\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu_0 \Sigma_s(\mu_0) = \Sigma_s\]
 
-\begin{minipage}{0.3\textwidth}
-\begin{figure}[H]
-\includegraphics[height=1.5in]{AzimuthalSymmetry}
-%\caption{\label{fig:FixedCondition} Fixed Condition}
-\end{figure}
-\end{minipage} \hfill
-\begin{minipage}{0.65\textwidth}
-\begin{align}
-\psi(x, \mu, t) &= \int_0^{2\pi} \psi(x, \vOmega, t) d\phi = 2\pi \psi(x, \vOmega, t) \\
-Q(x, \mu, t) &= \int_0^{2\pi} Q(x, \vOmega, t) d\phi = 2\pi Q(x, \vOmega, t)
-\end{align}
-\end{minipage}
-
+%\begin{minipage}{0.3\textwidth}
+%\begin{figure}[H]
+%\includegraphics[height=1.5in]{AzimuthalSymmetry}
+%%\caption{\label{fig:FixedCondition} Fixed Condition}
+%\end{figure}
+%\end{minipage} \hfill
+%\begin{minipage}{0.65\textwidth}
+%
+%\end{minipage}
+%
 Using this idea:
 %
 % switch to just \mu
@@ -413,40 +427,132 @@ Using this idea:
 \mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
 \Sigma_t \psi(x, \mu, t) = \nonumber\\
 %
-& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 2\pi Q(x, \mu, t)
+& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 
+\frac{1}{4\pi} \nu \Sigma_f \int_0^{2\pi} d\phi \psi(x, \mu, t) + s(x, \mu, t)% 2\pi Q(x, \mu, t)
+\end{align}
+%
+%If \textbf{scattering is also isotropic}:
+%\[\Sigma_s(\vOmega' \cdot \vOmega) = \frac{\Sigma_s}{4\pi} \]
+%
+%And we get the 1-group, 1-D, isotropic neutron TE:
+%%
+%% scattering is now iso, add in sources
+%\begin{align}
+%\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
+%\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
+%\Sigma_t \psi(x, \mu, t) = \nonumber\\
+%%
+%& \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu', t)  
+%+  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x, t) + S(x, t) \bigr)
+%\end{align}
+%
+%%---------------------------------------------
+%\subsubsection{Steady State}
+%If we get rid of time dependence.
+%%
+%\begin{equation}
+%\mu \frac{\partial}{\partial x}\psi(x, \mu) +
+%\Sigma_t \psi(x, \mu) = \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu')  
+%+  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr)
+%\end{equation}
+%
+%
+%And very finally - we can have the unrealistic case of \textbf{purely absorbing media}:
+%%
+%\begin{equation}
+%\mu \frac{\partial}{\partial x}\psi(x, \mu) +
+%\Sigma_a \psi(x, \mu) = \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr)
+%\end{equation}
+
+
+%--------------------------------------------
+%--------------------------------------------
+%--------------------------------------------
+\section{Diffusion Equation Derivation}
+
+We will now derive the diffusion equation by assuming the \textbf{angular flux depends only weakly on direction}, $\vOmega$. 
+
+% Why?
+Why derive the diffusion equation from the transport equation?
+\begin{itemize}
+\item Nuclear reactions and thus interaction rates only depend on the scalar flux
+\item the angular flux lives in 7-D space (3 space, 2 angle, 1 energy, and 1 time)
+\item the diffusion equation reduces this to 5-D space
+\end{itemize}
+
+The diffusion equation is derived by starting with the transport equation and integrating over all angles. We'll use the one-group version for simplicity, but this assumption is not needed for the derivation. 
+
+% Identities
+We will use the following identities in our derivation:
+\begin{align} 
+\int_{4\pi} d\vOmega &= 4\pi \\
+%
+\int_{4\pi} d\vOmega \vOmega &= 0 \qquad \text{because }\vOmega\text{ is an odd function} \\
+%
+\int_{4\pi} d\vOmega \vOmega \vOmega &= \frac{4\pi}{3}\ve{I} \qquad \ve{I}\text{ is the identity tensor, which means} \\
+%
+\int_{4\pi} d\vOmega \vOmega_i \vOmega_j &= 0 \qquad i \neq j \nonumber \\
+&= \frac{4\pi}{3} \qquad i = j \nonumber \\
+%
+\int_{4\pi} d\vOmega \vOmega \vOmega \vOmega &= 0 \qquad \\
 \end{align}
 
-If \textbf{scattering is also isotropic}:
-\[\Sigma_s(\vOmega' \cdot \vOmega) = \frac{\Sigma_s}{4\pi} \]
-
-And we get the 1-group, 1-D, isotropic neutron TE:
-%
-% scattering is now iso, add in sources
+Also, recall the definition of scalar flux and (net) current:
 \begin{align}
-\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
-\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
-\Sigma_t \psi(x, \mu, t) = \nonumber\\
-%
-& \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu', t)  
-+  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x, t) + S(x, t) \bigr)
+\phi(\vec{r}, t) &= \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) \\
+\vec{J}(\vec{r}, t) &= \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, \vOmega, t)
 \end{align}
 
-%---------------------------------------------
-\subsubsection{Steady State}
-If we get rid of time dependence.
 %
+Now let's do the integration and go through it term by term (number the terms):
+%
+\begin{align}
+\int_{4\pi} d\vOmega &\biggl[\frac{1}{v_0}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} + 
+\vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
+\Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
+%
+& \frac{\nu \Sigma_f}{4\pi}\phi(\vec{r},t) +  \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + \frac{Q(\vec{r}, t)}{4\pi}\biggr]
+\end{align}
+%
+This is called the zeroeth order moment w.r.t $\vOmega$. 
+
+\textbf{1.} No approximations
 \begin{equation}
-\mu \frac{\partial}{\partial x}\psi(x, \mu) +
-\Sigma_t \psi(x, \mu) = \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu')  
-+  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr)
+{1}{v_0}\frac{\partial}{\partial t} \int_{4\pi} d\vOmega  \psi(\vec{r}, \vOmega, t) = \boxed{\frac{1}{v_0}\frac{\partial}{\partial t}\phi(\vec{r}, t)}
 \end{equation}
-
-
-And very finally - we can have the unrealistic case of \textbf{purely absorbing media}:
-%
+%%%%
+\textbf{3.} No approximations
 \begin{equation}
-\mu \frac{\partial}{\partial x}\psi(x, \mu) +
-\Sigma_a \psi(x, \mu) = \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr)
+\Sigma_t \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) = \boxed{\Sigma_t \phi(\vec{r}, t)}
+\end{equation}
+%%%%
+\textbf{4.} Includes isotropic assumption
+\begin{equation}
+\frac{\nu \Sigma_f}{4\pi}\int_{4\pi} d\vOmega \phi(\vec{r},t) = \boxed{\nu \Sigma_f \phi(\vec{r}, t)}
+\end{equation}
+%%%%
+\textbf{6.} Includes isotropic assumption
+\begin{equation}
+\int_{4\pi} d\vOmega \frac{Q(\vec{r}, t)}{4\pi} = \boxed{Q(\vec{r}, t)}
+\end{equation}
+%%%%
+\textbf{5.} Further investigate the scattering cross section%, including the azimuthal symmetry assumption
+
+%Expand the scattering cross section in Legendre Polynomials (these for a sequence of orthogonal polynomials):
+%\[P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n} \bigl[\bigl( x^2 -1 \bigr)^n\bigr] \]
+%
+%\begin{align}
+%\Sigma_s(\vOmega' \cdot \vOmega) &= \sum_{l=0}^{\infty} \frac{2l+1}{4\pi} \Sigma_{sl} P_l(\mu) \\
+%\Sigma_s(\vOmega' \cdot \vOmega) &=  \Sigma_{s0} \qquad l=0 \text{ isotropic} \\
+%\Sigma_s(\vOmega' \cdot \vOmega) &=  \frac{1}{4\pi}\bigl( \Sigma_{s0} + 3\mu_0 \Sigma_{s0} \bigr) \qquad l=1 \text{ linearly isotropic}
+%\end{align}
+%
+%\textit{Make some remarks about similarity to Taylor expansion}
+
+
+
+\begin{equation}
+\int_{4\pi} d\vOmega \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t) = \boxed{\Sigma_s \phi(\vec{r}, t)}
 \end{equation}
 
 \end{document}
