@@ -345,15 +345,23 @@ n(\vec{r}, v, \vOmega, t) &= n(\vec{r}, \vOmega, t) \delta(v - v_0) \\
 \Sigma_s(\underbrace{E' \rightarrow E, \vOmega' \cdot \vOmega}_{\text{another way to write this}}) &= \Sigma_s(E,\vOmega' \cdot \vOmega)\delta(E' - E)
 \end{align}
 %
+% remove E integration and E dependence
 Now, we integrate the TE over $v(E)$:
 \begin{align}
 \frac{1}{v_0}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} &+ 
 \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) +
-S(\vec{r}, \vOmega, t)
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + Q(\vec{r}, \vOmega, t)
 \end{align}
+
+Where:
+\begin{align}
+Q(\vec{r}, \vOmega, t) &= \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) + S(\vec{r}, \vOmega, t) \\
+&= \frac{1}{4\pi} \bigl( \nu \Sigma_f \phi(\vec{r}, t) + S(\vec{r}, t) \bigr)
+\end{align}
+
+
 
 %---------------------------------------------
 \subsubsection{One Speed, One Dimensional}
@@ -372,6 +380,7 @@ $\Omega_x = \cos(\theta) = \mu$
 \end{figure}
 \end{minipage}
 
+% \vec{r} switched to x
 \begin{align}
 \frac{1}{v_0}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
 \bigl(\Omega_x \frac{\partial}{\partial x} + \cancel{\Omega_y \frac{\partial}{\partial y}} + \cancel{\Omega_z \frac{\partial}{\partial z}} \bigr)\psi(x, \vOmega, t) +
@@ -380,8 +389,8 @@ $\Omega_x = \cos(\theta) = \mu$
 & \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(x, \vOmega', t)  + Q(x, \vOmega, t)
 \end{align}
 
-Here, our integrals over angle are performed over $2\pi$, assuming azimuthal symmetry (no angular dependence on $\phi$):
-
+% -------- 
+Here, our integrals over angle are performed over $2\pi$, \textbf{assuming azimuthal symmetry} (no angular dependence on $\phi$):
 
 \begin{minipage}{0.3\textwidth}
 \begin{figure}[H]
@@ -396,5 +405,48 @@ Q(x, \mu, t) &= \int_0^{2\pi} Q(x, \vOmega, t) d\phi = 2\pi Q(x, \vOmega, t)
 \end{align}
 \end{minipage}
 
+Using this idea:
+%
+% switch to just \mu
+\begin{align}
+\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
+\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
+\Sigma_t \psi(x, \mu, t) = \nonumber\\
+%
+& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 2\pi Q(x, \mu, t)
+\end{align}
+
+If \textbf{scattering is also isotropic}:
+\[\Sigma_s(\vOmega' \cdot \vOmega) = \frac{\Sigma_s}{4\pi} \]
+
+And we get the 1-group, 1-D, isotropic neutron TE:
+%
+% scattering is now iso, add in sources
+\begin{align}
+\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
+\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
+\Sigma_t \psi(x, \mu, t) = \nonumber\\
+%
+& \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu', t)  
++  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x, t) + S(x, t) \bigr)
+\end{align}
+
+%---------------------------------------------
+\subsubsection{Steady State}
+If we get rid of time dependence.
+%
+\begin{equation}
+\mu \frac{\partial}{\partial x}\psi(x, \mu) +
+\Sigma_t \psi(x, \mu) = \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu')  
++  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr)
+\end{equation}
+
+
+And very finally - we can have the unrealistic case of \textbf{purely absorbing media}:
+%
+\begin{equation}
+\mu \frac{\partial}{\partial x}\psi(x, \mu) +
+\Sigma_a \psi(x, \mu) = \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr)
+\end{equation}
 
 \end{document}
