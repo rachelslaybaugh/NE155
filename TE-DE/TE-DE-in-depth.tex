@@ -360,7 +360,7 @@ Assume all particles are at the same speed or that we can group all the speeds t
 % remove E integration and E dependence
 Integrate the TE over $v(E)$:
 \begin{align}
-\frac{1}{v_0}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} &+ 
+\frac{1}{v}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} &+ 
 \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
@@ -384,7 +384,9 @@ We'd like to simplify even farther by only worrying about one dimension, so we'l
 \begin{minipage}{0.5\textwidth}
 $\vec{r} = (x, y, z)$
 
-$d\vOmega = \sin(\theta) d\theta	d\phi = d\mu d\phi$
+$d\vOmega = \sin(\theta) d\theta	d\varphi = d\mu d\varphi$
+
+Note $\mu = \cos(\theta)$ so $d\mu = \sin(\theta)$
 
 $\Omega_x = \cos(\theta) = \mu$
 \end{minipage} \hfill
@@ -397,7 +399,7 @@ $\Omega_x = \cos(\theta) = \mu$
 
 % \vec{r} switched to x
 \begin{align}
-\frac{1}{v_0}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
+\frac{1}{v}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
 \bigl(\Omega_x \frac{\partial}{\partial x} + \cancel{\Omega_y \frac{\partial}{\partial y}} + \cancel{\Omega_z \frac{\partial}{\partial z}} \bigr)\psi(x, \vOmega, t) +
 \Sigma_t \psi(x, \vOmega, t) = \nonumber\\
 %
@@ -405,9 +407,6 @@ $\Omega_x = \cos(\theta) = \mu$
 \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(x,  \vOmega, t) + s(x, \vOmega, t)%+ Q(x, \vOmega, t)
 \end{align}
 
-% -------- 
-We often also assume $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu_0 =\vOmega' \cdot \vOmega$.  This implies
-\[\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu_0 \Sigma_s(\mu_0) = \Sigma_s\]
 
 %\begin{minipage}{0.3\textwidth}
 %\begin{figure}[H]
@@ -419,17 +418,17 @@ We often also assume $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally s
 %
 %\end{minipage}
 %
-Using this idea:
-%
-% switch to just \mu
-\begin{align}
-\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
-\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
-\Sigma_t \psi(x, \mu, t) = \nonumber\\
-%
-& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 
-\frac{1}{4\pi} \nu \Sigma_f \int_0^{2\pi} d\phi \psi(x, \mu, t) + s(x, \mu, t)% 2\pi Q(x, \mu, t)
-\end{align}
+%Using this idea we can write things more cleanly:
+%%
+%% switch to just \mu
+%\begin{align}
+%\frac{1}{v_0}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
+%\mu \frac{\partial}{\partial x}\psi(x, \vOmega, t) +
+%\Sigma_t \psi(x, \vOmega, t) = \nonumber\\
+%%
+%& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 
+%\frac{1}{4\pi} \nu \Sigma_f \int_0^{2\pi} d\phi \psi(x, \mu, t) + s(x, \mu, t)% 2\pi Q(x, \mu, t)
+%\end{align}
 %
 %If \textbf{scattering is also isotropic}:
 %\[\Sigma_s(\vOmega' \cdot \vOmega) = \frac{\Sigma_s}{4\pi} \]
@@ -471,54 +470,42 @@ Using this idea:
 \section{Diffusion Equation Derivation}
 
 We will now derive the diffusion equation by assuming the \textbf{angular flux depends only weakly on direction}, $\vOmega$. 
-
+%
 % Why?
 Why derive the diffusion equation from the transport equation?
 \begin{itemize}
 \item Nuclear reactions and thus interaction rates only depend on the scalar flux
 \item the angular flux lives in 7-D space (3 space, 2 angle, 1 energy, and 1 time)
-\item the diffusion equation reduces this to 5-D space
+\item the diffusion equation reduces this to 5-D space (3 space, 1 energy, and 1 time)
 \end{itemize}
 
-The diffusion equation is derived by starting with the transport equation and integrating over all angles. We'll use the one-group version for simplicity, but this assumption is not needed for the derivation. 
+The diffusion equation is derived by starting with the transport equation and \textbf{integrating over all angles}. We'll use the \underline{one-group, one-dimensional} version for simplicity, but this assumption is not needed for the derivation. 
 
-% Identities
-We will use the following identities in our derivation:
-\begin{align} 
-\int_{4\pi} d\vOmega &= 4\pi \\
-%
-\int_{4\pi} d\vOmega \vOmega &= 0 \qquad \text{because }\vOmega\text{ is an odd function} \\
-%
-\int_{4\pi} d\vOmega \vOmega \vOmega &= \frac{4\pi}{3}\ve{I} \qquad \ve{I}\text{ is the identity tensor, which means} \\
-%
-\int_{4\pi} d\vOmega \vOmega_i \vOmega_j &= 0 \qquad i \neq j \nonumber \\
-&= \frac{4\pi}{3} \qquad i = j \nonumber \\
-%
-\int_{4\pi} d\vOmega \vOmega \vOmega \vOmega &= 0 \qquad \\
-\end{align}
-
-Also, recall the definition of scalar flux and (net) current:
+Recall the definition of scalar flux and (net) current:
 \begin{align}
 \phi(\vec{r}, t) &= \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) \\
 \vec{J}(\vec{r}, t) &= \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, \vOmega, t)
 \end{align}
 
-%
+%----------------------------
+\subsection{Neutron Continuity Equation}
 Now let's do the integration and go through it term by term (number the terms):
 %
 \begin{align}
-\int_{4\pi} d\vOmega &\biggl[\frac{1}{v_0}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} + 
+\int_{4\pi} d\vOmega &\biggl[\frac{1}{v}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} + 
 \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
-& \frac{\nu \Sigma_f}{4\pi}\phi(\vec{r},t) +  \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + \frac{Q(\vec{r}, t)}{4\pi}\biggr]
+&\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  
++ \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(x,  \vOmega, t)
++ s(\vec{r}, \vOmega, t)\biggr]
 \end{align}
 %
 This is called the zeroeth order moment w.r.t $\vOmega$. 
 
 \textbf{1.} No approximations
 \begin{equation}
-{1}{v_0}\frac{\partial}{\partial t} \int_{4\pi} d\vOmega  \psi(\vec{r}, \vOmega, t) = \boxed{\frac{1}{v_0}\frac{\partial}{\partial t}\phi(\vec{r}, t)}
+\frac{1}{v}\frac{\partial}{\partial t} \int_{4\pi} d\vOmega  \psi(\vec{r}, \vOmega, t) = \boxed{\frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t)}
 \end{equation}
 %%%%
 \textbf{3.} No approximations
@@ -526,17 +513,143 @@ This is called the zeroeth order moment w.r.t $\vOmega$.
 \Sigma_t \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) = \boxed{\Sigma_t \phi(\vec{r}, t)}
 \end{equation}
 %%%%
-\textbf{4.} Includes isotropic assumption
+\textbf{5.} No approximations
 \begin{equation}
-\frac{\nu \Sigma_f}{4\pi}\int_{4\pi} d\vOmega \phi(\vec{r},t) = \boxed{\nu \Sigma_f \phi(\vec{r}, t)}
+\nu \Sigma_f \int_{4\pi} d\vOmega \psi(\vec{r},t) = \boxed{\nu \Sigma_f \phi(\vec{r}, t)}
 \end{equation}
 %%%%
-\textbf{6.} Includes isotropic assumption
+\textbf{6.} No approximations
 \begin{equation}
-\int_{4\pi} d\vOmega \frac{Q(\vec{r}, t)}{4\pi} = \boxed{Q(\vec{r}, t)}
+\int_{4\pi} d\vOmega s(\vec{r}, \vOmega, t) \equiv \boxed{S(\vec{r}, t)}
 \end{equation}
 %%%%
-\textbf{5.} Further investigate the scattering cross section%, including the azimuthal symmetry assumption
+\textbf{4.} Further investigate the scattering cross section
+
+We often also assume $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu_0 =\vOmega' \cdot \vOmega$.  This implies
+\[\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu_0 \Sigma_s(\mu_0) = \Sigma_s\]
+
+If we can interchange the order of integrations over $\vOmega$ and $\vOmega'$, we can simplify the scattering term with this assumption:
+%
+\begin{align}
+\int_{4\pi} d\vOmega &\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)\\
+%
+&= \int_{4\pi} d\vOmega' \bigl[ \int_{4\pi} d\vOmega \Sigma_s(\vOmega' \cdot \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)\\
+%
+&= \Sigma_s \int_{4\pi} d\vOmega' \psi(\vec{r}, \vOmega', t) \\
+%
+&= \boxed{\Sigma_s \phi(\vec{r}, t)}
+\end{align}
+%%%%%%%
+\textbf{2.} But now we get to the trouble term: streaming
+%
+\[\int_{4\pi} d\vOmega \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) = \nabla \cdot \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, \vOmega, t) = \nabla \cdot \vec{J}(\vec{r}, t) \]
+
+\vspace*{2em}
+When we put all of the terms together we get the \textbf{neutron continuity equation}. You can see that we have one equation, but two unknowns:
+\begin{equation}
+\frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) + 
+\nabla \cdot \vec{J}(\vec{r}, t) + 
+\Sigma_t \phi(\vec{r}, t) =
+\Sigma_s \phi(\vec{r}, t) +
+\nu \Sigma_f \phi(\vec{r}, t) +
+S(\vec{r}, t)
+\end{equation}
+
+We at least have a relationship between $\phi$ and $\vec{J}$.
+
+%-------------------------------------------
+\subsection{First Angular Moment}
+
+The next step is to take the first angular moment of the transport equation to try to develop additional relationships that we can use to solve for $\phi$. Thus, we multiply the one-group TE by $\vOmega$ and then integrate over angle. 
+
+NOTE: at this point I'm dropping the fission term for simplicity. We will assume any fission neutrons are included in our source term, $S$. 
+
+
+% Identities
+We will use the following identities in this part of the derivation:
+\begin{align} 
+\int_{4\pi} d\vOmega &= \int_0^{\pi} \sin(\theta) d\theta \int_0^{2\pi} d\varphi = 4\pi \\
+%
+\int_{4\pi} d\vOmega \vOmega &= 0 \qquad \text{because }\vOmega\text{ is an odd function} \\
+%
+\int_{4\pi} d\vOmega \vOmega \vOmega &= \frac{4\pi}{3}\bar{\bar{I}} \qquad \bar{\bar{I}}\text{ is the identity tensor, which means} \\
+%
+\int_{4\pi} d\vOmega \vOmega_i \vOmega_j &= 0 \qquad i \neq j \nonumber \\
+&= \frac{4\pi}{3} \qquad i = j \nonumber \\
+%
+\int_{4\pi} d\vOmega \vOmega \vOmega \vOmega &= 0 \qquad \\
+\end{align}
+
+
+We are going to note that $\vOmega$ is a vector:
+\[\vOmega = \hat{e}_x \underbrace{\sin(\theta) \cos(\varphi)}_{\Omega_x} 
++ \hat{e}_y \underbrace{\sin(\theta) \sin(\varphi)}_{\vOmega_y}
++ \hat{e}_z \underbrace{\cos(\theta)}_{\vOmega_z} \]
+
+We will multiply the TE by each component separately to make things a little easier for ourselves. Looking first at $\Omega_x$ and dropping dependencies when appropriate:
+%
+\begin{align}
+\int_{4\pi} d\vOmega \Omega_x \frac{1}{v}\frac{\partial \psi}{\partial t} &+ 
+\int_{4\pi} d\vOmega \Omega_x \vOmega \cdot \nabla \psi + 
+\int_{4\pi} d\vOmega \Omega_x \Sigma_t \psi =\nonumber \\
+&\int_{4\pi} d\vOmega \Omega_x \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega, t) +
+\int_{4\pi} d\vOmega \Omega_x s(\vec{r}, \vOmega, t)
+\end{align}
+
+Now we can go through term by term, just like how we got the continuity equation.
+
+\textbf{1.}
+\begin{equation}
+\frac{1}{v}\frac{\partial}{\partial t} \int_{4\pi} d\vOmega \Omega_x \psi(\vec{r}, \vOmega, t) = \boxed{\frac{1}{v}\frac{\partial J_x}{\partial t}}
+\end{equation}
+%%%%
+\textbf{3.} 
+\begin{equation}
+\Sigma_t \int_{4\pi} d\vOmega \Omega_x \psi(\vec{r}, \vOmega, t) = \boxed{\Sigma_t J_x(\vec{r}, t)}
+\end{equation}
+%%%%
+\textbf{5.} (was 6)
+\begin{equation}
+\int_{4\pi} d\vOmega \Omega_x s(\vec{r}, \vOmega, t) \equiv \boxed{S_{1x}(\vec{r}, t)}
+\end{equation}
+This is the x component of the first angular moment of the source term. 
+
+%%%%
+\textbf{4.} 
+
+First, we're flipping the prime order again inside the integral:
+\[\int_{4\pi} d\vOmega' \int_{4\pi} d\vOmega \Omega_x \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega, t)\]
+
+Now we will do some mathematical manipulation. We'll use the fact that $\vOmega$ is a unit vector and thus $\vOmega \cdot \vOmega = 1$. We're going to add this into our equation:
+\[ \int_{4\pi} d\vOmega' \int_{4\pi} d\vOmega \Omega_x \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega, t)\]
+
+
+
+%If we can interchange the order of integrations over $\vOmega$ and $\vOmega'$, we can simplify the scattering term with this assumption:
+%%
+%\begin{align}
+%\int_{4\pi} d\vOmega &\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)\\
+%%
+%&= \int_{4\pi} d\vOmega' \bigl[ \int_{4\pi} d\vOmega \Sigma_s(\vOmega' \cdot \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)\\
+%%
+%&= \Sigma_s \int_{4\pi} d\vOmega' \psi(\vec{r}, \vOmega', t) \\
+%%
+%&= \boxed{\Sigma_s \phi(\vec{r}, t)}
+%\end{align}
+%%%%%%%%
+%\textbf{2.} But now we get to the trouble term: streaming
+%%
+%\[\int_{4\pi} d\vOmega \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) = \nabla \cdot \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, \vOmega, t) = \nabla \cdot \vec{J}(\vec{r}, t) \]
+
+
+
+
+
+
+
+
+
+
 
 %Expand the scattering cross section in Legendre Polynomials (these for a sequence of orthogonal polynomials):
 %\[P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n} \bigl[\bigl( x^2 -1 \bigr)^n\bigr] \]
@@ -548,11 +661,5 @@ This is called the zeroeth order moment w.r.t $\vOmega$.
 %\end{align}
 %
 %\textit{Make some remarks about similarity to Taylor expansion}
-
-
-
-\begin{equation}
-\int_{4\pi} d\vOmega \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t) = \boxed{\Sigma_s \phi(\vec{r}, t)}
-\end{equation}
-
+%%%%
 \end{document}
