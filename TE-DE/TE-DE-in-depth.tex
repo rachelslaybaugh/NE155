@@ -356,7 +356,7 @@ For a source $s(\vec{r}_0, E, \vOmega, t)$:
 \subsection{Simplified Forms}
 
 \subsubsection{One Speed}
-Assume all particles are at the same speed or that we can group all the speeds together into one group.
+Assume all particles are at the same speed, so we no longer need energy dependence.
 
 %We assume all particles have the same speed, $\vec{v} = v_0 \cdot \vOmega$. Thus
 %%
@@ -366,13 +366,15 @@ Assume all particles are at the same speed or that we can group all the speeds t
 %\end{align}
 %
 % remove E integration and E dependence
-Integrate the TE over $v(E)$:
+
 \begin{align}
 \frac{1}{v}\frac{\partial \psi(\vec{r}, \vOmega, t)}{\partial t} &+ 
 \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  + \frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega, t) + s(\vec{r}, \vOmega, t) 
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  
++ \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega', t) 
++ s(\vec{r}, \vOmega, t) 
 %Q(\vec{r}, \vOmega, t)
 \end{align}
 %
@@ -401,7 +403,7 @@ $\Omega_x = \cos(\theta) = \mu$
 \begin{minipage}{0.45\textwidth}
 \begin{figure}[H]
 \includegraphics[height=1in]{1Dspace}
-%\caption{\label{fig:FixedCondition} Fixed Condition}
+\caption{swap z for y, y for x, and x for z}
 \end{figure}
 \end{minipage}
 
@@ -412,7 +414,7 @@ $\Omega_x = \cos(\theta) = \mu$
 \Sigma_t \psi(x, \vOmega, t) = \nonumber\\
 %
 & \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(x, \vOmega', t)  + 
-\frac{1}{4\pi} \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(x,  \vOmega, t) + s(x, \vOmega, t)%+ Q(x, \vOmega, t)
+\frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(x,  \vOmega', t) + s(x, \vOmega, t)%+ Q(x, \vOmega, t)
 \end{align}
 
 
@@ -487,9 +489,9 @@ Why derive the diffusion equation from the transport equation?
 \item the diffusion equation reduces this to 5-D space (3 space, 1 energy, and 1 time)
 \end{itemize}
 
-The diffusion equation is derived by starting with the transport equation and \textbf{integrating over all angles}. We'll use the \underline{one-group, one-dimensional} version for simplicity, but this assumption is not needed for the derivation. 
+The diffusion equation is derived by starting with the transport equation and \textbf{integrating over all angles}. We'll use the \underline{one-group} version for simplicity, but this assumption is not needed for the derivation. 
 
-Recall the definition of scalar flux and (net) current:
+Recall the definition of scalar flux and net current:
 \begin{align}
 \phi(\vec{r}, t) &= \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) \\
 \vec{J}(\vec{r}, t) &= \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, \vOmega, t)
@@ -505,7 +507,7 @@ Now let's do the integration and go through it term by term (number the terms):
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
 &\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  
-+ \nu \Sigma_f \int_{4\pi} d\vOmega' \psi(x,  \vOmega, t)
++ \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega', t)
 + s(\vec{r}, \vOmega, t)\biggr]
 \end{align}
 %
@@ -521,10 +523,14 @@ This is called the zeroeth order moment w.r.t $\vOmega$.
 \Sigma_t \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) = \boxed{\Sigma_t \phi(\vec{r}, t)}
 \end{equation}
 %%%%
-\textbf{5.} No approximations
-\begin{equation}
-\nu \Sigma_f \int_{4\pi} d\vOmega \psi(\vec{r},t) = \boxed{\nu \Sigma_f \phi(\vec{r}, t)}
-\end{equation}
+\textbf{5.} No approximations; but we will make use of the identity
+\[\int_{4\pi} d\vOmega = \int_0^{\pi} \sin(\theta) d\theta \int_0^{2\pi} d\varphi = 4\pi \]
+Thus
+\begin{align}
+\int_{4\pi} d\vOmega \frac{\nu \Sigma_f}{4\pi} &\int_{4\pi} d\vOmega' \psi(\vec{r},\vOmega, t) = \\
+& 4\pi \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(\vec{r},\vOmega, t) = \boxed{\nu \Sigma_f \phi(\vec{r}, t)}
+\end{align}
+
 %%%%
 \textbf{6.} No approximations
 \begin{equation}
@@ -533,27 +539,31 @@ This is called the zeroeth order moment w.r.t $\vOmega$.
 %%%%
 \textbf{4.} Further investigate the scattering cross section
 
-We often also assume $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu_0 =\vOmega' \cdot \vOmega$.  This implies
-\[\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu_0 \Sigma_s(\mu_0) = \Sigma_s\]
-
-If we can interchange the order of integrations over $\vOmega$ and $\vOmega'$, we can simplify the scattering term with this assumption:
+Let's interchange the order of integrations over $\vOmega$ and $\vOmega'$:
 %
 \begin{align}
 \int_{4\pi} d\vOmega &\int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)\\
 %
-&= \int_{4\pi} d\vOmega' \bigl[ \int_{4\pi} d\vOmega \Sigma_s(\vOmega' \cdot \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)\\
+&= \int_{4\pi} d\vOmega' \bigl[ \int_{4\pi} d\vOmega \Sigma_s(\vOmega' \cdot \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)
+\end{align}
+
+Then we can simplify the scattering term with this assumption (which is often true) that $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu =\vOmega' \cdot \vOmega$.  This implies
+\[\int_{4\pi} d\vOmega \Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu \Sigma_s(\mu) = \Sigma_s\]
 %
-&= \Sigma_s \int_{4\pi} d\vOmega' \psi(\vec{r}, \vOmega', t) \\
+And therefore:
+%
+\begin{align}
+\text{scatterig integral }&= \Sigma_s \int_{4\pi} d\vOmega' \psi(\vec{r}, \vOmega', t) \\
 %
 &= \boxed{\Sigma_s \phi(\vec{r}, t)}
 \end{align}
 %%%%%%%
-\textbf{2.} But now we get to the trouble term: streaming
+\textbf{2.} Finally, now we get to the trouble term: streaming
 %
 \[\int_{4\pi} d\vOmega \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) = \nabla \cdot \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, \vOmega, t) = \nabla \cdot \vec{J}(\vec{r}, t) \]
 
 \vspace*{2em}
-When we put all of the terms together we get the \textbf{neutron continuity equation}. You can see that we have one equation, but two unknowns (technically 4 unknowns b/c $\vec{J}$ has 3 spatial components)
+When we put all of the terms together we get the \textbf{neutron continuity equation}. You can see that we have 1 equation, but 2 unknowns (technically 4 unknowns b/c $\vec{J}$ has 3 spatial components)
 \begin{equation}
 \frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) + 
 \nabla \cdot \vec{J}(\vec{r}, t) + 
@@ -568,24 +578,22 @@ We at least have a relationship between $\phi$ and $\vec{J}$.
 %-------------------------------------------
 \subsection{First Angular Moment}
 
-The next step is to take the first angular moment of the transport equation to try to develop additional relationships that we can use to solve for $\phi$. Thus, we multiply the one-group TE by $\vOmega$ and then integrate over angle. 
+The next step is to take the first angular moment of the transport equation to try to develop additional relationships that we can use to solve for $\phi$. Thus, we multiply the one-group TE by $\vOmega$ and integrate over angle (with the zeroth moment we didn't do the multiplication first). 
 
-NOTE: at this point I'm dropping the fission term for simplicity. We will assume any fission neutrons are included in our source term, $S$. 
+NOTE: at this point I'm dropping the fission term for simplicity (the extension is straightforward). We will assume any fission neutrons are included in our source term, $S$. 
 
 
 % Identities
 We will use the following identities in this part of the derivation:
 \begin{align} 
-\int_{4\pi} d\vOmega &= \int_0^{\pi} \sin(\theta) d\theta \int_0^{2\pi} d\varphi = 4\pi \\
-%
 \int_{4\pi} d\vOmega \vOmega &= 0 \qquad \text{because }\vOmega\text{ is an odd function} \\
 %
 \int_{4\pi} d\vOmega \vOmega \vOmega &= \frac{4\pi}{3}\bar{\bar{I}} \qquad \bar{\bar{I}}\text{ is the identity tensor, which means} \\
 %
-\int_{4\pi} d\vOmega \vOmega_i \vOmega_j &= 0 \qquad i \neq j \nonumber \\
-&= \frac{4\pi}{3} \qquad i = j \nonumber \\
+&\int_{4\pi} d\vOmega \vOmega_i \vOmega_j = 0 \qquad i \neq j \nonumber \\
+&\qquad \qquad = \frac{4\pi}{3} \qquad i = j \nonumber %\\
 %
-\int_{4\pi} d\vOmega \vOmega \vOmega \vOmega &= 0 \qquad \\
+%\int_{4\pi} d\vOmega \vOmega \vOmega \vOmega &= 0 \qquad \\
 \end{align}
 
 
@@ -601,7 +609,7 @@ Multiplying by $\vOmega$ and dropping dependencies when appropriate:
 \int_{4\pi} d\vOmega \vOmega \frac{1}{v}\frac{\partial \psi}{\partial t} &+ 
 \int_{4\pi} d\vOmega \vOmega \vOmega \cdot \nabla \psi + 
 \int_{4\pi} d\vOmega \vOmega \Sigma_t \psi =\nonumber \\
-&\int_{4\pi} d\vOmega \vOmega \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega, t) +
+&\int_{4\pi} d\vOmega \vOmega \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t) +
 \int_{4\pi} d\vOmega \vOmega s(\vec{r}, \vOmega, t)
 \end{align}
 
@@ -636,16 +644,17 @@ This is the first angular moment of the source term.
 %
 %\[ 3 \int_{4\pi} d\vOmega' \bigl[\int_{4\pi} d\vOmega \Omega_x \Omega_x' \Sigma_s(\vOmega' \cdot \vOmega) \bigr] \cdot \Omega_x' \psi(\vec{r}, \vOmega, t) \]
 
-For the scattering term we will do some mathematical manipulation. There are several ways to do this, but this one makes the most sense to me.
+For the scattering term we will do some mathematical manipulation. There are several ways to do this, but this one makes the most sense to me (different from Duderstadt and Hamilton).
 
-Expand the scattering cross section in Legendre Polynomials (these are a sequence of orthogonal polynomials):
+Expand the scattering cross section in Legendre Polynomials, which are a sequence of orthogonal polynomials:
+%
 \[P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n} \bigl[\bigl( x^2 -1 \bigr)^n\bigr] \]
 
 Then:
 \begin{align}
 \Sigma_s(\vOmega' \cdot \vOmega) &= \sum_{l=0}^{\infty} \frac{2l+1}{4\pi} \Sigma_{sl} P_l(\mu) \\
 \Sigma_s(\vOmega' \cdot \vOmega) &=  \Sigma_{s0} \qquad l=0 \text{ isotropic} \\
-\Sigma_s(\vOmega' \cdot \vOmega) &=  \frac{1}{4\pi}\bigl( \Sigma_{s0} + 3\vOmega' \cdot \vOmega \Sigma_{s0} \bigr) \qquad l=1 \text{ linearly isotropic}
+\Sigma_s(\vOmega' \cdot \vOmega) &=  \frac{1}{4\pi}\bigl( \Sigma_{s0} + 3\vOmega' \cdot \vOmega \Sigma_{s1} \bigr) \qquad l=1 \text{ linearly isotropic}
 \end{align}
 
 \textit{Make some remarks about similarity to Taylor expansion}
@@ -653,11 +662,11 @@ Then:
 Substitute this into the equation and use some of our identities:
 %
 \begin{align}
-\frac{1}{4\pi} \int_{4\pi} &d\vOmega \int_{4\pi} d\vOmega' \vOmega' \bigl[\Sigma_{s0} + 3\vOmega' \cdot \vOmega \Sigma_{s0} \bigr] \psi(\vec{r}, \vOmega', t) = \nonumber\\
-&\frac{1}{4\pi} \int_{4\pi} d\vOmega \int_{4\pi} d\vOmega' \vOmega' \Sigma_{s0}\psi(\vec{r}, \vOmega', t) +
-\frac{1}{4\pi} \int_{4\pi} d\vOmega \vOmega' \cdot \vOmega \int_{4\pi} d\vOmega' 3 \vOmega' \Sigma_{s1}\psi(\vec{r}, \vOmega', t) \\
+\frac{1}{4\pi} \int_{4\pi}  \vOmega &d\vOmega \int_{4\pi} d\vOmega' \bigl[\Sigma_{s0} + 3\vOmega' \cdot \vOmega \Sigma_{s0} \bigr] \psi(\vec{r}, \vOmega', t) = \nonumber\\
 %
-&= 0 + \frac{3}{4\pi} \underbrace{\int_{4\pi} d\vOmega \vOmega \vOmega}_{\frac{4\pi}{3}} \Sigma_{s1} \vec{J}(\vec{r},t) \\
+& \underbrace{\frac{1}{4\pi} \int_{4\pi} d\vOmega \vOmega}_{0}  \underbrace{\int_{4\pi} d\vOmega'  \Sigma_{s0}\psi(\vec{r}, \vOmega', t)}_{\Sigma_{s0} \phi(\vec{r},t)} +
+%
+\frac{1}{4\pi} \underbrace{\int_{4\pi} d\vOmega \vOmega (\vOmega' \cdot \vOmega)}_{4\pi/3 \bar{\bar{I}}} \underbrace{\int_{4\pi} d\vOmega' 3  \Sigma_{s1}\psi(\vec{r}, \vOmega', t)}_{3\Sigma_{s1} \vec{J}(\vec{r},t)} \\
 %
 &= \boxed{\Sigma_{s1} \vec{J}(\vec{r},t)}
 \end{align}
