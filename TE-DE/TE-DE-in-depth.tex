@@ -48,8 +48,8 @@
 
 \begin{document}
 \begin{center}
-{\bf NE 155, Class 16-18, S14 \\
-DE \\ February 28, March 3 and 5 2014}
+{\bf NE 155, Class 16-19, S14 \\
+DE \\ February 28, March 3-7, 2014}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -595,8 +595,6 @@ We will use the following identities in this part of the derivation:
 %
 \int_{4\pi} d\vOmega \: \vOmega \vOmega \vOmega &= 0 \qquad \\
 \end{align}
-
-
 %We are going to note that $\vOmega$ is a vector:
 %\[\vOmega = \hat{e}_x \underbrace{\sin(\theta) \cos(\varphi)}_{\Omega_x} 
 %+ \hat{e}_y \underbrace{\sin(\theta) \sin(\varphi)}_{\vOmega_y}
@@ -692,21 +690,22 @@ Taking higher moments by repeating the multiply by $\vOmega$ and integrating isn
 
 
 %-----------------------
-\subsubsection{Linearly Anisotropic Approximation}
-And so finally, \underline{we introduce an approximation about the angular flux} (so far we have only approximated the scattering as linearly anisotropic). We now \textbf{assume that the angular flux is at most linearly anisotropic} as well.
+%-----------------------
+\subsection{Linearly Anisotropic Approximation}
+And finally, \underline{we introduce an approximation about the angular flux} (so far we have only approximated the scattering as linearly anisotropic). We now \textbf{assume that the angular flux is at most linearly anisotropic} as well.
 
-To implement this assumption the angular flux is expanded in angle and only the first two terms are retained:  
+To implement this assumption, the angular flux is expanded in angle and only the first two terms are retained:  
 %
 \begin{align}
-\psi(\vOmega) &=  \frac{1}{4\pi}\bigl( \psi_{0} + 3\vOmega \cdot \psi_{1} \bigr) \qquad l=1 \text{ linearly isotropic} \\
+\psi(\vOmega) &=  \frac{1}{4\pi}\bigl( \psi_{0} + 3\vOmega \cdot \vec{\psi_{1}} \bigr) \qquad l=1 \text{ linearly isotropic} \\
 %
 \psi(\vOmega) &\cong \frac{1}{4\pi}\bigl(\phi(\vec{r}, t) + 3 \vOmega \cdot \vec{J}(\vec{r}, t)\bigr) \:.
   \label{eq:angExpand} 
 \end{align}
-The truncated angular flux is then inserted into the streaming term in Equation \eqref{eq:current1}, giving 
+The truncated angular flux expansion is then inserted into the streaming term in Equation \eqref{eq:current1}, giving 
 %
 \begin{align}
-  \nabla \cdot \frac{1}{4\pi} \int d \vOmega \:\vOmega \vOmega  \bigl(\phi(\vec{r}, t) + 3 \vOmega \cdot \vec{J}(\vec{r}, t\bigr) &=  
+  \nabla \cdot \frac{1}{4\pi} \int d \vOmega \:\vOmega \vOmega  \bigl(\phi(\vec{r}, t) + 3 \vOmega \cdot \vec{J}(\vec{r}, t)\bigr) &=  
 %
 \nabla \cdot \frac{1}{4\pi} \bigl[\int d \vOmega \:\vOmega \vOmega  \phi(\vec{r}, t) 
 %
@@ -714,7 +713,7 @@ The truncated angular flux is then inserted into the streaming term in Equation 
 % 
 &= \nabla \cdot \frac{1}{4\pi} \frac{4\pi}{3}\bar{\bar{I}} \phi(\vec{r}, t) \\
 %
-  &\cong \frac{1}{3} \nabla \phi(\vec{r}, t) 
+  &= \frac{1}{3} \nabla \phi(\vec{r}, t) 
   \label{eq:firstTerm}
 \end{align}
 
@@ -728,13 +727,13 @@ With this approximation, the current continuity equation becomes:
 \label{eq:current1}
 \end{equation}
 %
-Next we'll define/recall:
+Next we'll define:
 \begin{align}
 \Sigma_a &\equiv \Sigma_t - \Sigma_{s0} \qquad \text{``absorption" cross section}\\
 \Sigma_{tr} &\equiv \Sigma_t - \Sigma_{s1} \qquad \text{``transport" cross section}
 \end{align}
 
-Let's substitute then into our equation set:
+Let's substitute these into our equation set:
 %
 \begin{align}
 \frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) + 
@@ -751,7 +750,8 @@ S_{1}(\vec{r}, t)
 %
 These are the $P_1$ equations because they are derived from the 0th and 1st Legendre polynomial expansion of the angular flux. And we now have 4 equations with 4 unknowns!
 
-If we also assume steady state (or weak temporal dependence) and an isotropic source, the current equation becomes
+\subsubsection{Fick's Law}
+If we also assume \underline{steady state} (or weak temporal dependence) and \underline{an isotropic source}, the current continuity equation becomes
 %
 \begin{align}
 \frac{1}{3} \nabla \phi(\vec{r}, t) +
@@ -759,21 +759,170 @@ If we also assume steady state (or weak temporal dependence) and an isotropic so
 &\boxed{\vec{J}(\vec{r}) = -\frac{1}{3\Sigma_{tr}} \nabla \phi(\vec{r}, t) = -D\nabla \phi(\vec{r}, t) } \qquad \text{Fick's Law}
 \end{align}
 %
-where we define 
-\[D = \frac{1}{\Macro_{tr}} = \frac{1}{\Macro(\vec{r},E) - \bar{\mu_{0}}\Macro_{s}(\vec{r},E)}\] 
-is the diffusion coefficient. This gives us a clear relationship between current and scalar flux. Now we can write the diffusion equation
+where
+\[D = \frac{1}{3\Macro_{tr}} = \frac{1}{3(\Macro_t(\vec{r}) - \Macro_{s1}(\vec{r}))}\] 
+is the diffusion coefficient. 
+
+ ---------------------------------------\\
+\textbf{Aside:} $\Macro_{s1}  = \int d\vOmega \:\vOmega \Macro_{s}$. When we include the azimuthally symmetric assumption we get $\Macro_{s1} = \bar{\mu}_{0}\Macro_{s}$, where $\bar{\mu}_{0}$ is the average cosine of the scattering angle.
+
+For elastic scattering from stationary nuclei when s-wave scattering is present in the center of mass frame, $\bar{\mu_{0}} = \frac{2}{3A}$ where $A$ is atomic mass number. 
+
+With all of this, $\Sigma_{tr} = \Sigma_t - \bar{\mu}_0 \Sigma_s$.
+
+%While we're dealing with the one group version of this, the derivation is technically only valid in one-speed. The reason is that to simplify common procedure to simplify the energy dependence is to \textbf{neglect the anisotropic contribution to energy transfer in a scattering collision}.
+%
+% Mathematically this means $\Macro_{s1}(E' \to E) = \Macro_{s1}(E) \delta(E' = E)$, giving $\int dE' \:\Macro_{s1}(\vec{r}, E' \to E)J(\vec{r},E') = \bar{\mu_{0}}\Macro_{s}(\vec{r},E)J(\vec{r},E)$.
+ ---------------------------------------
+
+\underline{Punchline:} Fick's Law gives us a clear relationship between current and scalar flux. Now we can write the diffusion equation in terms of only $\phi$!
 %
 \begin{equation}
-\boxed{\frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) -D\nabla \phi(\vec{r}, t) + 
+\boxed{\frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) 
+-\nabla \cdot D\nabla \phi(\vec{r}, t) + 
 \Sigma_a \phi(\vec{r}, t) =
 \nu \Sigma_f \phi(\vec{r}, t) +
-S(\vec{r}, t)}
+S(\vec{r}, t)} \:.
 \end{equation}
 
+We can also re-write our angular flux expansion as
+\[\psi(\vec{r}, \vOmega, t) \cong \frac{1}{4\pi}\Bigl(\phi(\vec{r}, t)  -\frac{1}{\Sigma_{tr}} \nabla \phi(\vec{r}, t)\Bigr) \:.\]
+
+The physical interpretation of the diffusion process is that the ``flow" of neutrons is driven by a spatial gradient of flux. Or rather, neutrons diffuse from high to low concentration areas.
+
+You can see the driving function in Fick's Law: 
+
+Equilibrium is at any location where $\vec{J} = 0$: there are an equal number of neutrons crossing the interface in both directions. 
+
+When we're not in equilibrium, more neutrons will be scatter from the side with larger $\phi$ to the side with lower $\phi$. Hence the net migration is opposed to the gradient (matching the negative sign). 
+
+%-----------------------
+%-----------------------
+\subsection{Initial and Boundary Conditions}
+
+We now need one initial condition and two boundary conditions. We will also use some other information.
+
+\underline{Mean free path} is the mean distance from the last collision.
+\[\lambda_{t} = \frac{1}{\Sigma_t} \qquad \lambda_{tr} = \frac{1}{\Sigma_{tr}}\]
+%
+If scattering is 
+\begin{itemize}
+\item isotropic, then $\bar{\mu}_0 = 0$ and $\lambda_{tr} = \lambda_{t}$
+\item forward peaked, then $\bar{\mu}_0 > 0$ and $\lambda_{tr} > \lambda_{t}$
+\end{itemize}	
+
+\textbf{Initial conditions} are pretty easy:
+\[\phi(\vec{r}, 0) = \phi_0(\vec{r}) \qquad \forall \vec{r} \in V \:.\]
+
+\textbf{Basic requirements}: still need 
+\begin{itemize}
+\item the flux to be real and positive: $0 \leq \phi$
+\item and bounded: $\phi < \infty$ except near mathematical approximations (the source condition). 
+\end{itemize}
+
+\subsubsection{Interface Conditions}
+These are also fairly straightforward. We take the 0th and 1st moments of our TE condition
+\[\psi_1(\vec{r}_S, \vOmega, t) = \psi_2(\vec{r}_S,\vOmega, t)\qquad \forall \vOmega\]
+and we get two equations rather than one. Now
+\begin{align}
+\phi_1(\vec{r}, t) &= \phi_2(\vec{r}, t) \\
+\vec{J}_1(\vec{r}, t) &= \vec{J}_2(\vec{r}, t)
+\end{align}
+
+\subsubsection{Vacuum Boundary Condition}
+These aren't quite so simpley. We start by thinking about the transport non-reentrant condition: 
+\[\psi(\vec{r}_s, \vOmega, t) = 0 \text{ for } \vOmega \cdot \hat{e}_s < 0 \:,\]
+%
+which is a mathematical statement that there are no neutrons entering our volume. Also written as
+\[J_{-}(\vec{r},t) = \int_{\vOmega \cdot \hat{e}_s < 0} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) = 0 \:.\]
+
+However, with diffusion theory
+\[\psi(\vec{r}_s, \vOmega, t) \cong \frac{1}{4\pi}\bigl(\phi(\vec{r}_s, t)  -\frac{1}{\Sigma_{tr}} \nabla \phi(\vec{r}_s, t)\bigr)\]
+%
+and our partial currents become
+%
+\begin{align}
+J_{\pm} &= \int_{2\pi^{\pm}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) =\\
+&\cong \frac{1}{4} \phi(\vec{r}, t) \mp \frac{D}{2} \hat{e}_s \cdot \nabla \phi(\vec{r}_s, t) = 0
+\end{align} 
+%
+For a 1-D slab with vacuum boundary at $x=x_s$:
+%
+\begin{align}
+J_{-}(\vec{r}_s, t) = J_{-}(x_s, t) &= \frac{1}{4} \phi(x_s, t) + \frac{D}{2}\frac{d \phi}{dx}\Bigm\lvert_{x_s} = 0 \\
+\text{Or } \qquad \frac{1}{\phi(x_s, t)}\frac{d \phi}{dx}\Bigm\lvert_{x_s} &= -\frac{1}{2D}
+\end{align}
+
+This relationship implies that linearly extrapolating the flux beyond the vacuum boundary would lead to a vanishing flux at the point
+\[\tilde{x}_s = x_s + 2D = x_s + \frac{2}{3}\lambda_{tr}\]
+%
+Thus, the vacuum condition $J_{-}(x_s) = 0$ is usually replaced with $\phi(\tilde{x}_s)= 0$. Additionally, computation with more detailed transport theory leads to an \textbf{extrapolation distance} of $0.7104\lambda_{tr} = z_0$ rather than $\frac{2}{3}\lambda_{tr}$.
+%
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[height=3 in]{DiffusionBC}
+\end{center}
+\end{figure}
+
+In reality, though, $\lambda_{tr} \sim 0$ [cm] compared to the size of a reactor core [m]. 
+
+
+%------------------------------------------
+\subsection{Helmholtz Form}
+
+We can write the diffusion equation in steady state this way:
+%
+\begin{align}
+-\nabla \cdot D\nabla \phi(\vec{r}) + 
+\Sigma_a \phi(\vec{r}) &= Q(\vec{r}) \\
+%
+\text{Where }\qquad Q(\vec{r}) &=
+\nu \Sigma_f \phi(\vec{r}) +
+S(\vec{r})
+\end{align}
+%
+which can be written as the Helmholtz equation of applied mathematics:
+%http://en.wikipedia.org/wiki/Helmholtz_equation
+%
+\begin{align}
+\nabla^2 \phi(\vec{r}) - \frac{1}{L^2}\phi(\vec{r}) &= \frac{-Q(\vec{r})}{D} \\
+\text{Where }\qquad L &\equiv \frac{D}{\Sigma_a}
+\end{align}
+%
+$L$ is called the neutron diffusion length. This is ``how far a neutron diffuses from a source prior to absorption". 
+
+In the Helmholtz formulation $\phi$ is amplitude and $\frac{1}{L}$ is wave number. 
+
+This formulation is useful because we know how to solve it. We write
+\[\phi(\vec{r}) = \phi_H(\vec{r}) + \phi_P(\vec{r}) \:,\]
+
+For example, we often have:
+\[\phi_H(\vec{r}) = A\exp\bigl(-\frac{|\vec{r}|}{L}\bigr) + B\exp\bigl(-\frac{|\vec{r}|}{L}\bigr) \:.\]
+
+Going through how to solve this analytically in a variety of circumstances, geometries, etc.\ is another class (NE 150/250). We're going to focus on numerical solution techniques. But first, one more thing.
+
+%------------------------------------------
+\subsection{Criticality Calculations}
+
+We can write our DE in steady state for a nuclear reactor core:
+%
+\begin{align}
+-\nabla \cdot D\nabla \phi(\vec{r}) + 
+\Sigma_a \phi(\vec{r}) &= \nu \Sigma_f \phi(\vec{r}) \\
+\text{with} \qquad \phi(\tilde{x}_s) &= 0
+\end{align}
+%
+Unless we have the proper combination of core composition ($\Sigma_a$, $\Sigma_f$, $D$) and geometry ($\vec{r}$ ,$\vec{r}_s$), there is \underline{no} general solution. 
+
+To deal with this, we introduce a parameter $k$ into the equation:
+%
+\begin{equation}
+-\nabla \cdot D\nabla \phi(\vec{r}) + 
+\Sigma_a \phi(\vec{r}) = \frac{1}{k}\nu \Sigma_f \phi(\vec{r})
+\end{equation}
+%
+Then, for any value of $k$ we assert that there is always a solution. We use an iterative process to find the condition when $k=1$, called `critical'.
 
 
 
-
-
-%%%%
 \end{document}
