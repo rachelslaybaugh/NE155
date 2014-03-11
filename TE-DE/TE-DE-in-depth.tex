@@ -86,11 +86,19 @@ Spatial logistics
 %\item thus $d\vec{v} = v^2 dv d\vOmega$
 \end{itemize}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=2 in]{VolumeElement}
-\end{center}
+\begin{figure}
+    \begin{center}
+    \includegraphics[keepaspectratio, width = 2.7 in]{phase_space}
+    \end{center}
+    \caption{Schematic of Phase Space}
+    \label{fig:phase_space}
 \end{figure}
+
+%\begin{figure}[h!]
+%\begin{center}
+%\includegraphics[height=2 in]{VolumeElement}
+%\end{center}
+%\end{figure}
 
 Physics terms given possible reactions we're generally going to worry about:
 \begin{itemize}
@@ -650,21 +658,25 @@ Expand the scattering cross section in Legendre Polynomials, which are a sequenc
 
 Then:
 \begin{align}
-\Sigma_s(\vOmega' \cdot \vOmega) &= \sum_{l=0}^{\infty} \frac{2l+1}{4\pi} \Sigma_{sl} P_l(\mu) \\
-\Sigma_s(\vOmega' \cdot \vOmega) &=  \Sigma_{s0} \qquad l=0 \text{ isotropic} \\
-\Sigma_s(\vOmega' \cdot \vOmega) &=  \frac{1}{4\pi}\bigl( \Sigma_{s0} + 3\vOmega' \cdot \vOmega \Sigma_{s1} \bigr) \qquad l=1 \text{ linearly isotropic}
+\Sigma_s(\vOmega' \cdot \vOmega) &= \sum_{l=0}^{\infty} \frac{2l+1}{4\pi} \Sigma_{sl} P_l(\vOmega')P_l(\vOmega) \\
+%
+\Sigma_s(\vOmega' \cdot \vOmega) &=  \frac{1}{4\pi}\Sigma_{s0} \qquad l=0 \text{ isotropic} \\
+& \text{note } P_0 (\vOmega) = 1 \\
+%
+\Sigma_s(\vOmega' \cdot \vOmega) &=  \frac{1}{4\pi}\bigl( \Sigma_{s0} + 3\vOmega' \vOmega \Sigma_{s1} \bigr) \qquad l=1 \text{ linearly isotropic}\\
+& \text{note } P_1 (\vOmega) = \vOmega 
 \end{align}
 
-\textit{Make some remarks about similarity to Taylor expansion}
+We're going to \textbf{assume that scattering is at most linearly anisotropic}, so we will stop expanding here.
 
-Substitute this into the equation and use some of our identities:
+Substitute the $l=1$ linearly anisotropic truncation into the equation and use some of our identities:
 %
 \begin{align}
-\frac{1}{4\pi} \int_{4\pi}  \vOmega &d\vOmega \int_{4\pi} d\vOmega' \bigl[\Sigma_{s0} + 3\vOmega' \cdot \vOmega \Sigma_{s0} \bigr] \psi(\vec{r}, \vOmega', t) = \nonumber\\
+\frac{1}{4\pi} \int_{4\pi}  \vOmega &d\vOmega \int_{4\pi} d\vOmega' \bigl[\Sigma_{s0} + 3\vOmega' \vOmega \Sigma_{s1} \bigr] \psi(\vec{r}, \vOmega', t) = \nonumber\\
 %
 & \underbrace{\frac{1}{4\pi} \int_{4\pi} d\vOmega \vOmega}_{0}  \underbrace{\int_{4\pi} d\vOmega'\:  \Sigma_{s0}\psi(\vec{r}, \vOmega', t)}_{\Sigma_{s0} \phi(\vec{r},t)} +
 %
-\frac{1}{4\pi} \underbrace{\int_{4\pi} d\vOmega \:\vOmega (\vOmega' \cdot \vOmega)}_{4\pi/3 \bar{\bar{I}}} \underbrace{\int_{4\pi} d\vOmega'\: 3  \Sigma_{s1}\psi(\vec{r}, \vOmega', t)}_{3\Sigma_{s1} \vec{J}(\vec{r},t)} \\
+\frac{1}{4\pi} \underbrace{\int_{4\pi} d\vOmega \:\vOmega \vOmega}_{4\pi/3 \bar{\bar{I}}} \underbrace{\int_{4\pi} d\vOmega'\: \vOmega' 3  \Sigma_{s1}\psi(\vec{r}, \vOmega', t)}_{3\Sigma_{s1} \vec{J}(\vec{r},t)} \\
 %
 &= \boxed{\Sigma_{s1} \vec{J}(\vec{r},t)}
 \end{align}
@@ -923,6 +935,10 @@ To deal with this, we introduce a parameter $k$ into the equation:
 %
 Then, for any value of $k$ we assert that there is always a solution. We use an iterative process to find the condition when $k=1$, called `critical'.
 
+A reactor is called \textbf{``critical''} if the chain reaction is self-sustaining and time-independent. Another way to think of the addition of $k$ is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
 
+This substitution changes the transport equation into an \textbf{eigenvalue problem.} A spectrum of eigenvalues can be found, but at \textbf{long times only the non-negative solution corresponding to the largest real eigenvalue will dominate}, and that's $k$. 
+
+$k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
 
 \end{document}
