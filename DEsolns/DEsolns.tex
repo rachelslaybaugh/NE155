@@ -1,0 +1,193 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2014
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, Classes 21-23, S14 \\
+Finite Difference Methods for the DE \\ March 12-17, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+%--------------------------------------------------------------------
+\section{Finite-Difference Method}
+\underline{Problem} Consider the following second order ODE:
+\[f''(x) = p(x)f'(x) + q(x)f(x) + r(x)\]
+%
+defined on a segment $[a,b]$ with $f(a) = \alpha$ and $f(b) = \beta$ (a boundary value problem).  
+
+Now, let's spatially discretize the equation:
+%
+\begin{center}
+\begin{tikzpicture}
+\draw (-.25,0)--(1.25,0);
+\draw[dotted] (1.25,0)--(2.75,0);
+\draw (2.75,0)--(5.25,0);
+\draw[dotted] (5.25,0)--(6.75,0);
+\draw (6.75,0)--(8.25,0);
+%\draw (4,0)--(5.25,0);
+\draw (0,-.25)--(0,.25);
+\draw (1,-.25)--(1,.25);
+%\draw (2,-.25)--(2,.25);
+\draw (3,-.25)--(3,.25);
+\draw (4,-.25)--(4,.25);
+\draw (5,-.25)--(5,.25);
+\draw (7,-.25)--(7,.25);
+\draw (8,-.25)--(8,.25);
+\node[below] at (0,-.25) {$x_0$};
+\node[below] at (1,-.25) {$x_1$};
+\node[below] at (3,-.25) {$x_{i-1}$};
+\node[below] at (4,-.25) {$x_i$};
+\node[below] at (5,-.25) {$x_{i+1}$};
+\node[below] at (7,-.25) {$x_{n-1}$};
+\node[below] at (8,-.25) {$x_n$};
+\node[above] at (0.5, 0.5) {$h$};
+\node[above] at (3.5, 0.5) {$h$};
+\end{tikzpicture}
+\end{center}
+%
+where $x_0 = a$, $x_n = b$, and $h$ is the mesh spacing. There are $n+1$ points and $n$ mesh cells.
+
+We can use \textbf{central difference} to approximate the derivatives on this grid. Let's use the $O(h^2)$ versions:
+%
+\begin{align}
+f'(x_i) &= \frac{f(x_i + h) - f(x_i - h)}{2h} - \frac{h^2}{6} f'''(\mu) \nonumber \\
+%
+f''(x_i) &= \frac{f(x_i + h) - 2f(x_i) + f(x_i - h)}{h^2} + \frac{h^2}{12}f^{(4)}(\mu) \nonumber
+\end{align}
+%
+We will also define $p_i = p(x_i)$, $q_i = q(x_i)$, $r_i = r(x_i)$.
+
+Substituting into the original equation, we get:
+\begin{align}
+\frac{f_{i+1} - 2f_i + f_{i-1}}{h^2} &= p_i \frac{f_{i+1} - f_{i-1}}{2h} + q_i f_i + r_i \qquad i = 1, 2, \dots, n-1 \nonumber \\
+%
+\bigl(\frac{-h}{2}p_i - 1\bigr) f_{i-1} &+ \bigl(2 + h^2q_i\bigr)f_i + \bigl(\frac{h}{2}p_i - 1\bigr) f_{i+1} = -h^2 r_i \qquad i = 1, 2, \dots, n-1 \nonumber
+\end{align}
+
+We only have $n-1$ equations, but because the boundaries are fixed that is all we need. This is clear when we look at the $i=1$ and $i=n-1$ cases:
+\begin{align}
+&\bigl(2 + h^2q_1\bigr)f_1 + \bigl(\frac{h}{2}p_1 - 1\bigr) f_{2} = -h^2 r_1 + \underbrace{\bigl(\frac{h}{2}p_1 + 1\bigr) \underbrace{\alpha}_{f_0}}_{bc_L} \nonumber \\
+ %
+&\bigl(\frac{-h}{2}p_{n-1} - 1\bigr) f_{n-2} + \bigl(2 + h^2q_{n-1}\bigr)f_{n-1} = -h^2 r_{n-1} + \underbrace{\bigl(\frac{-h}{2}p_{n-1} + 1\bigr) \underbrace{\beta}_{f_n}}_{bc_R} \nonumber
+\end{align}
+
+Thus, we can write this as a matrix equation:
+\begin{equation}
+\begin{pmatrix}
+\bigl(2 + h^2q_1\bigr) & \bigl(\frac{h}{2}p_1 - 1\bigr) & & \hdots & 0 \\
+%
+\bigl(\frac{-h}{2}p_2 - 1\bigr) & \bigl(2 + h^2q_2\bigr) & \bigl(\frac{h}{2}p_2 - 1\bigr) & &  \\
+\vdots & \ddots & \ddots & \ddots & \vdots \\
+& & \bigl(\frac{-h}{2}p_{n-2} - 1\bigr) & \bigl(2 + h^2q_{n-2}\bigr)  & \bigl(\frac{h}{2}p_{n-2} - 1\bigr) \\
+0 & \hdots & & \bigl(\frac{-h}{2}p_{n-1} - 1\bigr) & \bigl(2 + h^2q_{n-1}\bigr) \\
+\end{pmatrix}
+%
+\begin{pmatrix}
+f_1 \\ f_2 \\ \vdots \\ f_{n-2} \\ f_{n-1} \\
+\end{pmatrix}
+= 
+\begin{pmatrix}
+-h^2 r_1 + bc_L \\ -h^2 r_2 \\ \vdots \\ -h^2 r_{n-1} \\ -h^2 r_{n-1} + bc_R\\ 
+\end{pmatrix}\nonumber
+\end{equation}
+
+%
+%\subsubsection{Two Variables}
+%\begin{center}
+%\begin{tikzpicture}
+%\draw (-.25,0)--(7.25,0);
+%\draw (1,-.25)--(1,.25);
+%\draw (3,-.25)--(3,5.25);
+%\draw (4,-.25)--(4,5.25);
+%\draw (5,-.25)--(5,5.25);
+%\draw (7,-.25)--(7,.25);
+%\node[below] at (0,-.25) {$x_0$};
+%\node[below] at (1,-.25) {$x_1$};
+%\node[below] at (3,-.25) {$x_{i-1}$};
+%\node[below] at (4,-.25) {$x_i$};
+%\node[below] at (5,-.25) {$x_{i+1}$};
+%\node[below] at (7,-.25) {$x_n$};
+%\node at (3.5, 2) {$\Delta x$};
+%% begin y
+%\draw (0,-.25)--(0,7.25);
+%\draw (-.25,1)--(.25,1);
+%\draw (-.25,3)--(5.25,3);
+%\draw (-.25,4)--(5.25,4);
+%\draw (-.25,5)--(5.25,5);
+%\draw (-.25,7)--(.25,7);
+%\node[left] at (-.25, 0) {$y_0$};
+%\node[left] at (-.25,1) {$y_1$};
+%\node[left] at (-.25,3) {$y_{i-1}$};
+%\node[left] at (-.25,4) {$y_i$};
+%\node[left] at (-.25,5) {$y_{i+1}$};
+%\node[left] at (-.25,7) {$y_n$};
+%\node at (2,3.5) {$\Delta y$};
+%\end{tikzpicture}
+%\end{center}
+%
+%\begin{align}
+%\frac{\partial^2 f_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial f_{i,j}}{\partial x}\bigr) =
+%\frac{f_{i-1,j} - 2f_{i,j} + f_{i+1,j}}{\Delta x^2} \\
+%%
+%\frac{\partial^2 f_{i,j}}{\partial y^2} = \frac{\partial}{\partial y}\bigl(\frac{\partial f_{i,j}}{\partial y}\bigr) =
+%\frac{f_{i,j-1} - 2f_{i,j} + f_{i,j+1}}{\Delta y^2}
+%\end{align}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%\bibliographystyle{plain}
+%\bibliography{LinearSolns} 
+
+\end{document}
