@@ -1,0 +1,125 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2014
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, midterm 1 review S14 \\
+March 12, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+%--------------------------------------------------------------------
+Here are the topics we've covered and that are fair game for the exam:
+
+\begin{itemize}
+\item Vectors and properties
+  \begin{itemize}
+  \item vector norms
+  \item measuring error and determining convergence
+  \end{itemize}
+
+\item Matrices and properties
+  \begin{itemize}
+  \item how to compute a determinant; properties of determinants
+  \item matrix norms
+  \item eigenvalues, eigenvectors, and spectral radius
+  \end{itemize}
+
+\item Direct solutions of linear systems ($\ve{A}\vec{x} = \vec{b}$)
+  \begin{itemize}
+  \item diagonal, lower-tri and upper-tri systems
+  \item LU decomposition
+  \item tridiagonal systems
+  \end{itemize}
+
+\item Iterative solutions of linear systems
+  \begin{itemize}
+  \item General form of the fixed point iterative method
+  \item Richardson / Source interation
+  \item Jacobi
+  \item Gauss Seidel
+  \item SOR
+  \item convergence
+  \item preconditioning
+  \end{itemize}
+
+\item Interpolation
+  \begin{itemize}
+  \item polynomial: Lagrange based
+  \item error calculation
+  \item piecewise polynomial: spline
+  \end{itemize}
+
+\item Approximation using least squares
+
+\item Differentiation: Forming expressions for derivatives (and their error) using Taylor's theorem
+
+\item Integration
+  \begin{itemize}
+  \item Lagrange form of Newton-Cotes
+  \item composite Newton-Cotes
+  \item both how you derive these rules and compute the errors
+  \end{itemize}
+  
+\item Transport and diffusion equation
+  \begin{itemize}
+  \item meaning of terms
+  \item assumptions in derivation
+  \item areas of applicability
+  \end{itemize}
+\end{itemize}
+
+The exam will be 50 minutes long and closed book. You may use a calculator.
+
+\end{document}
