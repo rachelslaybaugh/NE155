@@ -154,8 +154,8 @@ and we have boundary values $F_0$ and $F_n$.
 %---------------------------------------------
 \subsection{DE}
 What does this look like if we apply it to the steady state 1-D diffusion equation?
-\[-D\frac{d^2 \phi(x)}{dx^2} + \Sigma_a \phi(x) = S_0\]
-\[\frac{d^2 \phi}{dx^2} - \frac{1}{L^2}\phi(x) = \frac{-S_0}{D}\]
+\[-D\frac{d^2 \phi(x)}{dx^2} + \Sigma_a \phi(x) = S\]
+\[\frac{d^2 \phi}{dx^2} - \frac{1}{L^2}\phi(x) = \frac{-S}{D}\]
 and let $\phi(a) = \phi(b) = 0$ (vacuum bcs). Then we get
 \begin{align}
 \frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h^2} - \frac{1}{L^2}\phi_i &= \frac{-S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1 \nonumber \\
@@ -214,13 +214,13 @@ This
 %---------------------------------------------
 \subsection{DE} 
 What does this look like if we apply it to the steady state 1-D diffusion equation?
-\[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S_0(x)\]
+\[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S(x)\]
 %
 \begin{figure}[h!]
 \includegraphics[height=1in]{FVM-fig}
 \end{figure}
 %
-Let's also assume we have an equilibrium condition at the centerline ($x_0 = 0$) and vacuum on the right ($x_n = a$):
+Let's also assume we have an equilibrium (reflecting) condition at the centerline ($x_0 = 0$) and vacuum on the right ($x_n = a$):
 \begin{align}
 \frac{d}{dx}\phi(x) \big|_{x=0} &= 0 \qquad \text{zero net current} \nonumber\\
 \phi(\tilde{a}) &= 0 \qquad \tilde{a} = a + 2D \nonumber
@@ -230,7 +230,7 @@ We again have a spatial mesh, and material discontinuities will coincide with ce
 \begin{align}
 D(x) &= D_i\;, \qquad x_{i-1} \leq x \leq x_i \nonumber \\
 \Sigma_a(x) &= \Sigma_{a,i}\;, \qquad x_{i-1} \leq x \leq x_i \nonumber \\
-h_i &\equiv x_{i} - x{i-1} \nonumber \\
+h_i &\equiv x_{i} - x_{i-1} \nonumber \\
 \phi(x_i) &= \phi_i \nonumber \\
 S(x_i) &= S_i \nonumber 
 \end{align}
@@ -280,7 +280,7 @@ h_{ii} &= \frac{h_i + h_{i+1}}{2} \nonumber \\
 \end{align}
 Then
 %
-\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_[ + a_{i, i+1} \phi_{i+1} = S_i \qquad \text{for } i = 1, 2, \dots, n-1 \]
+\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_i + a_{i, i+1} \phi_{i+1} = S_i \qquad \text{for } i = 1, 2, \dots, n-1 \]
 %
 where
 %
@@ -291,6 +291,62 @@ a_{i,i+1} &= \frac{-D_{i+1}}{h_{i+1} h_{ii}} \nonumber
 \end{align}
 
 Now we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns. Next up: boundary conditions.
+
+
+%-------------------------------------------------------
+\subsection{Boundary Conditions}
+
+If we assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
+\[\phi_n = 0\]
+and the last equation for $i=n-1$ becomes
+\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} 0 = S_{n-1}\]
+
+Next we'll worry about the \textbf{reflecting} or zero current condition. The first step is to integrate over $[0, h_{1}/2]$.
+%
+\begin{figure}[h!]
+\includegraphics[height=2in]{ReflectingBC}
+\end{figure}
+%
+\begin{align}
+\int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} S(x) dx \nonumber \\
+%
+-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \nonumber 
+\end{align}
+%
+Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0}$ to get:
+\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\]
+
+And the first equation ($i=0$) becomes
+\[a_{00}\phi_0 + a_{01} \phi_1 = Q_0\]
+%
+Where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
+%
+\begin{align}
+a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \nonumber \\
+a_{01}^* &= -\frac{2D_1}{h_1^2} \nonumber 
+\end{align}
+
+We now have $n$ equations and $n$ unknowns
+\begin{equation}
+\underbrace{\begin{pmatrix}
+a_{00}^* & a_{01}^* & 0      & 0 & \cdots & 0 \\
+a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
+0        & a_{21}   & a_{22}   & a_{21} &  & \vdots \\
+\vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & a_{n-3,n-3}   & a_{n-2,n-2} & a_{n-2,n-1} \\
+0        & \cdots   & 0   & 0 & a_{n-1,n-2} & a_{n-1,n-1} 
+\end{pmatrix}}_{\ve{A}}
+%
+\underbrace{\begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix}}_{\vec{\phi}} =
+%
+\underbrace{\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}}_{\vec{S}}
+\end{equation}
+
+\subsection{Homogeneous, Uniform Mesh}
+
+If we end up having a homogeneous system with a uniform mesh, then we can make some simplifications.
+
+
 
 
 %--------------------------------------------------------------------
