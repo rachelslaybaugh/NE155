@@ -51,7 +51,7 @@
 \begin{document}
 \begin{center}
 {\bf NE 155, Classes 21-23, S14 \\
-Finite Difference Methods for the DE \\ March 12-17, 2014}
+Finite Difference Methods for the eigenvalue form of the DE \\ March 17, 2014}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -60,13 +60,24 @@ Finite Difference Methods for the DE \\ March 12-17, 2014}
 \end{picture}
 
 %--------------------------------------------------------------------
-\section{Finite-Difference Method}
-\underline{Problem} Consider the following second order ODE:
-\[f''(x) = p(x)f'(x) + q(x)f(x) + r(x)\]
-%
-defined on a segment $[a,b]$ with $f(a) = \alpha$ and $f(b) = \beta$ (a boundary value problem).  
+\section{Finite-Difference Method, Eigenvalue Problem}
 
-Now, let's spatially discretize the equation:
+We can extend all of the things that we just did to the eigenvalue problem case, which is another layer of complication. 
+
+Now instead of a fixed source, we have an eigenvalue problem
+\[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = \frac{1}{k}\nu \Sigma_f(x) \phi(x) \]
+%
+\begin{figure}[h!]
+\includegraphics[height=1in]{FVM-fig}
+\end{figure}
+%
+Let's again have a reflecting condition at the centerline ($x_0 = 0$) and vacuum on the right ($x_n = a$):
+\begin{align}
+\frac{d}{dx}\phi(x) \big|_{x=0} &= 0 \qquad \text{zero net current} \nonumber\\
+\phi(\tilde{a}) &= 0 \qquad \tilde{a} = a + 2D \nonumber
+\end{align}
+
+We again have a spatial mesh:
 %
 \begin{center}
 \begin{tikzpicture}
@@ -84,19 +95,19 @@ Now, let's spatially discretize the equation:
 \draw (5,-.25)--(5,.25);
 \draw (7,-.25)--(7,.25);
 \draw (8,-.25)--(8,.25);
-\node[below] at (0,-.25) {$x_0 = a$};
+\node[below] at (0,-.25) {$x_0 = 0$};
 \node[below] at (1,-.25) {$x_1$};
 \node[below] at (3,-.25) {$x_{i-1}$};
 \node[below] at (4,-.25) {$x_i$};
 \node[below] at (5,-.25) {$x_{i+1}$};
 \node[below] at (7,-.25) {$x_{n-1}$};
-\node[below] at (8,-.25) {$x_n = b$};
+\node[below] at (8,-.25) {$x_n = a$};
 \node[above] at (0.5, 0.5) {$h$};
 \node[above] at (3.5, 0.5) {$h$};
 \end{tikzpicture}
 \end{center}
 %
-where $x_0 = a$, $x_n = b$, and $h$ is the mesh spacing. There are $n+1$ points and $n$ mesh cells.
+where $x_0 = 0$, $x_n = a$, and $h$ is the mesh spacing. There are $n+1$ points and $n$ mesh cells.
 
 We can use \textbf{central difference} to approximate the derivatives on this grid. Let's use the $O(h^2)$ versions:
 %
