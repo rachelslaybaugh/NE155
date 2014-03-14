@@ -286,7 +286,7 @@ where
 %
 \begin{align}
 a_{i,i-1} &= \frac{-D_i}{h_i h_{ii}} \nonumber \\
-a_{i,i-1} &= \frac{D_i}{h_i h_{ii}} + \frac{D_{i+1}}{h_{i+1} h_{ii}} +\Sigma_{a,ii} \nonumber \\
+a_{i,i} &= \frac{D_i}{h_i h_{ii}} + \frac{D_{i+1}}{h_{i+1} h_{ii}} +\Sigma_{a,ii} \nonumber \\
 a_{i,i+1} &= \frac{-D_{i+1}}{h_{i+1} h_{ii}} \nonumber
 \end{align}
 
@@ -317,7 +317,7 @@ Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to g
 \[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\]
 
 And the first equation ($i=0$) becomes
-\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = Q_0\:,\]
+\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = S_0\:,\]
 %
 where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
 %
@@ -331,7 +331,7 @@ We now have $n$ equations and $n$ unknowns
 \underbrace{\begin{pmatrix}
 a_{00}^* & a_{01}^* & 0      & 0 & \cdots & 0 \\
 a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
-0        & a_{21}   & a_{22}   & a_{21} &  & \vdots \\
+0        & a_{21}   & a_{22}   & a_{23} &  & \vdots \\
 \vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
 0 & \cdots & 0 & a_{n-3,n-3}   & a_{n-2,n-2} & a_{n-2,n-1} \\
 0        & \cdots   & 0   & 0 & a_{n-1,n-2} & a_{n-1,n-1} 
@@ -403,7 +403,7 @@ Recall that $\phi_n = 0$.
 To develop the algorithm, let's look at a 3$\times$3 system of equations.
 \begin{align}
 B_0\phi_0 - C_0\phi_1 \hspace*{3.25em}&= S_0 \nonumber \\
--A_1\phi_0 + B_1\phi_1 - C_1\phi_3 &= S_1 \nonumber \\
+-A_1\phi_0 + B_1\phi_1 - C_1\phi_2 &= S_1 \nonumber \\
 -A_2\phi_1 + B_2\phi_2 &= S_2 \nonumber 
 \end{align}
 %
@@ -417,7 +417,7 @@ and write the first equation as
 \item multiply by $A_1 / u_0$
 \[A_1\phi_0 - \frac{A_1 C_0}{u_0}\phi_1 = \frac{A_1 v_0}{u_0}\]
 Now add this to the second equation (where the $\phi_0$ term subtracts out)
-\[\biggl(B_1-\frac{A_1 C_0}{u_0}\biggr)\phi_1 - C_1\phi_3 = S_1 + \frac{A_1 v_0}{u_0}\]
+\[\biggl(B_1-\frac{A_1 C_0}{u_0}\biggr)\phi_1 - C_1\phi_2 = S_1 + \frac{A_1 v_0}{u_0}\]
 %
 and define
 \[u_1 = B_1-\frac{A_1 C_0}{u_0} \qquad v_1 = S_1 + \frac{A_1 v_0}{u_0}\]
