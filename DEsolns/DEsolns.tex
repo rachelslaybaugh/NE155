@@ -252,14 +252,14 @@ Now, we integrate the differential equation over each cell, $\bigl(x_i - \frac{h
 
 Term by term:
 \begin{align}
-\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} S(x) dx &\approx S_i \bigl(\frac{h_i + h_{i+1}}{2}\bigr) \nonumber \\
-%
+\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} S(x) dx &\approx S_i \bigl(\frac{h_i + h_{i+1}}{2}\bigr) \qquad \text{defined at cell edge} \nonumber \\
+&\nonumber\\
 \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \Sigma_a(x) \phi(x) dx &= 
 \int_{(x_i - \frac{h_i}{2})}^{(x_i)} \Sigma_a(x) \phi(x) dx + \int_{(x_i)}^{(x_i + \frac{h_{i+1}}{2})} \Sigma_a(x) \phi(x) dx \nonumber\\&=
-\biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i\nonumber \\
-%
+\biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i\nonumber \qquad \text{defined at cell center}\\
+&\nonumber\\
  \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \biggl(  -\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &=
--\biggl[D(x)\frac{d \phi(x)}{dx} \biggr]_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \nonumber \\
+-\biggl[D(x)\frac{d \phi(x)}{dx} \biggr]_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \qquad \text{defined at cell edge}\nonumber \\
 %
 -D(x)\frac{d \phi(x)}{dx}\big|_{(x_i + \frac{h_{i+1}}{2})} &\cong -D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) \nonumber \\
 %
@@ -276,11 +276,11 @@ We can express this in matrix form, but we'll use some abbreviations to make it 
 \begin{align}
 h_{ii} &= \frac{h_i + h_{i+1}}{2} \nonumber \\
 %
-\Sigma_{a,ii} = \frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{h_i + h_{i+1}} \nonumber \\
+\Sigma_{a,ii} &= \frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{h_i + h_{i+1}} \nonumber \\
 \end{align}
-Then
+Divide through by $h_{ii}$, then
 %
-\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_i + a_{i, i+1} \phi_{i+1} = S_i \qquad \text{for } i = 1, 2, \dots, n-1 \]
+\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_i + a_{i, i+1} \phi_{i+1} = S_i \qquad \text{for } i = 1, 2, \dots, n-1\]
 %
 where
 %
@@ -299,7 +299,7 @@ Now we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns. Next 
 If we assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
 \[\phi_n = 0\]
 and the last equation for $i=n-1$ becomes
-\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} 0 = S_{n-1}\]
+\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} \times 0 = S_{n-1}\]
 
 Next we'll worry about the \textbf{reflecting} or zero current condition. The first step is to integrate over $[0, h_{1}/2]$.
 %
@@ -313,13 +313,13 @@ Next we'll worry about the \textbf{reflecting} or zero current condition. The fi
 -D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \nonumber 
 \end{align}
 %
-Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0}$ to get:
+Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
 \[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\]
 
 And the first equation ($i=0$) becomes
-\[a_{00}\phi_0 + a_{01} \phi_1 = Q_0\]
+\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = Q_0\:,\]
 %
-Where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
+where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
 %
 \begin{align}
 a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \nonumber \\
@@ -342,10 +342,121 @@ a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
 \underbrace{\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}}_{\vec{S}}
 \end{equation}
 
+%----------------------------------------------------------------
 \subsection{Homogeneous, Uniform Mesh}
 
 If we end up having a homogeneous system with a uniform mesh, then we can make some simplifications.
+%
+\begin{align}
+&h_i = h \nonumber \\
+&D_i = D \nonumber \\
+&\Sigma_{a,i} = \Sigma_a \nonumber \\
+%
+&\frac{-D}{h^2}\phi_{i-1} + \biggl(\frac{2D}{h^2} + \Sigma_a \biggr)\phi_i - \frac{D}{h^2}\phi_{i+1} = S_i \qquad \text{for } i = 1, \dots, n-2 \nonumber \\
+%
+&\biggl(\frac{2D}{h^2} + \Sigma_a \biggr) \phi_0 - \frac{D}{h^2}\phi_{1} = S_0 \qquad \text{for } i = 0 \nonumber \\
+%
+&\frac{-D}{h^2}\phi_{n-2} + \biggl(\frac{2D}{h^2} + \Sigma_a \biggr)\phi_{n-1} = S_{n-1} \qquad \text{for } i = n-1 \nonumber
+\end{align}
 
+
+%----------------------------------------------------------------
+%----------------------------------------------------------------
+\section{Solution Methods}
+
+Both the FDM and FVM result in tridiagonal systems. Recall that formally solving these systems looks like
+\[\vec{\phi} = \ve{A}^{-1}\vec{S} \:.\]
+There are a few ways that we can solve these. 
+
+%----------------------------------------------------------------
+\subsection{Directly}
+
+Tridiagonal systems can be solved directly using Gaussian elimination. 
+
+This is not a bad option in our case because $\ve{A}$ is diagonally dominant (each diagonal element is greater than the sums of the absolute values of the off-diagonal elements in the same row):
+\[a_{ii} \geq |a_{i,i-1}| + |a_{i, i+1}|\:.\] 
+
+How do we develop an algorithm to execute this that can be easily programmed? Let's start by writing our system this way:
+%
+\begin{equation}
+\begin{pmatrix}
+B_0  & -C_0 & 0    & 0    & \cdots & 0 \\
+-A_1 & B_1  & -C_1 & 0    & \cdots & 0 \\
+0    & -A_2 & B_2  & -C_2 & & \vdots \\
+\vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & -A_{n-2} & B_{n-2} & -C_{n-2} \\
+0        & \cdots   & 0   & 0 & -A_{n-1} & B_{n-1} 
+\end{pmatrix}
+%
+\begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix} =
+%
+\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}
+\end{equation}
+%
+Recall that $\phi_n = 0$. 
+
+To develop the algorithm, let's look at a 3$\times$3 system of equations.
+\begin{align}
+B_0\phi_0 - C_0\phi_1 \hspace*{3.25em}&= S_0 \nonumber \\
+-A_1\phi_0 + B_1\phi_1 - C_1\phi_3 &= S_1 \nonumber \\
+-A_2\phi_1 + B_2\phi_2 &= S_2 \nonumber 
+\end{align}
+%
+Now the process:
+\begin{enumerate}
+\item Define
+\[u_0 = B_0 \qquad v_0 = S_0\]
+and write the first equation as
+\[u_0\phi_0 - C_0\phi_1 = v_0\]
+
+\item multiply by $A_1 / u_0$
+\[A_1\phi_0 - \frac{A_1 C_0}{u_0}\phi_1 = \frac{A_1 v_0}{u_0}\]
+Now add this to the second equation (where the $\phi_0$ term subtracts out)
+\[\biggl(B_1-\frac{A_1 C_0}{u_0}\biggr)\phi_1 - C_1\phi_3 = S_1 + \frac{A_1 v_0}{u_0}\]
+%
+and define
+\[u_1 = B_1-\frac{A_1 C_0}{u_0} \qquad v_1 = S_1 + \frac{A_1 v_0}{u_0}\]
+to re-write as
+\[u_1\phi_1 - C_1\phi_2 = v_1\:.\]
+
+\item Guess what's next? Multiply this equation by $A_2 / u_1$
+\[A_2\phi_1 - \frac{A_2 C_1}{u_1}\phi_2 = \frac{A_2 v_1}{u_1}\]
+and add to the third equation
+\[\biggl(B_2-\frac{A_2 C_1}{u_1}\biggr)\phi_2 = S_2 + \frac{A_2 v_1}{u_1}\]
+%
+and define
+\[u_2 = B_2-\frac{A_2 C_1}{u_1} \qquad v_2 = S_2 + \frac{A_2 v_1}{u_1}\]
+to re-write as
+\[u_2\phi_2 = v_2 \:.\]
+\end{enumerate}
+%
+All together we now have an \textbf{upper triangular system}:
+\begin{align}
+u_0\phi_0 - C_0\phi_1 \hspace*{3.25em} &= v_0 \nonumber \\
+u_1\phi_1 - C_1\phi_2 &= v_1 \nonumber \\
+u_2\phi_2 &= v_2 \nonumber
+\end{align}
+%
+that we can solve with \textbf{backward substitution}.
+
+The generalized algorithm is short and easy, so I'll just write it out
+%
+\begin{enumerate}
+\item \[u_0 = B_0 \qquad v_0 = S_0\]
+
+\item for $i=1, \dots, n-1$
+\[u_i = B_i-\frac{A_i C_{i-1}}{u_{i-1}} \qquad v_i = S_i + \frac{A_i v_{i-1}}{u_{i-1}}\]
+
+\item Backward sub starting with $i=n-1$
+\[\phi_{n-1} = \frac{v_{n-1}}{u_{n-1}}\]
+
+\item Then for $i= n-2, \dots, 1$
+\[\phi_i = \frac{1}{u_i}\bigl(v_i + C_i \phi_{i+1}\bigr)\]
+\end{enumerate}
+
+That was pretty easy,but we typically try to \textit{avoid direct inversion of matrices} because it might be expensive in time and/or memory, round-off error, instability, etc.
+
+We often use an iterative method instead. 
 
 
 
