@@ -50,8 +50,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 21-23, S14 \\
-Finite Difference Methods for the eigenvalue form of the DE \\ March 17, 2014}
+{\bf NE 155, Classes 23-24, S14 \\
+Finite Difference Methods for the eigenvalue form of the DE \\ March 17 \& 21, 2014}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -203,7 +203,7 @@ And again we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns.
 Again assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
 \[\phi_n = 0\]
 and the last equation for $i=n-1$ becomes
-\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + 0 = \frac{1}{k}\nu\Sigma_{f,ii} \phi_{n-1}\]
+\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + 0 = \frac{1}{k}\nu\Sigma_{f,(n-1,n-1)} \phi_{n-1}\]
 
 To include the \textbf{reflecting} or zero current condition we integrate over $[0, h_{1}/2]$.
 %
@@ -249,29 +249,13 @@ a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
 \vec{\phi} &= \begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix} \:, \qquad
 %
 \ve{F} = \begin{pmatrix}
-\nu\Sigma_{f,11} & 0 & 0 & \cdots & 0 \\
-0   & \nu\Sigma_{f,22}   & 0 & \cdots & 0 \\
-\vdots        & \ddots  & \ddots & \ddots & \vdots \\
-0 & \cdots & 0 & \nu\Sigma_{f,n-1,n-1} & 0 \\
-0        & \cdots   & 0   & 0 & \nu\Sigma_{f,nn} 
+\nu\Sigma_{f,1} & 0 & 0 & 0 & \cdots & 0 \\
+0   & \nu\Sigma_{f,11} & 0  & 0 & \cdots & 0 \\
+0   & 0 & \nu\Sigma_{f,22}  & 0 & \cdots & 0 \\
+\vdots  &     & \ddots  & \ddots & \ddots  & \vdots \\
+0 & \cdots & 0 & 0 & \nu\Sigma_{f,n-2,n-2} & 0 \\
+0        & \cdots & 0 & 0   & 0 & \nu\Sigma_{f,n-1,n-1} 
 \end{pmatrix} \nonumber
-\end{align}
-
-%----------------------------------------------------------------
-\subsection{Homogeneous, Uniform Mesh}
-
-If we end up having a homogeneous system with a uniform mesh, then we can make some simplifications.
-%
-\begin{align}
-&h_i = h \nonumber \\
-&D_i = D \nonumber \\
-&\Sigma_{a,i} = \Sigma_a \nonumber \\
-%
-&\frac{-D}{h^2}\phi_{i-1} + \biggl(\frac{2D}{h^2} + \Sigma_a \biggr)\phi_i - \frac{D}{h^2}\phi_{i+1} = S_i \qquad \text{for } i = 1, \dots, n-2 \nonumber \\
-%
-&\biggl(\frac{2D}{h^2} + \Sigma_a \biggr) \phi_0 - \frac{D}{h^2}\phi_{1} = S_0 \qquad \text{for } i = 0 \nonumber \\
-%
-&\frac{-D}{h^2}\phi_{n-2} + \biggl(\frac{2D}{h^2} + \Sigma_a \biggr)\phi_{n-1} = S_{n-1} \qquad \text{for } i = n-1 \nonumber
 \end{align}
 
 
@@ -279,150 +263,86 @@ If we end up having a homogeneous system with a uniform mesh, then we can make s
 %----------------------------------------------------------------
 \section{Solution Methods}
 
-Both the FDM and FVM result in tridiagonal systems. Recall that formally solving these systems looks like
-\[\vec{\phi} = \ve{A}^{-1}\vec{S} \:.\]
-There are a few ways that we can solve these. 
+We are only going to talk about iterative solution methods for eigenvalue problems since no one uses direct methods in practice (dealing with directly solving an eigenvalue matrix problem rapidly becomes intractable). We will formulate the problem this way
+%
+\[ \ve{A} \vec{\phi}^{(1)} = \frac{1}{k^{(0)}}\ve{F}\vec{\phi^{(0)}}\]
 
-%----------------------------------------------------------------
-\subsection{Directly}
+There are a variety of ways you can choose to determine convergence. We will consider these convergence criteria:
+\begin{align}
+\bigg|\frac{k^{(m)} - k^{(m-1)}}{k^{(m)}}\bigg| &< \epsilon_1 \nonumber \\
+\bigg|\frac{\phi_i^{(n)} - \phi_i^{(m-1)}}{\phi_i^{(m)}}\bigg| &< \epsilon_2 \nonumber
+\end{align}
+%
+Where $\epsilon_1$ is the eigenvalue convergence criterion (often $1 \times 10^{-4}$ or smaller), and $\epsilon_2$ is the flux error criterion (often $1 \times 10^{-3}$ or smaller).
 
-Tridiagonal systems can be solved directly using Gaussian elimination. 
+\subsection{Finding $k$}
 
-This is not a bad option in our case because $\ve{A}$ is diagonally dominant (each diagonal element is greater than the sums of the absolute values of the off-diagonal elements in the same row):
-\[a_{ii} \geq |a_{i,i-1}| + |a_{i, i+1}|\:.\] 
+But wait, that iterative method was only telling us how to update $\vec{\phi}$. How do we get new iterates for $k$? To sort that out, we're going to think about the physical interpretation of $k$.
 
-The general algorithm to solve a tridiagonal system is short and easy, it's called the \textbf{Thomas Algorithm}. We covered it back with general linear solution methods. 
+The multiplication factor, $k$, can be defined as
+\[k = \frac{\text{total production rate}}{\text{total loss rate}}\]
+%
+We can define two \textbf{operators} (\emph{not matrices}) to help us compute this:
+%
+\begin{align}
+A &= -\frac{d}{dx}D(x)\frac{d}{dx} + \Sigma_a(x) \qquad \text{is the loss operator} \nonumber \\
+F &= \nu\Sigma_f(x) \qquad \qquad \text{is the production operator}\nonumber
+\end{align}
 
-%How do we develop an algorithm to execute this that can be easily programmed? 
-\underline{Would you like to go through that a little more slowly or move to the next thing?}
+%Fortunately, the discretized versions of these operators are the matrices that we have $\ve{A}$ and $\ve{F}$, respectively. 
+This allows us to write an equation for $k$ as
+\[k^{(1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(1)}(x)dx}{\int_0^{\tilde{a}} A \vec{\phi}^{(1)}(x)dx} \]
 
-Let's start by writing our system this way:
+We can express our iterative method with our operators,
+\[ A \vec{\phi}^{(1)} = \frac{1}{k^{(0)}}F\vec{\phi^{(0)}}\]
+%
+and substitute this into our $k$ equation to get
+\[k^{(1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(1)}(x)dx}{\frac{1}{k^{(0)}}\int_0^{\tilde{a}} F \vec{\phi}^{(0)}(x)dx} \]
+%
+With this finite difference formulation we've developed, this can be expressed as:
+\[k^{(1)} = k^{(0)}\Biggl(\frac{\nu\Sigma_{f,1} \phi_0^{(1)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(1)} \frac{h_{ii}}{2}}
+{\nu\Sigma_{f,1} \phi_0^{(0)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(0)} \frac{h_{ii}}{2}}\Biggr)\]
+
+\subsection{Power Method}
+
+Power iteration (PI) is an old and straightforward algorithm for finding an eigenvalue/vector pair. 
+
+The basic idea is that any non-zero vector can be written as a linear combination of the eigenvectors of $\ve{B}$ because the eigenvectors are linearly independent, namely $v_0 = \gamma_1 x_1 + \gamma_2 x_2 + \cdots + \gamma_n x_n$ where $x_{j}$ is the $j$th eigenvector and $\gamma_{j}$ is some constant. This specific expression assumes a non-defective $\ve{B}$, though this assumption is not necessary for the method to work. 
+
+Another fact that is used to understand power iteration is that $\ve{B}^m x_i = \lambda_i^m x_i$. Thus
 %
 \begin{equation}
-\begin{pmatrix}
-B_0  & -C_0 & 0    & 0    & \cdots & 0 \\
--A_1 & B_1  & -C_1 & 0    & \cdots & 0 \\
-0    & -A_2 & B_2  & -C_2 & & \vdots \\
-\vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
-0 & \cdots & 0 & -A_{n-2} & B_{n-2} & -C_{n-2} \\
-0        & \cdots   & 0   & 0 & -A_{n-1} & B_{n-1} 
-\end{pmatrix}
-%
-\begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix} =
-%
-\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}
+  \ve{B}^m v_{0} = \gamma_1 \lambda_1^m x_1 + \gamma_2 \lambda_2^m x_2 + \cdots + \gamma_n \lambda_n^m x_n \:.
+  \label{eq:Ak}
 \end{equation}
 %
-Recall that $\phi_n = 0$. 
+Since $|\lambda_1| > |\lambda_i|, i \ne 1$, the first term in the expansion will dominate as $k \to \infty$ and $\ve{B}^m v_{0}$ therefore becomes an increasingly accurate approximation to $x_1$. 
 
-To develop the algorithm, let's look at a 3$\times$3 system of equations.
-\begin{align}
-B_0\phi_0 - C_0\phi_1 \hspace*{3.25em}&= S_0 \nonumber \\
--A_1\phi_0 + B_1\phi_1 - C_1\phi_3 &= S_1 \nonumber \\
--A_2\phi_1 + B_2\phi_2 &= S_2 \nonumber 
-\end{align}
+In practice, it is desirable to avoid exponentiating a matrix and it is helpful to normalize $v$ in order to avoid possible over or underflow.
+
+We can consider the convergence behavior of PI. After $m$ steps, the iteration vector will be: 
 %
-Now the process:
-\begin{enumerate}
-\item Define
-\[u_0 = B_0 \qquad v_0 = S_0\]
-and write the first equation as
-\[u_0\phi_0 - C_0\phi_1 = v_0\]
-
-\item multiply by $A_1 / u_0$
-\[A_1\phi_0 - \frac{A_1 C_0}{u_0}\phi_1 = \frac{A_1 v_0}{u_0}\]
-Now add this to the second equation (where the $\phi_0$ term subtracts out)
-\[\biggl(B_1-\frac{A_1 C_0}{u_0}\biggr)\phi_1 - C_1\phi_3 = S_1 + \frac{A_1 v_0}{u_0}\]
+\begin{equation}
+  v_{m} = \bigl( \frac{\lambda_{1}^{m}}{e_{1}^{T}\ve{B}^{m}v_{0}} \bigr) \bigl(\frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} \bigr) \:.
+\end{equation}
+% 
+If $\ve{B}$ has eigenpairs $\{(x_{j}, \lambda_{j}), 1 \le j \le n \}$ and $v_{0}$ has the expansion $v_{0} = \sum_{j=1}^{n} x_{j}\gamma_{j}$ then
 %
-and define
-\[u_1 = B_1-\frac{A_1 C_0}{u_0} \qquad v_1 = S_1 + \frac{A_1 v_0}{u_0}\]
-to re-write as
-\[u_1\phi_1 - C_1\phi_2 = v_1\:.\]
-
-\item Guess what's next? Multiply this equation by $A_2 / u_1$
-\[A_2\phi_1 - \frac{A_2 C_1}{u_1}\phi_2 = \frac{A_2 v_1}{u_1}\]
-and add to the third equation
-\[\biggl(B_2-\frac{A_2 C_1}{u_1}\biggr)\phi_2 = S_2 + \frac{A_2 v_1}{u_1}\]
+\begin{equation}
+  \frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} =  \frac{1}{\lambda_{1}^{m}} \sum_{j=1}^{n} \ve{B}^{m}x_{j}\gamma_{j} = \sum_{j=1}^{n} x_{j} \bigl(\frac{\lambda_{j}}{\lambda_{1}} \bigr) \gamma_{j} \:.
+  \label{eq:PIexpand}
+\end{equation}
 %
-and define
-\[u_2 = B_2-\frac{A_2 C_1}{u_1} \qquad v_2 = S_2 + \frac{A_2 v_1}{u_1}\]
-to re-write as
-\[u_2\phi_2 = v_2 \:.\]
-\end{enumerate}
-%
-All together we now have an \textbf{upper triangular system}:
-\begin{align}
-u_0\phi_0 - C_0\phi_1 \hspace*{3.25em} &= v_0 \nonumber \\
-u_1\phi_1 - C_1\phi_2 &= v_1 \nonumber \\
-u_2\phi_2 &= v_2 \nonumber
-\end{align}
-%
-that we can solve with \textbf{backward substitution}.
+From equation \eqref{eq:PIexpand} it can be determined that the error is reduced in each iteration by a factor of $|\frac{\lambda_{2}}{\lambda_{1}}|$, which is called the dominance ratio. If $\lambda_2$ is close to $\lambda_1$, then this ratio will be close to unity and the method will converge very slowly. 
 
-Here's the compact form of the algorithm (the Thomas algorithm)
-\begin{enumerate}
-\item \[u_0 = B_0 \qquad v_0 = S_0\]
+If $\lambda_2$ is far from $\lambda_1$, then convergence will happen much more quickly. Put simply, PI is better suited for problems where $\ve{B}$ has eigenvalues that are well separated.  
 
-\item for $i=1, \dots, n-1$
-\[u_i = B_i-\frac{A_i C_{i-1}}{u_{i-1}} \qquad v_i = S_i + \frac{A_i v_{i-1}}{u_{i-1}}\]
+Power iteration is very attractive because it only requires matrix-vector products and two vectors of storage space. Because of its simplicity and low storage cost, PI has been widely used in the transport community for criticality problems for quite some time.
 
-\item Backward sub starting with $i=n-1$
-\[\phi_{n-1} = \frac{v_{n-1}}{u_{n-1}}\]
+Despite these beneficial characteristics, many current codes use an acceleration method with PI or have moved away from it altogether because of the slow convergence for many problems of interest. Nevertheless, it is still used in some codes, has historical relevance, and is used in many studies as a base comparison case.
 
-\item Then for $i= n-2, \dots, 1$
-\[\phi_i = \frac{1}{u_i}\bigl(v_i + C_i \phi_{i+1}\bigr)\]
-\end{enumerate}
-
-That was pretty easy,but we typically try to \textit{avoid direct inversion of matrices} because it might be expensive in time and/or memory, round-off error, instability, etc.
-
-We often use an iterative method instead. 
-
-
-%----------------------------------------------------------------
-\subsection{Iterative Methods}
-
-Recall: produce a sequence of vectors, $\vec{\phi}^{(1)}, \vec{\phi}^{(2)}, \dots$ based on the prescription
-  \[\vec{\phi}^{(k+1)} = F(\vec{\phi}^{(k)}, \vec{S})\:, \qquad \text{where } \displaystyle \lim_{k \rightarrow \infty} \vec{\phi}^{(k)} = \vec{\phi}\] 
-%
-\begin{align}
-(\ve{A} + \ve{B}) \vec{\phi} &= \ve{B}\vec{x} + \vec{S} \nonumber \\
-%
-\ve{C} \vec{\phi} &= \ve{B}\vec{\phi} + \vec{S} 
-\qquad\text{where } \ve{C} = \ve{A} + \ve{B} \nonumber \\
-%
-\vec{\phi} &= \ve{C}^{-1} \ve{B}\vec{\phi} + \ve{C}^{-1} \vec{S} 
-\nonumber \\
-%
-\vec{\phi} &= \ve{P}\vec{\phi} + \tilde{\vec{S}}  
-\qquad\text{assuming regular } \ve{C}\nonumber
-\end{align}
-%
-And the \textbf{fixed-point} iterative process is:
-\begin{align}
-\vec{\phi}^{(0)} &= \text{ arbitrary}\nonumber \\
-\vec{\phi}^{(k+1)} &= \ve{P}\vec{\phi}^{(k)} + \tilde{\vec{S}} \nonumber
-\end{align}
-
-How we split $\ve{A}$ determines what method we're doing.
-
-\subsubsection{Jacobi}
-
-Let $\ve{D} = diag(\ve{A})$, then
-\begin{align}
-\ve{D} \vec{\phi}^{k+1} &= (\ve{D} - \ve{A})\vec{\phi}^{(k)} + \vec{S} \nonumber \\
-%
-\vec{\phi}^{k+1} &= \ve{D}^{-1}(\ve{D} - \ve{A})\vec{\phi}^{(k)} + \ve{D}^{-1}\vec{S} \nonumber
-\end{align}
-%
-In our original syntax, $\ve{P}_J = \ve{I} -  \ve{D}^{-1}\ve{A}$ and $\tilde{\vec{S}} =\ve{D}^{-1}\vec{S}$.
-
-The algorithm for this method is, for $i = 1, \dots, n$:
-\[ \phi^{(k+1)}_i = \frac{1}{a_{ii}}(S_i - \sum_{j=1}^{i-1} a_{ij} \phi_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} \phi_j^{(k)})\]
-
-We can apply Gauss Seidel and SOR in exactly the same way. 
-
-
-
+\subsubsection{Algorithm}
+Note: this applies in our formulation when $\ve{B} \equiv \ve{A}^{-1}\ve{F}$, $\lambda \equiv k$ and $\vec{x} \equiv \vec{\phi}$. 
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
