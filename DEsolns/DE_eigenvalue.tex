@@ -270,7 +270,7 @@ We are only going to talk about iterative solution methods for eigenvalue proble
 There are a variety of ways you can choose to determine convergence. We will consider these convergence criteria:
 \begin{align}
 \bigg|\frac{k^{(m)} - k^{(m-1)}}{k^{(m)}}\bigg| &< \epsilon_1 \nonumber \\
-\bigg|\frac{\phi_i^{(n)} - \phi_i^{(m-1)}}{\phi_i^{(m)}}\bigg| &< \epsilon_2 \nonumber
+\bigg|\frac{\phi_i^{(m)} - \phi_i^{(m-1)}}{\phi_i^{(m)}}\bigg| &< \epsilon_2 \nonumber
 \end{align}
 %
 Where $\epsilon_1$ is the eigenvalue convergence criterion (often $1 \times 10^{-4}$ or smaller), and $\epsilon_2$ is the flux error criterion (often $1 \times 10^{-3}$ or smaller).
@@ -342,7 +342,44 @@ Power iteration is very attractive because it only requires matrix-vector produc
 Despite these beneficial characteristics, many current codes use an acceleration method with PI or have moved away from it altogether because of the slow convergence for many problems of interest. Nevertheless, it is still used in some codes, has historical relevance, and is used in many studies as a base comparison case.
 
 \subsubsection{Algorithm}
-Note: this applies in our formulation when $\ve{B} \equiv \ve{A}^{-1}\ve{F}$, $\lambda \equiv k$ and $\vec{x} \equiv \vec{\phi}$. 
+
+The power method applies in our formulation when $\ve{B} \equiv \ve{A}^{-1}\ve{F}$, $\lambda \equiv k$ and $\vec{x} \equiv \vec{\phi}$. 
+
+When we write it this way it is technically \textbf{inverse power iteration} because we're using the inverse of $\ve{A}$ rather than $\ve{A}$. The theory is the same though.
+
+Here is an algorithm to implement the power method (note, this is not the most efficient way to do this, but is likely the clearest).
+%
+\begin{enumerate}
+\item get initial values for $k^{(0)}$ and $\phi^{(0)}$ for $i = 0, \dots, n-1$.
+
+\item compute the elements of $\ve{A}$
+
+\item compute the initial fission source
+\[\vec{Q}_{f}^{(0)} = \begin{pmatrix}
+Q_{f,0}^{(0)} \\ Q_{f,2}^{(0)} \\ \vdots \\ Q_{f,n-1}^{(0)} \\
+\end{pmatrix}\]
+%
+where $Q_{f,i}^{(0)} = \nu\Sigma_{f,ii}\phi_i^{(0)} \: \text{for } i = 1, \dots, n-1$ and $Q_{f,1}^{(0)} = \nu\Sigma_{f,1}\phi_1^{(0)}$
+
+\item for $m = 1, ...,$ convergence:
+\begin{enumerate}
+\item solve
+\[\ve{A} \vec{\phi}^{(m)} = \frac{1}{k^{(m-1)}}\vec{Q}_{f}^{(m-1)}\]
+
+\item compute the next fission source $Q_{f,i}^{(m)} = \nu\Sigma_{f,ii}\phi_i^{(m)} \qquad \text{for } i = 1, \dots, n-1$
+
+\item compute the next eigenvalue:
+\[k^{(m)} = k^{(m-1)}\Biggl(\frac{Q_{f,0}^{(m)} \frac{h_1}{2} + \sum_{i=1}^{n-1} Q_{f,i}^{(m)} \frac{h_{ii}}{2}}
+{Q_{f,0}^{(m-1)} \frac{h_1}{2} + \sum_{i=1}^{n-1} Q_{f,i}^{(m-1)} \frac{h_{ii}}{2}}\Biggr)\]
+
+\item check for convergence
+\begin{align}
+\bigg|\frac{k^{(m)} - k^{(m-1)}}{k^{(m)}}\bigg| &< \epsilon_1 \nonumber \\
+\bigg|\frac{\phi_i^{(m)} - \phi_i^{(m-1)}}{\phi_i^{(m)}}\bigg| &< \epsilon_2 \nonumber
+\end{align}
+
+\end{enumerate}
+\end{enumerate}
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
