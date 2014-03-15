@@ -60,7 +60,7 @@ Finite Difference Methods for the eigenvalue form of the DE \\ March 17, 2014}
 \end{picture}
 
 %--------------------------------------------------------------------
-\section{Finite-Difference Method, Eigenvalue Problem}
+\section{Finite Difference Method, Eigenvalue Problem}
 
 We can extend all of the things that we just did to the eigenvalue problem case, which is another layer of complication. 
 
@@ -102,154 +102,49 @@ We again have a spatial mesh:
 \node[below] at (5,-.25) {$x_{i+1}$};
 \node[below] at (7,-.25) {$x_{n-1}$};
 \node[below] at (8,-.25) {$x_n = a$};
-\node[above] at (0.5, 0.5) {$h$};
-\node[above] at (3.5, 0.5) {$h$};
+\node[above] at (0.5, 0.5) {$h_1$};
+\node[above] at (3.5, 0.5) {$h_i$};
 \end{tikzpicture}
 \end{center}
 %
-where $x_0 = 0$, $x_n = a$, and $h$ is the mesh spacing. There are $n+1$ points and $n$ mesh cells.
+and in this configuration $x_0 = 0$, $x_n = a$, and $h$ is the mesh spacing. There are $n+1$ points and $n$ mesh cells.
 
-We can use \textbf{central difference} to approximate the derivatives on this grid. Let's use the $O(h^2)$ versions:
+Material discontinuities will coincide with the cell edges, $x_i$. Thus, we can assume that the cross sections and the diffusion coefficient are constant in each cell:
 %
 \begin{align}
-f'(x_i) &= \frac{f(x_i + h) - f(x_i - h)}{2h} - \frac{h^2}{6} f'''(\mu) \nonumber \\
-%
-f''(x_i) &= \frac{f(x_i + h) - 2f(x_i) + f(x_i - h)}{h^2} + \frac{h^2}{12}f^{(4)}(\mu) \nonumber
+D(x) &= D_i \qquad \text{for } x_{i-1} \leq x_i \nonumber \\
+\Sigma_{a}(x) &= \Sigma_{a,i} \qquad \text{for } x_{i-1} \leq x_i \nonumber \\
+\nu\Sigma_f(x) &= \nu\Sigma_{f,i}\;, \qquad \text{for } x_{i-1} \leq x \leq x_i \nonumber \\
+h_i &\equiv x_i - x_{i-1} \nonumber 
 \end{align}
 %
-We will also define $p_i = p(x_i)$, $q_i = q(x_i)$, $r_i = r(x_i)$.
-
-Substituting into the original equation, we get:
+The unknown fluxes and known sources are again defined at the mesh or cell edges:
 \begin{align}
-\frac{f_{i+1} - 2f_i + f_{i-1}}{h^2} &= p_i \frac{f_{i+1} - f_{i-1}}{2h} + q_i f_i + r_i \qquad i = 1, 2, \dots, n-1 \nonumber \\
-%
-\bigl(\frac{-h}{2}p_i - 1\bigr) f_{i-1} &+ \bigl(2 + h^2q_i\bigr)f_i + \bigl(\frac{h}{2}p_i - 1\bigr) f_{i+1} = -h^2 r_i \qquad i = 1, 2, \dots, n-1 \nonumber
+\phi(x_i) &= \phi_i \nonumber \\
+S(x_i) &= S_i \nonumber 
 \end{align}
-
-We only have $n-1$ equations, but because the boundaries are fixed that is all we need. This is clear when we look at the $i=1$ and $i=n-1$ cases:
-\begin{align}
-&\bigl(2 + h^2q_1\bigr)f_1 + \bigl(\frac{h}{2}p_1 - 1\bigr) f_{2} = -h^2 r_1 + \underbrace{\bigl(\frac{h}{2}p_1 + 1\bigr) \underbrace{\alpha}_{f_0}}_{bc_L} \nonumber \\
- %
-&\bigl(\frac{-h}{2}p_{n-1} - 1\bigr) f_{n-2} + \bigl(2 + h^2q_{n-1}\bigr)f_{n-1} = -h^2 r_{n-1} + \underbrace{\bigl(\frac{-h}{2}p_{n-1} + 1\bigr) \underbrace{\beta}_{f_n}}_{bc_R} \nonumber
-\end{align}
-
-Thus, we can write this as a matrix equation:
-\begin{equation}
-\begin{pmatrix}
-\bigl(2 + h^2q_1\bigr) & \bigl(\frac{h}{2}p_1 - 1\bigr) & & \hdots & 0 \\
 %
-\bigl(\frac{-h}{2}p_2 - 1\bigr) & \bigl(2 + h^2q_2\bigr) & \bigl(\frac{h}{2}p_2 - 1\bigr) & &  \\
-\vdots & \ddots & \ddots & \ddots & \vdots \\
-& & \bigl(\frac{-h}{2}p_{n-2} - 1\bigr) & \bigl(2 + h^2q_{n-2}\bigr)  & \bigl(\frac{h}{2}p_{n-2} - 1\bigr) \\
-0 & \hdots & & \bigl(\frac{-h}{2}p_{n-1} - 1\bigr) & \bigl(2 + h^2q_{n-1}\bigr) \\
-\end{pmatrix}
-%
-\begin{pmatrix}
-f_1 \\ f_2 \\ \vdots \\ f_{n-2} \\ f_{n-1} \\
-\end{pmatrix}
-= 
-\begin{pmatrix}
--h^2 r_1 + bc_L \\ -h^2 r_2 \\ \vdots \\ -h^2 r_{n-1} \\ -h^2 r_{n-1} + bc_R\\ 
-\end{pmatrix}\nonumber
-\end{equation}
-
-
-Note: the numerical solution to the PDE is an approximation to the exact solution that is obtained using a discrete representation of the PDE at the grid points $x_i$ in the discrete spatial mesh. Let us denote this numerical solution as $F$ such that 
-$$F_j \approx f(x_j)$$ 
-
-Thus, the numerical solution is a collection of finite values
-$$F = [F_1, F_2, \dots, F_{n-1}]$$
-and we have boundary values $F_0$ and $F_n$.
-
-
-%---------------------------------------------
-\subsection{DE}
-What does this look like if we apply it to the steady state 1-D diffusion equation?
-\[-D\frac{d^2 \phi(x)}{dx^2} + \Sigma_a \phi(x) = S\]
-\[\frac{d^2 \phi}{dx^2} - \frac{1}{L^2}\phi(x) = \frac{-S}{D}\]
-and let $\phi(a) = \phi(b) = 0$ (vacuum bcs). Then we get
-\begin{align}
-\frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h^2} - \frac{1}{L^2}\phi_i &= \frac{-S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1 \nonumber \\
-%
--\phi_{i-1} &+ \bigl(2 + \frac{h^2}{L^2}\bigr)\phi_i - \phi_{i+1} = h^2 \frac{S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1 \nonumber
-\end{align}
-
-One problem with this formulation is that we only have values at the cell edges: \underline{edge centered}. This really only works well when we have homogeneous media. Why might that be? If we have \textit{material discontinuities} it's going to be difficult to enforce flux continuity between cells. Note: $L$ and $D$ are not functions of space; we wouldn't know which cell's values to assign when using edge-centered values. 
-
-What could we do instead? \underline{cell-centered}, which leads us to our next topic.
+With this formulation we still have the problem that our unknown is defined the cell edges and if the properties in neighboring cells differ we will have discontinuities. To be able to handle \textit{material discontinuities} we're going to do our volume integration again.
 
 
 %-----------------------------------------------------
 %-----------------------------------------------------
 \section{Finite Volume Method}
-Rather than pointwise approximations on a grid, FVM approximates an average integral value on a reference volume.
 
-%
-\begin{center}
-\begin{tikzpicture}
-\draw[dotted] (1.75,0)--(2.75,0);
-\draw (2.75,0)--(5.25,0);
-\draw[dotted] (5.25,0)--(6.25,0);
-\draw (3,-.25)--(3,.25);
-\draw (3.5,-.1)--(3.5,.1);
-\draw (4,-.25)--(4,.25);
-\draw (4.5,-.1)--(4.5,.1);
-\draw (5,-.25)--(5,.25);
-\node[below] at (3,-.25) {$x_{i-1}$};
-\node[below] at (4,-.25) {$x_i$};
-\node[below] at (5,-.25) {$x_{i+1}$};
-\node[above] at (3.5, 0.25) {$x_{i-1/2}$};
-\node[above] at (4.5, 0.25) {$x_{i+1/2}$};
-\end{tikzpicture}
-\end{center}
-
-Consider the elliptic equation $f''(x) = r(x)$ on a control volume $V_i = [x_{i-1/2}, x_{i+1/2}]$, then
-\[\int_{x_{i-1/2}}^{x_{i+1/2}} f''(x)dx = \int_{x_{i-1/2}}^{x_{i+1/2}} r(x) dx\]
-%
-We can evaluate the lhs analytically and the rhs using some integration rule. For simplicity, let's use the midpoint rule:
-%
-\[f'(x_{i+1/2}) - f'(x_{i-1/2}) = (x_{i+1/2} - x_{i+1/2})r_i\]
-%
-We can now use differencing schemes to represent the derivatives on the left. Define $h = x_{i+1/2} - x_{i-1/2}$
-\[\frac{f_{i+1} - 2f_i + f_{i-1}}{h} = hr_i\]
-
-This
-\begin{itemize}
-\item applies to the integral form of conservation laws (like the DE).
-\item handles discontinuities in solution (because we're using cell-integrated values)
-\item works well for heterogeneous systems because each cell can be a different material
-\item there exists a theory for convergence, accuracy, and stability
-\end{itemize}
-
-
-%---------------------------------------------
-\subsection{DE} 
-What does this look like if we apply it to the steady state 1-D diffusion equation?
-\[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S(x)\]
+Like last time, we will integrate the flux and source values across neighboring half-cells.
 %
 \begin{figure}[h!]
-\includegraphics[height=1in]{FVM-fig}
+\includegraphics[height=2.5in]{FVM-eig-fig}
 \end{figure}
-%
-Let's also assume we have an equilibrium (reflecting) condition at the centerline ($x_0 = 0$) and vacuum on the right ($x_n = a$):
-\begin{align}
-\frac{d}{dx}\phi(x) \big|_{x=0} &= 0 \qquad \text{zero net current} \nonumber\\
-\phi(\tilde{a}) &= 0 \qquad \tilde{a} = a + 2D \nonumber
-\end{align}
 
-We again have a spatial mesh, and material discontinuities will coincide with cell edges, $x_i$. Thus, we assume the cross section and diffusion coefficient are constant in each cell and the unknown fluxes and known sources are defined at the cell edges:
+We again assume the cross section and diffusion coefficient are constant in each cell 
 \begin{align}
 D(x) &= D_i\;, \qquad x_{i-1} \leq x \leq x_i \nonumber \\
 \Sigma_a(x) &= \Sigma_{a,i}\;, \qquad x_{i-1} \leq x \leq x_i \nonumber \\
-h_i &\equiv x_{i} - x_{i-1} \nonumber \\
-\phi(x_i) &= \phi_i \nonumber \\
-S(x_i) &= S_i \nonumber 
+\nu\Sigma_f(x) &= \nu\Sigma_{f,i}\;, \qquad x_{i-1} \leq x \leq x_i \nonumber \\
+h_i &\equiv x_{i} - x_{i-1} \nonumber 
 \end{align}
 %
-\begin{figure}[h!]
-\includegraphics[height=2.5in]{FVM-DE}
-\end{figure}
-
 We further assume that the fluxes and sources are constant over the interval centered around $x_i$:
 %
 \begin{align}
@@ -259,76 +154,77 @@ S(x) &= S_i \qquad \text{for } \bigl(x_i - \frac{h_i}{2}\bigr) \leq x \leq \bigl
 
 Now, we integrate the differential equation over each cell, $\bigl(x_i - \frac{h_i}{2}\bigr) \leq x \leq \bigl(x_i + \frac{h_{i+1}}{2}\bigr)$:
 %
-\[\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \biggl(  -\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx + \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \Sigma_a(x) \phi(x) dx = \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} S(x) dx\]
-
-Term by term:
+\[\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \biggl(  -\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx 
++ \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \Sigma_a(x) \phi(x) dx 
+= \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \frac{1}{k}\nu \Sigma_f(x) \phi(x) dx\]
+%
+We'll only add the term we didn't do before:
+%
 \begin{align}
-\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} S(x) dx &\approx S_i \bigl(\frac{h_i + h_{i+1}}{2}\bigr) \qquad \text{defined at cell edge} \nonumber \\
-&\nonumber\\
-\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \Sigma_a(x) \phi(x) dx &= 
-\int_{(x_i - \frac{h_i}{2})}^{(x_i)} \Sigma_a(x) \phi(x) dx + \int_{(x_i)}^{(x_i + \frac{h_{i+1}}{2})} \Sigma_a(x) \phi(x) dx \nonumber\\&=
-\biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i\nonumber \qquad \text{defined at cell center}\\
-&\nonumber\\
- \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \biggl(  -\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &=
--\biggl[D(x)\frac{d \phi(x)}{dx} \biggr]_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \qquad \text{defined at cell edge}\nonumber \\
+\int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \frac{1}{k}\nu \Sigma_f(x) \phi(x) \phi(x) dx &= 
 %
--D(x)\frac{d \phi(x)}{dx}\big|_{(x_i + \frac{h_{i+1}}{2})} &\cong -D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) \nonumber \\
+\int_{(x_i - \frac{h_i}{2})}^{(x_i)} \frac{1}{k}\nu \Sigma_f(x) \phi(x) dx + \int_{(x_i)}^{(x_i + \frac{h_{i+1}}{2})} \frac{1}{k}\nu \Sigma_f(x) \phi(x) dx \nonumber\\&=
 %
--D(x)\frac{d \phi(x)}{dx}\big|_{(x_i - \frac{h_i}{2})} &\cong -D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{h_{i}}\biggr) \nonumber
+\frac{1}{k} \biggl(\frac{\nu\Sigma_{f,i}h_i + \nu\Sigma_{f,i+1}h_{i+1}}{2} \biggr)\phi_i \nonumber 
 \end{align}
 
 Collecting all of the terms:
 %
 \begin{equation}
--D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) + D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{h_{i}}\biggr) + \biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i =   S_i \bigl(\frac{h_i + h_{i+1}}{2}\bigr) \nonumber
+-D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) + D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{h_{i}}\biggr) + \biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i =   \frac{1}{k} \biggl(\frac{\nu\Sigma_{f,i}h_i + \nu\Sigma_{f,i+1}h_{i+1}}{2} \biggr)\phi_i \nonumber
 \end{equation}
 
-We can express this in matrix form, but we'll use some abbreviations to make it more compact:
+To express this in matrix form we'll use some abbreviations as last time, and add one for the fission term (where we've divided through by $h_{ii}$ to get the x-sec terms):
 \begin{align}
 h_{ii} &= \frac{h_i + h_{i+1}}{2} \nonumber \\
 %
 \Sigma_{a,ii} &= \frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{h_i + h_{i+1}} \nonumber \\
+\nu\Sigma_{f,ii} &= \frac{\nu\Sigma_{f,i}h_i + \nu\Sigma_{f,i+1}h_{i+1}}{h_i + h_{i+1}} \nonumber
 \end{align}
-Divide through by $h_{ii}$, then
 %
-\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_i + a_{i, i+1} \phi_{i+1} = S_i \qquad \text{for } i = 1, 2, \dots, n-1\]
+Then
 %
-where
+\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_i + a_{i, i+1} \phi_{i+1} = \frac{1}{k}\nu\Sigma_{f,ii} \phi_i \qquad \text{for } i = 1, 2, \dots, n-1\]
+%
+where the $a$s have the same value as last time. 
 %
 \begin{align}
 a_{i,i-1} &= \frac{-D_i}{h_i h_{ii}} \nonumber \\
-a_{i,i-1} &= \frac{D_i}{h_i h_{ii}} + \frac{D_{i+1}}{h_{i+1} h_{ii}} +\Sigma_{a,ii} \nonumber \\
+a_{i,i} &= \frac{D_i}{h_i h_{ii}} + \frac{D_{i+1}}{h_{i+1} h_{ii}} +\Sigma_{a,ii} \nonumber \\
 a_{i,i+1} &= \frac{-D_{i+1}}{h_{i+1} h_{ii}} \nonumber
 \end{align}
 
-Now we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns. Next up: boundary conditions.
+And again we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns. We will use the boundary conditions to get the rest of the information that we need.
 
 
 %-------------------------------------------------------
 \subsection{Boundary Conditions}
 
-If we assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
+Again assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
 \[\phi_n = 0\]
 and the last equation for $i=n-1$ becomes
-\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} \times 0 = S_{n-1}\]
+\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + 0 = \frac{1}{k}\nu\Sigma_{f,ii} \phi_{n-1}\]
 
-Next we'll worry about the \textbf{reflecting} or zero current condition. The first step is to integrate over $[0, h_{1}/2]$.
+To include the \textbf{reflecting} or zero current condition we integrate over $[0, h_{1}/2]$.
 %
 \begin{figure}[h!]
-\includegraphics[height=2in]{ReflectingBC}
+\includegraphics[height=2in]{ReflectingBC-eig}
 \end{figure}
 %
 \begin{align}
-\int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} S(x) dx \nonumber \\
+\int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} \frac{1}{k}\nu \Sigma_f(x) \phi(x) dx \nonumber \\
 %
--D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \nonumber 
+-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = \frac{1}{k}\nu\Sigma_{f,1} \phi_0 \frac{h_1}{2} \nonumber 
 \end{align}
 %
 Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
-\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\]
+\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = \frac{1}{k}\nu\Sigma_{f,1} \phi_0 \frac{h_1}{2}\]
+%
+Recall that
+\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} \cong -D_{1}\biggl(\frac{\phi_{1} - \phi_0}{h_{1}}\biggr) \]
 
 And the first equation ($i=0$) becomes
-\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = Q_0\:,\]
+\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = \frac{1}{k}\nu\Sigma_{f,1} \phi_0 \:,\]
 %
 where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
 %
@@ -337,21 +233,29 @@ a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \nonumber \\
 a_{01}^* &= -\frac{2D_1}{h_1^2} \nonumber 
 \end{align}
 
-We now have $n$ equations and $n$ unknowns
-\begin{equation}
-\underbrace{\begin{pmatrix}
+We now have $n$ equations and $n$ unknowns, but we formulate it a bit differently: 
+\[\ve{A}\vec{\phi} = \frac{1}{k}\ve{F}\vec{\phi}\]
+where:
+\begin{align}
+\ve{A} &= \begin{pmatrix}
 a_{00}^* & a_{01}^* & 0      & 0 & \cdots & 0 \\
 a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
 0        & a_{21}   & a_{22}   & a_{21} &  & \vdots \\
 \vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
 0 & \cdots & 0 & a_{n-3,n-3}   & a_{n-2,n-2} & a_{n-2,n-1} \\
 0        & \cdots   & 0   & 0 & a_{n-1,n-2} & a_{n-1,n-1} 
-\end{pmatrix}}_{\ve{A}}
+\end{pmatrix} \nonumber \\
 %
-\underbrace{\begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix}}_{\vec{\phi}} =
+\vec{\phi} &= \begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix} \:, \qquad
 %
-\underbrace{\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}}_{\vec{S}}
-\end{equation}
+\ve{F} = \begin{pmatrix}
+\nu\Sigma_{f,11} & 0 & 0 & \cdots & 0 \\
+0   & \nu\Sigma_{f,22}   & 0 & \cdots & 0 \\
+\vdots        & \ddots  & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & \nu\Sigma_{f,n-1,n-1} & 0 \\
+0        & \cdots   & 0   & 0 & \nu\Sigma_{f,nn} 
+\end{pmatrix} \nonumber
+\end{align}
 
 %----------------------------------------------------------------
 \subsection{Homogeneous, Uniform Mesh}
