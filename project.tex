@@ -60,7 +60,36 @@ Your report grade will be based on the quality of your written report and oral p
 \textbf{Potential project topics:}
 \end{center}
 
+If you are comfortable writing your project in Python, I encourage you to consider using PyNE (http://pyne.io) to facilitate your project. Depending on what you do, we might be able to contribute your project back to the PyNE code base over the summer.
 
+\begin{enumerate}
+\item Write a 2D diffusion solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project. 
+
+\item Write a 2D transport solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project. 
+
+\item Nuclear material control and accountability is an important topic. Model a spent fuel cask and perform some analysis calculations with either Serpent, MCNP, or MAVRIC (a Monte Carlo code accelerated by deterministicly-created weight windows; it is part of the SCALE package). After you build the model you can do some comparison calculations. E.g.\ what happens if you remove some of the fuel or change the fuel composition?
+
+\item Plasma power density is defined in a ``plasma" coordinate system that is related to real space through Fourier coefficients. This defines the source on a set of known flux surfaces. We would like to be able to take this source data and transform it to Cartesian space such that it can be used by solvers more easily. The transformation involves some coordinate mapping and numerical integration. The result can be formatted as a cumulative distribution function for Monte Carlo sampling, or left as a meshed distribution of values. I have more details to help this along.
+
+%This general idea was originally implemented in MATLAB. This project is to convert the original code to Python, improve the implementation, and perform some experiments to ensure it functions correctly. A stretch goal and/or continuing work would be to implement adaptive mesh selection.
+
+\item Propose your own project writing a method for deterministic or monte carlo code or doing analysis with an existing code. 
+
+\item Some interesting problems in computational radiation dosimetry were posed by the European Commission. A full description of the problems can be found at:\\
+http://www.nea.fr/download/quados/quados.html
+
+The eight problems are: 
+\begin{itemize}
+\item Brachytherapy (photons)
+\item Endovascular (electrons)
+\item proton eye treatment (protons)
+\item TLD-albedo dosimeter response function (neutrons)
+\item ISO phantom backscatter (photons)
+\item Environmental scatter (neutrons)
+\item Simulation of response of germanium detector (photons)
+\item detection sensitivity to the position of an Am-Be source (neutrons)
+\end{itemize}	
+\end{enumerate}
 
 
 \end{document}
