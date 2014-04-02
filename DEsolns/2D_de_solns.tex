@@ -66,11 +66,11 @@ April 2 \& 4, 2014}
 %-------------------------------------------------------------
 \section{PDEs}
 
-We'll start by considering PDEs in general, and then move down to the Diffusion Equation.
+We'll start by considering PDEs in general, and then move on to the Diffusion Equation specifically.
 
 A partial differential equation is an equation containing an unknown function of two or more variables and its derivatives with respect to those variables. 
 
-If the PDE is linear in u and all derivatives of u, then we say that the PDE is linear.
+If the PDE is linear in $u$ and all derivatives of $u$, then we say that the PDE is linear.
 %
 \begin{equation}
 A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu = G \nonumber
@@ -93,7 +93,7 @@ Recall that we can classify PDEs based on the geometric behavior of their soluti
 \end{itemize}
 
 %-------------------------------------------------------------
-\subsection{Elliptic Equations}:
+\subsection{Elliptic Equations}
 
 Recall that the 2-D Laplacian for the function$u(x,y)$ is
 %
@@ -113,9 +113,6 @@ The Laplacian is used in many of the equations that are commonly found in physic
 \item Helmholtz's equation
 \[\nabla^2 u(x,y) +f(x,y)u(x,y) = g(x,y)\]
 \end{itemize}
-
-All together 
-
 
 % -----------------------------------------------------
 \subsection{Meshing}
@@ -163,14 +160,14 @@ We will use 5 points to define our differenced Laplacian:
 \node at (3,4) [circle,fill=black,scale=0.6] {};
 \node[above left] at (3,4) {$i-1,j$};
 \node at (4,5) [circle,fill=black,scale=0.6] {};
-\node[below right] at (4,5) {$i,j+1$};
+\node[above right] at (4,5) {$i,j+1$};
 \node at (4,3) [circle,fill=black,scale=0.6] {};
 \node[below right] at (4,3) {$i,j-1$};
 \end{tikzpicture}
 \end{minipage} \hfill
 %
 \begin{minipage}{0.5\textwidth}
-  \[u(x_i,y_j) = u_{i,j} \: u(x_{i+1},y_j) = u_{i,j}\]
+  \[u(x_i,y_j) = u_{i,j} \qquad u(x_{i+1},y_j) = u_{i,j}\]
   \begin{align}
   \frac{\partial^2 u_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial u_{i,j}}{\partial x}\bigr) =
 \frac{u_{i-1,j} - 2u_{i,j} + u_{i+1,j}}{\Delta x_i^2} \nonumber \\
@@ -200,10 +197,10 @@ u_{n,j} &= BC_R \:, j = 1, 2, \dots, m-1 \nonumber \\
 u_{i.m} &= BC_T \:, i = 1, 2, \dots, n-1 \nonumber
 \end{align}
 %
-And make sure to check how the corners need to be defined.
+And make sure to check how the corners need to be defined. We could apply this directly the the 2-D diffusion equation.
 
 %--------------------------------------------------------------------
-\section{2-D Finite Difference Method, Diffusion Equation}
+\section{2-D Finite Volume Method, Diffusion Equation}
 
 Remember that in 1-D we were solving this
 \[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S(x)\]
@@ -247,6 +244,10 @@ This equation is elliptic:
 
 In 2-D:
 \[-\frac{\partial}{\partial x}D(x,y)\frac{\partial}{\partial x} \phi(x,y) + \Sigma_a(x,y) \phi(x,y) = S(x,y)\]
+%
+For now we're going to say we have fixed boundary conditions:
+\[\phi(-a,y) = \Phi_L\:, \quad \phi(a,y) = \Phi_R\:, \quad \phi(x,-b) = \Phi_B\:, \quad \phi(x,b) = \Phi_T\:.\]
+with $x \in [-a,a]$ and $y \in [-b,b]$.
 
 
 % ---------------------------------------------------------
@@ -259,7 +260,7 @@ In 2-D:
 \end{center}
 \end{figure}
 
-We assume the cross section and diffusion coefficient are constant in each cell, e.g., for $V_1$:
+We assume the diffusion coefficient, absorption cross section, and source are constant in each cell (cell-centered), e.g., for $V_1$:
 \begin{align}
 D(x,y) &= D_{1}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
 %
@@ -269,9 +270,9 @@ S(x,y) &= S_{1}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq 
 %
 h_1 &\equiv x_{i} - x_{i-1} \nonumber 
 \end{align}
-And the same for the other volumes.
+And analogously for the other 3 volumes.
 
-We further assume that the fluxes and sources are constant over the interval centered around $(x_i, y_j)$:
+We further assume that the fluxes are constant over the interval centered around $(x_i, y_j)$ (edge-centered):
 %
 \[\phi(x,y) = \phi_{i,j} \qquad \text{for } \bigl(x_i - \frac{h_1}{2}\bigr) \leq x \leq \bigl(x_i + \frac{h_{3}}{2}\bigr) \:\text{ and }\:\bigl(y_j - \frac{h_2}{2}\bigr) \leq x \leq \bigl(y_j + \frac{h_{4}}{2}\bigr) \]
 
@@ -298,15 +299,14 @@ Next, we define the partial derivative w.r.t.\ direction on each surface, using 
 %
 &= \frac{\phi_{i-1,j} - \phi_{i,j}}{h_1} \qquad \text{on } S_1 \:, S_8 \nonumber \\
 %
-&= \frac{\phi_{i+1,j} - \phi_{i,j}}{h_3} \qquad \text{on } S_4 \:, S_5 \nonumber \\
-%
+&= \frac{\phi_{i+1,j} - \phi_{i,j}}{h_3} \qquad \text{on } S_4 \:, S_5 \nonumber 
 \end{align}
 %
-We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered (while the flux is edge-centered). E.g., surfaces $S_2$ and $S_3$:
+We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. E.g., surfaces $S_2$ and $S_3$:
 %
-\[-\int_{S_2+S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) = \boxed{\frac{\phi_{i,j-1} - \phi_{i,j}}{h_2} \biggl(\frac{D_1 h_1 + D_2 h_3}{2}\biggr)}\]
+\[-\int_{S_2+S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) = \boxed{\frac{\phi_{i,j} - \phi_{i,j-1}}{h_2} \biggl(\frac{D_1 h_1 + D_2 h_3}{2}\biggr)}\:,\]
 %
-And we do this for each set of surfaces. 
+and we do this for each set of surfaces. 
 
 
 % ---------------------------------------------------------
@@ -316,7 +316,7 @@ To integrate absorption, we do 4 integrals - one over each sub-volume:
 \begin{align}
 \int_{x_i-\frac{h_1}{2}}^{x_i+\frac{h_3}{2}} dx \int_{y_j-\frac{h_2}{2}}^{y_j+\frac{h_4}{2}}dy\:\Sigma_a(x,y) \phi(x,y) &= \Sigma_{a,1}\int\int_{V_1} dx dy \: \phi(x,y) + \nonumber \\
 %
-\Sigma_{a,2}\int\int_{V_2} dx dy \: \phi(x,y) &+ \Sigma_{a,3}\int\int_{V_3} dx dy \: \phi(x,y) + \Sigma_{a,4}\int\int_{V_4} dx dy \: \phi(x,y) \nonumber
+\Sigma_{a,2}\int\int_{V_2} dx dy \: \phi(x,y) &+ \Sigma_{a,3}\int\int_{V_3} dx dy \: \phi(x,y) + \Sigma_{a,4}\int\int_{V_4} dx dy \: \phi(x,y) \:.\nonumber
 \end{align}
 %
 Again applying the midpoint scheme and using our edge-centered flux definition:
@@ -332,221 +332,91 @@ where
 Using the same procedure for the source, we get:
 \[\int \int dx dy \: \:S(x,y) = \boxed{ S_1 V_1 + S_2 V_2 + S_3 V_3 + S_4 V_4 }\:.\]
 
-\vspace*{10 em}
 
-
-Collecting all of the terms:
+% ---------------------------------------------------------
+\subsubsection{Discretized Equations}
+Collecting all of the terms and separating them, we get a 5-point difference equation for $i=1,\dots,n-1$; $j=1,\dots,m-1$:
 %
-\begin{equation}
--D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) + D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{h_{i}}\biggr) + \biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i =   \frac{1}{k} \biggl(\frac{\nu\Sigma_{f,i}h_i + \nu\Sigma_{f,i+1}h_{i+1}}{2} \biggr)\phi_i \nonumber
-\end{equation}
-
-To express this in matrix form we'll use some abbreviations as last time, and add one for the fission term (where we've divided through by $h_{ii}$ to get the x-sec terms):
-\begin{align}
-h_{ii} &= \frac{h_i + h_{i+1}}{2} \nonumber \\
-%
-\Sigma_{a,ii} &= \frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{h_i + h_{i+1}} \nonumber \\
-\nu\Sigma_{f,ii} &= \frac{\nu\Sigma_{f,i}h_i + \nu\Sigma_{f,i+1}h_{i+1}}{h_i + h_{i+1}} \nonumber
-\end{align}
-%
-Then
-%
-\[a_{i,i-1} \phi_{i-1} + a_{i,i}\phi_i + a_{i, i+1} \phi_{i+1} = \frac{1}{k}\nu\Sigma_{f,ii} \phi_i \qquad \text{for } i = 1, 2, \dots, n-1\]
-%
-where the $a$s have the same value as last time. 
+\[a_{i-1,j}\phi_{i-1,j} + a_{i+1,j}\phi_{i+1,j} + a_{i,j-1}\phi_{i,j-1} + a_{i,j+1}\phi_{i,j+1} + + a_{i,j}\phi_{i,j} = S_{i,j} \]
 %
 \begin{align}
-a_{i,i-1} &= \frac{-D_i}{h_i h_{ii}} \nonumber \\
-a_{i,i} &= \frac{D_i}{h_i h_{ii}} + \frac{D_{i+1}}{h_{i+1} h_{ii}} +\Sigma_{a,ii} \nonumber \\
-a_{i,i+1} &= \frac{-D_{i+1}}{h_{i+1} h_{ii}} \nonumber
+a_{i-1,j} &= -\frac{D_1 h_2 + D_4 h_4}{2h_1} \nonumber \\
+a_{i+1,j} &= -\frac{D_2 h_2 + D_3 h_4}{2h_3} \nonumber \\
+a_{i,j-1} &= -\frac{D_1 h_1 + D_2 h_3}{2h_2} \nonumber \\
+a_{i,j+1} &= -\frac{D_4 h_1 + D_4 h_1}{2h_4} \nonumber \\
+%
+a_{i,j} &= \sum_{k=1}^4 \Sigma_{a,k}V_k - \bigl(a_{i-1,j} + a_{i+1,j} + a_{i,j-1} + a_{i,j+1} \bigr)\nonumber \\
+%
+S_{i,j} &= \sum_{k=1}^4 S_{k}V_k \:.\nonumber
 \end{align}
-
-And again we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns. We will use the boundary conditions to get the rest of the information that we need.
 
 
 %-------------------------------------------------------
 \subsection{Boundary Conditions}
 
-Again assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
-\[\phi_n = 0\]
-and the last equation for $i=n-1$ becomes
-\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + 0 = \frac{1}{k}\nu\Sigma_{f,(n-1,n-1)} \phi_{n-1}\]
+When we're at the edges, we get 4 entries rather than 5 because the edge values are know. For corners we have only 3 entries. 
 
-To include the \textbf{reflecting} or zero current condition we integrate over $[0, h_{1}/2]$.
+Let's see how this impacts our equations. Recall:
 %
-\begin{figure}[h!]
-\includegraphics[height=2in]{ReflectingBC-eig}
-\end{figure}
+\[\phi(-a,y) = \Phi_L\:, \quad \phi(a,y) = \Phi_R\:, \quad \phi(x,-b) = \Phi_B\:, \quad \phi(x,b) = \Phi_T\:.\]
+%
+Let's choose what to do at the corners, and then define the rest of the boundaries:
+\[\phi_{0,0} = \Phi_B\:, \quad \phi_{0,m} = \Phi_R\:, \quad \phi_{0,m} = \Phi_L\:, \quad \phi_{n,m} = \Phi_T\:.\]
 %
 \begin{align}
-\int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} \frac{1}{k}\nu \Sigma_f(x) \phi(x) dx \nonumber \\
-%
--D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = \frac{1}{k}\nu\Sigma_{f,1} \phi_0 \frac{h_1}{2} \nonumber 
-\end{align}
-%
-Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
-\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = \frac{1}{k}\nu\Sigma_{f,1} \phi_0 \frac{h_1}{2}\]
-%
-Recall that
-\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} \cong -D_{1}\biggl(\frac{\phi_{1} - \phi_0}{h_{1}}\biggr) \]
-
-And the first equation ($i=0$) becomes
-\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = \frac{1}{k}\nu\Sigma_{f,1} \phi_0 \:,\]
-%
-where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
-%
-\begin{align}
-a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \nonumber \\
-a_{01}^* &= -\frac{2D_1}{h_1^2} \nonumber 
-\end{align}
-
-We now have $n$ equations and $n$ unknowns, but we formulate it a bit differently: 
-\[\ve{A}\vec{\phi} = \frac{1}{k}\ve{F}\vec{\phi}\]
-where:
-\begin{align}
-\ve{A} &= \begin{pmatrix}
-a_{00}^* & a_{01}^* & 0      & 0 & \cdots & 0 \\
-a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
-0        & a_{21}   & a_{22}   & a_{21} &  & \vdots \\
-\vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
-0 & \cdots & 0 & a_{n-3,n-3}   & a_{n-2,n-2} & a_{n-2,n-1} \\
-0        & \cdots   & 0   & 0 & a_{n-1,n-2} & a_{n-1,n-1} 
-\end{pmatrix} \nonumber \\
-%
-\vec{\phi} &= \begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix} \:, \qquad
-%
-\ve{F} = \begin{pmatrix}
-\nu\Sigma_{f,1} & 0 & 0 & 0 & \cdots & 0 \\
-0   & \nu\Sigma_{f,11} & 0  & 0 & \cdots & 0 \\
-0   & 0 & \nu\Sigma_{f,22}  & 0 & \cdots & 0 \\
-\vdots  &     & \ddots  & \ddots & \ddots  & \vdots \\
-0 & \cdots & 0 & 0 & \nu\Sigma_{f,n-2,n-2} & 0 \\
-0        & \cdots & 0 & 0   & 0 & \nu\Sigma_{f,n-1,n-1} 
-\end{pmatrix} \nonumber
+\phi_{0,j} &= \Phi_L \qquad j=1,\dots,m-1 \nonumber \\
+\phi_{n,j} &= \Phi_R \qquad j=1,\dots,m-1 \nonumber \\
+\phi_{i,0} &= \Phi_B \qquad i=1,\dots,n-1 \nonumber \\
+\phi_{i,m} &= \Phi_T \qquad i=1,\dots,n-1 \nonumber 
 \end{align}
 
 
-%----------------------------------------------------------------
-%----------------------------------------------------------------
-\section{Solution Methods}
-
-We are only going to talk about iterative solution methods for eigenvalue problems since no one uses direct methods in practice (dealing with directly solving an eigenvalue matrix problem rapidly becomes intractable). We will formulate the problem this way
+%and the last equation for $i=n-1$ becomes
+%\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} \times 0 = S_{n-1}\]
 %
-\[ \ve{A} \vec{\phi}^{(1)} = \frac{1}{k^{(0)}}\ve{F}\vec{\phi^{(0)}}\]
-
-There are a variety of ways you can choose to determine convergence. We will consider these convergence criteria:
-\begin{align}
-\bigg|\frac{k^{(m)} - k^{(m-1)}}{k^{(m)}}\bigg| &< \epsilon_1 \nonumber \\
-\bigg|\frac{\phi_i^{(m)} - \phi_i^{(m-1)}}{\phi_i^{(m)}}\bigg| &< \epsilon_2 \nonumber
-\end{align}
+%Next we'll worry about the \textbf{reflecting} or zero current condition. The first step is to integrate over $[0, h_{1}/2]$.
+%%
+%\begin{figure}[h!]
+%\includegraphics[height=2in]{ReflectingBC}
+%\end{figure}
+%%
+%\begin{align}
+%\int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} S(x) dx \nonumber \\
+%%
+%-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \nonumber 
+%\end{align}
+%%
+%Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
+%\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\]
 %
-Where $\epsilon_1$ is the eigenvalue convergence criterion (often $1 \times 10^{-4}$ or smaller), and $\epsilon_2$ is the flux error criterion (often $1 \times 10^{-3}$ or smaller).
-
-\subsection{Finding $k$}
-
-But wait, that iterative method was only telling us how to update $\vec{\phi}$. How do we get new iterates for $k$? To sort that out, we're going to think about the physical interpretation of $k$.
-
-The multiplication factor, $k$, can be defined as
-\[k = \frac{\text{total production rate}}{\text{total loss rate}}\]
+%And the first equation ($i=0$) becomes
+%\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = S_0\:,\]
+%%
+%where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
+%%
+%\begin{align}
+%a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \nonumber \\
+%a_{01}^* &= -\frac{2D_1}{h_1^2} \nonumber 
+%\end{align}
 %
-We can define two \textbf{operators} (\emph{not matrices}) to help us compute this:
-%
-\begin{align}
-A &= -\frac{d}{dx}D(x)\frac{d}{dx} + \Sigma_a(x) \qquad \text{is the loss operator} \nonumber \\
-F &= \nu\Sigma_f(x) \qquad \qquad \text{is the production operator}\nonumber
-\end{align}
+%We now have $n$ equations and $n$ unknowns
+%\begin{equation}
+%\underbrace{\begin{pmatrix}
+%a_{00}^* & a_{01}^* & 0      & 0 & \cdots & 0 \\
+%a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
+%0        & a_{21}   & a_{22}   & a_{23} &  & \vdots \\
+%\vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
+%0 & \cdots & 0 & a_{n-3,n-3}   & a_{n-2,n-2} & a_{n-2,n-1} \\
+%0        & \cdots   & 0   & 0 & a_{n-1,n-2} & a_{n-1,n-1} 
+%\end{pmatrix}}_{\ve{A}}
+%%
+%\underbrace{\begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix}}_{\vec{\phi}} =
+%%
+%\underbrace{\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}}_{\vec{S}}
+%\end{equation}
 
-%Fortunately, the discretized versions of these operators are the matrices that we have $\ve{A}$ and $\ve{F}$, respectively. 
-This allows us to write an equation for $k$ as
-\[k^{(1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(1)}(x)dx}{\int_0^{\tilde{a}} A \vec{\phi}^{(1)}(x)dx} \]
 
-We can express our iterative method with our operators,
-\[ A \vec{\phi}^{(1)} = \frac{1}{k^{(0)}}F\vec{\phi^{(0)}}\]
-%
-and substitute this into our $k$ equation to get
-\[k^{(1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(1)}(x)dx}{\frac{1}{k^{(0)}}\int_0^{\tilde{a}} F \vec{\phi}^{(0)}(x)dx} \]
-%
-With this finite difference formulation we've developed, this can be expressed as:
-\[k^{(1)} = k^{(0)}\Biggl(\frac{\nu\Sigma_{f,1} \phi_0^{(1)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(1)} \frac{h_{ii}}{2}}
-{\nu\Sigma_{f,1} \phi_0^{(0)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(0)} \frac{h_{ii}}{2}}\Biggr)\]
 
-\subsection{Power Method}
-
-Power iteration (PI) is an old and straightforward algorithm for finding an eigenvalue/vector pair. 
-
-The basic idea is that any non-zero vector can be written as a linear combination of the eigenvectors of $\ve{B}$ because the eigenvectors are linearly independent, namely $v_0 = \gamma_1 x_1 + \gamma_2 x_2 + \cdots + \gamma_n x_n$ where $x_{j}$ is the $j$th eigenvector and $\gamma_{j}$ is some constant. This specific expression assumes a non-defective $\ve{B}$, though this assumption is not necessary for the method to work. 
-
-Another fact that is used to understand power iteration is that $\ve{B}^m x_i = \lambda_i^m x_i$. Thus
-%
-\begin{equation}
-  \ve{B}^m v_{0} = \gamma_1 \lambda_1^m x_1 + \gamma_2 \lambda_2^m x_2 + \cdots + \gamma_n \lambda_n^m x_n \:.
-  \label{eq:Ak}
-\end{equation}
-%
-Since $|\lambda_1| > |\lambda_i|, i \ne 1$, the first term in the expansion will dominate as $k \to \infty$ and $\ve{B}^m v_{0}$ therefore becomes an increasingly accurate approximation to $x_1$. 
-
-In practice, it is desirable to avoid exponentiating a matrix and it is helpful to normalize $v$ in order to avoid possible over or underflow.
-
-We can consider the convergence behavior of PI. After $m$ steps, the iteration vector will be: 
-%
-\begin{equation}
-  v_{m} = \bigl( \frac{\lambda_{1}^{m}}{e_{1}^{T}\ve{B}^{m}v_{0}} \bigr) \bigl(\frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} \bigr) \:.
-\end{equation}
-% 
-If $\ve{B}$ has eigenpairs $\{(x_{j}, \lambda_{j}), 1 \le j \le n \}$ and $v_{0}$ has the expansion $v_{0} = \sum_{j=1}^{n} x_{j}\gamma_{j}$ then
-%
-\begin{equation}
-  \frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} =  \frac{1}{\lambda_{1}^{m}} \sum_{j=1}^{n} \ve{B}^{m}x_{j}\gamma_{j} = \sum_{j=1}^{n} x_{j} \bigl(\frac{\lambda_{j}}{\lambda_{1}} \bigr) \gamma_{j} \:.
-  \label{eq:PIexpand}
-\end{equation}
-%
-From equation \eqref{eq:PIexpand} it can be determined that the error is reduced in each iteration by a factor of $|\frac{\lambda_{2}}{\lambda_{1}}|$, which is called the dominance ratio. If $\lambda_2$ is close to $\lambda_1$, then this ratio will be close to unity and the method will converge very slowly. 
-
-If $\lambda_2$ is far from $\lambda_1$, then convergence will happen much more quickly. Put simply, PI is better suited for problems where $\ve{B}$ has eigenvalues that are well separated.  
-
-Power iteration is very attractive because it only requires matrix-vector products and two vectors of storage space. Because of its simplicity and low storage cost, PI has been widely used in the transport community for criticality problems for quite some time.
-
-Despite these beneficial characteristics, many current codes use an acceleration method with PI or have moved away from it altogether because of the slow convergence for many problems of interest. Nevertheless, it is still used in some codes, has historical relevance, and is used in many studies as a base comparison case.
-
-\subsubsection{Algorithm}
-
-The power method applies in our formulation when $\ve{B} \equiv \ve{A}^{-1}\ve{F}$, $\lambda \equiv k$ and $\vec{x} \equiv \vec{\phi}$. 
-
-When we write it this way it is technically \textbf{inverse power iteration} because we're using the inverse of $\ve{A}$ rather than $\ve{A}$. The theory is the same though.
-
-Here is an algorithm to implement the power method (note, this is not the most efficient way to do this, but is likely the clearest).
-%
-\begin{enumerate}
-\item get initial values for $k^{(0)}$ and $\phi^{(0)}$ for $i = 0, \dots, n-1$.
-
-\item compute the elements of $\ve{A}$
-
-\item compute the initial fission source
-\[\vec{Q}_{f}^{(0)} = \begin{pmatrix}
-Q_{f,0}^{(0)} \\ Q_{f,2}^{(0)} \\ \vdots \\ Q_{f,n-1}^{(0)} \\
-\end{pmatrix}\]
-%
-where $Q_{f,i}^{(0)} = \nu\Sigma_{f,ii}\phi_i^{(0)} \: \text{for } i = 1, \dots, n-1$ and $Q_{f,1}^{(0)} = \nu\Sigma_{f,1}\phi_1^{(0)}$
-
-\item for $m = 1, ...,$ convergence:
-\begin{enumerate}
-\item solve
-\[\ve{A} \vec{\phi}^{(m)} = \frac{1}{k^{(m-1)}}\vec{Q}_{f}^{(m-1)}\]
-
-\item compute the next fission source $Q_{f,i}^{(m)} = \nu\Sigma_{f,ii}\phi_i^{(m)} \qquad \text{for } i = 1, \dots, n-1$
-
-\item compute the next eigenvalue:
-\[k^{(m)} = k^{(m-1)}\Biggl(\frac{Q_{f,0}^{(m)} \frac{h_1}{2} + \sum_{i=1}^{n-1} Q_{f,i}^{(m)} \frac{h_{ii}}{2}}
-{Q_{f,0}^{(m-1)} \frac{h_1}{2} + \sum_{i=1}^{n-1} Q_{f,i}^{(m-1)} \frac{h_{ii}}{2}}\Biggr)\]
-
-\item check for convergence
-\begin{align}
-\bigg|\frac{k^{(m)} - k^{(m-1)}}{k^{(m)}}\bigg| &< \epsilon_1 \nonumber \\
-\bigg|\frac{\phi_i^{(m)} - \phi_i^{(m-1)}}{\phi_i^{(m)}}\bigg| &< \epsilon_2 \nonumber
-\end{align}
-
-\end{enumerate}
-\end{enumerate}
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
