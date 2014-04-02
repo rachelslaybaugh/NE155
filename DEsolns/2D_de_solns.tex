@@ -367,9 +367,50 @@ Let's choose what to do at the corners, and then define the rest of the boundari
 \phi_{0,j} &= \Phi_L \qquad j=1,\dots,m-1 \nonumber \\
 \phi_{n,j} &= \Phi_R \qquad j=1,\dots,m-1 \nonumber \\
 \phi_{i,0} &= \Phi_B \qquad i=1,\dots,n-1 \nonumber \\
-\phi_{i,m} &= \Phi_T \qquad i=1,\dots,n-1 \nonumber 
+\phi_{i,m} &= \Phi_T \qquad i=1,\dots,n-1 \nonumber \\
 \end{align}
 
+Let's look at how this would impact the left ($i=0$) boundary. The $i=0$ equations are simply the boundary condition and the $i=1$ equations become:
+\[a_{i+1,j}\phi_{i+1,j} + a_{i,j-1}\phi_{i,j-1} + a_{i,j+1}\phi_{i,j+1} + + a_{i,j}\phi_{i,j} = S_{i,j} - a_{0,j}\phi_R \:.\]
+
+To write the system in a way that looks like $\ve{A}\vec{x} = \vec{b}$, we need to choose an ordering strategy for how we want to store the points
+
+
+\begin{minipage}{0.5\textwidth}
+%-------------- indices ------------------
+\begin{tikzpicture}
+\draw[step=2cm] (0,0) grid (6,6);
+\foreach \y in {1, 2, 3}
+    \foreach \x in  {0, 1, 2, 3}
+        \node[below left] at (2*\x cm,2*\y cm) {$(\x,\y)$};
+\node[below] at (0,-.25) {$(0,0)$};
+\node[below] at (2,-.25) {$(1,0)$};
+\node[below] at (4,-.25) {$(2,0)$};
+\node[below] at (6,-.25) {$(3,0)$};
+\end{tikzpicture}
+\end{minipage} \hfill
+%-------------- numbered nodes ------------------
+\begin{minipage}{0.5\textwidth}
+\begin{tikzpicture}
+\draw[step=2cm] (0,0) grid (6,6);
+\node[below] at (0,-.25) {$0$};
+\node[below] at (2,-.25) {$1$};
+\node[below] at (4,-.25) {$2$};
+\node[below] at (6,-.25) {$3$};
+\node[below left] at (-.25,2) {$4$};
+\node[below left] at (2,2) {$5$};
+\node[below left] at (4,2) {$5$};
+\node[below left] at (6,2) {$6$};
+\node[below left] at (-.25,4) {$7$};
+\node[below left] at (2,4) {$8$};
+\node[below left] at (4,4) {$9$};
+\node[below left] at (6,4) {$10$};
+\node[below left] at (-.25,6) {$11$};
+\node[below left] at (2,6) {$12$};
+\node[below left] at (4,6) {$13$};
+\node[below left] at (6,6) {$14$};
+\end{tikzpicture}
+\end{minipage}
 
 %and the last equation for $i=n-1$ becomes
 %\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} \times 0 = S_{n-1}\]
