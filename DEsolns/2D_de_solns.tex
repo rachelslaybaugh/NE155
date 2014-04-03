@@ -62,6 +62,7 @@ April 2 \& 4, 2014}
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
 
+Much of this can be found in Duderstadt and Hamilton Chp.\ 5 Section II.B. 
 
 %-------------------------------------------------------------
 \section{PDEs}
@@ -260,25 +261,26 @@ with $x \in [-a,a]$ and $y \in [-b,b]$.
 \end{center}
 \end{figure}
 
-We assume the diffusion coefficient, absorption cross section, and source are constant in each cell (cell-centered), e.g., for $V_1$:
+We assume the diffusion coefficient, absorption cross section, and source are constant in each cell (cell-centered), e.g., for $V_{i,j}$:
 \begin{align}
-D(x,y) &= D_{1}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
+D(x,y) &= D_{i,j}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
 %
-\Sigma_a(x,y) &= \Sigma_{a,1}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
+\Sigma_a(x,y) &= \Sigma_{a,i,j}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
 %
-S(x,y) &= S_{1}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
+S(x,y) &= S_{i,j}\;, \qquad x_{i-1} \leq x \leq x_i \:\text{ and }\: y_{j-1} \leq y \leq y_j \nonumber \\
 %
-h_1 &\equiv x_{i} - x_{i-1} \nonumber 
+\Delta x_i &\equiv \delta_i = x_{i} - x_{i-1} \nonumber \\
+\Delta y_j &\equiv \epsilon_j = y_{j} - y_{j-1} \nonumber
 \end{align}
-And analogously for the other 3 volumes.
+And analogously for the other 3 cells.
 
 We further assume that the fluxes are constant over the interval centered around $(x_i, y_j)$ (edge-centered):
 %
-\[\phi(x,y) = \phi_{i,j} \qquad \text{for } \bigl(x_i - \frac{h_1}{2}\bigr) \leq x \leq \bigl(x_i + \frac{h_{3}}{2}\bigr) \:\text{ and }\:\bigl(y_j - \frac{h_2}{2}\bigr) \leq x \leq \bigl(y_j + \frac{h_{4}}{2}\bigr) \]
+\[\phi(x,y) = \phi_{i,j} \qquad \text{for } \bigl(x_i - \frac{\delta_i}{2}\bigr) \leq x \leq \bigl(x_i + \frac{\delta_{i+1}}{2}\bigr) \:\text{ and }\:\bigl(y_j - \frac{\epsilon_j}{2}\bigr) \leq x \leq \bigl(y_j + \frac{\epsilon_{j+1}}{2}\bigr) \]
 
-Now, we integrate the 2-D equation over 4 rectangular volumes (well, areas, technically): $V = V_1 + V_2 + V_3 + V_4$.
+Now, we integrate the 2-D equation over 4 rectangular partial-volumes (well, areas, technically): $V = V_{i,j} + V_{i+1,j} + V_{i,j+1} + V_{i+1,j+1}$.
 %
-\[\int_V d\vec{r}\:\bigl[-\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr)\bigr] + \int_V d\vec{r}\:\Sigma_a(\vec{r}) \phi(\vec{r}) = \int_V d\vec{r}\:S(\vec{r})\]
+\[\int_V d\vec{r}\:\bigl[-\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr) +\Sigma_a(\vec{r}) \phi(\vec{r}) = S(\vec{r}) \bigr]\]
 
 
 % ---------------------------------------------------------
@@ -293,18 +295,18 @@ Use Gauss Theorem to replace the first volume integral with a surface integral:
 %
 Next, we define the partial derivative w.r.t.\ direction on each surface, using $O(h)$ forward and backward difference schemes since they're simple:
 \begin{align}
-\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i,j-1} - \phi_{i,j}}{h_2} \qquad \text{on } S_2 \:, S_3 \nonumber \\
+\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i,j-1} - \phi_{i,j}}{\epsilon_j} \qquad \text{on } S_2 \:, S_3 \nonumber \\
 %
-&= \frac{\phi_{i,j+1} - \phi_{i,j}}{h_4} \qquad \text{on } S_7 \:, S_6 \nonumber \\
+&= \frac{\phi_{i,j+1} - \phi_{i,j}}{\epsilon_{j+1}} \qquad \text{on } S_7 \:, S_6 \nonumber \\
 %
-&= \frac{\phi_{i-1,j} - \phi_{i,j}}{h_1} \qquad \text{on } S_1 \:, S_8 \nonumber \\
+&= \frac{\phi_{i-1,j} - \phi_{i,j}}{\delta_{i}} \qquad \text{on } S_1 \:, S_8 \nonumber \\
 %
-&= \frac{\phi_{i+1,j} - \phi_{i,j}}{h_3} \qquad \text{on } S_4 \:, S_5 \nonumber 
+&= \frac{\phi_{i+1,j} - \phi_{i,j}}{\delta_{i+1}} \qquad \text{on } S_4 \:, S_5 \nonumber 
 \end{align}
 %
 We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. E.g., surfaces $S_2$ and $S_3$:
 %
-\[-\int_{S_2+S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) = \boxed{\frac{\phi_{i,j} - \phi_{i,j-1}}{h_2} \biggl(\frac{D_1 h_1 + D_2 h_3}{2}\biggr)}\:,\]
+\[-\int_{S_2+S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) = \boxed{\frac{\phi_{i,j} - \phi_{i,j-1}}{\epsilon_{i}} \biggl(\frac{D_{i,j} \delta_{i} + D_{i+1,j} \delta_{i+1}}{2}\biggr)}\:,\]
 %
 and we do this for each set of surfaces. 
 
@@ -314,41 +316,214 @@ and we do this for each set of surfaces.
 To integrate absorption, we do 4 integrals - one over each sub-volume:
 %
 \begin{align}
-\int_{x_i-\frac{h_1}{2}}^{x_i+\frac{h_3}{2}} dx \int_{y_j-\frac{h_2}{2}}^{y_j+\frac{h_4}{2}}dy\:\Sigma_a(x,y) \phi(x,y) &= \Sigma_{a,1}\int\int_{V_1} dx dy \: \phi(x,y) + \nonumber \\
+\int_{x_i-\frac{\delta_{i}}{2}}^{x_i+\frac{\delta_{i+1}}{2}} dx \int_{y_j-\frac{\epsilon_{j}}{2}}^{y_j+\frac{\epsilon_{j+1}}{2}}dy\:\Sigma_a(x,y) \phi(x,y) &= \Sigma_{a,i,j}\int\int_{V_{i,j}} dx dy \: \phi(x,y) + \nonumber \\
 %
-\Sigma_{a,2}\int\int_{V_2} dx dy \: \phi(x,y) &+ \Sigma_{a,3}\int\int_{V_3} dx dy \: \phi(x,y) + \Sigma_{a,4}\int\int_{V_4} dx dy \: \phi(x,y) \:.\nonumber
+\Sigma_{a,i+1,j}\int\int_{V_{i+1,j}} dx dy \: \phi(x,y) &+ \Sigma_{a,i+1,j+1}\int\int_{V_{i+1,j+1}} dx dy \: \phi(x,y) + \nonumber \\
+ \Sigma_{a,i,j+1}\int\int_{V_{i,j+1}} dx dy \: \phi(x,y) \:.\nonumber
 \end{align}
 %
 Again applying the midpoint scheme and using our edge-centered flux definition:
 %
-\[ \int \int dx dy\:\Sigma_a(x,y) \phi(x,y) = \boxed{\phi_{i,j}\bigl(\Sigma_{a,1} V_1 + \Sigma_{a,2} V_2 + \Sigma_{a,3} V_3 + \Sigma_{a,4} V_4 \bigr) }\:, \]
+\begin{align}
+\int \int dx dy\:\Sigma_a(x,y) \phi(x,y) &= \boxed{\phi_{i,j}\bigl(\Sigma_{a,i,j} V_{i,j} + \Sigma_{a,i+1,j} V_{i+1,j} + \Sigma_{a,i+1,j+1} V_{i+1,j+1} + \Sigma_{a,i,j+1} V_{i,j+1} \bigr) } \nonumber \\
+&\equiv \Sigma_{a,ij}\:, \nonumber
+\end{align}
 %
 where
-\[V_1 = \frac{1}{4}h_1h_2\:, \quad V_2 = \frac{1}{4}h_3h_2\:, \quad V_3 = \frac{1}{4}h_3h_4 \:, \quad V_4 = \frac{1}{4}h_1h_4 \:.\]
+\[V_{i,j} = \frac{1}{4}\delta_i \epsilon_j \:, \quad V_{i+1,j} = \frac{1}{4}\delta_{i+1} \epsilon_{j} \:, \quad V_{i+1,j+1} = \frac{1}{4}\delta_{i+1} \epsilon_{j+1} \:, \quad V_{i,j+1} = \frac{1}{4}\delta_{i} \epsilon_{j+1} \:.\]
 
 
 % ---------------------------------------------------------
 \subsubsection{Source Term}
 Using the same procedure for the source, we get:
-\[\int \int dx dy \: \:S(x,y) = \boxed{ S_1 V_1 + S_2 V_2 + S_3 V_3 + S_4 V_4 }\:.\]
+\begin{align}
+\int \int dx dy \: \:S(x,y) &= \boxed{ S_{i,j} V_{i,j} + S_{i+1,j} V_{i+1,j} + S_{i+1,j+1} V_{i+1,j+1} + S_{i,j+1} V_{i,j+1} }\nonumber \\
+&\equiv S_{ij}\:. \nonumber
+\end{align}
 
 
 % ---------------------------------------------------------
 \subsubsection{Discretized Equations}
 Collecting all of the terms and separating them, we get a 5-point difference equation for $i=1,\dots,n-1$; $j=1,\dots,m-1$:
 %
-\[a_{i-1,j}\phi_{i-1,j} + a_{i+1,j}\phi_{i+1,j} + a_{i,j-1}\phi_{i,j-1} + a_{i,j+1}\phi_{i,j+1} + + a_{i,j}\phi_{i,j} = S_{i,j} \]
+\[a_{i-1,j}^{ij}\phi_{i-1,j} + a_{i+1,j}^{ij}\phi_{i+1,j} + a_{i,j-1}^{ij}\phi_{i,j-1} + a_{i,j+1}^{ij}\phi_{i,j+1} + + a_{i,j}^{ij}\phi_{i,j} = S_{i,j} \]
+%
+the lower index is the cell to which you are coupling, and the upper index is which cell you are in - this becomes important when we're ordering our matrix.
 %
 \begin{align}
-a_{i-1,j} &= -\frac{D_1 h_2 + D_4 h_4}{2h_1} \nonumber \\
-a_{i+1,j} &= -\frac{D_2 h_2 + D_3 h_4}{2h_3} \nonumber \\
-a_{i,j-1} &= -\frac{D_1 h_1 + D_2 h_3}{2h_2} \nonumber \\
-a_{i,j+1} &= -\frac{D_4 h_1 + D_4 h_1}{2h_4} \nonumber \\
+a_{i-1,j}^{ij} &= -\frac{D_{i,j} \epsilon_{j} + D_{i,j+1} \epsilon_{j+1}}{2 \delta_{i}}  \nonumber \\
+(a_L^{ij} & \quad \text{capturing influence of \textbf{left} flux on center cell}) \nonumber \\
 %
-a_{i,j} &= \sum_{k=1}^4 \Sigma_{a,k}V_k - \bigl(a_{i-1,j} + a_{i+1,j} + a_{i,j-1} + a_{i,j+1} \bigr)\nonumber \\
+a_{i+1,j}^{ij} &= -\frac{D_{i+1,j} \epsilon_{j} + D_{i+1,j+1} \epsilon_{j+1}}{2 \delta_{i+1}}  \nonumber \\
+(a_R^{ij} & \quad \text{capturing influence of \textbf{right} flux on center cell}) \nonumber \\
 %
-S_{i,j} &= \sum_{k=1}^4 S_{k}V_k \:.\nonumber
+a_{i,j-1}^{ij} &= -\frac{D_{i,j} \delta_{i} + D_{i+1,j} \delta_{i+1}}{2 \epsilon_{j}}  \nonumber \\
+(a_B^{ij} & \quad \text{capturing influence of \textbf{lower} flux on center cell}) \nonumber \\
+%
+a_{i,j+1}^{ij} &= -\frac{D_{i,j+1} \delta_{i} + D_{i+1,j+1} \delta_{i+1}}{2 \epsilon_{j+1}}  \nonumber \\
+(a_T^{ij} & \quad \text{capturing influence of \textbf{upper} flux on center cell}) \nonumber \\
+%
+a_{i,j}^{ij} &= \Sigma_{a,ij} - \bigl(a_{i-1,j}^{ij} + a_{i+1,j}^{ij} + a_{i,j-1}^{ij} + a_{i,j+1}^{ij} \bigr)
+ \:.\nonumber \\
+ (a_C^{ij}) & \nonumber
 \end{align}
+
+In this formulation we now have $(n+1) \times (m+1)$ unknowns. 
+
+%-------------------------------------------------------
+\subsection{Matrix Form}
+To write the system in a way that looks like $\ve{A}\vec{x} = \vec{b}$, we need to choose an ordering strategy for how we want to store the points. Let's look at a 3$\times$3 example:
+
+\begin{minipage}{0.5\textwidth}
+%-------------- indices ------------------
+\begin{tikzpicture}
+\draw[step=2cm] (0,0) grid (4,4);
+\foreach \y in {1, 2}
+    \foreach \x in  {0, 1, 2}
+        \node[below left] at (2*\x cm,2*\y cm) {$(\x,\y)$};
+\node[below] at (0,-.25) {$(0,0)$};
+\node[below] at (2,-.25) {$(1,0)$};
+\node[below] at (4,-.25) {$(2,0)$};
+\end{tikzpicture}
+\end{minipage} \hfill
+%-------------- numbered nodes ------------------
+\begin{minipage}{0.5\textwidth}
+\begin{tikzpicture}
+\draw[step=2cm] (0,0) grid (4,4);
+\node[below] at (0,-.25) {$0$};
+\node[below] at (2,-.25) {$1$};
+\node[below] at (4,-.25) {$2$};
+\node[below left] at (-.25,2) {$3$};
+\node[below left] at (2,2) {$4$};
+\node[below left] at (4,2) {$5$};
+\node[below left] at (-.25,4) {$6$};
+\node[below left] at (2,4) {$7$};
+\node[below left] at (4,4) {$8$};
+\end{tikzpicture}
+\end{minipage}
+
+Our solution vector length in this example is 9 (3 $\times$ 3). Our matrix size is therefore going to be 9 $\times$ 9. We can think of this as a 3 $\times$ 3 matrix of 3 $\times$ 3 matrices:
+\begin{equation}
+\underbrace{\begin{pmatrix}
+\begin{pmatrix}
+a_{0,0}^{00} & a_{1,0}^{00} & 0 \\
+a_{0,0}^{10} & a_{1,0}^{10} & a_{2,0}^{10} \\
+0            & a_{1,0}^{20} & a_{2,0}^{20}
+\end{pmatrix} 
+&
+\begin{pmatrix}
+a_{0,1}^{00} & 0 & 0 \\
+0 & a_{1,1}^{10} & 0 \\
+0 & 0 & a_{2,1}^{20}
+\end{pmatrix}
+&
+\begin{pmatrix}
+ & & \\
+ & 0 & \\
+ & & 
+\end{pmatrix} \\
+%--------------------
+\begin{pmatrix}
+a_{0,0}^{01} & 0 & 0 \\
+0 & a_{1,0}^{11} & 0 \\
+0 & 0 & a_{2,0}^{21}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,1}^{01} & a_{1,1}^{01} & 0 \\
+a_{0,1}^{11} & a_{1,1}^{11} & a_{2,1}^{11} \\
+0            & a_{1,1}^{21} & a_{2,1}^{21}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,2}^{01} & 0 & 0 \\
+0 & a_{1,2}^{11} & 0 \\
+0 & 0 & a_{2,2}^{21}
+\end{pmatrix} \\
+%--------------------
+\begin{pmatrix}
+ & & \\
+ & 0 & \\
+ & & 
+\end{pmatrix} &
+\begin{pmatrix}
+a_{0,1}^{02} & 0 & 0 \\
+0 & a_{1,1}^{12} & 0 \\
+0 & 0 & a_{2,1}^{22}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,2}^{02} & a_{1,2}^{02} & 0 \\
+a_{0,2}^{12} & a_{1,2}^{12} & a_{2,2}^{12} \\
+0            & a_{1,2}^{22} & a_{2,2}^{22}
+\end{pmatrix} \\
+\end{pmatrix}}_{\ve{A}}
+%--------------------
+%
+\underbrace{\begin{pmatrix} \phi_{0,0} \\ \phi_{1,0} \\ \phi_{2,0} \\ \\ \phi_{0,1} \\ \phi_{1,1} \\ \phi_{2,1} \\ \\ \phi_{0,2}\\ \phi_{1,2} \\  \phi_{2,2} \end{pmatrix}}_{\vec{\phi}} =
+%
+\underbrace{\begin{pmatrix} S_{0,0} \\ S_{1,0} \\ S_{2,0} \\ \\ S_{0,1} \\ S_{1,1} \\ S_{2,1} \\ \\ S_{0,2} \\ S_{1,2} \\  S_{2,2} \end{pmatrix}}_{\vec{S}} \nonumber
+\end{equation}
+
+%
+%
+Another way to think of $\ve{A}$ is
+\begin{equation}
+\begin{pmatrix}
+\begin{pmatrix}
+a_{C}^{00} & a_{R}^{00} & 0 \\
+a_{L}^{10} & a_{C}^{10} & a_{R}^{10} \\
+0            & a_{L}^{20} & a_{C}^{20}
+\end{pmatrix} 
+&
+\begin{pmatrix}
+a_{T}^{00} & 0 & 0 \\
+0 & a_{T}^{10} & 0 \\
+0 & 0 & a_{T}^{20}
+\end{pmatrix}
+&
+\begin{pmatrix}
+ & & \\
+ & 0 & \\
+ & & 
+\end{pmatrix} \\
+%--------------------
+\begin{pmatrix}
+a_{B}^{01} & 0 & 0 \\
+0 & a_{B}^{11} & 0 \\
+0 & 0 & a_{B}^{21}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{C}^{01} & a_{R}^{01} & 0 \\
+a_{L}^{11} & a_{C}^{11} & a_{R}^{11} \\
+0            & a_{L}^{21} & a_{C}^{21}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{T}^{01} & 0 & 0 \\
+0 & a_{T}^{11} & 0 \\
+0 & 0 & a_{T}^{21}
+\end{pmatrix} \\
+%--------------------
+\begin{pmatrix}
+ & & \\
+ & 0 & \\
+ & & 
+\end{pmatrix} &
+\begin{pmatrix}
+a_{B}^{02} & 0 & 0 \\
+0 & a_{B}^{12} & 0 \\
+0 & 0 & a_{B}^{22}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{C}^{02} & a_{R}^{02} & 0 \\
+a_{L}^{12} & a_{C}^{12} & a_{R}^{12} \\
+0            & a_{L}^{22} & a_{C}^{22}
+\end{pmatrix} \\
+\end{pmatrix} \nonumber
+\end{equation}
 
 
 %-------------------------------------------------------
@@ -373,88 +548,7 @@ Let's choose what to do at the corners, and then define the rest of the boundari
 Let's look at how this would impact the left ($i=0$) boundary. The $i=0$ equations are simply the boundary condition and the $i=1$ equations become:
 \[a_{i+1,j}\phi_{i+1,j} + a_{i,j-1}\phi_{i,j-1} + a_{i,j+1}\phi_{i,j+1} + + a_{i,j}\phi_{i,j} = S_{i,j} - a_{0,j}\phi_R \:.\]
 
-To write the system in a way that looks like $\ve{A}\vec{x} = \vec{b}$, we need to choose an ordering strategy for how we want to store the points
 
-
-\begin{minipage}{0.5\textwidth}
-%-------------- indices ------------------
-\begin{tikzpicture}
-\draw[step=2cm] (0,0) grid (6,6);
-\foreach \y in {1, 2, 3}
-    \foreach \x in  {0, 1, 2, 3}
-        \node[below left] at (2*\x cm,2*\y cm) {$(\x,\y)$};
-\node[below] at (0,-.25) {$(0,0)$};
-\node[below] at (2,-.25) {$(1,0)$};
-\node[below] at (4,-.25) {$(2,0)$};
-\node[below] at (6,-.25) {$(3,0)$};
-\end{tikzpicture}
-\end{minipage} \hfill
-%-------------- numbered nodes ------------------
-\begin{minipage}{0.5\textwidth}
-\begin{tikzpicture}
-\draw[step=2cm] (0,0) grid (6,6);
-\node[below] at (0,-.25) {$0$};
-\node[below] at (2,-.25) {$1$};
-\node[below] at (4,-.25) {$2$};
-\node[below] at (6,-.25) {$3$};
-\node[below left] at (-.25,2) {$4$};
-\node[below left] at (2,2) {$5$};
-\node[below left] at (4,2) {$5$};
-\node[below left] at (6,2) {$6$};
-\node[below left] at (-.25,4) {$7$};
-\node[below left] at (2,4) {$8$};
-\node[below left] at (4,4) {$9$};
-\node[below left] at (6,4) {$10$};
-\node[below left] at (-.25,6) {$11$};
-\node[below left] at (2,6) {$12$};
-\node[below left] at (4,6) {$13$};
-\node[below left] at (6,6) {$14$};
-\end{tikzpicture}
-\end{minipage}
-
-%and the last equation for $i=n-1$ becomes
-%\[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} \times 0 = S_{n-1}\]
-%
-%Next we'll worry about the \textbf{reflecting} or zero current condition. The first step is to integrate over $[0, h_{1}/2]$.
-%%
-%\begin{figure}[h!]
-%\includegraphics[height=2in]{ReflectingBC}
-%\end{figure}
-%%
-%\begin{align}
-%\int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} S(x) dx \nonumber \\
-%%
-%-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \nonumber 
-%\end{align}
-%%
-%Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
-%\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\]
-%
-%And the first equation ($i=0$) becomes
-%\[a_{00}^*\phi_0 + a_{01}^* \phi_1 = S_0\:,\]
-%%
-%where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms.)
-%%
-%\begin{align}
-%a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \nonumber \\
-%a_{01}^* &= -\frac{2D_1}{h_1^2} \nonumber 
-%\end{align}
-%
-%We now have $n$ equations and $n$ unknowns
-%\begin{equation}
-%\underbrace{\begin{pmatrix}
-%a_{00}^* & a_{01}^* & 0      & 0 & \cdots & 0 \\
-%a_{10}   & a_{11}   & a_{12} & 0 & \cdots & 0 \\
-%0        & a_{21}   & a_{22}   & a_{23} &  & \vdots \\
-%\vdots        &    & \ddots  & \ddots & \ddots & \vdots \\
-%0 & \cdots & 0 & a_{n-3,n-3}   & a_{n-2,n-2} & a_{n-2,n-1} \\
-%0        & \cdots   & 0   & 0 & a_{n-1,n-2} & a_{n-1,n-1} 
-%\end{pmatrix}}_{\ve{A}}
-%%
-%\underbrace{\begin{pmatrix}\phi_0 \\ \phi_1 \\ \phi_2 \\ \vdots \\ \phi_{n-2} \\ \phi_{n-1} \end{pmatrix}}_{\vec{\phi}} =
-%%
-%\underbrace{\begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix}}_{\vec{S}}
-%\end{equation}
 
 
 
