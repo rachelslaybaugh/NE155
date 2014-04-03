@@ -294,6 +294,7 @@ Use Gauss Theorem to replace the first volume integral with a surface integral:
 \end{align}
 %
 Next, we define the partial derivative w.r.t.\ direction on each surface, using $O(h)$ forward and backward difference schemes since they're simple:
+
 \begin{align}
 \frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i,j-1} - \phi_{i,j}}{\epsilon_j} \qquad \text{on } S_2 \:, S_3 \nonumber \\
 %
@@ -346,7 +347,7 @@ Using the same procedure for the source, we get:
 \subsubsection{Discretized Equations}
 Collecting all of the terms and separating them, we get a 5-point difference equation for $i=1,\dots,n-1$; $j=1,\dots,m-1$:
 %
-\[a_{i-1,j}^{ij}\phi_{i-1,j} + a_{i+1,j}^{ij}\phi_{i+1,j} + a_{i,j-1}^{ij}\phi_{i,j-1} + a_{i,j+1}^{ij}\phi_{i,j+1} + + a_{i,j}^{ij}\phi_{i,j} = S_{i,j} \]
+\[a_{i-1,j}^{ij}\phi_{i-1,j} + a_{i+1,j}^{ij}\phi_{i+1,j} + a_{i,j-1}^{ij}\phi_{i,j-1} + a_{i,j+1}^{ij}\phi_{i,j+1} +  a_{i,j}^{ij}\phi_{i,j} = S_{i,j} \]
 %
 the lower index is the cell to which you are coupling, and the upper index is which cell you are in - this becomes important when we're ordering our matrix.
 %
@@ -525,11 +526,15 @@ a_{L}^{12} & a_{C}^{12} & a_{R}^{12} \\
 \end{pmatrix} \nonumber
 \end{equation}
 
+This gives us a 5-banded matrix, which is not so difficult to represent with built in functions. We could still solve this directly with Gaussian elimination or LU decomposition, but the size of the system increases pretty rapidly with mesh size.
+
+Therefore using an iterative method like Jacobi, GS, or SOR is probably a better plan. 
+
 
 %-------------------------------------------------------
 \subsection{Boundary Conditions}
 
-When we're at the edges, we get 4 entries rather than 5 because the edge values are know. For corners we have only 3 entries. 
+This all works fine for central points, but what about the boundaries? When we're at the edges, we get 4 entries rather than 5 because the edge values are know. For corners we have only 3 entries. 
 
 Let's see how this impacts our equations. Recall:
 %
@@ -545,13 +550,17 @@ Let's choose what to do at the corners, and then define the rest of the boundari
 \phi_{i,m} &= \Phi_T \qquad i=1,\dots,n-1 \nonumber \\
 \end{align}
 
-Let's look at how this would impact the left ($i=0$) boundary. The $i=0$ equations are simply the boundary condition and the $i=1$ equations become:
-\[a_{i+1,j}\phi_{i+1,j} + a_{i,j-1}\phi_{i,j-1} + a_{i,j+1}\phi_{i,j+1} + + a_{i,j}\phi_{i,j} = S_{i,j} - a_{0,j}\phi_R \:.\]
+Let's look at how this would impact the left ($i=0$) boundary. The $i=0$ equations are simply the boundary condition:
+\begin{itemize}
+\item Change the $a_{C}^{0,j}$ entries to $1$s, 
+\item the $a_{x}^{0,j}$, where $x$ is $R, T, B$ to $0$, and 
+\item the $S_{0,j}$ entries to $\Phi_L$.
+\end{itemize} 
 
+For the $i=1$ equations:
+\[\underbrace{a_{2,j}^{1j}}_{R}\phi_{2,j} + \underbrace{a_{1,j-1}^{1j}}_{B}\phi_{1,j-1} + \underbrace{a_{1,j+1}^{1j}}_{T}\phi_{1,j+1} + \underbrace{a_{1,j}^{1j}}_{C}\phi_{1,j} = S_{1,j} - \underbrace{a_{0,j}^{1j}}_{L}\phi_L \]
 
-
-
-
+And analogously for the rest of the edges.
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
