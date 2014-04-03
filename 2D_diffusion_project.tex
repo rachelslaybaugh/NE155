@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+%\textwidth=7in
+%\textheight=9.5in
+%\topmargin=-1in
+%\headheight=0in
+%\headsep=.5in
+%\hoffset=-.85in
+
+%\usepackage[cm]{fullpage}
+\usepackage[top=0.75in, bottom=0.75in, left=1in, right=1in]{geometry}
+\pagestyle{empty}
+\usepackage{tabu}
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\begin{document}
+
+\begin{center}
+{\bf NE 155 \\ 2D Diffusion Final Project Suggestions  
+}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+\renewcommand{\arraystretch}{2}
+
+Write a 2D Diffusion solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project. 
+
+Note: some of these will depend upon whether you use a compiled language like C++ or an interpreted language like Python. 
+
+Good programming practices (There are some tutorials for all of these things available through Berekeley's The Hacker Within.): 
+\begin{itemize}
+\item Please version control your code on something like github. 
+\item Consider writing code comments with something like Doxygen (http://www.stack.nl/~dimitri/doxygen/) to document the API (application programming interface). 
+\item Consider writing tests for your code using something like gtest (https://code.google.com/\\p/googletest/) - this might be a good extension for a two person project in particular.
+\end{itemize}
+
+Components that you'll need to include with the code:
+\begin{itemize}
+\item A README that states
+  \begin{itemize}
+  \item How to compile the code (if applicable)
+  \item How to execute the code
+  \item Status of the code (as applicable): operational/compiles but doesn't run/doesn't compile/known bugs
+  \item Describe the problem solved by your code, expected input, resulting output, and any limitations or restrictions
+  \end{itemize}
+  
+\item A sample input file and corresponding output file produced by your code.
+
+\item Things you'll want to include in the input file:
+  \begin{itemize}
+  \item Number of x and y cells
+  \item Cells size in each dimension (you can choose if you want it to be uniform or non-uniform)
+  \item Number of materials
+  \item A way to assign materials
+  \item Physical constants for each material: $D$, $\Sigma_a$
+  \item Fixed source term. You need to decide things like whether you want a source everywhere only in some cells, whether it must be constant or can be a function of space, etc. and how to express those choices in the input file.
+  \item If you want to allow for different boundary condition choices, how to specify those.
+  \end{itemize}
+  
+\end{itemize}
+
+The general framework for your code should be:
+\begin{itemize}
+\item \textit{Main Module:} calls subroutines listed in specific sequence, prints execution time, and terminates execution
+
+\item \textit{Version data subroutine:} write code name, version number, author name(s), date and time of execution to an output file (perhaps also print to screen).
+
+\item \textit{Input data subroutine:} read and/or process the input data. Check all input values for correctness/sensibility, e.g., all values are positive, array dimensions are correct, etc. Print an error message and terminate if one or more errors occur, otherwise print notification of successful input checking. 
+
+\item \textit{Input echo subroutine:} print the input data for each cell to the output file (this is good for reproducibility). Please format this in some useful way.
+
+\item \textit{Diffusion solver subroutine:} implement the discretized diffusion solver here. While building the surrounding structure you can just have this print ``will solve DE here". 
+
+\end{itemize}
+
+
+\end{document}
