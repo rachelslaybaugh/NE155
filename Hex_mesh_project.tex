@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+%\textwidth=7in
+%\textheight=9.5in
+%\topmargin=-1in
+%\headheight=0in
+%\headsep=.5in
+%\hoffset=-.85in
+
+%\usepackage[cm]{fullpage}
+\usepackage[top=0.75in, bottom=0.75in, left=1in, right=1in]{geometry}
+\pagestyle{empty}
+\usepackage{tabu}
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\begin{document}
+
+\begin{center}
+{\bf NE 155 \\ Hex Mesh Final Project}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+\renewcommand{\arraystretch}{2}
+
+Plasma power density is defined in a ``plasma" coordinate system that is related to real space through Fourier coefficients. This defines the source on a set of known flux surfaces. We would like to be able to take this source data and transform it to Cartesian space such that it can be used by solvers more easily. The transformation involves some coordinate mapping and numerical integration. The result can be formatted as a cumulative distribution function for Monte Carlo sampling, or left as a meshed distribution of values. I have more details to help this along.
+
+
+Good programming practices (There are some tutorials for all of these things available through Berekeley's The Hacker Within.): 
+\begin{itemize}
+\item Please version control your code on something like github. 
+\item Consider writing code comments with something like Doxygen (http://www.stack.nl/~dimitri/doxygen/) to document the API (application programming interface). 
+\item Consider writing tests for your code using something like gtest (https://code.google.com/\\p/googletest/) - this might be a good extension for a two person project in particular.
+\end{itemize}
+
+You will need to include A README that states
+  \begin{itemize}
+  \item How to execute the code.
+  \item Status of the code (as applicable): operational/compiles but doesn't run/doesn't compile/known bugs.
+  \item What the code does, expected input, resulting output, and any limitations or restrictions.
+  \end{itemize}
+
+The general idea of this project was originally implemented in MATLAB. 
+
+You'll need to write a code that generates mesh points for MFE plasma source and calculates:
+\begin{itemize}
+\item source density at those points
+\item volume of hexes described by those points
+\item source strength in each hex
+\item the maximum source in each hex
+\item the maximum jacobian determinant in each hex
+\end{itemize}
+
+You should be able to specify:
+\begin{itemize}
+\item number of hexes in direction of poloidal angle
+\item number of hexes in direction of toroidal angle
+\item file where flux surface information can be found
+\end{itemize}
+
+The code should produce/output:
+\begin{itemize}
+\item number of closed flux surfaces (from data file)
+\item number of toroidal field periods (from data file)
+\item data needed for input into MCNPX-CGM: [x y z hexsrcCDF sjmax sj]
+\end{itemize}
+
+I will send you:
+\begin{enumerate}
+\item three plasma source data files
+\item a MATLAB file that reads the coefficients from one of these files
+\item a MATLAB file that does a some plasma source calculations using data compatible with this data files
+\item a Fusion Engineering and Design paper that describes the work
+\end{enumerate}
+
+We can then talk about how to use that data and execute the project.
+
+
+\end{document}
