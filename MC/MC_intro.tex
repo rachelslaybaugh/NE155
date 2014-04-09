@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage[hang,flushmargin]{footmisc} 
+% 'hang' flushes the footnote marker to the left,  'flushmargin'  flushes the text as well.
+
+\def\baselinestretch{1}
+\setlength{\parindent}{0mm} \setlength{\parskip}{0.8em}
+
+\newlength{\up}
+\setlength{\up}{-4mm}
+
+\newlength{\hup}
+\setlength{\hup}{-2mm}
+
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo Methods Manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\begin{document}
+\begin{center}
+{\bf NE 155, Classes 29 and 30, S14 \\
+TE + DE \\ April 9, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+%-------------------------------------------------------------
+\section{Math with Random numbers}
+
+You can use random numbers to do math in two primary ways: 
+\begin{itemize}
+\item sample physical distributions to reproduce physics needed to solve  problems
+\item conduct numerical integration to solve problems
+\end{itemize}
+
+- History of MC
+
+- Example of physical distribution sampling
+
+- Example of numerical integration
+
+- Explanation of how these ideas can be used to do a calculation
+
+- Relate generic problem solving to nuclear problems
+
+- You would choose to do Monte Carlo when 
+\begin{itemize}
+\item analytical integration is impossible
+\item deterministic methods are too slow, require approximations that don't work, can't get the soln, etc.
+\end{itemize} 
+
+- The big drawback of MC methods is that they can take a very long time. We will talk about this more later.
+
+
+%-------------------------------------------------------------
+\section{PDFs and CDFs}
+
+
+\section{Sampling}
+
+
+\section{Random Numbers}
+
+
+
+\end{document}
