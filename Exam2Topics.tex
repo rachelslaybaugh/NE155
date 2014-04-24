@@ -1,0 +1,130 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2014
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, midterm 2 review S14 \\
+April 25, 2014}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+%--------------------------------------------------------------------
+Here are the topics we've covered and that are fair game for the exam:
+
+\underline{More deterministic methods}
+\begin{itemize}
+\item Finite difference derivation; application to the 1-D, fixed source diffusion equation
+\item Finite volume method
+  \begin{itemize}
+  \item Derivation
+  \item Application to the diffusion equation
+  \item Vacuum and reflecting boundary conditions
+  \item Simplification to homogeneous, uniform mesh
+  \end{itemize}
+  
+\item Methods for solving the system of equations we created
+  \begin{itemize}
+  \item Directly with Thomas Algorithm
+  \item Iteratively with Jacobi, GS, or SOR
+  \end{itemize}
+
+\item Eigenvalue form of the 1-D DE
+  \begin{itemize}
+  \item form of the equation; applying finite difference
+  \item applying finite volume method, including BCs
+  \end{itemize}
+  
+\item Solving the Eigenvalue equations
+  \begin{itemize}
+  \item determining convergence of $k$ and $\phi$
+  \item calculating $k$
+  \item Power Iteration
+  \end{itemize}
+\end{itemize}
+
+
+\underline{Monte Carlo methods}
+\begin{itemize}
+\item overview/history of MC
+
+\item random number generators
+  \begin{itemize}
+  \item 
+  \end{itemize}
+
+\item random sampling
+  \begin{itemize}
+  \item 
+  \end{itemize}
+
+\item statistics
+  \begin{itemize}
+  \item 
+  \end{itemize}
+
+\item transport algorithm
+  \begin{itemize}
+  \item 
+  \end{itemize}
+  
+\item tallies
+  \begin{itemize}
+  \item 
+  \end{itemize}
+
+\end{itemize}
+
+The exam will be 50 minutes long and closed book. You may use a calculator.
+
+\end{document}
