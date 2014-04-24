@@ -7,6 +7,7 @@
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
 \usepackage{setspace}
+\usepackage{tabu}
 \onehalfspacing
 
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
@@ -94,36 +95,117 @@ Here are the topics we've covered and that are fair game for the exam:
 \end{itemize}
 
 
-\underline{Monte Carlo methods}
+\clearpage
+%-------------------------------------------------------------
+\section{MC: Math with Random Numbers}
+
+You can use random numbers to do math in two primary ways: 
 \begin{itemize}
-\item overview/history of MC
+\item sample physical distributions to reproduce physics needed to solve  problems
+\item conduct numerical integration to solve problems
+\end{itemize}
 
-\item random number generators
-  \begin{itemize}
-  \item 
-  \end{itemize}
+You would choose to do Monte Carlo when 
+\begin{itemize}
+\item analytical integration is impossible
+\item deterministic methods are too slow, require approximations that don't work, can't get the soln, etc.
+\end{itemize} 
 
-\item random sampling
-  \begin{itemize}
-  \item 
-  \end{itemize}
+\begin{center}
+\begin{tabu}{| l | X | X |}
+  \hline
+  & Monte Carlo         & Deterministic ($S_N$) \\\hline
+              % -----------------------
+    Strengths & General geometry    & Fast \\
+              & Continuous Energy   & Global Solution\\
+              & Continuous in Angle & Solution is of same quality everywhere\\
+              & Inherently 3-D      & \\
+              & Easy to parallelize on CPUs & \\\hline
+% -----------------------
+    Weaknesses & Slow & Variable discretization governs solution quality \\
+               & Might be memory intensive & Might be memory intensive \\
+               & Solutions have statistical error & Solution contains truncation error\\
+               & Local solutions only & Constrained by what you can mesh \\
+               & Must adequately sample phase space & Ray Effects \\
+               & Need efficient VR & Need efficient VR algorithms \\\hline
+  \end{tabu}
+\end{center}
 
-\item statistics
-  \begin{itemize}
-  \item 
-  \end{itemize}
 
-\item transport algorithm
-  \begin{itemize}
-  \item 
-  \end{itemize}
-  
-\item tallies
-  \begin{itemize}
-  \item 
-  \end{itemize}
+%-------------------------------------------------------------
+\section{MC algorithm}
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[height=6 in,clip]{MC/MC-algorithm}
+  \end{center}
+\end{figure}
+
+Prior to this algorithm, we learned the items needed to do all of these steps in Monte Carlo.
+
+
+%--------------------------------------------------------
+\section{PDFs and CDFs}
+We learned how to define PDFs and CDFs for continuous and discrete variables; including how to normalize them. 
+
+
+%--------------------------------------------------------
+\section{Sampling Applied to the Algorithm}
+We learned how to sample different kinds of CDFs. An example of direct inversion is determining the \textbf{distance to the next interaction}:
+
+\begin{itemize}
+\item $\Sigma_t$ = total macroscopic cross section of material
+\[\Sigma_T = \sum_{j=1}^J N_j \sigma_t^j\]
+
+\item The PDF for distance to collision is probability of interaction per unit distance $\times$ probability of traveling distance $s$ without interacting
+\[f(s) = \Sigma_t \exp\bigl(-\Sigma_t s \bigr)\]
+
+\item We integrate and normalize to get the CDF
+\[F(s) = 1 - \exp\bigl(-\Sigma_t s \bigr)\]
+
+\item To actually sample this, we invert it and get a random number
+\[s = \frac{-\ln(\xi)}{\Sigma_t}\]
+\end{itemize}
+%
+If we're in a multi-region problem, we figure out if we intersect a boundary and if so move the particle to that boundary and determine how much farther it goes into the next material before having a collision.
+
+After finding the location of the collision, we need to determine \textbf{what type of collision} occurs. 
+
+\begin{itemize}
+\item $\sigma_t = \sigma_{elastic} + \sigma_{inelastic} + \sigma_{capture} + \sigma_{fission} + \dots$.
+
+\item The probability of reaction of type $i$ for a given isotope is 
+\[p_i = \frac{\sigma_i}{\sigma_t}\]
+
+\item This gives a set of discrete probabilities, which we can sample 
+\begin{itemize}
+\item directly: generate $\xi$, determine $k$ s.t. $F_{k-1} \leq \xi \le F_k$, return $i = i_k$.
+
+\item or by making an alias table and sampling.
+\end{itemize}
 
 \end{itemize}
+
+
+%--------------------------------------------------------
+\section{Tallies}
+
+We also talked about how to get results through 
+\begin{itemize}
+\item \textbf{estimators}: convert each history into a score, that are summed together to create 
+\item \textbf{tallies}: a set of scores that for a PDF whose expected value should converge to the solution of interest.
+\end{itemize}
+
+We talked about a variety of formulas for how to do this. 
+
+
+%--------------------------------------------------------
+\section{Statistics}
+
+Monte Carlo solution statistics are based on the Central Limit Theorem, which is applicable when samples are taken from the same distribution (identical) and they are independent of one another. 
+
+In this case we can assert formulas for the sample mean, error, and variance and relate those to the true mean, error, and variance. 
+
+We have the ability to measure precision and criteria for determining how precise an answer must be for it to be acceptable. 
 
 The exam will be 50 minutes long and closed book. You may use a calculator.
 
