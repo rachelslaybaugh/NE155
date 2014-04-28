@@ -107,7 +107,7 @@
   	\item Weight corresponds to influence on answer
   \end{itemize}
   \begin{align}
-  \phi_c = \frac{\sum_{i=1}^{n}\sum_{i=j}^{J} w_{ij} T_{l,ij}}{NV} \nonumber 
+  \phi_c V = \frac{\sum_{i=1}^{n_c} w_{i} }{N \Sigma_t} \nonumber 
   \end{align}
   \begin{itemize}
   	\item a particle with \textbf{high} weight contributes a lot
@@ -119,6 +119,93 @@
 
 \end{frame}
 
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Survival Biasing}
+  \begin{itemize}
+  	\item Probability of absorption at a collision?
+  \end{itemize}
+
+\begin{tabu}{|X | c |X|}
+\hline
+ & Analog &  Survival Biasing \\\hline
+Tally at collision & $w_i$ &  \[w_i \frac{\Sigma_a}{\Sigma_t}\]  \\
+$w_{i+1}$ & $0$ & \[w_i\bigl(1-\frac{\Sigma_a}{\Sigma_t} \bigr)\] \\\hline
+\end{tabu}
+
+  \begin{itemize}
+  	\item maintains a fair game
+  	\item represents physics
+  	\item more information per history
+  \end{itemize}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Splitting}
+  
+  If a particle has too high of a weight, split it.
+  \vspace*{1 em}
+  
+  \begin{itemize}
+  	\item if $w_i > w_{\max}$, split:
+  	\begin{itemize}
+  	    	\item Split Ratio, SR, $\equiv \frac{w_i}{w_{nom}}$
+  	\item get $\xi$, a random number on $0 \leq \xi \leq 1$
+  	\item if $\xi \geq$ (SR - int(SR)):\\
+  	      \hspace*{2 em} create int(SR) new particles 
+  	\item else:\\
+  	      \hspace*{2 em}create in(SR) + 1 new particles
+  	\item $\forall$ new particles, $w_{i+1} = \frac{w_i}{\text{\# new particles}}$
+  	\end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Rouletting}
+  
+  If a particle has too low of a weight, increase its weight or kill it.
+  \vspace*{1 em}
+  
+  \begin{itemize}
+  	\item if $w_i < w_{\min}$, roulette:
+  	\begin{itemize}
+  	    	\item Roulette Ratio, RR, $\equiv \frac{w_i}{w_{nom}}$
+  	\item get $\xi$, a random number on $0 \leq \xi \leq 1$
+  	\item if $\xi \geq$ RR:\\
+  	      \hspace*{2 em} kill particle, $w_{i+1} = 0$ 
+  	\item else:\\
+  	      \hspace*{2 em} $w_{i+1} = w_{nom}$
+  	\end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Example}
+  
+  \begin{itemize}
+  \item   A particle with $w_i = 0.9$ moves to a region with $w_{nom}$ is 3.5 and $w_{\min} = 1.5$
+  
+  \item We select $\xi = 0.23$
+  
+  \item What happens?
+  \end{itemize}
+
+
+\end{frame}
 
 
 % --------------------------------------------------------------
