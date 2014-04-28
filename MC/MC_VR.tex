@@ -1,0 +1,316 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[xcolor=x11names,compress]{beamer}
+
+\definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{byellow}{rgb}{0.55037, 0.38821, 0.06142}
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{Tabbing}
+\usetikzlibrary{decorations.fractals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+\usepackage{tabu}
+
+% addition of color
+\usepackage{xcolor}
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=CoolBlack} 
+\setbeamercolor*{normal text}{fg=black,bg=white} 
+\setbeamercolor*{alerted text}{fg=red} 
+\setbeamercolor*{example text}{fg=black} 
+\setbeamercolor*{structure}{fg=black} 
+ 
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+% adding slide numbers
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+% equation stuff
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\Sn}{\ensuremath{S_N} }
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{amsmath}
+
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\micro}{\ensuremath{\sigma}}
+\newcommand{\detR}{\ensuremath{\Sigma}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\title{Monte Carlo Variance Reduction Intro}
+\subtitle{NE 155, Spring 2014}
+\author{
+        \includegraphics[height=2cm]{bk}\\R.\ N.\ Slaybaugh}
+
+\date{April 30, 2014}
+\titlepage
+\end{frame}
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\section{\scshape Variance Reduction}
+\begin{frame}[fragile]
+  \frametitle{Acceleration}
+  \begin{itemize}
+  	\item To use MC in many applications, we need to \textit{accelerate} it
+	\item Variance reduction is designed to improve the FOM:
+  \end{itemize}
+  \begin{align}
+  \text{FOM} = \frac{1}{\text{R}^2\text{t}} \qquad & \text{R = relative error} \nonumber \\ 
+  & \text{t = time} \nonumber 
+  \end{align}
+  \begin{itemize}
+  	\item \underline{Goal:} improve FOM
+  	\item Control how and when particles contribute to tallies in a way that does not bias physics (``fair game") 
+  \end{itemize}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Influence of Weight}
+  \begin{itemize}
+  	\item Weight corresponds to influence on answer
+  \end{itemize}
+  \begin{align}
+  \phi_c = \frac{\sum_{i=1}^{n}\sum_{i=j}^{J} w_{ij} T_{l,ij}}{NV} \nonumber 
+  \end{align}
+  \begin{itemize}
+  	\item a particle with \textbf{high} weight contributes a lot
+  	\\ \underline{concern?} can increase variance
+  	\item a particle with \textbf{low} weight contributes very little
+  	\\ \underline{concern?} can waste time  	
+  	\item Variance Reduction: track particles that will contribute meaningfully; discard those that won't; maintain a fair game
+  \end{itemize}
+
+\end{frame}
+
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\section{\scshape Hybrid Methods}
+%\subsection{Motivation}
+\begin{frame}[fragile]
+  \frametitle{Solving the TE}
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+  \begin{center}
+  \underline{Monte Carlo}
+  \end{center}
+	\begin{itemize}
+	\item Solution has associated statistical error
+	\item Continuous phase space: ``gold standard answers"
+	\item Can take a long time
+	\item Good for streaming
+	\item Optically thick = slow
+	\end{itemize}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+  \begin{center}
+  \underline{Deterministic}
+  \end{center}
+	\begin{itemize}
+	\item Solution equally valid everywhere
+	\item Discretized phase space: drives solution quality
+	\item Can be fast
+	\item Streaming = ray effects
+	\item Good for optically thick
+	\end{itemize}
+  \end{column}
+\end{columns}
+
+\vspace*{1em}
+\underline{Idea}: can we use deterministic and Monte Carlo methods together to lessen the weaknesses of each?
+
+\vspace*{1em}
+  $\rightarrow$ \textbf{Hybrid Methods}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
+%\subsection{CADIS}
+\begin{frame}[fragile]
+  \frametitle{Forward-Adjoint Relationship}
+Define response with function $f(\ve{r}, E)$ in volume $V_d$ as
+%
+\begin{equation}
+ R = \int_E \int_{V_f} f(\ve{r}, E) \phi(\ve{r}, E) dV dE 
+ \label{eq:Response}
+\end{equation}
+%
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+	\begin{align}
+  	H\phi &= q \quad \text{(forward)}\nonumber \\
+  	%
+  	H^{\dagger} \phi^{\dagger} &= q^{\dagger} \quad 
+  	\text{(adjoint)}\nonumber
+  	\end{align}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+  	\begin{align}
+  	\langle H\phi, \phi^{\dagger} \rangle &= \langle H^{\dagger} \phi^{\dagger}, \phi \rangle \:, \text{and therefore} \nonumber \\
+  	%
+  	\langle q, \phi^{\dagger} \rangle &= \langle q^{\dagger}, \phi \rangle \nonumber
+  	\end{align}
+  \end{column}
+\end{columns}
+\vspace*{1 em}
+If we let $q^{\dagger} = f(\ve{r}, E)$ then
+%
+\begin{equation}
+ \langle q^{\dagger}, \phi \rangle = \langle f, \phi \rangle = R = \langle q, \phi^{\dagger} \rangle
+ \label{eq:ResponseRedef}
+\end{equation}
+%
+Eq.\ \eqref{eq:ResponseRedef} expresses that $\phi^{\dagger}$ represents the expected contribution of a source particle to the response given the source, $q$.
+
+\end{frame}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{CADIS}
+  
+  \begin{enumerate}
+  \item Define $q^{\dagger}$ as the local response of interest\\
+  \item Coarse deterministic calculation to get $\phi^{\dagger}$ and $R$
+  \end{enumerate}
+% 
+\begin{align}
+  imp(\ve{r}, E) &= \frac{\phi^{\dagger}(\ve{r}, E)}{\langle q(\ve{r}, E), \phi^{\dagger}(\ve{r}, E) \rangle} = \frac{\phi^{\dagger}(\ve{r}, E)}{R} \\
+  %
+  \hat{q}(\ve{r}, E) &= \frac{\phi^{\dagger}(\ve{r}, E) q(\ve{r}, E)}{R} \\
+  %
+  w_0(\ve{r}, E) &= \frac{q(\ve{r}, E)}{\hat{q}(\ve{r}, E)} = \frac{R}{\phi^{\dagger}(\ve{r}, E)} 
+  \label{eq:Importance}
+\end{align}
+
+Birth weights match weight targets, making this the \underline{C}onsistent \underline{A}djoint \underline{D}riven \underline{I}mportance \underline{S}ampling \underline{M}ethod
+
+\end{frame}
+
+% --------------------------------------------------------------
+%\subsection{FW-CADIS}
+\begin{frame}[fragile]
+  \frametitle{FW-CADIS}
+
+\begin{itemize}
+\item We often what to optimize solutions in all of phase space\\
+\item In this case the adjoint source needs to be a global forward solution: \underline{F}orward \underline{W}eighted-CADIS
+\end{itemize}
+%
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+  \begin{center}
+  \textcolor{byellow}{To Optimize}
+  \end{center}
+	\begin{align}
+  	&\phi(\ve{r}, E)\nonumber \\
+  	%
+  	\int&\phi(\ve{r}, E)\sigma_d(\ve{r}, E)\nonumber
+  	\end{align}
+  \end{column}
+  %
+  \begin{column}{0.5\textwidth}
+  \begin{center}
+  \textcolor{byellow}{Adjoint Source}
+  \end{center}
+  	\begin{align}
+  	f(\ve{r}, E) &= \frac{1}{\phi(\ve{r}, E)}\nonumber \\
+  	%
+  	f(\ve{r}, E) &= \frac{\sigma_d(\ve{r}, E)}{\int\phi(\ve{r}, E)\sigma_d(\ve{r}, E)} \nonumber
+  	\end{align}
+  \end{column}
+\end{columns}
+\vspace*{1 em}
+For example
+%
+\begin{equation}
+ R = \int_E \int_{V_f} f(\ve{r}, E) \phi(\ve{r}, E) dV dE = \int_E \int_{V} \frac{1}{\phi(\ve{r}, E)} \phi(\ve{r}, E) dV dE \approx 1 \nonumber
+\end{equation}
+
+\end{frame}
+
+% --------------------------------------------------------------
+%\subsection{Challenges}
+\begin{frame}[fragile]
+  \frametitle{Example Impact}
+
+	FW-CADIS works well for \textbf{most} deep penetration
+	shielding problems
+	%
+	\begin{columns}
+  	\begin{column}{0.5\textwidth}
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2in,clip]{dlvn}
+		\caption{Dog Legged Void Neutron Shielding Benchmark}
+	\end{center}
+  	\end{figure}
+  	\end{column}
+ 	%
+ 	\begin{column}{0.5\textwidth}
+ 	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2in,clip]{dlvn-lowVR}
+  		\caption{MC 95\% CI RE using FW-CADIS, DLVN}
+  	\end{center}
+  	\end{figure}
+  	\end{column}
+	\end{columns}
+  
+\end{frame}
+
+
+
+
+% --------------------------------------------------------------
+% --------------------------------------------------------------
+\section*{}
+\begin{frame}[fragile]
+  \frametitle{Questions?}
+  \begin{center}
+  \includegraphics[height=3in,clip]{../Class1/math07}  
+  \end{center}
+  
+\end{frame}
+
+
+\end{document}
