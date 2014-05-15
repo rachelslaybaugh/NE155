@@ -149,11 +149,11 @@ Recall: the lower index is the cell to which you are coupling, and the upper ind
 \begin{align}
 a_{1,j}^{*,0j} &= -\frac{D_{1,j} \epsilon_{j} + D_{1,j+1} \epsilon_{j+1}}{2 \delta_{1}}  \nonumber \\
 %
-a_{0,j-1}^{*,0j} &= -\frac{D_{i+1,j} \delta_{1}}{2 \epsilon_{j}}  \nonumber \\
+a_{0,j-1}^{*,0j} &= -\frac{D_{1,j} \delta_{1}}{2 \epsilon_{j}}  \nonumber \\
 %
-a_{0,j+1}^{*,0j} &= -\frac{D_{i+1,j+1} \delta_{1}}{2 \epsilon_{j+1}}  \nonumber \\
+a_{0,j+1}^{*,0j} &= -\frac{D_{1,j+1} \delta_{1}}{2 \epsilon_{j+1}}  \nonumber \\
 %
-a_{0,j}^{*,0j} &= \Sigma^*_{a,0j} - \bigl(a_{1,j}^{0j} + a_{0,j-1}^{0j} + a_{0,j+1}^{0j} \bigr)
+a_{0,j}^{*,0j} &= \Sigma^*_{a,0j} - \bigl(a_{1,j}^{*,0j} + a_{0,j-1}^{*,0j} + a_{0,j+1}^{*,0j} \bigr)
  \:.\nonumber 
 \end{align}
 
@@ -236,20 +236,10 @@ The absorption and streaming terms now become:
 \vspace*{2em}
 Collecting all of the terms and separating them, we get a 4-point difference equation for $i=n$; $j=1,\dots,m-1$:
 %
-\[\boxed{a_{1,j}^{*,nj}\phi_{1,j} + a_{0,j-1}^{*,nj}\phi_{0,j-1} + a_{0,j+1}^{*,nj}\phi_{0,j+1} +  a_{0,j}^{*,nj}\phi_{0,j} = S^*_{nj}} \]
+\[\boxed{a_{n-1,j}^{*,nj}\phi_{n-1,j} + a_{n,j-1}^{*,nj}\phi_{n,j-1} + a_{n,j+1}^{*,nj}\phi_{n,j+1} +  a_{n,j}^{*,nj}\phi_{n,j} = S^*_{nj}} \]
 %
 Recall: the lower index is the cell to which you are coupling, and the upper index is which cell you are in. The coefficients how change to become
-\begin{align}
-a_{1,j}^{*,nj} &= -\frac{D_{1,j} \epsilon_{j} + D_{1,j+1} \epsilon_{j+1}}{2 \delta_{1}}  \nonumber \\
 %
-a_{0,j-1}^{*,nj} &= -\frac{D_{i+1,j} \delta_{n}}{2 \epsilon_{j}}  \nonumber \\
-%
-a_{0,j+1}^{*,nj} &= -\frac{D_{i+1,j+1} \delta_{n}}{2 \epsilon_{j+1}}  \nonumber \\
-%
-a_{0,j}^{*,nj} &= \Sigma^*_{a,nj} - \bigl(a_{1,j}^{nj} + a_{0,j-1}^{nj} + a_{0,j+1}^{nj} \bigr)
- \:.\nonumber 
-\end{align}
-
 \begin{align}
 a_{n-1,j}^{*,nj} &= -\frac{D_{n,j} \epsilon_{j} + D_{n,j+1} \epsilon_{j+1}}{2 \delta_{n}}  \nonumber \\
 %
@@ -258,8 +248,7 @@ a_{n,j-1}^{*,nj} &= -\frac{D_{n,j} \delta_{n}}{2 \epsilon_{j}}  \nonumber \\
 a_{n,j+1}^{*,nj} &= -\frac{D_{n,j+1} \delta_{n}}{2 \epsilon_{j+1}}  \nonumber \\
 %
 a_{n,j}^{*,nj} &= \Sigma_{a,nj} - \bigl(a_{n-1,j}^{*,nj} + a_{n,j-1}^{*,nj} + a_{n,j+1}^{*,nj} \bigr)
- \:.\nonumber \\
- (a_C^{ij}) & \nonumber
+ \:.\nonumber
 \end{align}
 
 \end{document}
