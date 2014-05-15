@@ -109,7 +109,7 @@ Recall that when we considered the streaming term we converted the volume integr
  &= -\int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) \nonumber
 \end{align}
 %
-and we defined the partial derivative w.r.t.\ direction on each surface. We now have two fewer surfaces (no $s_2$ or $s_7$, and we apply the zero current boundary condition to $s_1$ and $s_8$.
+and we defined the partial derivative w.r.t.\ direction on each surface. We now have two fewer surfaces (no $s_2$ or $s_7$), and we apply the zero current boundary condition to $s_1$ and $s_8$.
 \end{minipage}
 
 \begin{align}
@@ -125,18 +125,16 @@ and we defined the partial derivative w.r.t.\ direction on each surface. We now 
 We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. The two terms that are different are for the top and bottom of the cell:
 %
 \begin{align}
-- \int_{S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \boxed{\frac{\phi_{0,j} - \phi_{0,j-1}}{\epsilon_{j}} \biggl(\frac{D_{1,j} \delta_{1}}{2}\biggr)} \nonumber \\ 
+- \int_{S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{0,j} - \phi_{0,j-1}}{\epsilon_{j}} \biggl(\frac{D_{1,j} \delta_{1}}{2}\biggr) \nonumber \\ 
 %
-- \int_{S_6} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \boxed{\frac{\phi_{0,j+1} - \phi_{0,j}}{\epsilon_{j+1}} \biggl(\frac{D_{1,j+1} \delta_{1}}{2}\biggr)} \nonumber
+- \int_{S_6} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{0,j+1} - \phi_{0,j}}{\epsilon_{j+1}} \biggl(\frac{D_{1,j+1} \delta_{1}}{2}\biggr) \nonumber
 \end{align}
 
 The absorption and streaming terms now become:
 \begin{align}
-\int \int dx dy\:\Sigma_a(x,y) \phi(x,y) &= \boxed{\phi_{0,j}\bigl(\Sigma_{a,1,j} V_{1,j} + \Sigma_{a,1,j+1} V_{1,j+1} \bigr) } \nonumber \\
-&\equiv \Sigma^*_{a,0j}\:, \nonumber \\
+\int \int dx dy\:\Sigma_a(x,y) \phi(x,y) &= \boxed{\phi_{0,j}\bigl(\Sigma_{a,1,j} V_{1,j} + \Sigma_{a,1,j+1} V_{1,j+1} \bigr) \equiv \Sigma^*_{a,0j}}\:, \nonumber \\
 %
-\int \int dx dy \: \:S(x,y) &= \boxed{S_{1,j} V_{1,j} + S_{1,j+1} V_{1,j+1}}\nonumber \\
-&\equiv S^*_{0j}\:. \nonumber
+\int \int dx dy \: \:S(x,y) &= \boxed{S_{1,j} V_{1,j} + S_{1,j+1} V_{1,j+1} \equiv S^*_{0j}}\:. \nonumber
 \end{align}
 
 %-----------------------------------
@@ -202,7 +200,7 @@ Recall that when we considered the streaming term we converted the volume integr
  &= -\int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) \nonumber
 \end{align}
 %
-and we defined the partial derivative w.r.t.\ direction on each surface. We now have two fewer surfaces (no $s_3$ or $s_6$, and we apply the zero current boundary condition to $s_4$ and $s_5$.
+and we defined the partial derivative w.r.t.\ direction on each surface. We now have two fewer surfaces (no $s_3$ or $s_6$), and we apply the zero current boundary condition to $s_4$ and $s_5$.
 \end{minipage}
 
 \begin{align}
@@ -218,18 +216,16 @@ and we defined the partial derivative w.r.t.\ direction on each surface. We now 
 We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. The two terms that are different are for the top and bottom of the cell:
 %
 \begin{align}
-- \int_{S_2} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \boxed{\frac{\phi_{n,j} - \phi_{n,j-1}}{\epsilon_{j}} \biggl(\frac{D_{n,j} \delta_{n}}{2}\biggr)} \nonumber \\ 
+- \int_{S_2} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{n,j} - \phi_{n,j-1}}{\epsilon_{j}} \biggl(\frac{D_{n,j} \delta_{n}}{2}\biggr) \nonumber \\ 
 %
-- \int_{S_7} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \boxed{\frac{\phi_{n,j+1} - \phi_{n,j}}{\epsilon_{j+1}} \biggl(\frac{D_{n,j+1} \delta_{n}}{2}\biggr)} \nonumber
+- \int_{S_7} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{n,j+1} - \phi_{n,j}}{\epsilon_{j+1}} \biggl(\frac{D_{n,j+1} \delta_{n}}{2}\biggr) \nonumber
 \end{align}
 
 The absorption and streaming terms now become:
 \begin{align}
-\int \int dx dy\:\Sigma_a(x,y) \phi(x,y) &= \boxed{\phi_{n,j}\bigl(\Sigma_{a,n,j} V_{n,j} + \Sigma_{a,n,j+1} V_{n,j+1} \bigr) } \nonumber \\
-&\equiv \Sigma^*_{a,nj}\:, \nonumber \\
+\int \int dx dy\:\Sigma_a(x,y) \phi(x,y) &= \boxed{\phi_{n,j}\bigl(\Sigma_{a,n,j} V_{n,j} + \Sigma_{a,n,j+1} V_{n,j+1} \bigr) \equiv \Sigma^*_{a,nj}}\:, \nonumber \\
 %
-\int \int dx dy \: \:S(x,y) &= \boxed{S_{n,j} V_{n,j} + S_{n,j+1} V_{n,j+1}}\nonumber \\
-&\equiv S^*_{nj}\:. \nonumber
+\int \int dx dy \: \:S(x,y) &= \boxed{S_{n,j} V_{n,j} + S_{n,j+1} V_{n,j+1} \equiv S^*_{nj}}\:. \nonumber
 \end{align}
 
 %-----------------------------------
@@ -250,5 +246,95 @@ a_{n,j+1}^{*,nj} &= -\frac{D_{n,j+1} \delta_{n}}{2 \epsilon_{j+1}}  \nonumber \\
 a_{n,j}^{*,nj} &= \Sigma_{a,nj} - \bigl(a_{n-1,j}^{*,nj} + a_{n,j-1}^{*,nj} + a_{n,j+1}^{*,nj} \bigr)
  \:.\nonumber
 \end{align}
+
+
+%-----------------------------------------------------------------------
+\subsection*{TOP}
+The top boundary condition is:
+\[\frac{\partial }{\partial x} \phi(x,y)\big|_{y=b} = 0\]
+
+\begin{tikzpicture}
+% grid
+\draw[step=2cm] (2,2) grid (6,4);
+% volume labels
+\node at (3,3) {$V_{i,m}$};
+\node at (5,3) {$V_{i+1,m}$};
+% surface labels
+\node[left] at (2,3) {$s_1$};
+\node[below] at (3,2) {$s_2$};
+\node[below] at (5,2) {$s_3$};
+\node[right] at (6,3) {$s_4$};
+\node[above] at (5,4) {$s_6$};
+\node[above] at (3,4) {$s_7$};
+% surrounding grid and markers
+\draw plot[mark=*, mark options={fill=black}] (0,4) node[left] {$(i-1,m)$};
+\draw (0,4) -- plot[mark=*, mark options={fill=black}] (4,4) node[above] {$(i,m)$};
+\draw (4,4)-- plot[mark=*, mark options={fill=black}] (4,0) node[below] {$(i,m-1)$};
+\draw (4,4)-- plot[mark=*, mark options={fill=black}] (8,4) node[above] {$(i,m+1)$};
+% arrows
+\draw[<->](0,0.5) -- (4,0.5);
+\node[below] at (2,0.5) {$\delta_{i}$};
+\draw[<->](4,0.5) -- (8,0.5);
+\node[below] at (6,0.5) {$\delta_{i+1}$};
+\draw[<->](0.5, 0) -- (0.5,4);
+\node[left] at (0.5,2) {$\epsilon_{m}$};
+\end{tikzpicture}
+
+To implement the boundary condition, we integrate in the last half-cell, so from $y=\epsilon_m / 2$ to $y=b$. 
+
+Recall that when we considered the streaming term we converted the volume integral into a surface integral: 
+\begin{align}
+&-\int_V d\vec{r}\:\bigl[\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr)\bigr] \nonumber \\
+ &= -\int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) \nonumber
+\end{align}
+%
+and we defined the partial derivative w.r.t.\ direction on each surface. We now have two fewer surfaces (no $s_8$ or $s_5$), and we apply the zero current boundary condition to $s_7$ and $s_6$.
+
+
+\begin{align}
+\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i-1,m} - \phi_{i,m}}{\delta_{i}} \qquad \text{on } S_1  \nonumber \\
+%
+&= \frac{\phi_{i+1,m} - \phi_{i,m}}{\delta_{i+1}} \qquad \text{on } S_4 \nonumber \\
+%
+&= \frac{\phi_{i,m-1} - \phi_{i,m}}{\epsilon_m} \qquad \text{on } S_2 \:, S_3 \nonumber \\
+%
+&= 0 \qquad \qquad \qquad \text{on } S_7 \:, S_6 \nonumber 
+\end{align}
+
+We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. The two terms that are different are for the left and right of the cell:
+%
+\begin{align}
+- \int_{S_1} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i,m} - \phi_{i-1,m}}{\delta_{i}} \biggl(\frac{D_{i,m} \epsilon_{m}}{2}\biggr) \nonumber \\ 
+%
+- \int_{S_4} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i+1,m} - \phi_{i,m}}{\delta_{i+1}} \biggl(\frac{D_{i+1,m} \epsilon_{m}}{2}\biggr) \nonumber
+\end{align}
+
+The absorption and streaming terms now become:
+\begin{align}
+\int \int dx dy\:\Sigma_a(x,y) \phi(x,y) &= \boxed{\phi_{n,j}\bigl(\Sigma_{a,i,m} V_{i,m} + \Sigma_{a,i+1,m} V_{i+1,m} \bigr)  \equiv \Sigma^*_{a,im}}\:, \nonumber \\
+%
+\int \int dx dy \: \:S(x,y) &= \boxed{S_{i,m} V_{i,m} + S_{i+1,m} V_{i+1,m} \equiv S^*_{im}}\:. \nonumber
+\end{align}
+
+%-----------------------------------
+\vspace*{2em}
+Collecting all of the terms and separating them, we get a 4-point difference equation for $i=1,\dots,n-1$, $j=m$:
+%
+\[\boxed{a_{i-1,m}^{*,im}\phi_{i-1,m} + a_{i,m-1}^{*,im}\phi_{i,m-1} + a_{i+1,m}^{*,im}\phi_{i+1,m} +  a_{i,m}^{*,im}\phi_{i,m} = S^*_{im}} \]
+%
+Recall: the lower index is the cell to which you are coupling, and the upper index is which cell you are in. The coefficients how change to become
+%
+\begin{align}
+a_{i-1,m}^{*,im} &= -\frac{D_{i,m} \epsilon_{m}}{2\delta_{i}}  \nonumber \\
+%
+a_{i,m-1}^{*,im} &= -\frac{D_{i,m} \delta_{i} + D_{i+1,m} \delta_{i+1}}{2 \epsilon_{m}}  \nonumber \\
+%
+a_{i+1,m}^{*,im} &= -\frac{D_{i+1,m} \epsilon_{m}}{2\delta_{i+1}} \nonumber \\
+%
+a_{n,j}^{*,im} &= \Sigma_{a,im} - \bigl(a_{i-1,m}^{*,im} + a_{i,m-1}^{*,im} + a_{i+1,m}^{*,im} \bigr)
+ \:.\nonumber
+\end{align}
+
+
 
 \end{document}
