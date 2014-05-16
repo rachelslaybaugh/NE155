@@ -5,6 +5,7 @@
 % formatting
 \documentclass[12pt]{article}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{lscape}
 
 \usepackage{setspace}
 \onehalfspacing
@@ -717,7 +718,7 @@ a_{0,3}^{13} & a_{1,3}^{13} & a_{2,3}^{13} & 0\\
 0            & a_{1,3}^{23} & a_{2,3}^{23} & a_{3,3}^{23}\\
 0            & 0            & a_{2,3}^{33} & a_{3,3}^{33}
 \end{pmatrix} 
-\end{pmatrix}}_{\ve{A}}
+\end{pmatrix}}_{\ve{A}} \nonumber
 \end{equation}
 %--------------------
 %
@@ -736,6 +737,185 @@ S_{03} \\ S_{13} \\ S_{23} \\ S_{33}
 \end{pmatrix}}_{\vec{S}} \nonumber
 \end{equation}
 
+
+\begin{minipage}{0.5\textwidth}
+%-------------- indices ------------------
+\begin{tikzpicture}
+\draw[step=2cm] (0,0) grid (6,6);
+\foreach \y in {1, 2}
+    \foreach \x in  {0, 1, 2}
+        \node[below left] at (2*\x cm,2*\y cm) {$(\x,\y)$};        
+\node[below] at (0,-.25) {$(0,0)$};
+\node[below] at (2,-.25) {$(1,0)$};
+\node[below] at (4,-.25) {$(2,0)$};
+\node[below] at (6,-.25) {$(n,0)$};
+\node[below left] at (0,6) {$(0,m)$};
+\node[below left] at (2,6) {$(1,m)$};
+\node[below left] at (4,6) {$(n-1,m)$};
+\node[below left] at (6,6) {$(n,m)$};
+\node[below left] at (6,2) {$(n,1)$};
+\node[below left] at (6,4) {$(n,m-1)$};
+\node[below left] at (6,6) {$(n,m)$};
+\end{tikzpicture}
+\end{minipage} \hfill
+%-------------- numbered nodes ------------------
+\begin{minipage}{0.5\textwidth}
+\begin{tikzpicture}
+\draw[step=2cm] (0,0) grid (6,6);
+\node[below] at (0,-.25) {$0$};
+\node[below] at (2,-.25) {$1$};
+\node[below] at (4,-.25) {$2$};
+\node[below] at (6,-.25) {$3$};
+\node[below left] at (-.25,2) {$4$};
+\node[below left] at (2,2) {$5$};
+\node[below left] at (4,2) {$6$};
+\node[below left] at (6,2) {$7$};
+\node[below left] at (-.25,4) {$8$};
+\node[below left] at (2,4) {$9$};
+\node[below left] at (4,4) {$10$};
+\node[below left] at (6,4) {$11$};
+\node[below left] at (-.25,6) {$12$};
+\node[below left] at (2,6) {$13$};
+\node[below left] at (4,6) {$15$};
+\node[below left] at (6,6) {$15$};
+\end{tikzpicture}
+\end{minipage}
+
+Our solution vector length in this example is $1 \times nm*nm$. Our matrix size is therefore going to be $n^2 m^2 \times n^2 m^2$. We can think of this as a $n \times m$ matrix of $n \times m$ matrices: ($n$ rows; $m$ columns)
+
+\begin{landscape}
+\begin{equation}
+\underbrace{\begin{pmatrix}
+\begin{pmatrix}
+a_{0,0}^{00} & a_{1,0}^{00} & 0            & 0\\
+a_{0,0}^{10} & a_{1,0}^{10} & a_{2,0}^{10} & 0 \\
+0            & a_{1,0}^{20} & a_{2,0}^{20} & a_{n,0}^{20} \\
+0            & 0            & a_{2,0}^{n0} & a_{n,0}^{n0}
+\end{pmatrix} 
+&
+\begin{pmatrix}
+a_{0,1}^{00} & 0 & 0 & 0 \\
+0 & a_{1,1}^{10} & 0 & 0 \\
+0 & 0 & a_{2,1}^{20} & 0 \\
+0 & 0 & 0 & a_{n,1}^{n0}  \\
+\end{pmatrix}
+&
+\begin{pmatrix}
+ & & & \\
+ & 0 & &\\
+ & & & \\
+ & & &
+\end{pmatrix} 
+&
+\begin{pmatrix}
+ & & & \\
+ & 0 & &\\
+ & & & \\
+ & & &
+\end{pmatrix}\\
+%--------------------
+\begin{pmatrix}
+a_{0,0}^{01} & 0 & 0 & 0\\
+0 & a_{1,0}^{11} & 0 & 0\\
+0 & 0 & a_{2,0}^{21} & 0\\
+0 & 0 & 0 & a_{n,0}^{n1} 
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,1}^{01} & a_{1,1}^{01} & 0            & 0\\
+a_{0,1}^{11} & a_{1,1}^{11} & a_{2,1}^{11} & 0\\
+0            & a_{1,1}^{21} & a_{2,1}^{21} & a_{n,1}^{21} \\
+0            & 0            & a_{2,1}^{n1} & a_{n,1}^{n1}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,2}^{01} & 0 & 0 & 0\\
+0 & a_{1,2}^{11} & 0 & 0\\
+0 & 0 & a_{2,2}^{21} & 0\\
+0 & 0 & 0 & a_{n,2}^{n1}
+\end{pmatrix} 
+&
+\begin{pmatrix}
+ & & & \\
+ & 0 & &\\
+ & & & \\
+ & & &
+\end{pmatrix}\\
+%--------------------
+\begin{pmatrix}
+ & & & \\
+ & 0 & &\\
+ & & & \\
+ & & &
+\end{pmatrix} 
+&
+\begin{pmatrix}
+a_{0,1}^{02} & 0 & 0 & 0\\
+0 & a_{1,1}^{12} & 0 & 0\\
+0 & 0 & a_{2,1}^{22} & 0\\
+0 & 0 & 0 & a_{n,1}^{n2}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,2}^{02} & a_{1,2}^{02} & 0            & 0\\
+a_{0,2}^{12} & a_{1,2}^{12} & a_{2,2}^{12} & 0\\
+0            & a_{1,2}^{22} & a_{2,2}^{22} & a_{n,2}^{22}\\
+0            & 0            & a_{2,2}^{n2} & a_{n,2}^{n2}
+\end{pmatrix} 
+&
+\begin{pmatrix}
+a_{0,m}^{02} & 0 & 0 & 0\\
+0 & a_{1,m}^{12} & 0 & 0\\
+0 & 0 & a_{2,m}^{22} & 0\\
+0 & 0 & 0 & a_{n,m}^{n2}
+\end{pmatrix} \\
+%--------------------
+\begin{pmatrix}
+ & & & \\
+ & 0 & &\\
+ & & & \\
+ & & &
+\end{pmatrix}
+&
+\begin{pmatrix}
+ & & & \\
+ & 0 & &\\
+ & & & \\
+ & & &
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,2}^{0m} & 0 & 0 & 0\\
+0 & a_{1,2}^{1m} & 0 & 0\\
+0 & 0 & a_{2,2}^{2m} & 0\\
+0 & 0 & 0 & a_{n,2}^{nm}
+\end{pmatrix}
+&
+\begin{pmatrix}
+a_{0,m}^{0m} & a_{1,m}^{0m} & 0            & 0\\
+a_{0,m}^{1m} & a_{1,m}^{1m} & a_{2,m}^{1m} & 0\\
+0            & a_{1,m}^{2m} & a_{2,m}^{2m} & a_{n,m}^{2m}\\
+0            & 0            & a_{2,m}^{nm} & a_{n,m}^{nm}
+\end{pmatrix} 
+\end{pmatrix}}_{\ve{A}} \nonumber
+\end{equation}
+\end{landscape}
+%--------------------
+%
+\begin{equation}
+\underbrace{\begin{pmatrix} 
+\phi_{0,0} \\ \phi_{1,0} \\ \phi_{n-1,0} \\ \phi_{n,0} \\ \\ 
+\phi_{0,1} \\ \phi_{1,1} \\ \phi_{n-1,1} \\ \phi_{n,1} \\ \\ 
+\phi_{0,m-1} \\ \phi_{1,m-1} \\ \phi_{n-1,m-1} \\ \phi_{n,m-1} \\ \\
+\phi_{0,m} \\ \phi_{1,m} \\ \phi_{n-1,m} \\ \phi_{n,m} \end{pmatrix}}_{\vec{\phi}} =
+%
+\underbrace{\begin{pmatrix} 
+S_{00} \\ S_{10} \\ S_{(n-1)0} \\ S_{n0} \\ \\ 
+S_{01} \\ S_{11} \\ S_{(n-1)1} \\ S_{n1} \\ \\ 
+S_{0(m-1)} \\ S_{1(m-1)} \\ S_{(n-1)(m-1)} \\ S_{n(m-1)} \\ \\ 
+S_{0m} \\ S_{13} \\ S_{(n-1)m} \\ S_{nm}
+\end{pmatrix}}_{\vec{S}} \nonumber
+\end{equation}
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
