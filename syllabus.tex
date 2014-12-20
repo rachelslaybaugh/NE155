@@ -10,12 +10,13 @@
 \usepackage[top=0.75in, bottom=0.75in, left=1in, right=1in]{geometry}
 \pagestyle{empty}
 \usepackage{tabu}
+\usepackage{hyperref}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \begin{document}
 
 \begin{center}
-{\bf NE 155 - Introduction to Numerical Simulations in Radiation Transport \\ MWF 11:00 AM - 12:00 PM,  Room: 5 Evans Hall  
+{\bf NE 155 - Introduction to Numerical Simulations in Radiation Transport \\ MWF 11:00 AM - 12:00 PM,  Room: 3102 Etcheverry Hall  
 }
 \end{center}
 
@@ -32,35 +33,34 @@
 \noindent\textbf{Office Hours:} 2:00-3:00 PM MF and by  appointment.
 
 \vskip.25in
-\noindent\textbf{GSI:} Madicken Munk
+\noindent\textbf{GSI:} TBD
 \vskip.25in
-\noindent\textbf{GSI Office Hours:} 10:00-11:00 AM T; 1:00-2:00 PM T by appointment
+\noindent\textbf{GSI Office Hours:} TBD
 
 \vskip.25in
-\noindent\textbf{Course Website:} https://bcourses.berkeley.edu/courses/1195847
+\noindent\textbf{Course Website:} \href{https://bcourses.berkeley.edu/courses/1292802}{https://bcourses.berkeley.edu/courses/1292802}
 
 \vskip.25in
 \noindent\textbf{the Hacker Within:} 
 \begin{itemize}
-\item Wednesdays, 4-6 pm, 2nd floor of Chase Building (by the BART)
+\item Wednesdays, 4-6 pm, 190 Doe Library (BIDS Space)
 \item Will teach skills useful for this course
-\item Website: http://thehackerwithin.github.io/berkeley/
-\item GitHub: https://github.com/thehackerwithin/berkeley
+\item Website: \href{http://thehackerwithin.github.io/berkeley/}{http://thehackerwithin.github.io/berkeley/}
+\item GitHub: \href{https://github.com/thehackerwithin/berkeley}{https://github.com/thehackerwithin/berkeley}
 \end{itemize}
 
 \vskip.25in
 \noindent\textbf{Course Description:}
-Computational methods used to analyze radiation transport described by various differential, integral, and integro­differential equations. Numerical methods include finite difference, finite elements, discrete ordinates, and Monte Carlo. Examples from neutron and photon transport; numerical solutions of neutron/photon diffusion and transport equations. Monte Carlo simulations of photon and neutron transport. An overview of optimization techniques for solving the resulting discrete equations on vector and parallel computer systems.
+Computational methods used to analyze radiation transport described by various differential, integral, and integro­differential equations. Numerical methods include finite difference, finite elements, discrete ordinates, and Monte Carlo. Examples from neutron and photon transport; numerical solutions of neutron/photon diffusion and transport equations. %Monte Carlo simulations of photon and neutron transport. An overview of optimization techniques for solving the resulting discrete equations on vector and parallel computer systems.
 
 \vskip.25in
-\noindent\textbf{Prerequisites:} Math 53 and 54 (Eng 7 recommended)
+\noindent\textbf{Prerequisites:} Math 53 and 54 (Eng 7 strongly recommended)
 
 \vskip.25in
 \noindent\textbf{References:}
 \begin{itemize}
-\item Course notes + handouts
-\item \underline{Either} \emph{Numerical Computing with MATLAB} by Cleve Moler \\(http://www.mathworks.com/moler/chapters.html)
-\item \underline{OR} Choose a Python Ebook that fits your needs: http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html
+\item Course notes + handouts: \href{https://github.com/rachelslaybaugh/NE155}{https://github.com/rachelslaybaugh/NE155}
+\item Choose a Python Ebook that fits your needs: \href{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}
 \item E. E. Lewis, W. E. Miller Jr., ``Computational Methods of Neutron Transport," J. Wiley \& Sons, 1984.
 \end{itemize}
 
@@ -75,9 +75,9 @@ Computational methods used to analyze radiation transport described by various d
 
 \noindent\textbf{Computer Information:} 
 \begin{itemize}
-\item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF) (1171 and 1111 Etcheverry): http://www.decf.berkeley.edu/
-\item We will use the Serpent Monte Carlo code (http://montecarlo.vtt.fi/) in this course
-\item a package with Python and many useful support libraries (called Anaconda) can be downloaded from http://continuum.io/downloads
+\item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF) (1171 and 1111 Etcheverry): \href{http://www.decf.berkeley.edu/}{http://www.decf.berkeley.edu/}
+\item We will use the Serpent Monte Carlo code (\href{http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/}) in this course
+\item a package with Python and many useful support libraries (called Anaconda) can be downloaded from \href{http://continuum.io/downloads}{http://continuum.io/downloads}
 %\item License for MCNP6 (B00004-MNYCP-02) is obtained through RSICC:\\
 %http://rsicc.ornl.gov/Registration.aspx (apply for the EXE package only)
 \end{itemize}
@@ -165,107 +165,107 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
 \vskip.25in
 \noindent\textbf{Attendance}: Students are expected to attend classes regularly. A student who incurs an excessive number of absences may be withdrawn from a class at the discretion of the professor.
 
-\vskip.25in
-\noindent\textbf{Schedule}:
-
-\begin{tabu}{| c | l | X | c |}\hline
-Lecture & Date & Topic & HW Due\\
-\hline
-1 & Jan 22 & Intro, organization, overview \& goals &   \\
-\hline
-2 & Jan 24 & Intro to computational science and engineering & \\                                                                  
-\hline
-3 & Jan 27 & Types of differential and integral equations in radiation transport & \\
-\hline
-4 & Jan 29 & Fundamentals of numerical methods - matrix algebra & \\
-\hline
-5 & Jan 31 & Linear Systems of Equations & \\
-\hline
-6 & Feb 3 & Iterative Solution of Linear Systems of Equations & \\
-\hline
-7 & Feb 5 & Vector and matrix norms; eigenvalues and eigenvectors of a matrix; spectral radius of a matrix & 1 \\
-\hline 
-
-
-8 & Feb 7 & Approximation and interpolations & \\
-\hline 
-9 & Feb 10 & Numerical differentiation and integration & \\
-\hline 
-10 & Feb 12 & Legendre polynomials and Gauss-­Legendre quadratures & \\
-\hline 
-11 & Feb 14 & Direct solution by Gaussian elimination. & \\
-\hline 
-& Feb 17 & President's Day - no class & \\
-\hline 
-12 & Feb 19 & Jacobi, Gauss ­Seidel and SOR methods & \\
-\hline 
-13 & Feb 21 & Introduction to Matlab & \\
-\hline 
-14 & Feb 24 & Intro to the finite difference method for 1-D diffusion & \\
-\hline 
-15 & Feb 26 & Intro to the finite volume method for 1-D diffusion & \\
- \hline 
-16 & Mar 1 & Fixed-source problems using finite difference and finiie volume methods & \\
-\hline 
-17 & Mar 3 & Eigenvalue problems using finite difference and finiie volume methods & \\
-\hline 
-18 & Mar 5 & Finite difference method for 1-D diffusion & \\
-\hline 
-19 & Mar 7 & Finite element method for 1-D diffusion & \\
-\hline 
-20 & Mar 10 & Introduction to Monte Carlo method & \\
-\hline 
-\end{tabu}
-
-\begin{tabu}{| c | l | X | c |}\hline
-21 & Mar 12 & Introduction to the MCNP & \\
-\hline 
-22 & Mar 14 & Analog Monte Carlo; non-analog Monte Carlo; categories of random sampling; ariance reduction methods & \\
-\hline 
-23 & Mar 17 & Monte Carlo ­ random number generators; basic statistics definitions; error estimates. & \\
-\hline 
-24 & Mar 19 & Monte Carlo method for neutron and photon transport & MT \\
-\hline 
-25 & Mar 21 & Monte Carlo method for neutron and photon transport & \\
-\hline 
-& Mar 24-28 & Spring Recess - no class & \\
- \hline  
-26 & Mar 31 &  & \\
-\hline 
-27 & Apr 2 &  & \\
-\hline 
-28 & Apr 4 &  & \\
-\hline 
-29 & Apr 7 &  & \\
-\hline 
-30 & Apr 9 &  & \\
-\hline 
-31 & Apr 11 &  & \\
-\hline 
-32 & Apr 14 &  & \\
-\hline 
-33 & Apr 16 &  & \\
-\hline 
-34 & Apr 18 &  & \\
-\hline 
-35 & Apr 21 &  & \\
-\hline 
-36 & Apr 23 &  & \\
-\hline 
-37 & Apr 25 &  & \\
-\hline 
-38 & Apr 28 &  & \\
-\hline 
-39 & Apr 30 &  & \\
-\hline 
-40 & May 2 &  & \\
-\hline 
-41 & May 5 &  & \\
-\hline 
-42 & May 7 &  & \\
-\hline 
-43 & May 9 &  & \\
-\hline 
-\end{tabu}
+%\vskip.25in
+%\noindent\textbf{Schedule}:
+%
+%\begin{tabu}{| c | l | X | c |}\hline
+%Lecture & Date & Topic & HW Due\\
+%\hline
+%1 & Jan 22 & Intro, organization, overview \& goals &   \\
+%\hline
+%2 & Jan 24 & Intro to computational science and engineering & \\                                                                  
+%\hline
+%3 & Jan 27 & Types of differential and integral equations in radiation transport & \\
+%\hline
+%4 & Jan 29 & Fundamentals of numerical methods - matrix algebra & \\
+%\hline
+%5 & Jan 31 & Linear Systems of Equations & \\
+%\hline
+%6 & Feb 3 & Iterative Solution of Linear Systems of Equations & \\
+%\hline
+%7 & Feb 5 & Vector and matrix norms; eigenvalues and eigenvectors of a matrix; spectral radius of a matrix & 1 \\
+%\hline 
+%
+%
+%8 & Feb 7 & Approximation and interpolations & \\
+%\hline 
+%9 & Feb 10 & Numerical differentiation and integration & \\
+%\hline 
+%10 & Feb 12 & Legendre polynomials and Gauss-­Legendre quadratures & \\
+%\hline 
+%11 & Feb 14 & Direct solution by Gaussian elimination. & \\
+%\hline 
+%& Feb 17 & President's Day - no class & \\
+%\hline 
+%12 & Feb 19 & Jacobi, Gauss ­Seidel and SOR methods & \\
+%\hline 
+%13 & Feb 21 & Introduction to Matlab & \\
+%\hline 
+%14 & Feb 24 & Intro to the finite difference method for 1-D diffusion & \\
+%\hline 
+%15 & Feb 26 & Intro to the finite volume method for 1-D diffusion & \\
+% \hline 
+%16 & Mar 1 & Fixed-source problems using finite difference and finiie volume methods & \\
+%\hline 
+%17 & Mar 3 & Eigenvalue problems using finite difference and finiie volume methods & \\
+%\hline 
+%18 & Mar 5 & Finite difference method for 1-D diffusion & \\
+%\hline 
+%19 & Mar 7 & Finite element method for 1-D diffusion & \\
+%\hline 
+%20 & Mar 10 & Introduction to Monte Carlo method & \\
+%\hline 
+%\end{tabu}
+%
+%\begin{tabu}{| c | l | X | c |}\hline
+%21 & Mar 12 & Introduction to the MCNP & \\
+%\hline 
+%22 & Mar 14 & Analog Monte Carlo; non-analog Monte Carlo; categories of random sampling; ariance reduction methods & \\
+%\hline 
+%23 & Mar 17 & Monte Carlo ­ random number generators; basic statistics definitions; error estimates. & \\
+%\hline 
+%24 & Mar 19 & Monte Carlo method for neutron and photon transport & MT \\
+%\hline 
+%25 & Mar 21 & Monte Carlo method for neutron and photon transport & \\
+%\hline 
+%& Mar 24-28 & Spring Recess - no class & \\
+% \hline  
+%26 & Mar 31 &  & \\
+%\hline 
+%27 & Apr 2 &  & \\
+%\hline 
+%28 & Apr 4 &  & \\
+%\hline 
+%29 & Apr 7 &  & \\
+%\hline 
+%30 & Apr 9 &  & \\
+%\hline 
+%31 & Apr 11 &  & \\
+%\hline 
+%32 & Apr 14 &  & \\
+%\hline 
+%33 & Apr 16 &  & \\
+%\hline 
+%34 & Apr 18 &  & \\
+%\hline 
+%35 & Apr 21 &  & \\
+%\hline 
+%36 & Apr 23 &  & \\
+%\hline 
+%37 & Apr 25 &  & \\
+%\hline 
+%38 & Apr 28 &  & \\
+%\hline 
+%39 & Apr 30 &  & \\
+%\hline 
+%40 & May 2 &  & \\
+%\hline 
+%41 & May 5 &  & \\
+%\hline 
+%42 & May 7 &  & \\
+%\hline 
+%43 & May 9 &  & \\
+%\hline 
+%\end{tabu}
 
 \end{document}
