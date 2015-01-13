@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{decorations.fractals}
+\usepackage{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -17,23 +18,52 @@
 \usefonttheme{serif}
 \usepackage{palatino}
 \usepackage{tabu}
+% Links
+\usepackage{hyperref}
+\definecolor{links}{HTML}{003262}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
 
 % addition of color
 \usepackage{xcolor}
+\definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{byellow}{rgb}{0.55037, 0.38821, 0.06142}
 \definecolor{dgreen}{rgb}{0.,0.6,0.}
 \definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\definecolor{forestgreen(web)}{rgb}{0.13, 0.55, 0.13}
+\definecolor{cardinal}{rgb}{0.77, 0.12, 0.23}
 
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{frametitle}{shape=\scshape}
 
-\setbeamercolor*{lower separation line head}{bg=CoolBlack} 
-\setbeamercolor*{normal text}{fg=black,bg=white} 
-\setbeamercolor*{alerted text}{fg=red} 
-\setbeamercolor*{example text}{fg=black} 
-\setbeamercolor*{structure}{fg=black} 
- 
-\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
-\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+\setbeamercolor*{lower separation line head}{bg=CoolBlack}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=dgreen} % just testing; I think this looks better
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=black}
+
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+
+% Margins
+\usepackage{changepage}
+
+\mode<presentation>
+{
+  \definecolor{berkeleyblue}{HTML}{003262}
+  \definecolor{berkeleygold}{HTML}{FDB515}
+  \usetheme{Boadilla}      % or try Darmstadt, Madrid, Warsaw, Boadilla...
+  %\usecolortheme{dove} % or try albatross, beaver, crane, ...
+  \setbeamercolor{structure}{fg=berkeleyblue,bg=berkeleygold}
+  \setbeamercolor{palette primary}{bg=berkeleyblue,fg=white} % changed this
+  \setbeamercolor{palette secondary}{fg=berkeleyblue,bg=berkeleygold} % changed this
+  \setbeamercolor{palette tertiary}{bg=berkeleyblue,fg=white} % changed this
+  \usefonttheme{structurebold}  % or try serif, structurebold, ...
+  \useinnertheme{circles}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \usebackgroundtemplate{}
+}
+%---
 
 \renewcommand{\(}{\begin{columns}}
 \renewcommand{\)}{\end{columns}}
@@ -59,6 +89,10 @@
 \usepackage{epsfig}
 \usepackage{amsmath}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title stuff for footer
+\title{NE 155}
+\author{R.\ N.\ Slaybaugh}
+\date{January 21, 2014}
 
 \begin{document}
 
@@ -67,13 +101,6 @@
 \begin{frame}
 \title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
 \subtitle{Lecture 1: Introduction}
-\author{
-        Rachel Slaybaugh\\
-        \vspace*{1em}
-        {\it University of California, Berkeley\\
-         Department of Nuclear Engineering}\\
-}
-\date{January 22, 2014}
 \titlepage
 \end{frame}
 
@@ -84,16 +111,18 @@
 \item Asst. Prof. Slaybaugh, 4173 Etcheverry Hall\\
       Email: slaybaugh@berkeley.edu \\
       Phone: 570-850-3385
-\item Office hours: MF, 2 - 3 pm
-\item GSI: Madicken Munk, madicken@berkeley.edu\\
-      O\textit{•}ffice hours:
-\item Prerequisites: Math 53 and 54
+\item Office hours: F, 2 - 3 pm
+%\item GSI: Madicken Munk, madicken@berkeley.edu\\
+%      Office hours:
+\item Prerequisites: Math 53 and 54 (Eng 7 rec)
 \item Prerequisite knowledge and skills: 
 \begin{itemize}
 \item Solve linear, first, and second order differential equations
 \item Linear algebra, vector calculus
-\item Computer language knowledge: C, C++, FORTRAN, Python, or MATLAB	
+\item Computer language knowledge: Python, C, C++, FORTRAN, or MATLAB	
 \end{itemize}
+\item Class github page: \href{https://github.com/rachelslaybaugh/NE155}{https://github.com/rachelslaybaugh/NE155}
+\item Many materials will also be on bCourses
 \end{itemize}
 \end{frame}
 
@@ -103,9 +132,11 @@
 \begin{itemize}
 \item Course notes + handouts
 \item E. E. Lewis, W. E. Miller Jr., ``Computational Methods of Neutron Transport," J. Wiley \& Sons, 1984.
-\item Ebook: \emph{Numerical Computing with MATLAB} by Cleve Moler (http://www.mathworks.com/moler/index\_ncm.html) OR
+%\item Ebook: \emph{Numerical Computing with MATLAB} by Cleve Moler (http://www.mathworks.com/moler/index\_ncm.html) OR
 \item Choose a Python Ebook that fits your needs:
-http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html
+\href{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}
+\item The Hacker Within: \href{http://thehackerwithin.github.io/berkeley/}{http://thehackerwithin.github.io/berkeley/}
+\item Software Carpentry: \href{http://software-carpentry.org/lessons.html}{http://software-carpentry.org/lessons.html}
 \end{itemize}
 \end{frame}
 
@@ -124,10 +155,10 @@ Final Project & 30\%
 Class computer lab accounts
 \begin{itemize}
 \item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF)
-\item DECF (1171 and 1111 Etcheverry): http://www.decf.berkeley.edu/
+\item DECF (1171 and 1111 Etcheverry): \href{http://www.decf.berkeley.edu/}{http://www.decf.berkeley.edu/}
 %\item License for MCNP6 (B00004-MNYCP-02) is obtained through RSICC: http://rsicc.ornl.gov/Registration.aspx
 %\item Apply for the EXE package only
-\item We will use the Serpent Monte Carlo code (http://montecarlo.vtt.fi/)
+\item We might use the Serpent Monte Carlo code (\href{http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/})
 \end{itemize}
 \end{frame}
 
@@ -146,10 +177,10 @@ Class computer lab accounts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Course Objectives}
 \begin{itemize}
-\item Introduce the specific features of Serpent, a production level Monte Carlo code for simulation of neutron and photon transport in complex geometries, and illustrate the use of Serpent in various areas of nuclear engineering.
-\item Introduction to the Monte Carlo N Particle (MCNP) code.
+%\item Introduce the specific features of Serpent, a production level Monte Carlo code for simulation of neutron and photon transport in complex geometries, and illustrate the use of Serpent in various areas of nuclear engineering.
+%\item Introduction to the Monte Carlo N Particle (MCNP) code.
 \item Develop computational skills that will be useful in many upper-division courses and/or in future employment.%may be required for the upper-division design course (NE 170) and/or graduate-level reactor physics, reactor design or numerical analysis courses.
-\item Introduction to parallel computing concepts.
+%\item Introduction to parallel computing concepts.
 \end{itemize}
 \end{frame}
 
@@ -223,18 +254,18 @@ Thus, we distinguish it from \textcolor{dgreen}{computer science}, which is the 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The Hacker Within}
-Learn/teach skills to be a successful computational scientist
-\begin{itemize}
-\item Brand new chapter at Berkeley
-\item Wednesdays, 4-6 pm, 2nd floor of Chase Building (by the BART)
-\item Will teach skills useful for this course
-\item Valuable resource; lots of fun
-\item Website: http://thehackerwithin.github.io/berkeley/
-\item GitHub: https://github.com/thehackerwithin/berkeley
-\item in the news: http://www.news.wisc.edu/19236
-\end{itemize}
-\end{frame}
+%\begin{frame}{The Hacker Within}
+%Learn/teach skills to be a successful computational scientist
+%\begin{itemize}
+%\item Brand new chapter at Berkeley
+%\item Wednesdays, 4-6 pm, 2nd floor of Chase Building (by the BART)
+%\item Will teach skills useful for this course
+%\item Valuable resource; lots of fun
+%\item Website: http://thehackerwithin.github.io/berkeley/
+%\item GitHub: https://github.com/thehackerwithin/berkeley
+%\item in the news: http://www.news.wisc.edu/19236
+%\end{itemize}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

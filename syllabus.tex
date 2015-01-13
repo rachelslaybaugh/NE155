@@ -11,6 +11,7 @@
 \pagestyle{empty}
 \usepackage{tabu}
 \usepackage{hyperref}
+\usepackage{csvsimple}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \begin{document}
@@ -30,15 +31,17 @@
 \vskip.25in
 \noindent\textbf{Instructor:} Rachel Slaybaugh,  4173 Etcheverry Hall,\\ \hspace*{0.95 in}slaybaugh@berkeley.edu,  570-850-3385
 \vskip.25in
-\noindent\textbf{Office Hours:} 2:00-3:00 PM MF and by  appointment.
+\noindent\textbf{Office Hours:} 2:00-3:00 PM Fridays and by  appointment.
+
+%\vskip.25in
+%\noindent\textbf{GSI:} TBD
+%\vskip.25in
+%\noindent\textbf{GSI Office Hours:} TBD
 
 \vskip.25in
-\noindent\textbf{GSI:} TBD
-\vskip.25in
-\noindent\textbf{GSI Office Hours:} TBD
+\noindent\textbf{bCourses Site:} \href{https://bcourses.berkeley.edu/courses/1292802}{https://bcourses.berkeley.edu/courses/1292802}
 
-\vskip.25in
-\noindent\textbf{Course Website:} \href{https://bcourses.berkeley.edu/courses/1292802}{https://bcourses.berkeley.edu/courses/1292802}
+\noindent\textbf{Course GitHub page:} \href{https://github.com/rachelslaybaugh/NE155}{https://github.com/rachelslaybaugh/NE155}
 
 \vskip.25in
 \noindent\textbf{the Hacker Within:} 
@@ -75,9 +78,10 @@ Computational methods used to analyze radiation transport described by various d
 
 \noindent\textbf{Computer Information:} 
 \begin{itemize}
-\item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF) (1171 and 1111 Etcheverry): \href{http://www.decf.berkeley.edu/}{http://www.decf.berkeley.edu/}
-\item We will use the Serpent Monte Carlo code (\href{http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/}) in this course
-\item a package with Python and many useful support libraries (called Anaconda) can be downloaded from \href{http://continuum.io/downloads}{http://continuum.io/downloads}
+  \item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF) (1171 and 1111 Etcheverry): \href{http://www.decf.berkeley.edu/}{http://www.decf.berkeley.edu/}
+  \item a package with Python and many useful support libraries (called Anaconda) can be downloaded from \href{http://continuum.io/downloads}{http://continuum.io/downloads}
+  \item Software Carpentry has lots of useful lessons: \href{http://software-carpentry.org/lessons.html}{http://software-carpentry.org/lessons.html}
+  \item We may use the Serpent Monte Carlo code (\href{http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/}) in this course
 %\item License for MCNP6 (B00004-MNYCP-02) is obtained through RSICC:\\
 %http://rsicc.ornl.gov/Registration.aspx (apply for the EXE package only)
 \end{itemize}
@@ -88,24 +92,22 @@ Computational methods used to analyze radiation transport described by various d
 \item Introduction
   \begin{enumerate}
   \item Overview of computational science/engineering 
-  \item A brief history of computer technology 
+  \item History of computing and parallelization
   \item Types of differential and integral equations in radiation transport
-    \begin{enumerate}
-    \item Integro-­differential form of transport equation 
-    \item Integral form of transport equation 
-    \item Diffusion approximation to transport equation 
-    \item Point ­kinetics equation; depletion equation
-    \end{enumerate}
-  \item Review of numerical simulations: deterministic and probabilistic methods
+%    \begin{enumerate}
+%    \item Integro-­differential form of transport equation 
+%    \item Integral form of transport equation 
+%    \item Diffusion approximation to transport equation 
+%    \item Point ­kinetics equation; depletion equation
+%    \end{enumerate}
+  \item Overview of numerical simulations: deterministic and probabilistic methods
   \end{enumerate}
 
 \item Review of numerical analysis fundamentals
   \begin{enumerate}
-  \item Basic linear algebra and matrix inversion
-  \item Systems of linear algebraic equations
-  \item Direct methods for solving linear systems; Gaussian elimination; pivoting strategies; techniques for special matrices
-  \item Vector and matrix norms
+  \item Vector and matrix properties
   \item Eigenvalues and eigenvectors of a matrix; spectral radius of a matrix; convergence of vectors and matrices
+  \item Direct methods for solving linear systems; Gaussian elimination; pivoting strategies; techniques for special matrices
   \item Iterative methods for solving linear systems: Jacobi, Gauss ­Seidel and SOR Methods
   \item Interpolation and polynomial approximation
   \item Numerical differentiation and integration
@@ -163,12 +165,69 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
 \noindent\textbf{Extra Help}:  Do not hesitate to come to my office during office hours or by appointment to discuss a homework problem or any aspect of the course. 
 
 \vskip.25in
-\noindent\textbf{Attendance}: Students are expected to attend classes regularly. A student who incurs an excessive number of absences may be withdrawn from a class at the discretion of the professor.
+\noindent\textbf{Attendance}: Students are expected to attend classes regularly. A student who incurs an excessive number of absences may be withdrawn from this class at my discretion.
 
-%\vskip.25in
-%\noindent\textbf{Schedule}:
-%
-%\begin{tabu}{| c | l | X | c |}\hline
+\clearpage
+\noindent\textbf{Schedule}:\\
+
+\begin{tabu}{| c | l | X | c | c |}
+    \multicolumn{1}{c}{Lecture} & \multicolumn{1}{c}{Date} & \multicolumn{1}{c}{Topic} & \multicolumn{1}{c}{Assigned} & \multicolumn{1}{c}{Due} \\
+    \hline
+    1     & 21-Jan & intro, organization, intro to computing & hw 1  &  \\
+    2     & 23-Feb & parallelization; types of equations &       & hw 1 \\
+    3     & 26-Jan & solution method overview &       &  \\
+    4     & 28-Jan & linear algebra review &       &  \\
+    5     & 30-Jan & linear algebra review &       &  \\
+    6     & 2-Feb & linear algebra review & hw 2  &  \\
+    7     & 4-Feb & interpolation &       &  \\
+    8     & 6-Feb & interpolation cont'd approximation &       &  \\
+    9     & 9-Feb & numerical differentiation &       &  \\
+    10    & 11-Feb & numerical integration & hw 3  & hw 2 \\
+    11    & 13-Feb & direct solvers &       &  \\
+    -     & 16-Feb & \textit{President's Day} & \textit{} &  \\
+    12    & 18-Feb & iterative solvers &       &  \\
+    13    & 20-Feb & iterative solvers & hw 4  & hw 3 \\
+    14    & 23-Feb & transport equation &       &  \\
+    15    & 25-Feb & transport equation &       &  \\
+    16    & 27-Feb & transport equation &       &  \\
+    17    & 2-Mar & transport equation &       &  \\
+    18    & 4-Mar & diffusion equation & hw 5  & hw 4 \\
+    19    & 6-Mar & 1-D finite diff intro &       &  \\
+    20    & 9-Mar & 1-D finite volume intro &       & hw 5 \\
+\hline
+\end{tabu}%
+\begin{tabu}{| c | l | X | c | c |}
+\hline
+    21    & 11-Mar & \textbf{midterm 1} & \textbf{} &  \\
+    22    & 13-Mar & FVM for 1-D eigenvalue &       &  \\
+    23    & 16-Mar & FVM for 1-D eigenvalue cont'd & hw 6  &  \\
+    24    & 18-Mar & FVM for 2-D &       &  \\
+    25    & 10-Mar & FVM for 2-D &       &  \\
+    -     & 23-27 Mar & \textit{spring break} & \textit{} &  \\
+    26    & 30-Mar & project planning, review midterm and FVM & hw 7  & hw 6 \\
+    27    & 1-Apr & point kinetics &       &  \\
+    28    & 3-Apr & Taylor and Runge Kutta &       &  \\
+    29    & 6-Apr & predictor-corrector methods &       & abstract \\
+    30    & 8-Apr & Monte Carlo intro & hw 8  & hw 7 \\
+    31    & 10-Apr & Monte Carlo random \# generators &       &  \\
+    32    & 13-Apr & Monte Carlo random sampling &       &  \\
+    33    & 15-Apr & Monte Carlo random sampling &       & hw 8 \\
+    34    & 17-Apr & Monte Carlo statiscs &       &  \\
+    35    & 20-Apr & Monte Carlo transport algorithm &       & interim report \\
+    36    & 22-Apr & Monte Carlo tallies  &       &  \\
+    37    & 24-Apr & exam review, MC wrap up &       &  \\
+    38    & 27-Apr & \textbf{midterm 2} & \textbf{} &  \\
+    39    & 29-Apr & variance reduction &       &  \\
+    40    & 1-May & review midterm 2, go over presentation/report expectations &       &  \\
+    -     & 4-9 May & \textit{RRR week} & \textit{} &  \\
+    final & 12-May & Final reports; 7-10 pm &       &  \\
+\hline
+\end{tabu}%
+
+%\begin{tabu}{| c | l | X | c | c |}\hline
+%\csvreader{2015CourseSchedule.csv}{}\\
+%\hline
+%\end{tabu}
 %Lecture & Date & Topic & HW Due\\
 %\hline
 %1 & Jan 22 & Intro, organization, overview \& goals &   \\
@@ -267,5 +326,79 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
 %43 & May 9 &  & \\
 %\hline 
 %\end{tabu}
+
+%1. ACCOMMODATION OF RELIGIOUS CREED
+%In compliance with Education code, Section 92640(a), it is the official policy of the University of California at Berkeley to permit any student to undergo a test or examination, without penalty, at a time when that activity would not violate the student's religious creed, unless administering the examination at an alternative time would impose an undue hardship that could not reasonably have been avoided. Requests to accommodate a student's religious creed by scheduling tests or examinations at alternative times should be submitted directly to the faculty member responsible for administering the examination by the second week of the semester.
+%
+%Reasonable common sense, judgment and the pursuit of mutual goodwill should result in the positive resolution of scheduling conflicts. The regular campus appeals process applies if a mutually satisfactory arrangement cannot be achieved.
+%
+%The link to this policy is available in the Religious Creed section of the Academic Calendar webpage.
+%
+%2. CONFLICTS BETWEEN EXTRACURRICULAR ACTIVITIES AND ACADEMIC REQUIREMENTS
+%The Academic Senate has established Guidelines Concerning Scheduling Conflicts with Academic Requirements to address the issue of conflicts that arise between extracurricular activities and academic requirements. These policies specifically concern the schedules of student athletes, student musicians, those with out-of-town interviews, and other students with activities (e.g., classes missed as the result of religious holy days) that compete with academic obligations.
+%
+%These policies were updated in Spring 2014 to include the following statement:
+%
+%-The pedagogical needs of the class are the key criteria when deciding whether a proposed accommodation is appropriate. Faculty must clearly articulate the specific pedagogical reasons that prevent accepting a proposed accommodation. Absent such a reason, the presumption should be that accommodations are to be made.
+%
+%The guidelines assign responsibilities as follows:
+%
+%-It is the instructor?s responsibility to give students a schedule, available on the syllabus in the first week of instruction, of all class sessions, exams, tests, project deadlines, field trips, and any other required class activities.
+%
+%-It is the student?s responsibility to notify the instructor(s) in writing by the second week of the semester of any potential conflict(s) and to recommend a solution, with the understanding that an earlier deadline or date of examination may be the most practicable solution.
+%
+%-It is the student?s responsibility to inform him/herself about material missed because of an absence, whether or not he/she has been formally excused.
+%
+%The complete guidelines are available on the Academic Senate website. Additionally, a checklist to help instructors and students comply with the guidelines is available on the Center for Teaching and Learning website.
+%
+%3. ABSENCES DUE TO ILLNESS
+%Instructors are asked to refrain from general requirements for written excuses from medical personnel for absence due to illness. Many healthy people experience a mild-to-moderate illness and recover without the need to seek medical attention. University Health Services does not have the capacity to evaluate such illnesses and provide documentation excusing student absences. However, UHS will continue to provide documentation when a student is being treated by Tang for an illness that necessitates a change in course load or an incomplete.
+%
+%From time-to-time the Academic Senate has issued guidance concerning missed classes and exams due to illnesses such as influenza advising that students not attend class if they have a fever. Should a student experience repeated absences due to illness, it may be appropriate for the faculty member to ask the student to seek medical advice. The Senate guidelines advise faculty to use flexibility and good judgment in determining whether to excuse missed work, extend deadlines, or substitute an alternative assignment. Only the Committee on Courses of Instruction (COCI) can waive the final exam. However, a department chair can authorize an instructor to offer an alternative format for a final exam (e.g., paper, take-home exam) on a one-time basis (http://academic-senate.berkeley.edu/committees/coci/toolbox#16).
+%
+% 
+%
+%4. READING, REVIEW, RECITATION (RRR) WEEK
+%The Reading, Review, Recitation (RRR) period before final exams provides students time to prepare for exams, to work on papers and projects, and to participate in optional review sessions and meetings with instructors. For the coming semesters, please keep these dates in mind:
+%
+%In Spring 2015, classes end on Friday, May 1, 2015. RRR week will take place between the last day of classes (May 1) and the first day of the final exam period (Monday, May 11, 2015).
+%
+%In Fall 2015, classes end on Friday, December 4, 2015. RRR Week will take place between the last day of classes (December 4) and the first day of the final exam period (Monday, December 14, 2015).
+%
+%Please note that the regular semester classroom will NOT be available during the RRR week unless the instructor requests it through the departmental scheduler.
+%
+%Presentations of capstone projects, oral presentations, and performances are permitted, although flexibility in scheduling may be required to accommodate students' individual schedules. The introduction of new material is not permitted. Mandatory exams or quizzes and other mandatory activities are also not permitted, with some very limited exceptions (capstone presentations, for example).
+%
+%Please keep in mind that final exams and papers or projects substituting for final exams may not be due before the final exam week.
+%
+%Detailed, updated guidelines on RRR week activities are available on the Academic Senate web site. The Office of the Registrar has posted answers to frequently-asked questions about the academic calendar.
+%
+%In addition, the Center for Teaching and Learning has prepared some suggestions on making RRR week productive for instructors and students. If you have tips or ideas you would like to have added to this page, please email teaching@berkeley.edu.
+%
+% 
+%
+%5. COMMENCEMENT CEREMONIES AND FINAL EXAMS
+%Campus policy stipulates that graduation ceremonies must take place after the conclusion of final examinations, with the exception of professional school ceremonies with graduate students only.
+%
+%For Spring 2015, final exams end at 10 pm on Friday, May 15, 2015.
+%
+%For Fall 2015, final exams end at 10pm on Friday, December 18, 2015
+%
+%The Spring 2015 Graduates Convocation will be held Saturday May 16, 2015. For more information, please see the Commencement Convocation Events Office website.
+%
+% 
+%
+%6. ACCOMMODATION FOR DISABILITY
+%Instructors are reminded of their responsibilities for accommodating disabilities in the classroom in the following areas:
+%
+%Confidentiality:  Information about a student?s disability is confidential, and may not be shared with other students.
+%Role of Instructor: Course instructors play a critical role in enabling the University to meet its obligation to appropriately accommodate students with disabilities who are registered with the Disabled Students Program (DSP) and who have been issues a Letter of Accommodation.
+%Reading Assignments:
+%In advance: Because students with print disabilities usually need assistance from the DSP Alternative Media Center, reading materials should be provided well in advance (two or more weeks) before the reading assignment due date.
+%Required or Recommended: Always indicate which course readings (including bCourse postings) are either ?required? readings, or ?recommended.?
+%Accessible Format: Reading materials (especially bCourse postings) should be provided in an ?accessible format,? e.g., clearly legible, ?clean? (without stray marks, highlighting, or mark-ups), and whenever possible, in a Word Document or word-searchable PDF.
+%For more information about accommodations for students with disabilities, please contact the Disabled Students Program at 510-642-0518 or email DSP Director Paul Hippolitus hippolitus@berkeley.edu. For more information about providing reading assignments in an accessible format, please contact Martha Velasquez directly at dspamc@berkeley.edu.
+
+
 
 \end{document}
