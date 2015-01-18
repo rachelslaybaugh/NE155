@@ -1,12 +1,4 @@
 \documentclass[12pt]{article}
-%\textwidth=7in
-%\textheight=9.5in
-%\topmargin=-1in
-%\headheight=0in
-%\headsep=.5in
-%\hoffset=-.85in
-
-%\usepackage[cm]{fullpage}
 \usepackage[top=0.75in, bottom=0.75in, left=1in, right=1in]{geometry}
 \pagestyle{empty}
 \usepackage{tabu}
@@ -39,22 +31,8 @@
 %\noindent\textbf{GSI Office Hours:} TBD
 
 \vskip.25in
-\noindent\textbf{bCourses Site:} \href{https://bcourses.berkeley.edu/courses/1292802}{https://bcourses.berkeley.edu/courses/1292802}
-
-\noindent\textbf{Course GitHub page:} \href{https://github.com/rachelslaybaugh/NE155}{https://github.com/rachelslaybaugh/NE155}
-
-\vskip.25in
-\noindent\textbf{the Hacker Within:} 
-\begin{itemize}
-\item Wednesdays, 4-6 pm, 190 Doe Library (BIDS Space)
-\item Will teach skills useful for this course
-\item Website: \href{http://thehackerwithin.github.io/berkeley/}{http://thehackerwithin.github.io/berkeley/}
-\item GitHub: \href{https://github.com/thehackerwithin/berkeley}{https://github.com/thehackerwithin/berkeley}
-\end{itemize}
-
-\vskip.25in
 \noindent\textbf{Course Description:}
-Computational methods used to analyze radiation transport described by various differential, integral, and integro­differential equations. Numerical methods include finite difference, finite elements, discrete ordinates, and Monte Carlo. Examples from neutron and photon transport; numerical solutions of neutron/photon diffusion and transport equations. %Monte Carlo simulations of photon and neutron transport. An overview of optimization techniques for solving the resulting discrete equations on vector and parallel computer systems.
+Computational methods used to analyze radiation transport described by various differential, integral, and integro­differential equations. Numerical methods include finite difference, finite volume, discrete ordinates, and Monte Carlo. Examples from neutron and photon transport; numerical solutions of neutron/photon diffusion and transport equations. %Monte Carlo simulations of photon and neutron transport. An overview of optimization techniques for solving the resulting discrete equations on vector and parallel computer systems.
 
 \vskip.25in
 \noindent\textbf{Prerequisites:} Math 53 and 54 (Eng 7 strongly recommended)
@@ -63,8 +41,9 @@ Computational methods used to analyze radiation transport described by various d
 \noindent\textbf{References:}
 \begin{itemize}
 \item Course notes + handouts: \href{https://github.com/rachelslaybaugh/NE155}{https://github.com/rachelslaybaugh/NE155}
+%\item E. E. Lewis, W. E. Miller Jr., ``Computational Methods of Neutron Transport," J. Wiley \& Sons, 1984.
+\item List of specific resources on bCourses site: \href{https://bcourses.berkeley.edu/courses/1292802}{https://bcourses.berkeley.edu/courses/\\1292802} (under Pages)
 \item Choose a Python Ebook that fits your needs: \href{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}
-\item E. E. Lewis, W. E. Miller Jr., ``Computational Methods of Neutron Transport," J. Wiley \& Sons, 1984.
 \end{itemize}
 
 \vskip.25in
@@ -76,11 +55,26 @@ Computational methods used to analyze radiation transport described by various d
 \item Late submissions: -20\% for each day it is late
 \end{itemize}
 
+%\vskip.25in
+%\noindent\textbf{bCourses Site:} \href{https://bcourses.berkeley.edu/courses/1292802}{https://bcourses.berkeley.edu/courses/1292802}
+%
+%\noindent\textbf{Course GitHub page:} \href{https://github.com/rachelslaybaugh/NE155}{https://github.com/rachelslaybaugh/NE155}
+
+\vskip.25in
+\noindent\textbf{the Hacker Within:} 
+\begin{itemize}
+\item Wednesdays, 4-6 pm, 190 Doe Library (BIDS Space)
+\item Will teach skills useful for this course
+\item Website: \href{http://thehackerwithin.github.io/berkeley/}{http://thehackerwithin.github.io/berkeley/}
+\item GitHub: \href{https://github.com/thehackerwithin/berkeley}{https://github.com/thehackerwithin/berkeley}
+\end{itemize}
+
+\clearpage
 \noindent\textbf{Computer Information:} 
 \begin{itemize}
   \item All students will get class computer lab accounts at Davis Etcheverry Computing Facility (DECF) (1171 and 1111 Etcheverry): \href{http://www.decf.berkeley.edu/}{http://www.decf.berkeley.edu/}
   \item a package with Python and many useful support libraries (called Anaconda) can be downloaded from \href{http://continuum.io/downloads}{http://continuum.io/downloads}
-  \item Software Carpentry has lots of useful lessons: \href{http://software-carpentry.org/lessons.html}{http://software-carpentry.org/lessons.html}
+  \item Software Carpentry has useful lessons: \href{http://software-carpentry.org/lessons.html}{http://software-carpentry.org/lessons.html}
   \item We may use the Serpent Monte Carlo code (\href{http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/}) in this course
 %\item License for MCNP6 (B00004-MNYCP-02) is obtained through RSICC:\\
 %http://rsicc.ornl.gov/Registration.aspx (apply for the EXE package only)
@@ -103,22 +97,23 @@ Computational methods used to analyze radiation transport described by various d
   \item Overview of numerical simulations: deterministic and probabilistic methods
   \end{enumerate}
 
-\item Review of numerical analysis fundamentals
+\item Numerical analysis fundamentals
   \begin{enumerate}
   \item Vector and matrix properties
   \item Eigenvalues and eigenvectors of a matrix; spectral radius of a matrix; convergence of vectors and matrices
-  \item Direct methods for solving linear systems; Gaussian elimination; pivoting strategies; techniques for special matrices
-  \item Iterative methods for solving linear systems: Jacobi, Gauss ­Seidel and SOR Methods
   \item Interpolation and polynomial approximation
   \item Numerical differentiation and integration
+  \item Direct methods for solving linear systems; Gaussian elimination; pivoting strategies; techniques for special matrices
+  \item Iterative methods for solving linear systems: Jacobi, Gauss ­Seidel and SOR 
   \end{enumerate}
 
 \item Neutron diffusion equation in 1-D: numerical solution of 2nd order ODEs
   \begin{enumerate}
-  \item Formulation of the finite difference equations for the ``fixed-source" problem
+  \item Derivation of the transport and diffusion equations
+  \item Formulation of the finite difference and volume equations for the ``fixed-source" problem
   \item Direct solution by Gaussian elimination
-  \item Iterative solutions by Jacobi, Gauss ­Seidel, and SOR methods
-  \item Formulation of the finite difference equation for the ``eigenvalue" (criticality) problem
+  \item Iterative solutions by Jacobi, Gauss ­Seidel, and SOR 
+  \item Formulation of the finite difference and volume equations for the eigenvalue (criticality) problem
   \item Power and inverse power iterative methods
   \item Extension to 2-D
   \end{enumerate}
@@ -159,7 +154,10 @@ Computational methods used to analyze radiation transport described by various d
 As a member of the UC Berkeley community, I act with honesty, integrity, and respect for others.
 \end{quote}
 
-\noindent The University provides some basic guidance about academic integrity: http://sa.berkeley.edu/\\conduct/integrity. Lack of knowledge of the academic honesty policy is not a reasonable explanation for a violation. Questions related to course assignments and the academic honesty policy should be directed to the instructor.
+\noindent The University provides some basic guidance about academic integrity: \href{http://sa.berkeley.edu/conduct/integrity}{http://sa.berkeley.\\edu/conduct/integrity}. Lack of knowledge of the academic honesty policy is not a reasonable explanation for a violation. Questions related to course assignments and the academic honesty policy should be directed to me.
+
+\vskip.25in
+\noindent My policy is that you may work together on homework, \textbf{but you must specifically site with whom you worked and what you did together}.
 
 \vskip.25in
 \noindent\textbf{Extra Help}:  Do not hesitate to come to my office during office hours or by appointment to discuss a homework problem or any aspect of the course. 
@@ -168,10 +166,11 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
 \noindent\textbf{Attendance}: Students are expected to attend classes regularly. A student who incurs an excessive number of absences may be withdrawn from this class at my discretion.
 
 \clearpage
-\noindent\textbf{Schedule}:\\
+\noindent\textbf{Schedule}: \textit{Note that this is subject to change}\\
 
 \begin{tabu}{| c | l | X | c | c |}
-    \multicolumn{1}{c}{Lecture} & \multicolumn{1}{c}{Date} & \multicolumn{1}{c}{Topic} & \multicolumn{1}{c}{Assigned} & \multicolumn{1}{c}{Due} \\
+\hline
+    Lecture & Date & Topic & Assigned & Due \\
     \hline
     1     & 21-Jan & intro, organization, intro to computing & hw 1  &  \\
     2     & 23-Feb & parallelization; types of equations &       & hw 1 \\
@@ -180,7 +179,7 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
     5     & 30-Jan & linear algebra review &       &  \\
     6     & 2-Feb & linear algebra review & hw 2  &  \\
     7     & 4-Feb & interpolation &       &  \\
-    8     & 6-Feb & interpolation cont'd approximation &       &  \\
+    8     & 6-Feb & interpolation cont'd; approximation &       &  \\
     9     & 9-Feb & numerical differentiation &       &  \\
     10    & 11-Feb & numerical integration & hw 3  & hw 2 \\
     11    & 13-Feb & direct solvers &       &  \\
@@ -192,18 +191,20 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
     16    & 27-Feb & transport equation &       &  \\
     17    & 2-Mar & transport equation &       &  \\
     18    & 4-Mar & diffusion equation & hw 5  & hw 4 \\
-    19    & 6-Mar & 1-D finite diff intro &       &  \\
+    19    & 6-Mar & 1-D finite difference intro &       &  \\
     20    & 9-Mar & 1-D finite volume intro &       & hw 5 \\
 \hline
 \end{tabu}%
 \begin{tabu}{| c | l | X | c | c |}
 \hline
-    21    & 11-Mar & \textbf{midterm 1} & \textbf{} &  \\
+    Lecture & Date & Topic & Assigned & Due \\
+    \hline
+    21    & 11-Mar & \textbf{Midterm 1} & \textbf{} &  \\
     22    & 13-Mar & FVM for 1-D eigenvalue &       &  \\
     23    & 16-Mar & FVM for 1-D eigenvalue cont'd & hw 6  &  \\
     24    & 18-Mar & FVM for 2-D &       &  \\
     25    & 10-Mar & FVM for 2-D &       &  \\
-    -     & 23-27 Mar & \textit{spring break} & \textit{} &  \\
+    -     & 23-27 Mar & \textit{Spring Break} & \textit{} &  \\
     26    & 30-Mar & project planning, review midterm and FVM & hw 7  & hw 6 \\
     27    & 1-Apr & point kinetics &       &  \\
     28    & 3-Apr & Taylor and Runge Kutta &       &  \\
@@ -212,15 +213,15 @@ As a member of the UC Berkeley community, I act with honesty, integrity, and res
     31    & 10-Apr & Monte Carlo random \# generators &       &  \\
     32    & 13-Apr & Monte Carlo random sampling &       &  \\
     33    & 15-Apr & Monte Carlo random sampling &       & hw 8 \\
-    34    & 17-Apr & Monte Carlo statiscs &       &  \\
+    34    & 17-Apr & Monte Carlo statistics &       &  \\
     35    & 20-Apr & Monte Carlo transport algorithm &       & interim report \\
     36    & 22-Apr & Monte Carlo tallies  &       &  \\
     37    & 24-Apr & exam review, MC wrap up &       &  \\
-    38    & 27-Apr & \textbf{midterm 2} & \textbf{} &  \\
+    38    & 27-Apr & \textbf{Midterm 2} & \textbf{} &  \\
     39    & 29-Apr & variance reduction &       &  \\
     40    & 1-May & review midterm 2, go over presentation/report expectations &       &  \\
     -     & 4-9 May & \textit{RRR week} & \textit{} &  \\
-    final & 12-May & Final reports; 7-10 pm &       &  \\
+    Final & 12-May & Final presentations; 7-10 pm &       & final report  \\
 \hline
 \end{tabu}%
 
