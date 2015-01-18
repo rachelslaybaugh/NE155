@@ -131,8 +131,7 @@
 \begin{frame}{References}
 \begin{itemize}
 \item Course notes + handouts
-\item E. E. Lewis, W. E. Miller Jr., ``Computational Methods of Neutron Transport," J. Wiley \& Sons, 1984.
-%\item Ebook: \emph{Numerical Computing with MATLAB} by Cleve Moler (http://www.mathworks.com/moler/index\_ncm.html) OR
+\item Resources ``Page" on bCourses
 \item Choose a Python Ebook that fits your needs:
 \href{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}{http://www.leettips.org/2013/02/top-10-free-python-pdf-ebooks-download.html}
 \item The Hacker Within: \href{http://thehackerwithin.github.io/berkeley/}{http://thehackerwithin.github.io/berkeley/}
@@ -166,23 +165,24 @@ Class computer lab accounts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Course Objectives}
 \begin{itemize}
-\item Review systems of linear algebraic equations, linear algebra, eigenvalues and eigenvectors of a matrix, spectral radius of a matrix, direct and iterative methods for solving linear systems, numerical differentiation and integration.
+\item Review systems of linear algebraic equations, linear algebra, eigenvalues and eigenvectors of a matrix, spectral radius of a matrix, numerical differentiation and integration, direct and iterative methods for solving linear systems.
 \item Introduce the numerical approaches used to solve fixed-source and criticality problems in analysis of neutron transport/diffusion in nuclear systems.
+\item Introduce solution methods for the point kinetics equation.
 \item Discuss the basic characteristics of deterministic and Monte Carlo approaches to numerical solution of these problems.
-\item Illustrate the advantages and disadvantages of various discretization schemes and convergence criteria, and their influence on the accuracy of particular numerical methodology.
+%\item Illustrate the advantages and disadvantages of various discretization schemes and convergence criteria, and their influence on the accuracy of particular numerical methodology.
 \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Course Objectives}
-\begin{itemize}
-%\item Introduce the specific features of Serpent, a production level Monte Carlo code for simulation of neutron and photon transport in complex geometries, and illustrate the use of Serpent in various areas of nuclear engineering.
-%\item Introduction to the Monte Carlo N Particle (MCNP) code.
-\item Develop computational skills that will be useful in many upper-division courses and/or in future employment.%may be required for the upper-division design course (NE 170) and/or graduate-level reactor physics, reactor design or numerical analysis courses.
-%\item Introduction to parallel computing concepts.
-\end{itemize}
-\end{frame}
+%\begin{frame}{Course Objectives}
+%\begin{itemize}
+%%\item Introduce the specific features of Serpent, a production level Monte Carlo code for simulation of neutron and photon transport in complex geometries, and illustrate the use of Serpent in various areas of nuclear engineering.
+%%\item Introduction to the Monte Carlo N Particle (MCNP) code.
+%\item Develop computational skills that will be useful in many upper-division courses and/or in future employment.%may be required for the upper-division design course (NE 170) and/or graduate-level reactor physics, reactor design or numerical analysis courses.
+%%\item Introduction to parallel computing concepts.
+%\end{itemize}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -194,6 +194,14 @@ Class computer lab accounts
 \item Math 128A, Numerical Analysis (solution of ordinary differential equations)
 \item Math 128B, Numerical Analysis (evaluations of eigenvalues and eigenvectors, solution of simple partial differential equations)
 \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Schedule}
+
+Let's look through the syllabus
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,7 +247,7 @@ Class computer lab accounts
 \vspace*{0.25 in}
 \underline{Theory}: Theoretical scientists use the language of mathematics to explain and predict the behavior of nature\\
 \vspace*{0.25 in}
-\underline{Computation}: Computational scientists use theoretical and experimental knowledge to create computer based models of aspects of nature
+\underline{Computation}: Computational scientists use theoretical and experimental knowledge to create computer-based models of aspects of nature
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -300,15 +308,15 @@ Using
 \item Global climate modeling
 \item Astrophysical modeling
 \item Biology: genomics; protein folding; drug design
-\item Computational Material Sciences and Nano-sciences
+\item \alert{Computational Material Sciences} and Nano-sciences
 \end{itemize}
 \item Engineering
 \begin{itemize}
 \item Semiconductor design
 \item Earthquake and structural modeling
-\item Computational fluid dynamics (air plane design)
-\item Combustion (engine design)
-\item Analysis and design of nuclear reactors
+\item \alert{Computational fluid dynamics} 
+%\item Combustion (engine design)
+\item Analysis and design of \alert{nuclear reactors}
 \end{itemize}
 \item Business
 \begin{itemize}
@@ -325,13 +333,13 @@ Using
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Big Potential}
-\begin{itemize}
-\item ``Periods of rapid advancements in the sciences have often been sparked by timely technology breakthroughs in experimental technique." 
-\item ``The next epochal period of scientific growth may be unleashed by major design breakthroughs in computer architectures and advances in modeling approaches, where supercomputers become the laboratories to test and advance new theories for which no practical experimental apparatus can be built." (1990)
-%\item Why the 90s? What's the history of computers?
-\end{itemize}
-\end{frame}
+%\begin{frame}{Big Potential}
+%\begin{itemize}
+%\item ``Periods of rapid advancements in the sciences have often been sparked by timely technology breakthroughs in experimental technique." \vspace*{1 em}
+%\item ``The next epochal period of scientific growth may be unleashed by major design breakthroughs in computer architectures and advances in modeling approaches, where supercomputers become the laboratories to test and advance new theories for which no practical experimental apparatus can be built." (1990)
+%%\item Why the 90s? What's the history of computers?
+%\end{itemize}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -381,7 +389,7 @@ Using
 \begin{itemize}
 \item In order to design economical and safe reactors, one must choose among a vast range of competing designs:
 \begin{itemize}
-\item What are the best fuels, structure, and coolant materials; what are their appropriate ratios?
+\item What are the \alert{best} fuels, structure, and coolant materials; what are their appropriate ratios?
 \item How does the reactor respond to component failures?
 \item How does one balance those choices given competing goals of performance, lifetime, safety, and capital cost?
 \end{itemize}
@@ -500,7 +508,7 @@ These kinds of simulations require time on the fastest computers in the world
 
 \vspace*{0.5 in}
 President Obama, 2011 State of the Union\\
-http://www.casl.gov/media/20110127\_news.shtml
+\href{http://www.casl.gov/media/20110127\_news.shtml}{http://www.casl.gov/media/20110127\_news.shtml}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -546,9 +554,9 @@ However, these computer simulations will not completely eliminate the need for \
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Questions?}
+\begin{frame}{Are You Up To the Challenge?}
 \begin{figure}
-\includegraphics[height=3in,clip]{math07}
+\includegraphics[height=2.5in,clip]{science}
 \end{figure}
 \end{frame}
 
