@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Class 2, NE 155
+%%  Class 1, NE 155
 %%
 
 \documentclass[xcolor=x11names,compress]{beamer}
@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{decorations.fractals}
+\usepackage{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -17,23 +18,52 @@
 \usefonttheme{serif}
 \usepackage{palatino}
 \usepackage{tabu}
+% Links
+\usepackage{hyperref}
+\definecolor{links}{HTML}{003262}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
 
 % addition of color
 \usepackage{xcolor}
+\definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{byellow}{rgb}{0.55037, 0.38821, 0.06142}
 \definecolor{dgreen}{rgb}{0.,0.6,0.}
 \definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\definecolor{forestgreen(web)}{rgb}{0.13, 0.55, 0.13}
+\definecolor{cardinal}{rgb}{0.77, 0.12, 0.23}
 
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{frametitle}{shape=\scshape}
 
-\setbeamercolor*{lower separation line head}{bg=CoolBlack} 
-\setbeamercolor*{normal text}{fg=black,bg=white} 
-\setbeamercolor*{alerted text}{fg=red} 
-\setbeamercolor*{example text}{fg=black} 
-\setbeamercolor*{structure}{fg=black} 
- 
-\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
-\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+\setbeamercolor*{lower separation line head}{bg=CoolBlack}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=dgreen} % just testing; I think this looks better
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=black}
+
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+
+% Margins
+\usepackage{changepage}
+
+\mode<presentation>
+{
+  \definecolor{berkeleyblue}{HTML}{003262}
+  \definecolor{berkeleygold}{HTML}{FDB515}
+  \usetheme{Boadilla}      % or try Darmstadt, Madrid, Warsaw, Boadilla...
+  %\usecolortheme{dove} % or try albatross, beaver, crane, ...
+  \setbeamercolor{structure}{fg=berkeleyblue,bg=berkeleygold}
+  \setbeamercolor{palette primary}{bg=berkeleyblue,fg=white} % changed this
+  \setbeamercolor{palette secondary}{fg=berkeleyblue,bg=berkeleygold} % changed this
+  \setbeamercolor{palette tertiary}{bg=berkeleyblue,fg=white} % changed this
+  \usefonttheme{structurebold}  % or try serif, structurebold, ...
+  \useinnertheme{circles}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \usebackgroundtemplate{}
+}
+%---
 
 \renewcommand{\(}{\begin{columns}}
 \renewcommand{\)}{\end{columns}}
@@ -59,6 +89,10 @@
 \usepackage{epsfig}
 \usepackage{amsmath}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title stuff for footer
+\title{NE 155}
+\author{R.\ N.\ Slaybaugh}
+\date{January 23, 2014}
 
 \begin{document}
 
@@ -66,22 +100,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
-\subtitle{Lecture 2: Computers}
-\author{
-        Rachel Slaybaugh\\
-        \vspace*{1em}
-        {\it University of California, Berkeley\\
-         Department of Nuclear Engineering}\\
-}
-\date{January 24, 2014}
+\subtitle{Lecture 2: Computing}
 \titlepage
 \end{frame}
-
-% 4) (if time; thw topic?) Discussion of parallelism architecture issues?
-%  - Moore's law continuation?
-%  - GPUs
-%  - mic chips
-%  - What happens may have a large impact on algorithms
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,7 +193,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Microprogramming, Magnetic Storage, Transistors}
 \begin{itemize}
-\item 1951: realization that CPUs can be controlled by a miniature, highly specialised computer program in high-speed ROM
+\item 1951: realization that CPUs can be controlled by a miniature, highly specialized computer program in high-speed ROM
 \item 1954: magnetic core memory was rapidly displacing most other forms of temporary storage
 \item 1956: IBM introduced the first disk storage unit: using 50 24-inch metal disks, it stored 5 MB of data for \$10,000 per MB (\$90,000 in 2014 \$s)
 \item 1947: invention of the bipolar transistor; this replaced vacuum tubes by 1955 $\rightarrow$ ``Second Generation" of computer designs
@@ -194,7 +215,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Integrated Circuit}
-With the advent of the transistor and the work on semi-conductors generally, it now seems possible to envisage electronic equipment in a solid block with no connecting wires. The block may consist of layers of insulating, conducting, rectifying and amplifying materials, the electronic functions being connected directly by cutting out areas of the various layers.\\
+With the advent of the \alert{transistor} and the work on semi-conductors generally, it now seems possible to envisage electronic equipment in a solid block with no connecting wires. The block may consist of layers of insulating, conducting, rectifying and amplifying materials, the \alert{electronic functions being connected directly} by cutting out areas of the various layers.\\
 \vspace*{1.5 em}
 \hspace*{0.5 in}Geoffrey W.A. Dummer, Royal Radar Establishment of the Ministry of Defence, 1952
 
@@ -362,33 +383,64 @@ Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GPUs}
+\begin{itemize}
+\item Graphics Processing Unit (\textbf{GPU}): highly parallel, good for processing large blocks of data
+\item General Purpose GPU (\textbf{GPGPU}): Using a GPU to do CPU work - computational science instead of graphics
+\end{itemize}
+
+\begin{center}
+NVIDIA GPU \\ \vspace*{1 em}
+\includegraphics[height=1.5in,clip]{GPU}
+\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MICs}
+\begin{itemize}
+\item  Many Integrated Core (\textbf{MIC}): combines many Intel CPU cores onto a single chip
+\item \textbf{Heterogeneous} architecture: GPUs + CPUs or MICs + CPUs, etc.
+\end{itemize}
+
+\begin{center}
+Intel Xeon Phi Board\\ \vspace*{1 em}
+\includegraphics[height=1.75in,clip]{Intel-Xeon-Phi-Board}
+\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Supercomputing}
 \subsection{Supercomputing}
 \begin{frame}{Scientific Computing Demand}
 
 \begin{center}
-\includegraphics[height=2.25in,clip]{MemoryNeeds}
+\includegraphics[height=2.75in,clip]{MemoryNeeds}
 \end{center}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Top 500 Computers, Nov 2013}
+\begin{frame}{\href{http://www.top500.org/list/2014/11/}{Top 500 Computers, Nov 2014}}
 
 \begin{center}
-\includegraphics[height=2.5in]{Top500-2013}
+\includegraphics[height=2.5in]{Supercomputers-history}
+Log y axis in GFLOPS, x axis in years
 \end{center}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Top 10 Computers, Nov 2013}
+\begin{frame}{\href{http://en.wikipedia.org/wiki/TOP500}{Top 10 Computers, Nov 2014}}
 
 \begin{center}
-\includegraphics[height=2.75in]{Top10}
+\includegraphics[height=3in]{2014-top-10}
 \end{center}
+
+%Look at the \href{http://www.top500.org/statistics/efficiency-power-cores/}{Power and Efficiency} trends.
 
 \end{frame}
 
@@ -412,17 +464,6 @@ Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Other Hardware}
-\begin{itemize}
-\item Graphics Processing Unit (\textbf{GPU}): highly parallel, good for processing large blocks of data
-\item General Purpose GPU (\textbf{GPGPU}): Using a GPU to do CPU work - computational science instead of graphics
-\item  Many Integrated Core (\textbf{MIC}): combines many Intel CPU cores onto a single chip
-\item \textbf{Heterogeneous} architecture: GPUs + CPUs
-\item Look back at that top 10 list...
-\end{itemize}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -439,7 +480,7 @@ Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
 \begin{itemize}
 \item Humans have been working to use machines for computation for a very long time
 \item The 20th century saw the development of the computers we know today $\rightarrow$ development of computational science as a field
-\item A revolution in supercomputing began at the end of the 20th century $\rightarrow$ computational science is a major contributor to knowledge
+\item A revolution in supercomputing began at the end of the 20th century $\rightarrow$ \alert{computational science is a major contributor to knowledge}
 \item We are reaching the limits of ``traditional" architecture growth
 \item What we can compute and how is tightly tied to computer architecture development
 \end{itemize}

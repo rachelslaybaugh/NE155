@@ -174,10 +174,15 @@ The advantage of distributed memory is that it excludes race conditions, and tha
 %------------------------------------------------------
 \vspace*{2em}
 \noindent \textbf{Top 500 Computers}
+\begin{itemize}
+\item Total combined performance of all 500 systems has grown to 309 Pflop/s, compared to 274 Pflop/s in June and 250 Pflop/s one year ago. This increase in installed performance also exhibits a noticeable slowdown in growth compared to the previous long-term trend.
+\item There are 50 systems with performance greater than 1 petaflop/s on the list, up from 37 six months ago.
+\item The No. 1 system, Tianhe-2, and the No. 7 system, Stampede, use Intel Xeon Phi processors to speed up their computational rate. The No. 2 system, Titan, and the No. 6 system, Piz Daint, use NVIDIA GPUs to accelerate computation.
+\item A total of 75 systems on the list are using accelerator/co-processor technology, up from 62 from November 2013. Fifty of these use NVIDIA chips, three use ATI Radeon, and there are now 25 systems with Intel MIC technology (Xeon Phi). Intel continues to provide the processors for the largest share (85.8 percent) of TOP500 systems.
+\item Ninety-six percent of the systems use processors with six or more cores and 85 percent use eight or more cores.
+\item HP has the lead in systems with 179 (36 percent) compared to IBM with 153 systems (30 percent). HP had 182 systems (36.4 percent) six months ago, and IBM had 176 systems (35.2 percent) six months ago. In the system category, Cray remains third with 62 systems (12.4 percent).
+\end{itemize}
 
-Research is steadily ahead of industry (the fastest machines are built with government grants and time on them is awarded through a competitive bid process)
-
-53\% of these machines are in the U.S., 12\% in China, 6\% in Japan.
 
 %------------------------------------------------------
 \vspace*{2em}
@@ -196,6 +201,7 @@ GPUs can be
 General Purpose GPU (GPGPU): using a GPU for computation applications usually handled by the CPU. Any GPU providing a functionally complete set of operations performed on arbitrary bits can compute any computable value. Additionally, the use of multiple graphics cards in one computer, or large numbers of graphics chips, further parallelizes the already parallel nature of graphics processing. OpenCL is the currently dominant open general-purpose GPU computing language. The dominant proprietary framework is Nvidia's CUDA.
 %http://en.wikipedia.org/wiki/GPGPU
 
+\vspace*{1em}
 \underline{MIC}: Many Integrated Core architecture  combines many Intel CPU cores onto a single chip. Developers interested in programming these cores can use standard C, C++, and FORTRAN source code. The same program source code written for Intel MIC products can be compiled and run on a standard Intel Xeon processor. The MIC architecture utilizes a high degree of parallelism in smaller, lower-power performance Intel processor cores. The result is advanced performance on highly parallel applications.
 %http://www.intel.com/content/www/us/en/architecture-and-technology/many-integrated-core/intel-many-integrated-core-architecture.html
 
