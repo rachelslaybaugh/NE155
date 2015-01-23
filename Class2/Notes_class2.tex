@@ -2,7 +2,7 @@
 
 \title{NE 155, Class 2, S14}
 \author{Rachel Slaybaugh}
-\date{January 24, 2014}
+\date{January 23, 2015}
 
 \usepackage{setspace}
 \onehalfspacing
@@ -12,12 +12,12 @@
 
 \noindent \textbf{How do we measure utility?}
 
-IPS is often specified in the millions, giving MIPS. MIPS is used to measure the integer performance of a computer. Examples of integer operation include data movement (A to B) or value testing (If $A = B$, then $C$). MIPS as a performance benchmark is adequate for the computer when it is used in database query, word processing, spreadsheets, or to run multiple virtual operating systems %(http://en.wikipedia.org/wiki/FLOPS).
+\textbf{IPS} is often specified in the millions, giving MIPS. MIPS is used to measure the integer performance of a computer. Examples of integer operation include data movement (A to B) or value testing (If $A = B$, then $C$). MIPS as a performance benchmark is adequate for the computer when it is used in database query, word processing, spreadsheets, or to run multiple virtual operating systems %(http://en.wikipedia.org/wiki/FLOPS).
 
-The clock rate of a CPU is normally determined by the frequency of an oscillator crystal. The clock rate determines how fast a processor can do work - it controls how quickly bits can be flipped (remember, what's really happening is switching between 1s and 0s).
+The \textbf{clock rate} of a CPU is normally determined by the frequency of an oscillator crystal. The clock rate determines how fast a processor can do work - it controls how quickly bits can be flipped (remember, what's really happening is switching between 1s and 0s).
 % (http://en.wikipedia.org/wiki/Clock\_rate)
 
-FLOPS measures the computing ability of a computer and includes the concept of clock rate. As such, FLOPS is a useful measure of supercomputer performance. This is the term we will use most frequently in this class. 
+\textbf{FLOPS} measures the computing ability of a computer and includes the concept of clock rate. As such, FLOPS is a useful measure of supercomputer performance. This is the term we will use most frequently in this class. 
 
 \begin{equation}
 FLOPS = cores \times clock \times \frac{FLOPs}{cycle} \nonumber
@@ -29,7 +29,7 @@ FLOPS = cores \times clock \times \frac{FLOPs}{cycle} \nonumber
 
 Devices have been used to aid computation for thousands of years, mostly using one-to-one correspondence with fingers. 
 
-The abacus was a key early invention used for arithmetic tasks. What we now call the Roman abacus was used in Babylonia as early as 2400 BC. This was the first known computer: the construction of \textbf{a tool that extended computation beyond one-to-one correspondence.} 
+The abacus was a key early invention used for arithmetic tasks. What we now call the Roman abacus was used in Babylonia as early as \textit{2400 BC}. This was the first known computer: the construction of \textbf{a tool that extended computation beyond one-to-one correspondence.} 
 
 Following the abacus there were a series of analog computers - machines designed to aid in the computation of specific tasks. These were found in ancient China, India, Greece, etc. None of the early computational devices were really computers in the modern sense, but they \textbf{took the concept of building a tool to do computation, and extended it to complex machinery.}
 
@@ -48,7 +48,7 @@ Next, mechanical calculators, punched card data processing, and calculators usin
 
 Charles Babbage, an English mechanical engineer, originated the concept of a programmable computer. Considered the ``father of the computer", he conceptualized and invented the first mechanical computer in the early 19th century. After working on his revolutionary difference engine, designed to aid in navigational calculations, he realized in 1833 that a much more general design, an Analytical Engine, was possible. 
 
-The input of programs and data was to be provided to the machine via punched cards, a method being used at the time to direct mechanical looms. For output, the machine had a printer, a curve plotter, and a bell. The machine was also be able to punch numbers onto cards to be read in later. 
+The input of programs and data was to be provided to the machine via punched cards, a method being used at the time to direct mechanical looms. For output, the machine had a printer, a curve plotter, and a bell. %The machine was also be able to punch numbers onto cards to be read in later. 
 
 %------------------------------------------------------
 \vspace*{2em}
@@ -56,7 +56,7 @@ The input of programs and data was to be provided to the machine via punched car
 
 The era of modern computing began with a flurry of development before and during World War II. 
 
-The Z3 was an electromechanical computer designed by Konrad Zuse and was completed in Berlin in 1941. It was the world's first working programmable, fully automatic digital computer. The Z3 was built with 2000 relays, implementing 22-bit words that operated at a clock frequency of about 5–10 Hz. Program code and data were stored on punched film. %(en.wikipedia.org/wiki/Z3\_(computer))
+The Z3 was an electromechanical computer designed by Konrad Zuse and was completed in Berlin in 1941. It was the world's first working programmable, fully automatic digital computer. The Z3 was built with 2000 relays, implementing \textit{22-bit words} that operated at a clock frequency of about \textit{5--10 Hz}. Program code and data were stored on punched film. %(en.wikipedia.org/wiki/Z3\_(computer))
 
 The ENIAC (Electronic Numerical Integrator And Computer) was the first electronic programmable computer built in the U.S., announced to the public in 1946. It was digital, and capable of being reprogrammed (defined by the states of its patch cables and switches) to solve a full range of computing problems. %It could add or subtract 5000 times a second, a thousand times faster than any other machine. It also had modules to multiply, divide, and square root. High speed memory was limited to 20 words (about 80 bytes). Built under the direction of John Mauchly and J. Presper Eckert at the University of Pennsylvania, ENIAC's development and construction lasted from 1943 to full operation at the end of 1945. 
 The machine weighed 30 tons, used 200 kilowatts of electric power and contained over 18,000 vacuum tubes, 1,500 relays, and hundreds of thousands of resistors, capacitors, and inductors.
@@ -65,7 +65,7 @@ The machine weighed 30 tons, used 200 kilowatts of electric power and contained 
 \vspace*{2em}
 \noindent \textbf{Stored Programs}
 
-Early computing machines had fixed programs. For example, a desk calculator is a fixed program computer. It can do basic mathematics, but it cannot be used as a word processor or a gaming console. A stored-program computer includes by design an instruction set and can store in memory a set of instructions (a program) that details the computation.
+Early computing machines had fixed programs. For example, a desk calculator is a fixed program computer. It can do basic mathematics, but it cannot be used as a word processor or a gaming console. By design, a stored-program computer includes an instruction set and can store in memory a set of instructions (a program) that details the computation.
 
 The Manchester Small-Scale Experimental Machine was the world's first stored-program computer. It was built at the Victoria University of Manchester by Frederic C. Williams, Tom Kilburn, and Geoff Tootill, and ran its first program on 21 June 1948. It had a demonstrated speed of 1.1 kIPS.
 
@@ -88,15 +88,15 @@ Transistorized electronics improved not only the CPU, but also the peripheral de
 
 The early 1960s saw the advent of supercomputing. The Atlas Computer was a joint development between the University of Manchester, Ferranti, and Plessey, and was first installed at Manchester University and officially commissioned in 1962 as one of the world's first supercomputers.% - considered to be the most powerful computer in the world at that time. It was a second-generation machine, using discrete germanium transistors. Atlas also pioneered the Atlas Supervisor, "considered by many to be the first recognisable modern operating system".
 
-In the U.S., a series of computers at Control Data Corporation (CDC) were designed by Seymour Cray to use innovative designs and parallelism to achieve superior computational peak performance.
+In the U.S., a series of computers at Control Data Corporation (CDC) were designed by \textit{Seymour Cray} to use innovative designs and parallelism to achieve superior computational peak performance.
 
-The CDC 6600 was a mainframe computer delivered in 1965 to CERN, where it was used to analyse the 2-3 million photographs of bubble-chamber tracks that CERN experiments were producing every year. In 1966 another CDC 6600 was delivered to the Lawrence Radiation Laboratory, part of the University of California at Berkeley, where it was used for the analysis of nuclear events photographed inside the Alvarez bubble chamber. The CDC 6600 is generally considered to be the first successful supercomputer. the CDC 6600 was the world's fastest computer from 1964 to 1969.
+The CDC 6600 was a mainframe computer delivered in 1965 to CERN, where it was used to analyse the 2-3 million photographs of bubble-chamber tracks that CERN experiments were producing every year. In 1966 another CDC 6600 was delivered to the Lawrence Radiation Laboratory, part of the University of California at Berkeley, where it was used for the analysis of nuclear events photographed inside the Alvarez bubble chamber. \textit{The CDC 6600 is generally considered to be the first successful supercomputer.} the CDC 6600 was the world's fastest computer from 1964 to 1969.
 
 %------------------------------------------------------
 \vspace*{2em}
 \noindent \textbf{Integrated Circuit}
 
-This new development heralded an explosion in the commercial and personal use of computers and led to the invention of the microprocessor. While the earliest microprocessor ICs literally contained only the processor, i.e. the central processing unit, of a computer, their progressive development naturally led to chips containing most or all of the internal electronic parts of a computer.
+This new development heralded an explosion in the commercial and personal use of computers and led to the invention of the microprocessor. While the earliest microprocessor ICs literally contained only the processor, i.e.\ the CPU of a computer, their progressive development naturally led to chips containing most or all of the internal electronic parts of a computer.
 
 This revolution led to the third generation of computers, and the developments since then have been more familiar. 
 
@@ -137,7 +137,7 @@ The fact that transistor density continues to scale while power consumption and 
 
 \underline{Bit-level parallelism} is a form of parallel computing based on increasing processor word size. Increasing the word size reduces the number of instructions the processor must execute in order to perform an operation on variables whose sizes are greater than the length of the word. (For example, consider a case where an 8-bit processor must add two 16-bit integers. The processor must first add the 8 lower-order bits from each integer, then add the 8 higher-order bits, requiring two instructions to complete a single operation. A 16-bit processor would be able to complete the operation with single instruction.)
 
-A goal of compiler and processor designers is to identify and take advantage of as much \underline{ILP} as possible. Ordinary programs are typically written under a sequential execution model where instructions execute one after the other and in the order specified by the programmer. ILP allows the compiler and the processor to overlap the execution of multiple instructions or even to change the order in which instructions are executed.
+\underline{ILP}: A goal of compiler and processor designers is to identify and take advantage of as much \underline{ILP} as possible. Ordinary programs are typically written under a sequential execution model where instructions execute one after the other and in the order specified by the programmer. ILP allows the compiler and the processor to overlap the execution of multiple instructions or even to change the order in which instructions are executed.
 
 \underline{OS parallelism} can be broken into 
 \begin{itemize}
@@ -159,7 +159,7 @@ A goal of compiler and processor designers is to identify and take advantage of 
 In a \underline{distributed memory} system there is typically a processor, a memory, and some form of interconnection that allows programs on each processor to interact with each other. %The interconnect can be organised with point to point links, or separate hardware can provide a switching network. 
 The network topology is a key factor in determining how the multi-processor machine scales. %The links between nodes can be implemented using some standard network protocol (for example Ethernet), using bespoke network links (used in for example the Transputer), or using dual ported memories.
 
-The key issue in programming distributed memory systems is how to distribute the data over the memories. Depending on the problem solved, the data can be distributed statically, or it can be moved through the nodes. Data can be moved on demand, or data can be pushed to the new nodes in advance. 
+The key issue in programming distributed memory systems is how to distribute the data over the memories. %Depending on the problem solved, the data can be distributed statically, or it can be moved through the nodes. Data can be moved on demand, or data can be pushed to the new nodes in advance. 
 
 The advantage of shared memory is that it offers a unified address space in which all data can be found.
 
@@ -173,22 +173,9 @@ The advantage of distributed memory is that it excludes race conditions, and tha
 
 %------------------------------------------------------
 \vspace*{2em}
-\noindent \textbf{Top 500 Computers}
-\begin{itemize}
-\item Total combined performance of all 500 systems has grown to 309 Pflop/s, compared to 274 Pflop/s in June and 250 Pflop/s one year ago. This increase in installed performance also exhibits a noticeable slowdown in growth compared to the previous long-term trend.
-\item There are 50 systems with performance greater than 1 petaflop/s on the list, up from 37 six months ago.
-\item The No. 1 system, Tianhe-2, and the No. 7 system, Stampede, use Intel Xeon Phi processors to speed up their computational rate. The No. 2 system, Titan, and the No. 6 system, Piz Daint, use NVIDIA GPUs to accelerate computation.
-\item A total of 75 systems on the list are using accelerator/co-processor technology, up from 62 from November 2013. Fifty of these use NVIDIA chips, three use ATI Radeon, and there are now 25 systems with Intel MIC technology (Xeon Phi). Intel continues to provide the processors for the largest share (85.8 percent) of TOP500 systems.
-\item Ninety-six percent of the systems use processors with six or more cores and 85 percent use eight or more cores.
-\item HP has the lead in systems with 179 (36 percent) compared to IBM with 153 systems (30 percent). HP had 182 systems (36.4 percent) six months ago, and IBM had 176 systems (35.2 percent) six months ago. In the system category, Cray remains third with 62 systems (12.4 percent).
-\end{itemize}
+\noindent \textbf{GPUs}
 
-
-%------------------------------------------------------
-\vspace*{2em}
-\noindent \textbf{Other Hardware}
-
-\underline{GPUs} were originally developed for graphics processing (shocking) and area heavily used by the gaming industry. It turns out that the types of things needed in graphics processing are also needed by engineers and scientists (recent developments have branched into matrix and vector operations). Scientists and engineers are starting to use GPUs for non-graphics computations, which is an interesting and challenging development. 
+\underline{GPUs} were originally developed for graphics processing (shocking) and are heavily used by the gaming industry. It turns out that the types of things needed in graphics processing are also needed by engineers and scientists (recent developments have branched into matrix and vector operations). Scientists and engineers are starting to use GPUs for non-graphics computations, which is an interesting and challenging development. 
 
 GPUs can be 
 \begin{itemize}
@@ -201,8 +188,27 @@ GPUs can be
 General Purpose GPU (GPGPU): using a GPU for computation applications usually handled by the CPU. Any GPU providing a functionally complete set of operations performed on arbitrary bits can compute any computable value. Additionally, the use of multiple graphics cards in one computer, or large numbers of graphics chips, further parallelizes the already parallel nature of graphics processing. OpenCL is the currently dominant open general-purpose GPU computing language. The dominant proprietary framework is Nvidia's CUDA.
 %http://en.wikipedia.org/wiki/GPGPU
 
-\vspace*{1em}
-\underline{MIC}: Many Integrated Core architecture  combines many Intel CPU cores onto a single chip. Developers interested in programming these cores can use standard C, C++, and FORTRAN source code. The same program source code written for Intel MIC products can be compiled and run on a standard Intel Xeon processor. The MIC architecture utilizes a high degree of parallelism in smaller, lower-power performance Intel processor cores. The result is advanced performance on highly parallel applications.
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{MICs}
+
+\underline{MIC}: Many Integrated Core architecture  combines many CPU cores onto a single chip. Developers interested in programming these cores can use standard C, C++, and FORTRAN source code. The same program source code written for Intel MIC products can be compiled and run on a standard Intel Xeon processor. The MIC architecture uses a high degree of parallelism in smaller, lower-power performance Intel processor cores. The result is advanced performance on highly parallel applications.
 %http://www.intel.com/content/www/us/en/architecture-and-technology/many-integrated-core/intel-many-integrated-core-architecture.html
+
+%------------------------------------------------------
+\vspace*{2em}
+\noindent \textbf{Top 500 Computers}
+\begin{itemize}
+\item Total combined performance of all 500 systems has grown to 309 Pflop/s, compared to 274 Pflop/s in June and 250 Pflop/s one year ago. T%his increase in installed performance also exhibits a noticeable slowdown in growth compared to the previous long-term trend.
+\item There are 50 systems with performance greater than 1 petaflop/s on the list, up from 37 six months ago.
+\item The No. 1 system, Tianhe-2, and the No. 7 system, Stampede, use Intel Xeon Phi processors to speed up their computational rate. The No. 2 system, Titan, and the No. 6 system, Piz Daint, use NVIDIA GPUs to accelerate computation.
+\item A total of 75 systems on the list are using accelerator/co-processor technology, up from 62 from November 2013. %Fifty of these use NVIDIA chips, three use ATI Radeon, and there are now 25 systems with Intel MIC technology (Xeon Phi). Intel continues to provide the processors for the largest share (85.8 percent) of TOP500 systems.
+\item Ninety-six percent of the systems use processors with six or more cores and 85 percent use eight or more cores.
+%\item HP has the lead in systems with 179 (36 percent) compared to IBM with 153 systems (30 percent). HP had 182 systems (36.4 percent) six months ago, and IBM had 176 systems (35.2 percent) six months ago. In the system category, Cray remains third with 62 systems (12.4 percent).
+\end{itemize}
+
+
+
 
 \end{document}
