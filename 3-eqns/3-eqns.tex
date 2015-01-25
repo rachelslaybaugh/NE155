@@ -27,12 +27,14 @@
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
 
+% math syntax
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
 \newcommand{\Macro}{\ensuremath{\Sigma}}
 
-
+%---------------------------------------------------------------------------
 \begin{document}
 \begin{center}
 {\bf NE 155, Class 3, S15 \\
@@ -44,12 +46,10 @@ Types of Equations in the Engineering Fields \\ January 26, 2015}
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
 
-ADD DEPENDENCIES TO ALL EQUATIONS TO CLARIFY THEM!
-
 \noindent \textbf{Introduction}
 
 In science and engineering in general, and nuclear engineering and reactor analysis in specific, we encounter a wide range of mathematical physics equations. In today's lecture we will introduce some of them.
-
+%
 \begin{itemize}
 \item Ordinary differential equations (ODEs)
 \item Partial differential equations (PDEs)
@@ -62,12 +62,12 @@ In science and engineering in general, and nuclear engineering and reactor analy
 \item Integral equations
 \end{itemize}
 
+%------------------------------------------------------------------------------
 \section{ODEs}
-
 The most general form of an \nth order linear ordinary differential eqn.\ is
 %
 \begin{equation}
-a_{n+1}(x)y^{(n)} + a_{n}(x)y^{(n-1)} + \cdots + a_{2}(x)y^{(1)} + a_{1}(x)y + a_0 = f(x) \nonumber
+a_{n}(x)y^{(n)}(x) + a_{n-1}(x)y^{(n-1)}(x) + \cdots + a_{2}(x)y^{(2)}(x) + a_{1}(x)y(x) + a_0(x) = f(x) \nonumber
 \end{equation}
 %
 \noindent where
@@ -78,33 +78,34 @@ a_{n+1}(x)y^{(n)} + a_{n}(x)y^{(n-1)} + \cdots + a_{2}(x)y^{(1)} + a_{1}(x)y + a
 
 Boundary conditions:
 \begin{enumerate}
-\item if y and its derivatives are given at one end of the domain/interval (time 0 if there's time or x 0 if there's only space, etc.): Initial Value Problem (IVP)
-\item if y and/or its derivatives are given at \underline{each} end of the interval: Boundary Value Problem (BVP)
+\item Initial Value Problem (\textbf{IVP}): if y and its derivatives are given at one end of the domain/interval (e.g.\ time 0 if there's time or x 0 if there's only space, etc.)
+\item Boundary Value Problem (\textbf{BVP}): if y and/or its derivatives are given at \underline{each} end of the interval
 \end{enumerate}
 
-\noindent \textbf{Linear 1st order ODE's}
+\vspace*{1em}
+\textbf{Linear 1st order ODE's}
 
-\noindent \underline{Reminders}
+\underline{Reminders}
 \begin{itemize}
 \item Linear means each term is either a constant or the product of a constant and the first power of a single variable (in this case y).
 \item the highest derivative is to the first power.
 \end{itemize}
 
 %-------------------------------------------------------------
-\noindent \underline{1st order ODE Example}:
+\underline{Linear 1st order ODE Example}:
 \begin{equation}
-y' + 3y = sin(x) \nonumber
+\frac{dy}{dx} + 3y(x) = sin(x) \qquad x \in [0, 1] \nonumber
 \end{equation}
 %
 \begin{itemize}
 \item IVP if boundary conditions are y(0) = 1; y'(0) = 2
-\item BVP if boundary conditions are y(0)=-1, y(1) = 3 on the domain [0,1]
+\item BVP if boundary conditions are y(0)=-1, y(1) = 3 
 \end{itemize}
 %
 In this case the general solution is obtained through the use of an integrating factor.
 
 \vspace*{1em}
-\noindent \underline{1st order ODE Example}:
+\noindent \underline{Linear 1st order ODE Example}:
 
 Point Kinetics analysis of a nuclear reactor is an IVP, linear 1st order ODE.
 %
@@ -125,18 +126,18 @@ Where (we'll talk  more about what these terms mean later)
 \item $\rho = \frac{k-1}{k}$ = reactivity
 \end{itemize}
 %
-BCs: $n(t=0) = n_0$ and $C_i(t=0) = C_{i,0}$ for $i=1,\dots,N$.
+BCs: $n(0) = n_0$ and $C_i(0) = C_{i,0}$ for $i=1,\dots,N$.
 
 %-------------------------------------------------------------
 \vspace*{1em}
-\noindent \underline{1st order ODE Example}:
+\noindent \underline{Linear 1st order ODE Example}:
 
 The number of atoms in during radioactive decay (assuming decay only here) is described by the Bateman equation, which is a linear, 1st order ODE that is in a IVP:
 %
 \begin{align}
 \frac{dN_1(t)}{dt} &= -\lambda_1 N_1(t) \nonumber \\
-\frac{dN_i(t)}{dt} &= -\lambda_i N_i(t) + \lambda_{i-1}N_{i-1}(t) + \alpha_i F_i \qquad 1 < k < I \nonumber\\
-\frac{dN_I(t)}{dt} &= -\lambda_{I-1} N_{I-1}(t) \nonumber \\
+\frac{dN_i(t)}{dt} &= -\lambda_i N_i(t) + \lambda_{i-1}N_{i-1}(t) \qquad 1 < k < I \nonumber\\
+\frac{dN_I(t)}{dt} &= \lambda_{I-1} N_{I-1}(t) \nonumber \\
 \text{BC: }& N_i(t=0) = N_{i,0}\nonumber
 \end{align}
 %
@@ -144,7 +145,7 @@ note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and
 
 %-------------------------------------------------------------
 \vspace*{1em}
-\noindent \underline{2nd order ODE Example}:
+\underline{2nd order ODE Example}:
 
 \begin{align}
 -\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = S(x) \nonumber \\
@@ -154,9 +155,9 @@ note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and
 %
 This has
 \begin{itemize}
-\item Neumann BCs if $\gamma = 0$ (specifies the values that the derivative of a solution is to take on the boundary of the domain)
-\item Dirichet BCs: if $\gamma \rightarrow \infty, \Macro / \gamma = $constant then the BD reduces to $\phi = $constant (specifies the values that a solution needs to take on the boundary of the domain)
-\item Mixed BCs if $\gamma \ne 0$ (different boundary conditions are used on different parts of the boundary of the domain of the equation.)
+\item Neumann BCs if $\gamma = 0$ (specifies the values that the \textit{derivative} of a solution is to take on the boundary of the domain)
+\item Dirichet BCs: if $\frac{d\phi}{dx} = 0$ (specifies the values that a \textit{solution} is to take on the boundary of the domain)
+\item Mixed BCs if [$\gamma \ne 0$ and $\frac{d\phi}{dx} = 0$ at $x = \alpha$ and $\gamma = 0$] and [$\frac{d\phi}{dx} \ne 0$ at $x = \beta$] (the solution is required to satisfy a Dirichlet or a Neumann boundary condition in a mutually exclusive way on disjoint parts of the boundary)
 \item If $S(x)$ is nonzero at least somewhere over the physical range, a unique solution exists.
 \end{itemize}
 
@@ -174,18 +175,18 @@ This has
 %-------------------------------------------------------------
 
 \vspace*{1em}
-\noindent \underline{2nd order ODE Example}:
+\underline{2nd order ODE Example}:
 
-The homogeneous equation [If  $\phi(x)$  is a solution, so is  $c \phi(x)$, where $c$ is an arbitrary (non-zero) constant. Note that in order for this condition to hold, each term in a linear differential equation of the dependent variable $y$ must contain $y$ or any derivative of $y$; a constant term breaks homogeneity]:
+The homogeneous equation %[If  $\phi(x)$  is a solution, so is  $c \phi(x)$, where $c$ is an arbitrary (non-zero) constant. Note that in order for this condition to hold, each term in a linear differential equation of the dependent variable $y$ must contain $y$ or any derivative of $y$; a constant term breaks homogeneity]:
 %
 \begin{align}
 -\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = \lambda f(x) \phi(x) \nonumber \\
-\text{where }p(x) > 0, f(x) \geq 0, \text{ and }& \lambda = \text{ eigenvalue, and}\nonumber \\
-\frac{d\phi}{dx} + \gamma_L \phi &= \Macro \qquad \text{at }x=\alpha \nonumber \\
-\frac{d\phi}{dx} + \gamma_R \phi &= \Macro \qquad \text{at }x=\beta \nonumber
+\text{where }p(x) > 0, f(x) \geq 0, &\lambda = \text{ eigenvalue;}\nonumber \\
+\frac{d\phi}{dx} + \gamma_L \phi &= \Macro \qquad \text{at }x=\alpha \qquad \gamma_L \geq 0  \nonumber \\
+\frac{d\phi}{dx} + \gamma_R \phi &= \Macro \qquad \text{at }x=\beta \qquad \gamma_R \geq 0\nonumber 
 \end{align}
 %
-with $\gamma_L \geq 0$ and $\gamma_R \geq 0$ this is known as the \underline{Sturm-Liouville} eigenvalue problem. If $\gamma_L = \gamma_R = 0$, the BCs become $\phi(\alpha) = \phi(\beta) = 0$.
+is known as the \underline{Sturm-Liouville} eigenvalue problem. If $\gamma_L = \gamma_R = 0$, the BCs become $\phi(\alpha) = \phi(\beta) = 0$.
 
 The solution has an infinite number of eigenfunctions, $\phi_i(x)$ with corresponding \textbf{REAL} and \textbf{DISTINCT} eigenvalues, $\lambda_i$. 
 
@@ -195,7 +196,7 @@ If $q(x) \geq 0$, then all $\lambda_i$ are positive.
 
 %-------------------------------------------------------------
 \vspace*{1em}
-\noindent \underline{2nd order ODE Example}:
+\underline{2nd order ODE Example}:
 
 1-D, 1-group, time-independent neutron diffusion equation:
 %
@@ -214,34 +215,71 @@ A partial differential equation is an equation containing an unknown function of
 If the PDE is linear in u and all derivatives of u, then we say that the PDE is linear.
 %
 \begin{equation}
-A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + Lower Order Terms = 0 \nonumber
+A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu(x) = G \nonumber
 \end{equation}
 %
-This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ do not depend on $u$ (they may depend on $x$ and $y$. If $A^2 + B^2 + C^2 > 0$ over a region of the $xy$ plane, the PDE is second-order in that region (analogous to the eqn for a conic section: $Ax^2 + Bxy + Cy^2 + \cdots = 0$. 
+This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ do not depend on $u$ (they may depend on $x$ and/or $y$). 
+%If $A^2 + B^2 + C^2 > 0$ over a region of the $xy$ plane, the PDE is second-order in that region (analogous to the eqn.\ for a conic section: $Ax^2 + Bxy + Cy^2 + \cdots = 0$. 
 
 %-------------------------------------------------------------
+%-------------------------------------------------------------
 \vspace*{1em}
-\noindent \underline{Classification}:%http://en.wikipedia.org/wiki/Partial_differential_equation#Classification
+\underline{Classification}:%http://en.wikipedia.org/wiki/Partial_differential_equation#Classification
 
-Replacing $\partial x$ by $x$, and likewise for other variables (formally this is done by a Fourier transform), converts a constant-coefficient PDE into a polynomial of the same degree, with the top degree (a homogeneous polynomial, here a quadratic form) being most significant for the classification.
+To think about classification, think about replacing $\partial x$ by $x$ and  $\partial y$ by $y$ (formally this is done via Fourier transform). This converts the PDE into a polynomial of the same degree.
 
 Just as one classifies conic sections and quadratic forms into parabolic, hyperbolic, and elliptic based on the discriminant $B^2 - 4AC$, the same can be done for a second-order PDE at a given point. 
 
 \underline{Note:} these classifications only apply to second order PDEs. 
 
+%-------------------------------------------------------------
 \begin{itemize}
-\item Elliptic if $B^2 - 4 AC < 0$. Solutions of elliptic PDEs are as smooth as the coefficients allow, within the interior of the region where the equation and solutions are defined. For example, solutions of Laplace's equation are analytic within the domain where they are defined, but solutions may assume boundary values that are not smooth. The motion of a fluid at subsonic speeds can be approximated with elliptic PDEs, and the Euler–Tricomi equation is elliptic where $x < 0$.
-\item Hyperbolic if $B^2 - 4 AC > 0$
+\item \textbf{Elliptic} if $B^2 - 4 AC < 0$. %Solutions of elliptic PDEs are as smooth as the coefficients allow within the interior of the region where the equation and solutions are defined. For example, solutions of Laplace's equation are analytic within the domain where they are defined, but solutions may assume boundary values that are not smooth. The motion of a fluid at subsonic speeds can be approximated with elliptic PDEs, and the Euler–Tricomi equation is elliptic where $x < 0$. 
+Some famous elliptic PDEs:
+\begin{align*}
+\nabla^2 u &= 0 \qquad \text{Laplace's eqn.} \nonumber \\
+\nabla^2 u &= f(x) \qquad \text{Poisson's eqn.} \nonumber \\
+-\frac{\partial}{\partial x}D(x,y)\frac{\partial}{\partial x}\phi(x,y) &- \frac{\partial}{\partial y}D(x,y)\frac{\partial}{\partial y}\phi(x,y) + \bigl(\Macro_a(x,y) - \frac{1}{k} \nu \Macro_f(x,y)\bigr) \phi(x,y) = 0\nonumber
+\end{align*}
+There's no $B$ term, so $-4AC < 0$ since $D$ is positive.
+
+One property of constant coefficient elliptic equations is that their solutions can be studied using the Fourier transform. %http://mathworld.wolfram.com/EllipticPartialDifferentialEquation.html
+
+Recall
+%
+\begin{align}
+\text{gradient is } \nabla T &= \vec{i}\frac{\partial T}{\partial x} + \vec{j}\frac{\partial T}{\partial y} + \vec{k}\frac{\partial T}{\partial z} \nonumber \\
+%
+\text{divergence is } \nabla \cdot \vec{v} &= \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z} \nonumber
+\end{align}
+
+%-------------------------------------------------------------
+\item \textbf{Hyperbolic} if $B^2 - 4 AC > 0$, e.g.
+\begin{align*}
+\frac{\partial^2 u}{\partial t^2} &+ c^2\frac{\partial^2 u}{\partial x^2} = 0 \qquad \text{ 1-D wave eqn.} \nonumber
+\end{align*}
+There's no $B$ term, and $C$ is negative so $-4AC > 0$
   \begin{itemize}
-  \item if $U$ and its first $x$ derivative are arbitrarily specified initial data on the initial line $x = boundary$ (with sufficient smoothness properties), then there exists a solution for all of $x$.
+  \item if $u$ and its first $t$ derivative are arbitrarily specified with initial data on the initial line $t= 0$ (with sufficient smoothness properties), then there exists a solution for all of $t$.
   \item The solutions of hyperbolic equations are ``wave-like." If a disturbance is made in the initial data of a hyperbolic differential equation, then not every point of space feels the disturbance at once.
   \item Relative to a fixed time coordinate, disturbances have a finite propagation speed. They travel along the characteristics of the equation.
   \end{itemize}
-\item Parabolic if $B^2 - 4 AC = 0$\\ A perturbation of the initial (or boundary) data of an elliptic or parabolic equation is felt at once by essentially all points in the domain. 
+ 
+ %------------------------------------------------------------- 
+\item \textbf{Parabolic} if $B^2 - 4 AC = 0$, e.g.
+\begin{align}
+\frac{\partial u}{\partial t} &= k \frac{\partial^2 u}{\partial x^2} \qquad \text{ 1-D heat eqn.} \nonumber \\
+\frac{1}{v}\frac{\partial \phi(x,t)}{\partial t} &= \frac{\partial}{\partial x}D(x,t)\frac{\partial}{\partial x}\phi(x,t) + \bigl(\nu \Macro_f(x,t)\ - \Macro_a(x,t)\bigr) \phi(x,t) + S(x,t)\nonumber
+\end{align}
+There aren't $B$ or $C$ terms, so $-4AC = 0$
 
-Equations that are parabolic at every point can be transformed into a form analogous to the heat equation by a change of independent variables. Solutions smooth out as the transformed time variable increases. The Euler–Tricomi equation has parabolic type on the line where $x = 0$.
+A perturbation of the initial (or boundary) data of an elliptic or parabolic equation is felt at once by essentially all points in the domain. 
+
+Equations that are parabolic at every point can be transformed into a form analogous to the heat equation by a change of independent variables. Solutions smooth out as the transformed time variable increases. %The Euler–Tricomi equation has parabolic type on the line where $x = 0$.
 \end{itemize}
 
+%-------------------------------------------------------------
+\underline{higher order PDE classification}\\
 If there are $n$ independent variables $x_1, x_2 , \dots, x_n$, a general linear partial differential equation of second order has the form
 %
 \begin{equation}
@@ -263,44 +301,25 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 \item If the scattering is forward-peaked then the equation is parabolic.
 \end{itemize}
 
-%-------------------------------------------------------------
-\vspace*{1em}
-\noindent \underline{Elliptic example}:
 
-1-group, 2-D, steady-state neutron diffusion equation
+%%-------------------------------------------------------------
+%\vspace*{1em}
+%\noindent \underline{Elliptic example}:
 %
-\begin{equation}
-\frac{\partial}{\partial x}D\frac{\partial}{\partial x}\phi + \frac{\partial}{\partial y}D\frac{\partial}{\partial y}\phi + (\frac{1}{k} \nu \Macro_f(x) - \Macro_a(x)) \phi = 0 \nonumber
-\end{equation}
-%
-There's no $B$ term, so $-4AC < 0$ since $D$ is positive.
-
-%-------------------------------------------------------------
-Recall
-%
-\begin{align}
-\text{gradient is } \nabla T &= \vec{i}\frac{\partial T}{\partial x} + \vec{j}\frac{\partial T}{\partial y} + \vec{k}\frac{\partial T}{\partial z} \nonumber \\
-%
-\text{divergence is } \nabla \cdot \vec{v} &= \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z} \nonumber
-\end{align}
-%-------------------------------------------------------------
-\vspace*{1em}
-\noindent \underline{Elliptic example}:
-
-\noindent Poisson's equation (stationary heat conduction with a volumetric source):
-%
-\begin{equation}
-\nabla \cdot (k \nabla T) + q''' = 0 \nonumber
-\end{equation}
-% 
-where
-\begin{itemize}
-\item $T$ is temperature
-\item $k$ is thermal conductivity
-\item $q'''$ is volumetric heat generation rate
-\end{itemize}
-%
-There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
+%\noindent Poisson's equation (stationary heat conduction with a volumetric source):
+%%
+%\begin{equation}
+%\nabla \cdot (k \nabla T) + q''' = 0 \nonumber
+%\end{equation}
+%% 
+%where
+%\begin{itemize}
+%\item $T$ is temperature
+%\item $k$ is thermal conductivity
+%\item $q'''$ is volumetric heat generation rate
+%\end{itemize}
+%%
+%There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
 
 %\begin{itemize}
 %\item Dirichlet BCs if $f(a,b) =$ constant
@@ -311,18 +330,18 @@ There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
 %\end{itemize}
 
 %-------------------------------------------------------------
-\vspace*{1em}
-\noindent \underline{Parabolic Examples}:
-
-Transient heat conduction in a slab:
+%\vspace*{1em}
+%\noindent \underline{Parabolic Examples}:
 %
-\begin{equation}
-\frac{\partial T(x,t)}{\partial t} = \frac{\partial}{\partial x} \frac{k}{\rho c} \frac{\partial}{\partial x} T(x,t) + q'''(x,t) \nonumber
-\end{equation}
+%Transient heat conduction in a slab:
+%%
+%\begin{equation}
+%\frac{\partial T(x,t)}{\partial t} = \frac{\partial}{\partial x} \frac{k}{\rho c} \frac{\partial}{\partial x} T(x,t) + q'''(x,t) \nonumber
+%\end{equation}
+%%
+%where $\rho$ = mass density and $c$ = specific heat capacity
 %
-where $\rho$ = mass density and $c$ = specific heat capacity
-
-\noindent There aren't $B$ or $C$ terms, so $-4AC = 0$
+%\noindent There aren't $B$ or $C$ terms, so $-4AC = 0$
 
 
 %\vspace*{2em}
@@ -335,18 +354,18 @@ where $\rho$ = mass density and $c$ = specific heat capacity
 %There aren't $B$ or $C$ terms, so $-4AC = 0$
 
 %-------------------------------------------------------------
-\vspace*{1em}
-\noindent \underline{Hyperbolic Example}:
-
-(1) The wave equation
+%\vspace*{1em}
+%\noindent \underline{Hyperbolic Example}:
 %
-\begin{equation}
-\frac{\partial^2 f}{\partial t^2} - c \frac{\partial^2 f}{\partial x^2} = 0
-\end{equation}
+%(1) The wave equation
+%%
+%\begin{equation}
+%\frac{\partial^2 f}{\partial t^2} - c \frac{\partial^2 f}{\partial x^2} = 0
+%\end{equation}
+%%
+%where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
 %
-where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
-
-\noindent There's no $B$ term, and $C$ is negative so $-4AC > 0$
+%\noindent There's no $B$ term, and $C$ is negative so $-4AC > 0$
 
 %\noindent \textbf{1st order Hyperbolic equations}
 %
