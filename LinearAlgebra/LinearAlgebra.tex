@@ -1,6 +1,5 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
 
 % formatting
 \documentclass[12pt]{article}
@@ -50,17 +49,15 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 6 and 7, S14 \\
- Linear Algebra \\ February 3 and 5, 2014}
+{\bf NE 155, Classes 4 through 6, S15 \\
+ Linear Algebra \\ Jan.\ 28 through Feb.\ 2, 2015}
 \end{center}
 
 \setlength{\unitlength}{1in}
 \begin{picture}(6,.1) 
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
-
-
-ADD MORE MEANING
+ 
 %-------------------------------------------------------------
 %-------------------------------------------------------------
 \section{Vector Review}
@@ -131,12 +128,12 @@ Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
 \item positive $< \vec{x}, \vec{x} >$ $>$ 0 for $\vec{x} \neq 0$
 \end{itemize}
 
-The dot product is also known as the Euclidean inner product. One can define many inner products, but in this class assume we're using the Euclidean inner product (dot product) unless otherwise specified. 
+The dot product is also known as the Euclidean inner product. One can define many inner products, but \textit{in this class assume we're using the Euclidean inner product} (dot product) unless otherwise specified. 
 
 \subsection{Convergence}
 We can use the concepts of norms and inner products to develop some relationships and talk about convergence. 
 
-The Cauchy-Schwartz inequality states
+The \textit{Cauchy-Schwartz} inequality states
 %
 \begin{equation}
 < \vec{x}, \vec{y} > \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
@@ -157,48 +154,52 @@ This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offe
 & ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
 \end{align}
 
-The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
+The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. 
 
-Example: let's show the last item. We will use the Signum function, which extracts the sign of a real number
-\begin{align}
-              & -1 \text{ if } x < 0 \nonumber \\
-\text{sign}(x) \equiv &  0 \text{ if } x = 0 \nonumber \\
-              &  1 \text{ if } x > 0 \nonumber
-\end{align}
-%
-Let's define $v_i$ as sign$(x_i)$. Then
-%
-\begin{align}
-&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| = ||\vec{x}||_1 \nonumber \\
-%
-&\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
-%
-&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
-%
-&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt{n} \:, \text{ the right side of the inequality} \nonumber \\ 
-%
-&\text{we can also say } ||\vec{x}||_2 \leq ||\vec{v}||_2 ||\vec{x}||_2 \leq \sqrt{n} ||\vec{x}||_2 \nonumber \\
-%
-&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt{n} ||\vec{x}||_2 \nonumber
-\end{align}
+E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
 
-NEED $||\vec{x}||_2 \leq ||\vec{x}||_1$ !!!!
+%\textbf{Example}: let's show the last item. We will use the Signum function, which extracts the sign of a real number
+%\begin{equation}
+%\text{sign}(x) \equiv \begin{cases}
+%  -1 & \text{ if } x < 0 \nonumber \\
+%  0  & \text{ if } x = 0 \nonumber \\
+%  1  & \text{ if } x > 0 \nonumber
+%\end{cases}
+%\end{equation}
+%%
+%Let's define $v_i$ as sign$(x_i)$. Then
+%%
+%\begin{align}
+%&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| = ||\vec{x}||_1 \nonumber \\
+%%
+%&\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
+%%
+%&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
+%%
+%&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt{n} \text{(the right side of the inequality);} \nonumber \\ 
+%%
+%&\text{we can also say } ||\vec{x}||_2 \leq ||\vec{v}||_2 ||\vec{x}||_2 \leq \sqrt{n} ||\vec{x}||_2 \nonumber \\
+%%
+%&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt{n} ||\vec{x}||_2 \nonumber
+%\end{align}
+%
+%NEED $||\vec{x}||_2 \leq ||\vec{x}||_1$ !!!!
 
 Norm equivalence is very important because if we can prove some property (usually convergence or an error bound) in \textbf{some} norm, we have effectively proven it in \textbf{all} norms. 
 
 \subsubsection{Error}
-For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm p we define
+For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm $p$ we define
 %
 \begin{itemize}
 \item Absolute error: $||\hat{x} - \vec{x}||_p$
-\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||$, where $\vec{x} \neq 0$
+\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||_p$, where $\vec{x} \neq 0$
 \end{itemize}
 
 \subsubsection{Convergence}
-Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, we say that $\lbrace x^{(k)} \rbrace$ converges to $\vec{x}$ if
+Given a sequence $\lbrace \hat{x}^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm $p$, we say that $\lbrace \hat{x}^{(k)} \rbrace$ converges to $\vec{x}$ if
 %
 \begin{equation}
-\displaystyle\text{lim}_{k \rightarrow \infty} ||x^{(k)} - \vec{x}|| = 0 \nonumber
+\displaystyle\text{lim}_{k \rightarrow \infty} ||\hat{x}^{(k)} - \vec{x}||_p = 0 \nonumber
 \end{equation}
 
 %-------------------------------------------------------------
