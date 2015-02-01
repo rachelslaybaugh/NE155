@@ -1,0 +1,380 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, Classes 7 \& 8, S15 \\
+Direct Solutions for Linear Systems \\ February 4 and 6, 2015}
+\end{center}
+
+\setlength{\unitlength}{1in}
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\section*{Direct Solutions of Linear Systems}
+
+Given $\ve{A}\vec{x} = \vec{b}$, how do you find $\vec{x}$?
+%
+\begin{itemize}
+  \item compute (explicitly or implicitly) $\ve{A}^{-1} \rightarrow \vec{x} = \ve{A}^{-1}\vec{b}$
+  \item typically requires many operations (FLOPs), large storage (even if $\ve{A}$ is sparse, $\ve{A}^{-1}$ may not be)
+  \item seldom parallelizes well
+  \item \emph{not} used in practice
+  \item incomplete factorizations (which we'll cover) \emph{are} used as pre-conditioners for iterative methods
+\end{itemize}
+
+We can also use iterative and semi-iterative methods, which we will talk about later
+
+We can reduce a matrix to echelon form (discussed later) to determine uniqueness properties of the solution space.
+\begin{enumerate}
+\item A system has \textbf{a unique solution} when there is one unknown for each equation when expressed in echelon form.
+
+\item A system \textbf{does not have a solution} when the determinant of its matrix is zero but reduction to echelon form does not yield any free variables.
+
+\item A system has \textbf{infinitely many} solutions when the determinant of its matrix is zero and reduction to echelon form does yield a free variable. 
+\end{enumerate}
+
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Diagonal Systems}
+\begin{equation}
+   \begin{pmatrix}
+      a_{11} & 0      & \cdots & 0      & \cdots & 0 \\
+      0      & a_{22} & \cdots & 0      & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\     
+      0      & 0      & \cdots & a_{ii} & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+      0      & 0      & \cdots & 0      & \cdots & a_{nn} 
+    \end{pmatrix} 
+    \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_j \\ \vdots \\ x_n \end{pmatrix} =
+    \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_j \\ \vdots \\ b_n \end{pmatrix}
+    \nonumber   
+\end{equation} 
+%
+To solve this, simply
+%
+\[x_i = \frac{b_i}{a_{ii}} \:, i=1,\dots,n\:.\]
+%
+\begin{itemize}
+\item this requires $O(n)$ operations.
+\item if $a_{ii}=0$, then $\det(\ve{A})=0$ (the determinant of a diagonal matrix is the product of its diagonal entries) and the system does not have a solution.
+\item If, however, $b_i = 0$ for the $a_{ii}$ is question, then the system has an infinite number of solutions.
+\end{itemize}
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Lower/Upper Triangular Systems}
+\begin{equation}
+   \begin{pmatrix}
+      a_{11} & 0      & \cdots & 0      & \cdots & 0 \\
+      a_{21} & a_{22} & \cdots & 0      & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\     
+      a_{i1} & a_{i2} & \cdots & a_{ii} & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+      a_{n1} & a_{n2} & \cdots & a_{ni} & \cdots & a_{nn} 
+    \end{pmatrix} 
+    \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_j \\ \vdots \\ x_n \end{pmatrix} =
+    \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_j \\ \vdots \\ b_n \end{pmatrix}
+    \nonumber   
+\end{equation} 
+%
+To solve this, solve the first equation for the one unknown, which becomes know. Then the second equation for the (now) one unknown, etc. This is called forward substitution.
+%
+\begin{align}
+&x_1 = \frac{b_1}{a_{11}} \nonumber \\
+&\text{for } i = 2, n \nonumber \\
+&\qquad x_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j) \nonumber
+\end{align}
+
+%--------------------------------------------------------------------
+Upper triangular systems work the same way, but you go in the reverse order $\rightarrow$ backward substitution. 
+%
+\begin{align}
+&x_n = \frac{b_n}{a_{nn}} \nonumber \\
+&\text{for } i = n-1, -1, 1 \nonumber \\
+&\qquad x_i = \frac{1}{a_{ii}}(b_i - \sum_{j=i+1}^{n} a_{ij} x_j) \nonumber
+\end{align}
+
+These both require $O(n^2)$ operations, and each have the same caveats about zeros as the diagonal system.
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{LU Decomposition}
+
+\textbf{Theorem}
+
+Let $\ve{A} \in \mathcal{R}^{m \times n}$ be regular (recall: regular means $\ve{A}^{-1}$ exists). Then there are matrices $\ve{L}$ (lower triangular) with $l_{ii} = 1$ and $\ve{U}$ (upper triangular) such that $\ve{A} = \ve{L}\ve{U}$ is unique.
+
+We want to solve $\ve{A}\vec{x} = \vec{b}$:
+%
+\begin{align}
+&\ve{A}\vec{x} = \ve{L}\ve{U}\vec{x} = \vec{b} \nonumber \\
+%
+&\text{define } \ve{U}\vec{x} = \vec{y} \nonumber \\
+%
+&\text{then note }\ve{L}\vec{y} = \vec{b} \nonumber
+\end{align}
+%
+\begin{enumerate}
+\item Solve $\ve{L}\vec{y} = \vec{b}$ for $\vec{y}$ using forward substitution
+\item Solve $\ve{U}\vec{x} = \vec{y}$ for $\vec{x}$ using backward substitution
+\end{enumerate}
+%
+This requires $O(n^2)$ operations.
+
+The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^3)$ operations. $\ve{U}$ is the upper triangular matrix from Gaussian Elimination; $\ve{L}$ is the lower triangular matrix (formed from performing the same operations on $\ve{I}$ that you performed on $\ve{U}$). 
+%
+\begin{equation}
+   \ve{L} = \begin{pmatrix}
+      1      & 0      & \cdots    & 0 \\
+      m_{21} & 1      & \cdots    & 0 \\
+      \vdots & \vdots & \ddots    & \vdots \\     
+      m_{n1} & \cdots & m_{n,n-1} & 1 
+    \end{pmatrix} \qquad
+  \ve{U} = \begin{pmatrix}
+      a_{11} & a_{12} & \cdots & a_{1n} \\
+      0      & a_{22} & \cdots & a_{2n} \\
+      \vdots & \vdots & \ddots & \vdots \\     
+      0      & 0      & \cdots &  a_{nn} 
+    \end{pmatrix}
+    \nonumber   
+\end{equation} 
+%
+For a given column, $j = 1, \dots, n$, the $m_{ij}$ are $a_{ij} / a_{jj}$ for $i = j, \dots, n$. 
+
+Caveat: we use the entries currently in $\ve{A}$ that come from the process of row-reducing $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
+
+\textbf{example}
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+  5  & 2 & 1 \\
+  4  & 1 & -1 \\
+  -2 & 3 & -3
+\end{pmatrix}
+\qquad 
+\vec{b}= \begin{pmatrix}
+3 \\ -3 \\ 5
+\end{pmatrix} \nonumber
+\end{equation}
+%
+%
+Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form. 
+\begin{align}
+\ve{U} &= \begin{pmatrix}
+  5  & 2 & 1 \\
+  4  & 1 & -1 \\
+  -2 & 3 & -3
+\end{pmatrix} 
+&\begin{pmatrix}
+ & \\ R_2 - m_{21}R_1, & m_{21} = 4/5 \\ 
+      R_3 - m_{31}R_1, & m_{31} = -2/5 \end{pmatrix} \nonumber \\
+%
+&= \begin{pmatrix}
+  5 & 2    & 1 \\
+  0 & -3/5 & -9/5 \\
+  0 & 19/5 & -13/5
+\end{pmatrix} 
+&\begin{pmatrix}
+ & \\ & \\ R_3 - m_{32}R_2, & m_{32} = -19/3 \end{pmatrix} \nonumber \\                   
+%
+&= \begin{pmatrix}
+  5 & 2    & 1 \\
+  0 & -3/5 & -9/5 \\
+  0 & 0    & -14
+\end{pmatrix} \nonumber
+\end{align}
+%
+Now, we fill the $m_{ij}$s we just discovered into the $\ve{L}$ matrix.
+%
+\begin{equation}
+\ve{L} = \begin{pmatrix}
+  1    & 0     & 0 \\
+  4/5  & 1     & 0 \\
+  -2/5 & -19/3 & 1
+\end{pmatrix} \nonumber
+\end{equation}
+
+Using all of this, we can finally solve our equation. Begin with $\ve{L}\vec{y} = \vec{b}$ for $\vec{y}$ using forward substitution:
+%
+\begin{equation}
+\ve{L} = \begin{pmatrix}
+  1    & 0     & 0 \\
+  4/5  & 1     & 0 \\
+  -2/5 & -19/3 & 1
+\end{pmatrix}
+\begin{pmatrix}
+y_1 \\ y_2 \\ y_3
+\end{pmatrix}
+= \begin{pmatrix}
+3 \\ -3 \\ 5
+\end{pmatrix} \nonumber
+\end{equation}
+%
+\begin{align}
+&\boxed{y_1 = 3} \nonumber \\
+&(\frac{4}{5})(3) + y_2 = -3 \rightarrow \boxed{y_2 = -\frac{27}{5}} \nonumber \\
+&(-\frac{2}{5})(3) + (-\frac{19}{3})(-\frac{27}{5}) + y_3 = 5
+\rightarrow \boxed{y_3 = -28} \nonumber
+\end{align}
+
+Now, we solve $\ve{U}\vec{x} = \vec{y}$ for $\vec{x}$
+%
+\begin{equation}
+\ve{U} = \begin{pmatrix}
+  5 & 2    & 1 \\
+  0 & -3/5 & -9/5 \\
+  0 & 0    & -14
+\end{pmatrix} 
+\begin{pmatrix}
+x_1 \\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}
+3 \\ -\frac{27}{5} \\ -28
+\end{pmatrix}\nonumber
+\end{equation}
+%
+\begin{align}
+&-14 x_3 = -28 \rightarrow \boxed{x_3 = 2} \nonumber \\
+&(-\frac{3}{5})x_2 + (-\frac{9}{5})(2) = -\frac{27}{5} \rightarrow \boxed{x_2 = 3} \nonumber \\
+&(5)x_1 + (2)(3) + (1)(2) = 3
+\rightarrow \boxed{x_1 = -1} \nonumber
+\end{align}
+
+\begin{itemize}
+\item The LU decomposition and solution is exact
+\item given the LU decomposition, multiple solution vectors can be computed for a small cost
+\item the LU decomposition can overwrite the original matrix, if desired
+\item the LU decomposition requires $O(n^3)$ FLOPS
+\item the LU decomposition `fills' a sparse matrix
+\end{itemize}	
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Direct Factorization Algorithm}
+Begin with $n \times n$ matrices $\ve{U}$ and $\ve{L}$ filled with zeros.
+%
+\begin{enumerate}
+\item For $i = 1, \dots, n$: $l_{ii} = 1$
+\item $u_{11} = a_{11}$
+
+\item For $j = 2, \dots, n$\\
+  \hspace*{1 em} $u_{1j} = a_{1j}$\\
+  \hspace*{1 em} $l_{j1} = a_{j1}/u_{11}$
+ 
+\item For $i = 2, \dots, n-1$\\
+  \hspace*{1 em} $u_{ii} = a_{ii} - \sum_{k=1}^{i-1} l_{ik} u_{ki}$\\
+  \hspace*{1 em} For $j = i+1, \dots, n$\\   
+    \hspace*{3 em} $u_{ij} = a_{ij} - \sum_{k=1}^{i-1} l_{ik} u_{ki}$\\
+    \hspace*{3 em} $l_{ji} = 1/u_{ii}[a_{ij} - \sum_{k=1}^{i-1} l_{jk} u_{ki}$
+    
+\item $u_{nn} = a_{nn} - \sum_{k=1}^{n-1} l_{nk} u_{kn}$
+\end{enumerate}
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Pivoting}
+When any of the diagonal coefficients are equal to zero (or close to zero), one way of avoiding it is row or column pivoting (exchange of rows or columns). We keep track of pivoting through a permutation matrix:
+\[\ve{P}\ve{A} = \ve{L}\ve{U}\]
+where $\ve{P}$ has one entry of unity per column and row.
+
+For example, if we have a situation where $u_{22}$ is very small but $u_{32}$ isn't, we could flip rows 2 and 3. Note: this also requires flipping $b_2$ and $b_3$. In this case, 
+\[\ve{P} = \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & 0 & 1 \\
+  0 & 1 & 0
+\end{pmatrix} \]
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Tridiagonal}
+If $\ve{A}$ is tridiagonal, LU decomposition can be streamlined by using the Thomas algorithm:
+%
+\begin{align}
+    \ve{T} &= \begin{pmatrix}
+      a_{11} & a_{12} & 0      & \cdots    & 0 \\
+      a_{21} & a_{22} & a_{23} & \cdots    & 0 \\
+      0      & a_{32} & \ddots & \ddots    & \vdots \\     
+      \vdots & \vdots & \ddots & \ddots    & a_{n-1 n}\\
+      0      & 0      & \cdots & a_{n n-1} & a_{nn} \\
+    \end{pmatrix} =
+    \begin{pmatrix}
+      d_{1}  & u_{1}  & 0      & \cdots & 0 \\
+      l_{2}  & d_{2}  & u_{2}  & \cdots & 0 \\
+      0      & l_{3}  & \ddots & \ddots & \vdots \\     
+      \vdots & \vdots & \ddots & \ddots & u_{n-1}\\
+      0      & 0      & \cdots & l_{n}  & d_{n} \\
+    \end{pmatrix} \nonumber   
+\end{align} 
+
+%--------------------------------------------------------------------
+\subsubsection*{Thomas Algorithm}
+\begin{enumerate}
+\item For $i=2, \dots, n$, overwrite\\
+  \hspace*{1 em} $d_i = d_i - (l_i / d_{i-1}) u_{i-1}$
+  \hspace*{1 em} $b_i = b_i - (l_i / d_{i-1}) b_{i-1}$ (forward sub)
+
+\item Get $\vec{x}$ through backward sub:\\
+$x_n = b_n / d_n$\\
+For $i = n-1, \dots, 1$:\\
+  \hspace*{1 em} $x_i = (b_i - u_i x_{i+1}) d_i$
+\end{enumerate}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{LinearSolns} 
+
+\end{document}
