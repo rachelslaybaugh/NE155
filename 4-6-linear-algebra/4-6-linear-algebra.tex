@@ -114,7 +114,7 @@ The p-norm:
 \begin{itemize}
 \item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
 \item Euclidean norm (length) $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
-\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
+\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_i|$
 \end{itemize}
 
 %-------------------------------------------------------------------
@@ -145,7 +145,7 @@ Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as bein
 C_1 ||\vec{x}||_a \leq ||\vec{x}||_b \leq C_2 ||\vec{x}||_a \qquad \text{where } C_1, C_2 = f(n) \nonumber
 \end{equation}
 %
-This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offered without proof). E.g.:
+This leads to the theorem that in $\mathbb{R}^n$ all norms are equivalent (offered without proof). E.g.:
 \begin{align}
 & ||\vec{x}||_{\infty} \leq ||\vec{x}||_2 \leq \sqrt[]{n} ||\vec{x}||_{\infty} \nonumber \\
 %
@@ -252,26 +252,135 @@ Given $\ve{A} \in \mathbb{C}^{m \times n}$, \ve{A} is
 \begin{enumerate}
 \item Transpose: $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times m} = \ve{A}^T$ from
 
-$b_{	ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
+$b_{ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
+%
+\newcommand{\aaa}{1-i}
+\newcommand{\aab}{2}
+\newcommand{\aba}{3+2i}
+\newcommand{\abb}{4}
+\newcommand{\aca}{5}
+\newcommand{\acb}{6+0.4i}
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb \\
+   \aca & \acb \\
+\end{pmatrix}\:, \qquad 
+%
+\ve{A}^T = \begin{pmatrix}
+   \aaa & \aba & \aca \\
+   \aab & \abb & \acb \\
+\end{pmatrix} \nonumber
+\end{equation}
 
+%--------------------
 \item Conjugate Transpose / adjoint, $\ve{A}^H = \cc{\ve{A}^T}$ is the complex conjugate of the transpose. 
 
-\item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal.
+Recall that complex conjugates are a pair of complex numbers, both the same except with imaginary parts of opposite signs. For example, The conjugate of the complex number $z=a+ib$, where $a$ and $b$ are real numbers, is $\overline{z} = a - ib$.
+%http://en.wikipedia.org/wiki/Complex_conjugate
+\renewcommand{\aaa}{1+i}
+\renewcommand{\aba}{3-2i}
+\renewcommand{\acb}{6-i}
+%
+\begin{equation}
+\ve{A}^H = \begin{pmatrix}
+   \aaa & \aba & \aca \\
+   \aab & \abb & \acb \\
+\end{pmatrix} \nonumber
+\end{equation}
 
-%If this exists, $\ve{A}$ is non-singular / invertible. If the inverse exists, it is unique.
+%--------------------
+\item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal. If this exists, $\ve{A}$ is non-singular / invertible. 
+\renewcommand{\aaa}{4}
+\renewcommand{\aab}{3}
+\renewcommand{\aba}{3}
+\renewcommand{\abb}{2}
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
+%
+\renewcommand{\aaa}{-2}
+\renewcommand{\abb}{-4}
+%
+\begin{equation}
+\ve{A}^{-1} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
 
+
+%--------------------
 \item Regular if $\ve{A}^{-1}$ exists
 
+%--------------------
 \item Hermitian / self-adjoint if $\ve{A} = \ve{A}^H$
+%
+\renewcommand{\aaa}{2}
+\renewcommand{\aab}{2+i}
+\newcommand{\aac}{4}
+\renewcommand{\aba}{2-i}
+\renewcommand{\abb}{3}
+\newcommand{\abc}{i}
+\renewcommand{\aca}{4}
+\renewcommand{\acb}{-i}
+\newcommand{\acc}{1}
+%
+\begin{equation}
+\ve{A} = \ve{A}^H= \begin{pmatrix}
+   \aaa & \aab & \aac \\
+   \aba & \abb & \abc \\
+   \aca & \acb & \acc \\
+\end{pmatrix} \nonumber
+\end{equation}
 
+%--------------------
 \item Symmetric if $\ve{A} = \ve{A}^T$
+%
+\renewcommand{\aaa}{1}
+\renewcommand{\aab}{2}
+\renewcommand{\aba}{2}
+\renewcommand{\abb}{3}
+%
+\begin{equation}
+\ve{A} = \ve{A}^T = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
 
+%--------------------
 \item Antisymmetric / skew-symmetric if $\ve{A}^H = -\ve{A}$
+%
+\renewcommand{\aaa}{0}
+\renewcommand{\aab}{-2}
+\renewcommand{\aba}{2}
+\renewcommand{\abb}{0}
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix}\:, \qquad
+%
+\ve{A}^T = \begin{pmatrix}
+   \aaa & \aba \\
+   \aab & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
 
+%--------------------
 \item Unitary if $\ve{A}\ve{A}^H = \ve{I}$
 
+%--------------------
 \item Normal if $\ve{A}\ve{A}^H = \ve{A}^H\ve{A}$
 
+%--------------------
 \item Orthogonal if A is real and $\ve{A}^{-1} = \ve{A}^T$ 
 \end{enumerate}
 
@@ -408,7 +517,7 @@ E.g., the Frobenius norm
 
 \item Not all norms are submultiplicative, we will only deal with those that are. 
 
-\item subordinate matrix norm for $\ve{A} \in \mathbb{R}_{m \times n}$ and $\vec{x} \in \mathbb{R}_n$:
+\item subordinate matrix norm for $\ve{A} \in \mathbb{R}^{m \times n}$ and $\vec{x} \in \mathbb{R}^n$:
 
 $||\ve{A}|| \equiv \displaystyle \sup_{\vec{x} \neq \vec{0}} ||\ve{A}\vec{x}|| / ||\vec{x}||$
 
@@ -460,7 +569,9 @@ Let $\ve{A} \in \mathbb{R}^{n \times n}$. If there is a vector $\vec{x} \in \mat
 %
 \[\ve{A} \vec{x} = \lambda \vec{x}\]
 %
-for some scalar $\lambda$, then $\lambda$ is an eigenvalue of $\ve{A}$ with a corresponding (right) eigenvector $\vec{x}$.
+for some scalar $\lambda$, then $\lambda$ is an eigenvalue of $\ve{A}$ with a corresponding (right) eigenvector $\vec{x}$. Note that the eigenvalue represents the ``stretching factor" in the direction of its associated eigenvector. 
+
+(http://math.stackexchange.com/questions/54176/is-there-a-geometric-meaning-of-the-frobenius-norm)
  
 We find eigenvalues by re-writing the stated relationship as $(\ve{A} - \lambda \ve{I})\vec{x}=0$.
 
@@ -518,11 +629,17 @@ and an eigenvalue is
 
 If a square matrix $\ve{A}$ has linearly independent eigenvectors, it can be factored as $\ve{A} = \ve{P}\ve{D}\ve{P}^{-1}$. Here $\ve{D}$ is a diagonal matrix containing the eigenvalues of $\ve{A}$ and $\ve{P}$ contains the corresponding, linearly independent eigenvectors of $\ve{A}$.  
 
-You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathbb{C}^{m \times n}$ can be factored as $\ve{Q}\ve{D}\ve{P}^{-1}$, and this is called the singular value decomposition. 
+You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathbb{C}^{m \times n}$ can be factored as $\ve{Q}\ve{\Sigma}\ve{V}^{-1}$, and this is called the singular value decomposition. $\ve{Q}$ and $\ve{V}$ are unitary, and $\ve{\Sigma}$ is diagonal where the entries are the singular values of $\ve{A}$: $\sigma_1, \sigma_2, \dots, \sigma_n$ with $\sigma_1 \geq \cdots \geq \sigma_n$. 
 
-This comes from the notion that $\ve{A}^H\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). 
+This comes from the notion that $\ve{A}^H\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). We can also say it as the singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^H\ve{A}$. 
 
-The singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^H\ve{A}$, and are denoted by $\sigma_1, \sigma_2, \dots, \sigma_n$. 
+To see the geometric meaning we can note that 
+\[\ve{A} = \ve{Q} \ve{\Sigma} \ve{V}^{-1} \rightarrow \ve{A}\ve{V} = \ve{Q} \ve{\Sigma} \:,\]
+look at one column at a time and see
+\[\ve{A}\vec{v}_i = \sigma_i \vec{v}_i \:, \qquad i = 1, \cdots, n \:.\]
+
+Now you can see that these are like eigenvalues in terms geometric stretching. And finally we note that $||\ve{A}||_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \dots + \sigma_n^2}$, effectively meaning that the Frobenius norm measures the size of the distortion a matrix creates in a system. (see this reference for a good explanation: \href{http://www.math.iit.edu/~fass/477577_Chapter_2.pdf}{http://www.math.iit.edu/$\sim$fass/477577\_Chapter\_2.pdf}).
+
 
 %--------------------------------------------------------------------------
 \subsection{Spectral radius} 
