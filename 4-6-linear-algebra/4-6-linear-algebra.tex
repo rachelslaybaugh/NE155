@@ -376,14 +376,90 @@ Recall that complex conjugates are a pair of complex numbers, both the same exce
 
 %--------------------
 \item Unitary if $\ve{A}\ve{A}^H = \ve{I}$
+%
+%http://college.cengage.com/mathematics/larson/elementary_linear/4e/shared/downloads/c08s5.pdf
+\begin{equation}
+\ve{A} = \frac{1}{2}\begin{pmatrix}
+   1+i & 1-i \\
+   1-i & 1+i 
+\end{pmatrix}\:,\nonumber
+\end{equation}
+%
+\begin{equation}
+\ve{AA}^H = \frac{1}{2}\begin{pmatrix}
+   1-i & 1+i \\
+   1+i & 1-i 
+\end{pmatrix}  \times
+\frac{1}{2}\begin{pmatrix}
+   1+i & 1-i \\
+   1-i & 1+i 
+\end{pmatrix} =
+\frac{1}{4}\begin{pmatrix}
+   4 & 0 \\
+   0 & 4 
+\end{pmatrix} = \ve{I}\nonumber
+\end{equation}
 
 %--------------------
 \item Normal if $\ve{A}\ve{A}^H = \ve{A}^H\ve{A}$
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   1 & 1 & 0 \\
+   0 & 1 & 1 \\
+   1 & 0 & 1
+\end{pmatrix}\:, \qquad
+\ve{A}^H = \begin{pmatrix}
+   1 & 0 & 1 \\
+   1 & 1 & 0 \\
+   0 & 1 & 1
+\end{pmatrix}\:,\nonumber
+\end{equation}
+%
+\begin{equation}
+\ve{AA}^H = \begin{pmatrix}
+   1 & 1 & 0 \\
+   1 & 1 & 0 \\
+   0 & 1 & 1 
+\end{pmatrix}  \times
+\begin{pmatrix}
+   1 & 0 & 1 \\
+   1 & 1 & 0 \\
+   0 & 1 & 1 
+\end{pmatrix} =
+\begin{pmatrix}
+   2 & 1 & 1 \\
+   1 & 2 & 1 \\
+   1 & 1 & 2 
+\end{pmatrix} = \ve{A}^H\ve{A}\nonumber
+\end{equation}
+
 
 %--------------------
-\item Orthogonal if A is real and $\ve{A}^{-1} = \ve{A}^T$ 
+\item Orthogonal if A is real and $\ve{AA}T = \ve{A}^T\ve{A}$, which means $\ve{A}^{-1} = \ve{A}^T$ .
+%
+\begin{equation}
+\ve{A} = \frac{1}{\sqrt{2}}\begin{pmatrix}
+   1 & 1 \\
+   1 & -1 
+\end{pmatrix}\:, \qquad
+\frac{1}{\sqrt{2}}\ve{A}^T = \begin{pmatrix}
+   1 & 1 \\
+   1 & -1 
+\end{pmatrix}\:,\qquad
+\ve{A}^T\ve{A} = \frac{1}{2}\begin{pmatrix}
+   2 & 0 \\
+   0 & 2 
+\end{pmatrix} = \ve{I} \nonumber
+\end{equation}
+
 \end{enumerate}
 
+Among complex matrices, all unitary, Hermitian, and skew-Hermitian matrices are normal. 
+
+Likewise, among real matrices, all orthogonal, symmetric, and skew-symmetric matrices are normal. 
+
+However, it is \textit{not} the case that all normal matrices are either unitary or (skew-)Hermitian (see example above).% http://en.wikipedia.org/wiki/Normal_matrix
 
 %-------------------------------------------------------------
 \subsection{Equations and Special Matrices}
@@ -656,28 +732,28 @@ With the properties:
 %
 Let's think about the meaning of the spectral radius. This is the largest change a matrix can induce on a vector while maintaining it's direction. That is what the matrix 2-norm means, which is analogous to the vector idea of length.
 
-\textbf{example}
-Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
-\[\ve{A}\vec{x} = \lambda x \qquad \text{and } \vec{x} \neq \vec{0}\]
-and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
-%
-\begin{align}
-\cc{u}^T \ccm{A}^T &= \cc{\lambda} \cc{u}^T
-\qquad \text{The first step} \nonumber \\
-%
-\cc{u}^T \ve{A} &= \cc{\lambda} \cc{u}^T 
-\qquad \text{apply Hermitian definition}\nonumber \\
-%
-\cc{u}^T \ve{A} \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
-\qquad \text{right multiply by }\vec{u}\nonumber \\
-%
-\cc{u}^T \lambda \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
-\qquad \text{apply eigenvalue definition }\nonumber \\
-%
-\lambda &= \cc{\lambda} 
-\qquad \text{recognize that the }\vec{u}\text{s factor out}\nonumber
-\end{align}
- 
+%\textbf{example}
+%Show that the eigenvalues of a Hermitian matrix are real, noting that the eigenvalues of $\ve{A}$ satisfy
+%\[\ve{A}\vec{x} = \lambda x \qquad \text{and } \vec{x} \neq \vec{0}\]
+%and recall that $\ve{A} = \ve{A}^H = \ccm{A}^T$ defines a Hermitian matrix.
+%%
+%\begin{align}
+%\cc{u}^T \ccm{A}^T &= \cc{\lambda} \cc{u}^T
+%\qquad \text{The first step} \nonumber \\
+%%
+%\cc{u}^T \ve{A} &= \cc{\lambda} \cc{u}^T 
+%\qquad \text{apply Hermitian definition}\nonumber \\
+%%
+%\cc{u}^T \ve{A} \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
+%\qquad \text{right multiply by }\vec{u}\nonumber \\
+%%
+%\cc{u}^T \lambda \vec{u} &= \cc{\lambda} \cc{u}^T \vec{u}
+%\qquad \text{apply eigenvalue definition }\nonumber \\
+%%
+%\lambda &= \cc{\lambda} 
+%\qquad \text{recognize that the }\vec{u}\text{s factor out}\nonumber
+%\end{align}
+% 
  %--------------------------------------------------------------------------
 \subsection{All matrix norms are bounded}
 
