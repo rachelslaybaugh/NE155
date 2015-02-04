@@ -73,7 +73,7 @@ Given $\ve{A}\vec{x} = \vec{b}$, how do you find $\vec{x}$?
   \item incomplete factorizations (which we'll cover) \emph{are} used as pre-conditioners for iterative methods
 \end{itemize}
 
-We can also use iterative and semi-iterative methods, which we will talk about later
+We can also use iterative and semi-iterative methods, which we will talk about in a later class.
 
 We can reduce a matrix to echelon form (discussed later) to determine uniqueness properties of the solution space.
 \begin{enumerate}
@@ -155,7 +155,7 @@ These both require $O(n^2)$ operations, and each have the same caveats about zer
 
 \textbf{Theorem}
 
-Let $\ve{A} \in \mathcal{R}^{m \times n}$ be regular (recall: regular means $\ve{A}^{-1}$ exists). Then there are matrices $\ve{L}$ (lower triangular) with $l_{ii} = 1$ and $\ve{U}$ (upper triangular) such that $\ve{A} = \ve{L}\ve{U}$ is unique.
+Let $\ve{A} \in \mathbb{R}^{m \times n}$ be regular (recall: regular means $\ve{A}^{-1}$ exists). Then there are matrices $\ve{L}$ (lower triangular) with $l_{ii} = 1$ and $\ve{U}$ (upper triangular) such that $\ve{A} = \ve{L}\ve{U}$ is unique.
 
 We want to solve $\ve{A}\vec{x} = \vec{b}$:
 %
@@ -174,7 +174,7 @@ We want to solve $\ve{A}\vec{x} = \vec{b}$:
 %
 This requires $O(n^2)$ operations.
 
-The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^3)$ operations. $\ve{U}$ is the upper triangular matrix from Gaussian Elimination; $\ve{L}$ is the lower triangular matrix (formed from performing the same operations on $\ve{I}$ that you performed on $\ve{U}$). 
+The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^3)$ operations. $\ve{U}$ is the upper triangular matrix from Gaussian Elimination; $\ve{L}$ is the lower triangular matrix formed from performing the same operations on $\ve{I}$ that you performed on $\ve{U}$. 
 %
 \begin{equation}
    \ve{L} = \begin{pmatrix}
@@ -194,7 +194,7 @@ The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^
 %
 For a given column, $j = 1, \dots, n$, the $m_{ij}$ are $a_{ij} / a_{jj}$ for $i = j, \dots, n$. 
 
-Caveat: we use the entries currently in $\ve{A}$ that come from the process of row-reducing $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
+Caveat: we use the entries in the version of $\ve{A}$ \textit{that comes from the process of row-reducing} $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
 
 \textbf{example}
 \begin{equation}
@@ -293,12 +293,36 @@ x_1 \\ x_2 \\ x_3
 \end{align}
 
 \begin{itemize}
-\item The LU decomposition and solution is exact
+\item The LU decomposition and solution are exact
 \item given the LU decomposition, multiple solution vectors can be computed for a small cost
 \item the LU decomposition can overwrite the original matrix, if desired
 \item the LU decomposition requires $O(n^3)$ FLOPS
 \item the LU decomposition `fills' a sparse matrix
 \end{itemize}	
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Example of Real Use}
+``Improving Thermal-Hydraulic Calculation Modules of THERMIX Code Based on LU Decomposition"
+by Yang Tang, Yangping Zhou, Zhiwei Zhou;
+DOI: 10.1115/ICONE21-16575; Conference: 2013 21st International Conference on Nuclear Engineering
+
+ABSTRACT: THERMIX is a software package for analyzing the thermal-hydraulic and safety behavior of pebble-bed high temperature gas-cooled reactor under both normal condition and accident conditions. The point-wise iterative solution method of THERMIX is time-consuming and difficult to be extended. For the solid-phase thermal conductivity calculation module (THERMIX), gas flow calculation module (KONVEK) and primary loop flow network system calculation module (KISMET) respectively, a global solution method based on LU decomposition with higher efficiency is developed and tested. With good calculation accuracy, the new method has a greater computational efficiency, compared with the original method.
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\subsection*{Pivoting}
+When any of the diagonal coefficients are equal to zero (or close to zero), one way of avoiding it is row or column pivoting (exchange of rows or columns). We keep track of pivoting through a permutation matrix:
+\[\ve{P}\ve{A} = \ve{L}\ve{U}\]
+where $\ve{P}$ has one entry of unity per column and row.
+
+For example, if we have a situation where $u_{22}$ is very small but $u_{32}$ isn't, we could flip rows 2 and 3. Note: this also requires flipping $b_2$ and $b_3$. In this case, 
+\[\ve{P} = \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & 0 & 1 \\
+  0 & 1 & 0
+\end{pmatrix} \]
+
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
@@ -321,20 +345,6 @@ Begin with $n \times n$ matrices $\ve{U}$ and $\ve{L}$ filled with zeros.
     
 \item $u_{nn} = a_{nn} - \sum_{k=1}^{n-1} l_{nk} u_{kn}$
 \end{enumerate}
-
-%--------------------------------------------------------------------
-%--------------------------------------------------------------------
-\subsection*{Pivoting}
-When any of the diagonal coefficients are equal to zero (or close to zero), one way of avoiding it is row or column pivoting (exchange of rows or columns). We keep track of pivoting through a permutation matrix:
-\[\ve{P}\ve{A} = \ve{L}\ve{U}\]
-where $\ve{P}$ has one entry of unity per column and row.
-
-For example, if we have a situation where $u_{22}$ is very small but $u_{32}$ isn't, we could flip rows 2 and 3. Note: this also requires flipping $b_2$ and $b_3$. In this case, 
-\[\ve{P} = \begin{pmatrix}
-  1 & 0 & 0 \\
-  0 & 0 & 1 \\
-  0 & 1 & 0
-\end{pmatrix} \]
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
