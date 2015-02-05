@@ -1,6 +1,5 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
 
 % formatting
 \documentclass[12pt]{article}
@@ -21,6 +20,9 @@
 \renewcommand{\ttdefault}{cmtt}
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
+
+% for creating indented blocks
+\usepackage{scrextend}
 
 % Draw figures yourself
 \usepackage{tikz} 
@@ -50,8 +52,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 11 \& 12, S14 \\
-Approximation and Interpolation \\ February 14 and 19, 2014}
+{\bf NE 155, Classes 8 \& 9, S15 \\
+Interpolation and Approximation\\ February 6 and 9, 2015}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -60,7 +62,7 @@ Approximation and Interpolation \\ February 14 and 19, 2014}
 \end{picture}
 
 %--------------------------------------------------------------------
-\section{Introduction}
+\section*{Introduction}
 Sometimes rather than calculating values of a function, we need to approximate or interpolate them instead. Why might we do this?
 %
 \begin{itemize}
@@ -78,20 +80,19 @@ This is relevant in numerical \textbf{integration/differentiation} and in \textb
 \underline{Problem:} given a function $f(x)$ or a set  of discrete values $\{x_i, f(x_i)\}$, try to find $g(x)$ that in some sense approximates $f(x)$. 
 
 \begin{enumerate}
-\item \textbf{Approximation} The approximation function does \underline{not} need to fit through all given function values. 
+\item \textbf{Approximation} An approximation function \underline{does not} need to fit through all given function values. 
 
 Why would we do this? Perhaps we know there are errors in the data, or we only care about the general trend. 
 
 Example: Least Squares
 
-\item \textbf{Interpolation} The interpolation function does need to do
-through all give values of the function.
+\item \textbf{Interpolation} An interpolation function \underline{does} need to go through all given values of the function.
 
-We do this because we believe the data points. We will discuss this strategy first.
+We do this because we \textit{believe} the data points and therefore want to make sure we match them. We will discuss this strategy first.
 \end{enumerate}
 
 %--------------------------------------------------------------------
-\subsection{Types}
+\subsection*{Types}
 There are several common types of Interpolating functions
 %
 \begin{itemize}
@@ -108,7 +109,8 @@ There are several common types of Interpolating functions
 
 
 %--------------------------------------------------------------------
-\section{Polynomial Interpolation}
+%--------------------------------------------------------------------
+\section*{Polynomial Interpolation}
 Why polynomials?
 \[g(x) = a_0 + a_1 x + a_2 x^2 + \dots +a_n x^n\]
 
@@ -118,55 +120,60 @@ Why polynomials?
 \[g(x) = a_0 + x(a_1 + x(a_2 + x(\dots)))\]
 \end{enumerate}
 
-\underline{Theorem:} ``Weierstrauss approx theorem"
+\textbf{Theorem:} (Weierstrauss approximation theorem)
 
-let $f$ be $C^0 \in [a,b]$. Give $\epsilon > 0$, $\exists$ a polynomial, $P(x)$, such that 
-\[|f(x) - p(x)| \leq \epsilon, x \in [a,b] \:.\]
+let $f$ be $C^0 \in [a,b]$. Given $\epsilon > 0$, $\exists$ a polynomial, $P(x)$, such that 
+\[|f(x) - p(x)| \leq \epsilon, \qquad x \in [a,b] \:.\]
+
+
+\begin{addmargin}[3em]{1em}
+\underline{Aside about terminology:} In mathematical analysis, \textit{smoothness} has to do with how many derivatives of a function exist and are continuous. The function $f$ is said to be of (differentiability) class $C^k$ if the derivatives $f', f'', \cdots, f(k)$ exist and are continuous (the continuity is implied by differentiability for all the derivatives except for $f(k)$). 
+\end{addmargin}%http://en.wikipedia.org/wiki/Smoothness
+
 
 %--------------------------------------------------------------------
-%--------------------------------------------------------------------
-\subsection{Taylor Polynomial}
-If $f(x)$ is known but difficult to evaluate, we can replace it by the
-Taylor polynomial around x = a
+\subsection*{Taylor Polynomial}
+If $f(x)$ is known but difficult to evaluate, we can replace it by a Taylor polynomial around $x = a$
 \begin{align}
-f(x) &= f(a) + f'(a)(a-x) + f''(a)\frac{(x-a)^2}{2!} + \cdots + f^{(n-1)}(a)\frac{(x-a)^{n-1}}{(n-1)!} + R_n \\
+f(x) &= f(a) + f'(a)(a-x) + f''(a)\frac{(x-a)^2}{2!} + \cdots + f^{(n-1)}(a)\frac{(x-a)^{n-1}}{(n-1)!} + R_n \nonumber \\
 %
-  &= \sum_{k=0}^{n-1}\frac{(x-a)^k}{k!}f^{(k)}(a) + R_n \\
+  &= \sum_{k=0}^{n-1}\frac{(x-a)^k}{k!}f^{(k)}(a) + R_n \nonumber\\
 %
-R_n &= f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]
+R_n &= f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]\nonumber
 %http://mathworld.wolfram.com/TaylorSeries.html
 \end{align}
 
 
 %--------------------------------------------------------------------
-%--------------------------------------------------------------------
-\subsection{Lagrange Interpolating Polynomial}
+\subsection*{Lagrange Interpolating Polynomial}
 %
-\underline{Problem:} Given $x_0, x_1,\dots, x_n$ are $(n+1)$ distinct points find $P_n(x)$, a unique polynomial of degree $\leq n$ s.t.\
+\underline{Theorem:} 
+Instead, if we have $(n+1)$ distinct points $x_0, x_1,\dots, x_n$ and $f(x)$ is a function defined by these points, then $\exists$ a unique polynomial, $P_n(x)$, of degree $\leq n$ that interpolates $f$ at the $n + 1$ distinct points s.t.\
 \[f(x_k) = P(x_k)\:, \qquad \text{for }k= 0, 1, \dots, n\]
 %
-UPDATE THE REST OF THIS SECTION FROM R NOTES!
-
+This polynomial is given by
+%
+\[P(x) = f(x_0)L_0(x) + \dots + f(x_n)L_n(x) = \sum_{k=0}^{n}f(x_k)L_k(x)\:,\]
+%
+where the $L_i(x)$ are Lagrange polynomials:
+%
 \begin{align}
-P(x) &= f(x_0)L_0(x) + \dots + f(x_n)L_n(x) = \sum_{k=0}^{n}f(x_k)L_k(x) \\
+L_k(x) &= \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)}\nonumber\\
 %
-L_k(x) &= \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)}\\
-%
-L_k(x) &= \frac{(x-x_0)(x-x_1)\cdots(x-x_{k-1})(x-x_{k+1})\cdots(x-x_n)}{(x_k-x_0)(x_k-x_1)\cdots(x_k-x_{k-1})(x_k-x_{k+1})\cdots(x_k-x_n)}
+L_k(x) &= \frac{(x-x_0)(x-x_1)\cdots(x-x_{k-1})(x-x_{k+1})\cdots(x-x_n)}{(x_k-x_0)(x_k-x_1)\cdots(x_k-x_{k-1})(x_k-x_{k+1})\cdots(x_k-x_n)}\nonumber
 \end{align}
 
 Note: this is sometimes called full degree polynomial interpolation.
 
-\textbf{iPython demo; show Taylor picture as well.}
+\textbf{iPython demo; show Taylor picture as well}:\\ \href{http://en.wikipedia.org/wiki/Taylor_series#mediaviewer/File:Sintay_SVG.svg}{http://en.wikipedia.org/wiki/Taylor\_series\#mediaviewer/File:Sintay\_SVG.svg}.
 
 %--------------------------------------------------------------------
-\subsubsection{Error}
-\underline{Theorem:} If $x_0, x_1,\dots, x_n$ are $(n+1)$ distinct points and $f$ is defined at those points, then $\exists$ a unique polynomial, $P_{n}(x)$ of degree $ \leq n$, that interpolates $f$ at the $n + 1$ distinct points: $f(x_k) = P(x_k)$
-
+\clearpage
+\subsubsection*{Error}
 \underline{Theorem:} If $x_0, x_1,\dots, x_n$ are $(n+1)$ distinct points $\in [a,b]$ and $f$ is $C^{n+1} \in [a,b]$ then for each $x\in [a,b]$ there exists $\xi(x) \in [a,b]$ s.t.
 \begin{align}
-f(x) - P_n(x)& = \frac{f^{n+1}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n) \\
-&\boxed{e = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{i=0}^n (x-x_i)}
+f(x) - P_n(x)& = \frac{f^{n+1}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n)\nonumber \\
+&\boxed{e = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{i=0}^n (x-x_i)}\nonumber
 \end{align}
 %
 %The Lagrange polynomial of degree $n$ uses information at the
@@ -174,13 +181,13 @@ f(x) - P_n(x)& = \frac{f^{n+1}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n) \\
 %
 %For all polynomial interpolations, the error is related to the $n+1$st derivative of the function. If we have more points than derivatives, this might not work well. This is related to our next idea.
 
-What is a variable here that will affect the error? How we choose the $x_i$. We will not get into this here, but in general equally spaced points don't work terribly well and there are sets of differently spaced points that are designed to be optimal in different ways. 
+What is a variable here that will affect the error? \\ \textit{How we choose the $x_i$.} \\We will not get into this here, but in general equally-spaced points don't work well and there are specific sets of differently-spaced points that are designed to be optimal in different ways. 
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
-\subsection{Piecewise Polynomials}
+\subsection*{Piecewise Polynomials}
 
-It is often difficult to get one polynomial to fit all of our data very well, and we'd rather not have to select optimal points (since it will depend on the norm we use). 
+It is often difficult to get one polynomial to fit all of our data very well, and we'd rather not have to select optimal points (since it will depend on the norm we use and this can be tricky). 
 
 An alternative approach is to divide the interval into small sub-intervals (usually of equal size) and construct a polynomial on each-subinterval. This is called ``splines".
 
@@ -199,26 +206,27 @@ An alternative approach is to divide the interval into small sub-intervals (usua
 %
 A \textbf{spline} is a polynomial function that is piecewise-defined, and possesses a ``high" degree of smoothness at the places where the polynomial pieces connect (which are known as \textit{knots}).
 
-
-The simplest way to do this is \textbf{piecewise linear}. What might be a problem with that? Piecewise linear is only $C^0$.
+The simplest way to do this is \textbf{piecewise linear}.\\ What might be a problem with that?\\ \textit{Piecewise linear is only $C^0$}.
 
 The most common approach is to use \textbf{cubic splines}: a cubic polynomial between each successive pair of nodes. For cubic splines, we can get continuous 2nd derivatives at the knots - which is all we can ask from cubic polynomials. 
 
-Given a function $f(x)$ defined on $[a,b]$ and a set of numbers (knots) $a=x_0 < x_1 < ... < x_n = b$, a cubic spline interpolant, $S(x)$, for $f$ is:
+%-------------------------------------------------------
+\textbf{Spline interpolation:} Given a function $f(x)$ defined on $[a,b]$ and a set of numbers (knots) $a=x_0 < x_1 < ... < x_n = b$, we can say the following about a cubic spline interpolant, $S(x)$, for $f$:
+%
 \begin{itemize}
 \item on each sub-interval $[x_j, x_{j+1}]$, $S$ is a cubic polynomial:
 \[S(x) = S_j(x) = a_j + b_j(x-x_j) + c_j(x-x_j)^2 + d_j(x-x_j)^3 \text{ for } j = 0, 1, ..., n-1\]
 
-\item $S$ interpolates $f$ (n+1 constraints)
-\[S(x_j) = f(x_j)\text{ for } j = 0, 1, ..., n-1\]
+\item $S$ interpolates $f$ (gives n+1 constraints)
+\[S(x_j) = f(x_j)\text{ for } j = 0, 1, ..., n\]
 
-\item $S$ is continuous (n-1 constraints)
+\item $S$ is continuous (gives n-1 constraints)
 \[S_{j+1}(x_{j+1}) = S_{j}(x_{j+1})\text{ for } j = 0, 1, ..., n-2\]
 
-\item $S'$ is continuous (n-1 constraints)
+\item $S'$ is continuous (gives n-1 constraints)
 \[S'_{j+1}(x_{j+1}) = S'_{j}(x_{j+1})\text{ for } j = 0, 1, ..., n-2\]
 
-\item $S''$ is continuous (n-1 constraints)
+\item $S''$ is continuous (gives n-1 constraints)
 \[S''_{j+1}(x_{j+1}) = S''_{j}(x_{j+1})\text{ for } j = 0, 1, ..., n-2\]
 \end{itemize}
 %
@@ -243,33 +251,33 @@ and
 \[h = \max_{0 \leq j \leq n-1} (x_{j+1} - x_{j})\]
 \end{itemize}
 
-We're not going to go over the spline algorithm, but you get a tridiagonal system out of it.
+We're not going to go over the spline algorithm, but you get a \textbf{tridiagonal system} out of it. \\ \textit{What ways might we solve a tridiagonal system?} \\ LU decomposition (Thomas algorithm).
 
 The Python function for this is \textit{scipy.interpolate.splrep}
 
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
-\section{Approximation}
+\section*{Approximation}
 
 What if we have some collection of data, $(x_0, y_0), (x_1, y_1),\dots, (x_m, y_m)$ that is noisy but obeys, what we believe, is some functional form (linear, exp., trig., etc.)?
 
 We can approximate the data to get an expression for the functional form.
 
 %--------------------------------------------------------------------
-\subsection{Least Squares}
-Least Squares finds the best approximating line that minimizes the least squares error of the representation. 
+\subsection*{Least Squares}
+Least Squares finds the best approximating line (function) that minimizes the least squares error of the representation.
 
-\subsubsection{Linear}
+\subsubsection*{Linear}
 If we assume the form is linear, we are trying to find
-\[y = a_0 + a_1 x\]
+\[y = a_0 + a_1 x \:,\]
 where these coefficients provide the best fit for
  
 \begin{align}
-y_0 &= a_0 + a_1 x_0 \\
-y_1 &= a_0 + a_1 x_1 \\
-& \vdots \\
-y_m &= a_0 + a_1 x_m \\
+y_0 &= a_0 + a_1 x_0 \nonumber \\
+y_1 &= a_0 + a_1 x_1 \nonumber\\
+& \vdots \nonumber\\
+y_m &= a_0 + a_1 x_m \nonumber\\
 %
 \begin{pmatrix}
 1 & x_0 \\ 1 & x_1 \\ \vdots & \vdots \\ 1 & x_m
@@ -279,105 +287,152 @@ a_0 \\ a_1
 \end{pmatrix}}_{\vec{z}} &=
 \begin{pmatrix}
 y_0 \\ y_1 \\ \vdots \\ y_m
-\end{pmatrix}
+\end{pmatrix}\nonumber
 \end{align}
 %
-Why can't we just solve this matrix system? $n < m$ and the system is overdetermined. Instead, we look to minimize the error, $e = ||\ve{A}\vec{z} - \vec{b}||$.
+Why can't we just solve this matrix system?\\ $n < m$ and the system is overdetermined.\\ Instead, we look to minimize the error, $e = ||\ve{A}\vec{z} - \vec{b}||$.
 
-We choose the 2-norm. The 2-norm squared is
+We must choose a norm in which to minimize the error. It is quote common to choose the 2-norm; the 2-norm squared is
 \[e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i)\bigr)^2\]
 %
-To minimize this wrt the $a$s, we take the partial derivative and set equal to zero:
+To minimize this w.r.t.\ the $a$s, we take the partial derivative and set equal to zero:
 %
 \begin{align}
-\frac{\partial e}{\partial a_0} &= -2 \sum_{i=0}^m \bigl(y_i - (a_0 + a_1 x_i)\bigr) = 0 \\
+\frac{\partial e}{\partial a_0} &= -2 \sum_{i=0}^m \bigl(y_i - (a_0 + a_1 x_i)\bigr) = 0 \nonumber\\
 %
-\frac{\partial e}{\partial a_1} &= -2 \sum_{i=0}^m x_i \bigl(y_i - (a_0 + a_1 x_i)\bigr) = 0 \\
+\frac{\partial e}{\partial a_1} &= -2 \sum_{i=0}^m x_i \bigl(y_i - (a_0 + a_1 x_i)\bigr) = 0 \nonumber
 \end{align}
 %
 This gives
 %
 \begin{equation}
 \begin{pmatrix}
-m                & \sum_{i=0}^m x_i \\
-\sum_{i=0}^m x_i & \sum_{i=0}^m x_i^2 \\ 
+m                & \sum_{i=0}^m x_i \nonumber\\
+\sum_{i=0}^m x_i & \sum_{i=0}^m x_i^2 \nonumber\\ 
 \end{pmatrix}
 \begin{pmatrix}
 a_0 \\ a_1
 \end{pmatrix} =
 \begin{pmatrix}
 \sum_{i=0}^m y_i \\ \sum_{i=0}^m x_i y_i
-\end{pmatrix}
+\end{pmatrix}\nonumber
 \end{equation}
 %
 and now we have two equations with two unknowns! 
 
-\underline{note:} If you look at the \ve{A} we had originally defined, \ve{A}$^T$\ve{A} and \ve{A}$^T\vec{b}$ also gives this system. These are called the normal equations
+\underline{note:} If you look at the \ve{A} we had originally defined, \ve{A}$^T$\ve{A} and \ve{A}$^T\vec{b}$ also gives this system. These are called the \textbf{normal equations}:
 %
 \begin{align}
-\ve{A}^T\ve{A} \vec{z} &= \ve{A}^T\vec{b} \\
+\ve{A}^T\ve{A} \vec{z} &= \ve{A}^T\vec{b} \nonumber\\
 %
-\det(\ve{A}^T\ve{A}) &= m \sum_{i=0}^m x_i^2 -  \bigl(\sum_{i=0}^m x_i\bigr)^2 \\
+\det(\ve{A}^T\ve{A}) &= m \sum_{i=0}^m x_i^2 -  \bigl(\sum_{i=0}^m x_i\bigr)^2 \nonumber\\
 %
-&= \frac{1}{2} \sum_{i=0}^m \sum_{j=0}^m (x_i - x_j)^2
+&= \frac{1}{2} \sum_{i=0}^m \sum_{j=0}^m (x_i - x_j)^2\nonumber
 \end{align}
 %
-The determinant is 0 iff $x_i=c \forall i$.
+The normal equation is that which minimizes the sum of the square differences between the left and right sides. It is called a normal equation because $\vec{b}-\ve{A}\vec{x}$ is normal to the range of $\ve{A}$. %http://mathworld.wolfram.com/NormalEquation.html
+%The determinant is 0 iff $x_i=c \forall i$.
+
+Note that all of this was for a linear function. We can use the same strategy for other functional forms.
 
 %--------------------------------------------------------------------
-\subsubsection{Polynomial}
-\[y = a_0 + a_1 x + a_2 x^2 + \dots +a_n x^n\]
-If you have $> n+1$ constraints, use least squares by constructing the matrix where $m>n$ and solving the normal equations.
-
-\textbf{draw matrix}
-
-%--------------------------------------------------------------------
-\subsubsection{Exponential}
+\subsubsection*{Exponential}
 If the functional form is
 %
 \begin{align}
-y &= \beta e^{\alpha x} \text{ or}\\
-y &= \beta x^{\alpha}
+y &= \beta e^{\alpha x} \qquad\text{ or}\nonumber\\
+y &= \beta x^{\alpha}\nonumber
 \end{align}
 %
-You can do the least square procedure with taking the two-norm and taking the partial derivative
+You can do the least square procedure by taking the two-norm squared, taking the partial derivatives, and setting them equal to zero to solve
 
 -or- 
 
 you can simply take the log and treat it like the linear case
 %
 \begin{align}
-\underbrace{ln(y)}_{y} &= \underbrace{ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} x \text{ or}\\
-\underbrace{ln(y)}_{y} &= \underbrace{ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} \underbrace{ln(x)}_{x}
+\underbrace{ln(y)}_{y} &= \underbrace{ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} x \qquad \text{ or}\nonumber\\
+\underbrace{ln(y)}_{y} &= \underbrace{ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} \underbrace{ln(x)}_{x}\nonumber
 \end{align}
 
-%%--------------------------------------------------------------------
-%\subsubsection{Fourier Series}
-%Least Squares and Fourier Series are actually related to one another. 
-%
-%It is possible to approximate a function with a polynomial, as we know, but now we will write the way we're considering the error a bit differently:
-%%
-%\begin{align}
-%e &=\int_a^b \bigl[f(x) - P_n(x)\bigr]^2 dx \\
-%\text{where }& P_n(x) = \sum_{j=0}^{n} c_i \phi_j(x)
-%\end{align}
-%
-%In general (often?), approximations to functions require that the basis set be orthogonal. 
-%
-%A \textbf{basis} is a linearly independent set of vectors. Given a basis of a vector space, every element of the vector space can be expressed uniquely as a finite linear combination of basis vectors.
-%
-%$\{ \phi_0, \phi_1, \dots, \phi_n\}$ is an orthogonal set of functions over $[a,b]$ w.r.t. a weight function, $w(x)$, if
-%%
-%\begin{equation}
-%\int_a^b w(x) \phi_j(x) \phi_k(x) dx = \biggl\{
-%\begin{array}{ll}
-%0 & \mbox{if } j \neq k \\
-%\alpha_x & \mbox{if } j = k
-%\end{array}
-%\end{equation}
-%%
-%if $\alpha = 1$, then the functions are also orthonormal.
 
+%--------------------------------------------------------------------
+\subsubsection*{Polynomial}
+We can also find the least squares error for some polynomial approximation:
+%
+\[y = a_0 + a_1 x + a_2 x^2 + \dots +a_n x^n\]
+%
+where the error (residual) in the two norm is given by
+%
+\[e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i+ \cdots + a_n x_i^n)\bigr)^2 \:.\]
+%
+We again take the partial derivatives and form the matrices for the normal equations (or directly form the normal equations using matrix multiplication). This gives:
+%
+\begin{equation}
+\begin{pmatrix}
+m                & \sum_{i=0}^m x_i & \cdots & \sum_{i=0}^m x_i^n \\
+\sum_{i=0}^m x_i & \sum_{i=0}^m x_i^2 & \cdots & \sum_{i=0}^m x_i^{n+1} \\ 
+\vdots & \vdots & \ddots & \vdots \\
+\sum_{i=0}^m x_i^n & \sum_{i=0}^m x_i^{n+1} & \cdots & \sum_{i=0}^m x_i^{2n}
+\end{pmatrix}
+\begin{pmatrix}
+a_0 \\ a_1 \\ \vdots \\ a_n
+\end{pmatrix} =
+\begin{pmatrix}
+\sum_{i=0}^m y_i \\ \sum_{i=0}^m x_i y_i \\ \vdots \\ \sum_{i=0}^m x_i^n y_i \nonumber
+\end{pmatrix}
+\end{equation}
+%http://mathworld.wolfram.com/LeastSquaresFittingPolynomial.html
+
+%%--------------------------------------------------------------------
+\subsubsection*{Fourier Series}
+Least Squares and Fourier Series are actually related to one another. 
+
+It is possible to approximate a function with a polynomial, as we know, but now we will write the way we're considering the error a bit differently:
+%
+\begin{align}
+e &=\int_a^b \bigl[f(x) - P_n(x)\bigr]^2 dx \nonumber\\
+\text{where }& P_n(x) = \sum_{j=0}^{n} c_j \phi_j(x) \nonumber
+\end{align}
+
+In general, approximations to functions require that the basis set (the $\phi$s) be orthogonal. 
+
+A \textbf{basis} is a linearly independent set of vectors. Given a basis of a vector space, every element of the vector space can be expressed uniquely as a finite linear combination of basis vectors.
+
+$\{ \phi_0, \phi_1, \dots, \phi_n\}$ is an orthogonal set of functions over $[a,b]$ w.r.t.\ a weight function, $w(x)$, if
+%
+\begin{equation}
+\int_a^b w(x) \phi_j(x) \phi_k(x) dx = \biggl\{
+\begin{array}{ll}
+0 & \mbox{if } j \neq k \\
+\alpha_x & \mbox{if } j = k
+\end{array} \nonumber
+\end{equation}
+%
+if $\alpha = 1$, then the functions are also orthonormal.
+
+If there is an orthogonal set of functions on $[a,b]$, then the least squares approximation to $f$ on $[a,b]$ is:
+\begin{align*}
+P(x) &= \sum_{j=0}^n c_j(x) \phi_j(x) \\
+c_j &= \frac{1}{\alpha_j} \int_a^b w(x)\phi_j(x)f(x)dx \qquad k=0, 1, \dots, n\:.
+\end{align*}
+
+To see the relationship with Fourier series, we use the orthonormal basis set on $[-\pi, \pi]$:
+%
+\begin{align*}
+\phi_0(x) &= \frac{1}{\sqrt{2\pi}} \\
+\phi_j(x) &= \frac{1}{\sqrt{\pi}}\cos(jx)\:, \qquad j=1,2,\dots,n \\
+\phi_{n+j}(x) &= \frac{1}{\sqrt{\pi}}\sin(jx)\:, \qquad j=1,2,\dots,n-1 \:.
+\end{align*}
+
+Then, the least squares approximation to $f$ on $[-\pi,\pi]$ with this set of functions is
+%
+\begin{align*}
+S_n(x) &= \sum_j=0^{2n-1} c_j(x) \phi_j(x) \\
+c_j &= \int_{-\pi}^{\pi} \phi_j(x)f(x)dx \:, \qquad k=0, 1, \dots, 2n-1 \:,
+\end{align*}
+%
+and in the limit as $n \rightarrow \infty$, $S_n(x) \rightarrow$ the Fourier series of $f(x)$.  
 
 
 %--------------------------------------------------------------------
