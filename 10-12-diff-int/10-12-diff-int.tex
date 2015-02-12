@@ -1,6 +1,5 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
 
 % formatting
 \documentclass[12pt]{article}
@@ -50,8 +49,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 13 \& 14, S14 \\
-Differentiation \& Integration \\ February 24 and 26, 2014}
+{\bf NE 155, Classes 10, 11, \& 12, S15 \\
+Differentiation \& Integration \\ February 11, 13, and 18 2015}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -60,7 +59,7 @@ Differentiation \& Integration \\ February 24 and 26, 2014}
 \end{picture}
 
 %--------------------------------------------------------------------
-\section{Differentiation}
+\section*{Differentiation}
 \underline{Problem} Given a function $f(x)$ at $x_0, x_1, \dots, x_n$ approximate $f'(x)$ or $f''(x)$, etc. 
 
 Numerical differentiation is  
@@ -73,11 +72,11 @@ Numerical differentiation is
 \item inherently sensitive to round-off error. 
 \end{itemize}
 
-\textbf{Example} Given $f \in C^2 [a,b]$ and let $x_0 \in [a,b]$, find an approximation to $f'(x_0)$.
+\textbf{Example} Given $f \in C^2 [a,b]$ and $x_0 \in [a,b]$, find an approximation to $f'(x_0)$.
 
 We're going to come at this from \textbf{Taylor's theorem}.
 %
-\begin{align}
+\begin{align*}
 f(x) &= f(x_0) + f'(x_0)(x - x_0) + \frac{f''(c)}{2}(x-x_0)^2 \\
 % 
 \therefore f'(x_0) &= \frac{f(x) - f(x_0)}{(x - x_0)} - \frac{f''(c)}{2}(x-x_0) \\
@@ -85,7 +84,7 @@ f(x) &= f(x_0) + f'(x_0)(x - x_0) + \frac{f''(c)}{2}(x-x_0)^2 \\
 \text{Let } h &= x-x_0 \rightarrow x = x_0 + h \\
 %
 \therefore f'(x_0) &= \underbrace{\frac{f(x_0 + h) - f(x_0)}{h}}_{\text{computable approx.}} - \frac{f''(c)}{2}h
-\end{align}
+\end{align*}
 %
 We can extend this principle to get higher levels of accuracy. To do that we do a Taylor expansion for each point in our collection and choose how many points to combine and in what ways. 
 %
@@ -115,23 +114,23 @@ We can extend this principle to get higher levels of accuracy. To do that we do 
 \end{tikzpicture}
 \end{center}
 
-\begin{align}
+\begin{align*}
 f(x_0) &= f(x_0)\\
 %
 f(x_0 \pm h) &= f(x_0) \pm hf'(x_0) + h^2\frac{f''(x_0)}{2} \pm h^3\frac{f'''(x_0)}{6} + f^{(4)}(c_1)\frac{h^4}{24} \\
 %
 f(x_0 \pm 2h) &= f(x_0) \pm 2h f'(x_0) + 2 h^2 f''(x_0) \pm \frac{4}{3} h^3 f'''(x_0) + \frac{2}{3}h^4 f^{(4)}(c_2)
-\end{align}
+\end{align*}
 
 
 % ---------------------------------------------------------
-\subsection{Forward difference:}
+\subsection*{Forward difference:}
 \underline{$O(h)$}: combine the point and the next point forward
 \[f'(x_0) = \frac{f(x_0 + h) - f(x_0)}{h} - \frac{1}{2}hf''(c)\]
 
-\underline{$O(h^2)$}: combine the point and the next two points forward
+\underline{$O(h^2)$}: combine the point and the next two points forward; we're going to need to figure out the coefficients though:
 %
-\begin{align}
+\begin{align*}
 a f(x_0) &+ b f(x_0 + h) + c f(x_0 + 2h) = f'(x_0) \\
 %
 a f(x_0) &+ b[f(x_0) + hf'(x_0) + h^2\frac{f''(x_0)}{2} + h^3\frac{f'''(x_0)}{6}] \nonumber \\
@@ -139,33 +138,33 @@ a f(x_0) &+ b[f(x_0) + hf'(x_0) + h^2\frac{f''(x_0)}{2} + h^3\frac{f'''(x_0)}{6}
 %
 (a + b &+ c)f(x_0) + h(b + 2c)f'(x_0) + h^2(\frac{b}{2} + 2c) f''(x_0) \nonumber \\
 &+ h^3(\frac{b}{6} +  \frac{4c}{3}) f'''(\mu) = f'(x_0)
-\end{align}
+\end{align*}
 %
 Use mean value theorem to get $\mu \in [c_1, c_2]$ to get only one term.
 
 *KEY* set the coefficients to get what we want:
 %
-\begin{align}
+\begin{align*}
 (a + b + c) &= 0\\
 h(b + 2c) &= 1\\
 h^2(\frac{b}{2} + 2c) &= 0
-\end{align}
+\end{align*}
 %
 We don't have more degrees of freedom, so we're left with $f'''$ for the error term. 
 
 Solving all of that gives
 %
-\begin{align}
+\begin{align*}
 a &= -\frac{3}{2h} \\
 b &= \frac{2}{h} \\
 c &= \frac{1}{2h} \\
 &\text{error term } = -\frac{1}{3}h^2 f'''(\mu) \\
 \therefore \quad &\boxed{f'(x_0) = \frac{-3 f(x_0) + 4f(x_0 + h) - f(x_0 + 2h)}{2h} -\frac{1}{3}h^2 f'''(\mu)}
-\end{align}
+\end{align*}
 
 
 %--------------------------------------------------------------------
-\subsection{Backward difference:}
+\subsection*{Backward difference:}
 Essentially, the signs all flip because we use points in the other direction.
 
 \underline{$O(h)$}: combine the point and the next point backward
@@ -176,7 +175,7 @@ Essentially, the signs all flip because we use points in the other direction.
 \[f'(x_0) = \frac{3 f(x_0) - 4f(x_0 - h) + f(x_0 - 2h)}{2h} + \frac{1}{3}h^2 f'''(\mu)\]
 
 %--------------------------------------------------------------------
-\subsection{Central difference:}
+\subsection*{Central difference:}
 Use points on either side (the average of forward and backward difference) $\rightarrow$ more accuracy for the same number of evaluation  points.
 
 \underline{$O(h^2)$}: combine one point on either side
@@ -185,21 +184,21 @@ Use points on either side (the average of forward and backward difference) $\rig
 \underline{$O(h^4)$}: combine two points on either side
 \[f'(x_0) = \frac{f(x_0 - 2h) - 8f(x_0 - h) + 8f(x_0 + h) - f(x_0 + 2h)}{2h} - \frac{1}{30}h^4 f^{(5)}(\mu)\]
 
-\subsubsection{Higher Order Derivatives}
+\subsubsection*{Higher Order Derivatives}
 By solving for different terms in the Taylor expansion, combining points, and solving for coefficients we can get other derivative terms as well. 
 
 E.g. $a f(x_0 + h) + b f(x_0) + c f(x_0 - h) = f''(x_0)$
 
 These are all $O(h^2)$:
-\begin{align}
+\begin{align*}
 f''(x_0) &= \frac{f(x_0 - h) - 2f(x_0) + f(x_0 + h)}{h^2} + \frac{h^2}{12}f^{(4)}(\mu) \\
 %
 f^{(3)}(x_0) &= \frac{-f(x_0 - 2h) + 2f(x_0 - h) - 2f(x_0 + h) + f(x_0 + 2h)}{2h^3}\\
 %
 f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 + 2h)}{h^4}
-\end{align}
+\end{align*}
 
-\subsubsection{Two Variables}
+\subsubsection*{Two Variables}
 \begin{center}
 \begin{tikzpicture}
 \draw (-.25,0)--(7.25,0);
@@ -232,29 +231,28 @@ f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 +
 \end{tikzpicture}
 \end{center}
 
-\begin{align}
+\begin{align*}
 \frac{\partial^2 f_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial f_{i,j}}{\partial x}\bigr) =
 \frac{f_{i-1,j} - 2f_{i,j} + f_{i+1,j}}{\Delta x^2} \\
 %
 \frac{\partial^2 f_{i,j}}{\partial y^2} = \frac{\partial}{\partial y}\bigl(\frac{\partial f_{i,j}}{\partial y}\bigr) =
 \frac{f_{i,j-1} - 2f_{i,j} + f_{i,j+1}}{\Delta y^2}
-\end{align}
+\end{align*}
 
 
 
 %--------------------------------------------------------------------
 %-------------------------------------------------------------------
-\section{Integration}
+\section*{Integration}
 Why might we need to numerically integrate?
 \begin{itemize}
-\item The integrand, $f(x)$, is complicated enough so that its
-indefinite or even definite integral over a special range cannot
+\item The integrand, $f(x)$, is complicated enough that its
+indefinite or even definite integral over a particular range cannot
 be found.
 \item The indefinite or definite integral can be found, but may take
-long time to calculate it analytically.
+long time to calculate analytically.
 \item The integrand is given in terms of a table. That is, we are
-provided with discrete values of $f(x)$ at $n+1$ data or base
-points.
+provided with discrete values of $f(x)$ at $n+1$ data points.
 \end{itemize}
 
 The general strategy is:
@@ -263,19 +261,19 @@ The general strategy is:
 polynomial defined over the whole domain of integration, or a
 collection of local interpolating polynomials defined over intervals
 that are subtended by a small group of data points.
-\item Integrate the interpolating polynomials over their individual
+\item Integrate the interpolating polynomial(s) over their individual
 domains of definition.
 \end{itemize}
 
 Thus, given $f \in C[a,b]$ compute $I(f) = \int_a^b f(x) dx$.
 
-The way we do this is called numerical integration or numerical quadrature:
-\[I(f) \approx I_n(f) = \sum_{i=0}^n a_i f(x_i)\]
-$a_i \equiv$ quadrature weights\\
+The way we do this is called \textbf{numerical integration} or \textbf{numerical quadrature}:
+\[I(f) \approx I_n(f) = \sum_{i=0}^n w_i f(x_i)\]
+$w_i \equiv$ quadrature weights\\
 $x_i \equiv$ quadrature points
 
 \textbf{Approach \#1}\\
-Fix quadrature points ($x_i$), then choose quadrature weights ($a_i$). Usually fit a polynomial to $f(x_i)$ and integrate.
+Fix quadrature points ($x_i$), then choose quadrature weights ($w_i$). Usually fit a polynomial to $f(x_i)$ and integrate.
 %
 \begin{enumerate}%[a.]
 \item \underline{Newton-Cotes}: use a single poly over the entire interval
@@ -284,7 +282,7 @@ Fix quadrature points ($x_i$), then choose quadrature weights ($a_i$). Usually f
 \end{enumerate}
 
 \textbf{Approach \#2}\\
-For a given $n$, choose the ``best" quadrature points ($x_i$) and quadrature weights ($a_i$):\\
+For a given $n$, choose the ``best" quadrature points ($x_i$) and quadrature weights ($w_i$):\\
 \underline{Gaussian Quadrature}
 
 the \textbf{degree of precision} of a quadrature formula, $I_n(f)$, is the positive integer $m$ s.t.:
@@ -295,100 +293,106 @@ the \textbf{degree of precision} of a quadrature formula, $I_n(f)$, is the posit
  
  
 %--------------------------------------------------------------------
-\subsection{Newton-Cotes formula}
+\subsection*{Newton-Cotes formula}
  
 \underline{idea}: fix $x_0, x_1, \dots, x_n$ then interpolate $f(x)$ by a poly of degree $\leq n$.
 %
-\begin{align}
+\begin{align*}
 I(f) &\approx I_n(f) = I(p_n)\\
 \text{true integral } &\approx \text{ N-C formula } = \text{ true integral of interpolating poly}
-\end{align}
+\end{align*}
 %
-The only error is in the interpolation.
+The only error is in the polynomial interpolation.
 
 %--------------------------------------------------------------------
-\subsection*{Lagrange form}
+\subsection*{Lagrange form of NC}
 Choosing Lagrange polynomials prevents us from needing to recalculate weights for every $f(x)$ (since we've fixed the points).
 
-\begin{align}
+\begin{align*}
 P_n(x) &= \sum_{i=0}^{n}f(x_i)L_i(x) \\
 %
 I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
 %
-&= \sum_{i=0}^{n} a_i f(x_i)\\
-\text{where } a_i &=  \int_a^b L_i(x)dx \qquad \therefore a_i \text{ are not dependent on } f(x)
-\end{align}
+&= \sum_{i=0}^{n} w_i f(x_i)\\
+\text{where } w_i &=  \int_a^b L_i(x)dx \qquad \therefore w_i \text{ are not dependent on } f(x)
+\end{align*}
 
 %--------------------------------------------------------------------
-\subsubsection{Trapezoid Rule}
+\subsubsection*{Trapezoid Rule}
 This is the Lagrange form of Newton-Cotes integration with $n=1$.
 
 $x_0 = a$, $x_1 = b$, $h = x_1 - x_0$
 %
-\begin{align}
-&L_0(x) = \frac{x-x_1}{x_0-x_1} \qquad L_1(x) = \frac{x-x_0}{x_1-x_0} \\
+\begin{align*}
+&L_0(x) = \frac{x-x_1}{x_0-x_1}\:, \qquad L_1(x) = \frac{x-x_0}{x_1-x_0} \\
 %
-a_0 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_1}{x_0-x_1}\bigr) dx \qquad \text{let } x = x_0 + th \:; dx = hdt \\
+w_0 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_1}{x_0-x_1}\bigr) dx\:; 
+\\ &\text{let } x = x_0 + th  \:, \quad dx = hdt\:, \quad t = \frac{x-x_0}{h}\:,\\
+&\text{change bounds and note that the denominator is }-h \\
 %
-a_0 &= h \int_0^1 \bigl(\frac{x_1 - x_0 - ht}{h}dt = \int_0^1 h(1-t)dt \\
+w_0 &= h \int_0^1 \bigl(\frac{x_1 - x_0 - ht}{h}\bigr)dt = \int_0^1 h(1-t)dt \\
 %
-a_0 &= h\bigl(t - \frac{1}{2}t^2 \bigr) |_0^1 = \frac{1}{2}h\\
+w_0 &= h\bigl(t - \frac{1}{2}t^2 \bigr) |_0^1 = \frac{1}{2}h\\
 %
-a_1 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_0}{x_1-x_0}\bigr) dx = \frac{1}{2}h\\
+&\text{similarly}\\
 %
-& \therefore I_1(f) = \frac{h}{2}\bigl(f(x_0) + f(x_1)\bigr) \rightarrow \text{area of a trapezoid}
-\end{align}
+w_1 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_0}{x_1-x_0}\bigr) dx = \frac{1}{2}h\\
+%
+& \therefore I_1(f) = w_0f(x_0) + w_1f(x_1) = \boxed{\frac{h}{2}\bigl(f(x_0) + f(x_1)\bigr)} \rightarrow \text{area of a trapezoid}
+\end{align*}
 
 The trapezoid rule has degree of precision 1.
 
 \textit{DRAW PICTURE}
 
 %--------------------------------------------------------------------
-\subsubsection{Error Analysis}
+\subsubsection*{Error Analysis}
 \begin{enumerate}
 \item interpolate:
 \[f(x) = P_n(x) + R_n(x)\]
 \item integrate:
-\[\int_a^b f(x) dx = \int_a^b P_n(x) dx + \int_a^b R_n(x) dx\]
+\[\underbrace{\int_a^b f(x) dx}_{I(f)} = \underbrace{\int_a^b P_n(x)dx}_{I_n(f)} + \int_a^b R_n(x) dx\]
 \end{enumerate}
 
 \textbf{Example:} Trapezoid Rule\\
-\begin{align}
+Recall from Lagrange polynomials that we know how to express $R_n$. We can then use that to compute the error of the integral.
+\begin{align*}
 R_1(x) &= \frac{f''(c)}{2!}(x-x_0)(x-x_1) \\
 I(f) - I_1(f) &= \int_{x_0}^{x_1} \frac{f''(c)}{2!}\underbrace{(x-x_0)(x-x_1)}_{\text{doesn't change sign over interval}} dx
-\end{align}
+\end{align*}
 %
 Recall that $c$ depends on $x$. To get an expression, we're going to use the mean value theorem (which I briefly referenced last time).
 
 \underline{Mean Value Theorem for Integrals}\\
-\[\int_a^b f(x)g(x)dx = f(\xi) \int_a^b g(x)dx \qquad a\leq \xi \leq b\]
-$g(x)$ must always be positive or always negative (cannot change sign over the interval).
+\[\int_a^b f(x)g(x)dx = f(\xi) \int_a^b g(x)dx\:, \qquad a\leq \xi \leq b\]
+Where $g(x)$ must always be positive or always negative (cannot change sign over the interval).
 
 Thus, we can use MVT for our integral to see that
-\begin{align}
+\begin{align*}
 I(f) - I_1(f) &= \frac{1}{2}f''(\eta) \int_{x_0}^{x_1} (x-x_0)(x-x_1) dx \\
 &= \frac{1}{2}f''(\eta) \bigl(\frac{-h^3}{6}\bigr) \rightarrow \boxed{\frac{-h^3}{12}f''(\eta)}
-\end{align}
-is the error term for trapezoid rule. You can see that it's first order b/c the second derivative drives the error.
+\end{align*}
+is the error term for trapezoid rule. You can see that this has degree of precision 1 b/c the second derivative drives the error and is $O(h^3)$.
 
 
 %--------------------------------------------------------------------
-\subsubsection{Simpson's Rule}
+\subsubsection*{Simpson's Rule}
 This is the Lagrange form of Newton-Cotes integration with $n=2$.
 
-\begin{align}
+\begin{align*}
 x_0 &= a \qquad x_1 = \frac{a+b}{2} \qquad x_2=b \qquad h=\frac{b-a}{2}\\
 %
 L_0 &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}\\
 L_1 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
 L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}\\
 %
-a_0 &= \int_{a=x_0}^{b=x_2} L_0(x)dx = \frac{h}{3}\\
-a_1 &= \int_{a=x_0}^{b=x_2} L_1(x)dx = \frac{4h}{3}\\
-a_2 &= \int_{a=x_0}^{b=x_2} L_2(x)dx = \frac{h}{3}\\
-&\text{Note: $a$s sum to }2h\text{, the size of the interval}\nonumber\\
+w_0 &= \int_{x_0}^{x_2} L_0(x)dx = \frac{h}{3}\\
+w_1 &= \int_{x_0}^{x_2} L_1(x)dx = \frac{4h}{3}\\
+w_2 &= \int_{x_0}^{x_2} L_2(x)dx = \frac{h}{3}\\
+&\text{Note: weights sum to }2h\text{, the size of the interval}\nonumber\\
 %
-&\therefore I_2(f) = \frac{h}{3}\bigl(f(x_0) + 4f(x_1) + f(x_2)\bigr) \end{align}
+&\therefore I_2(f) = \frac{h}{3}\bigl(f(x_0) + 4f(x_1) + f(x_2)\bigr) 
+\end{align*}
  
 The error term comes from integrating $R_2 = \frac{1}{3!}f'''(c)(x-x_0)(x-x_1)(x-x_2)$. However, the middle term now changes sign over the interval and we can't just use MVT.
 
@@ -397,7 +401,7 @@ We're going to skip the details, but what we get out is that the error for Simps
 
 Thus, Simpson's rule has degree of precision 3 and is $O(h^5)$.
 
-\vspace*{2em}
+\clearpage
 \textbf{In General:}
 \begin{center}
 \begin{tabular}{c c c}
@@ -412,57 +416,48 @@ If $n=3$:
 \[\int_{x_0}^{x_3} f(x)dx = \frac{3h}{8}\bigl(f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3)\bigr) - \frac{3h^5}{80}f^{(4)}(\xi)\]
 where $x_0 < \xi < x_3$ and $h=(x_3 - x_0)/3$.
 
-\subsubsection{Composite Newton-Cotes}
+%--------------------------------------------------------------------
+\subsubsection*{Composite Newton-Cotes}
 Some difficulties:
 \begin{enumerate}
-\item To add points we must recompute the weights, $a_i$, which can be a lot of work.
-\item high order polynomial interpolation on equally spaced points is BAD. (using optimally-spaced points is Gaussian quadrature; we'll get to that).
+\item To add points we must recompute the weights, $w_i$, which can be a lot of work.
+\item high order polynomial interpolation on equally spaced points is BAD. (using optimally-spaced points is Gaussian quadrature; we'll get to that later).
 \end{enumerate}
 
-\underline{Idea:} subdivide $[a,b]$ into subintervals. On each of these apply a low-order Newton-cotes formula.
+\underline{Idea:} subdivide $[a,b]$ into subintervals. On each of these apply a low-order Newton-Cotes formula.
 
 \textbf{Composite Trapezoid}:\\
 Just apply the trapezoid rule on each subinterval. Given $x_0, x_1, \dots, x_n$ and $f(x_0), f(x_1), \dots f(x_n)$, the grid space is $h = \frac{x_n-x_0}{n}$.
 
 \textit{DRAW PICTURE}
 
-\begin{align}
+\begin{align*}
 \int_{x_0}^{x_n} f(x)dx &= \sum_{i=1}^n \int_{x_{i-1}}^{x_i} f(x)dx\\
 &= \sum_{i=1}^n \bigl[ \frac{h}{2}\bigl(f(x_{i-1}) + f(x_i)\bigr) - \frac{h^3}{12}f''(c_i) \bigr] \\
-&= \frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^3}{12} \underbrace{\sum_{i=1}^n f''(c_i)}_{n f''(\mu), n = (x_n-x_0)/h}\\
+&= \frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^3}{12} \underbrace{\sum_{i=1}^n f''(c_i)}_{n f''(\mu)\:, n = (x_n-x_0)/h}\\
 %
 \int_{a}^{b} f(x)dx &= \boxed{\frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^2}{12}(b-a)f''(\mu) }
-\end{align}
+\end{align*}
  
 \textbf{Composite Simpson}:\\
 Similarly, apply the Simpson rule on each subinterval. %Given $x_0, x_1, \dots, x_n$ and $f(x_0), f(x_1), \dots f(x_n)$, the grid space is $h = \frac{x_n-x_0}{n}$. 
 %
-\begin{align}
+\begin{align*}
 \int_{x_0}^{x_n} f(x)dx &= \sum_{i=2}^n \bigl[ \frac{h}{3}\bigl(f(x_{i-2}) + 4f(x_{i-1}) + f(x_i)\bigr) - \frac{f^{(4)}(c_i)}{90}h^5 \bigr]\\
-&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{\substack{i=1\\i=\text{odd}}}^{n-1} f(x_i) + 2\sum_{\substack{i=2\\i=\text{even}}}^{n-1} f(x_i) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)
-\end{align}
+&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{\substack{i=1,\\i=\text{odd}}}^{n-1} f(x_i) + 2\sum_{\substack{i=2,\\i=\text{even}}}^{n-1} f(x_i) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)
+\end{align*}
 
 
 %--------------------------------------------------------------------
-\subsubsection{Open Newton-Cotes}
+\subsubsection*{Open Newton-Cotes}
 The previous examples were called \textbf{closed} Newton-Cotes because $f(x)$ is evaluated at the first and last points.
 
-In \textbf{open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are defined as $x_{j} = x_0 + jh, j = 0, \dots, n$, $h = (b-a)/(n+2)$. However, we define $x_{0} = a + h$, which implies $x_{n} = b - h$. Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$).
+\textbf{Open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are defined as $x_{j} = x_0 + jh, j = 0, \dots, n$, $h = (b-a)/(n+2)$. 
 
+However, we define $x_{0} = a + h$, which implies $x_{n} = b - h$. Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$).
 
-\begin{figure}
-\begin{center}
-  \includegraphics[height=2in,clip]{ClosedNewtonCotes}
-\end{center}
-\end{figure}
-\begin{figure}
-\begin{center}
-  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}
-\end{center}
-\end{figure}
-
-
-The \underline{midpoint rule} is what we get with \underline{$n=0$}: it only uses one point:
+\vspace*{1 em}
+The \underline{midpoint rule} is what we get with \underline{$n=0$}; it only uses one point:
 \[\int_a^b f(x)dx = \int_{x_{-1}}^{x_{1}} f(x)dx = 2hf(x_0) + \frac{h^3}{3}f''(\xi)\]
 where $x_{-1} < \xi < x_{1}$ and $h=(b-a)/2$.
 
@@ -476,7 +471,9 @@ where $x_{-1} < \xi < x_{3}$ and $h=(b-a)/4$.
 
 \begin{figure}
 \begin{center}
-  \includegraphics[height=3.5in,clip]{QuadratureComparison}
+  \includegraphics[height=2in,clip]{ClosedNewtonCotes}\\
+  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}\\
+  \includegraphics[height=4in,clip]{QuadratureComparison}
 \end{center}
 \end{figure}
 

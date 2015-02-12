@@ -1,6 +1,5 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
 
 % formatting
 \documentclass[12pt]{article}
@@ -50,17 +49,15 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 6 and 7, S14 \\
- Linear Algebra \\ February 3 and 5, 2014}
+{\bf NE 155, Classes 4 through 6, S15 \\
+ Linear Algebra \\ Jan.\ 28 through Feb.\ 2, 2015}
 \end{center}
 
 \setlength{\unitlength}{1in}
 \begin{picture}(6,.1) 
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
-
-
-ADD MORE MEANING
+ 
 %-------------------------------------------------------------
 %-------------------------------------------------------------
 \section{Vector Review}
@@ -100,7 +97,7 @@ Geometrically, it is the product of the magnitudes of the two vectors and the co
 
 %-------------------------------------------------------------
 \subsection{Vector Norms}
-Given $\vec{x}, \vec{y} \in \mathcal{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
+Given $\vec{x}, \vec{y} \in \mathbb{R}^n$, a vector norm, denoted by $|| \cdot ||$, has the following properties:
 %
 \begin{enumerate}
 \item $||\vec{x}|| > 0$; $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
@@ -117,12 +114,12 @@ The p-norm:
 \begin{itemize}
 \item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
 \item Euclidean norm (length) $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
-\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_1|$
+\item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_i|$
 \end{itemize}
 
 %-------------------------------------------------------------------
 \subsection{Inner Products}
-Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
+Inner products are symmetric and bilinear form in $\mathbb{R}^n$:
 %
 \begin{itemize}
 \item bi-linear (depends on two arguments) $< \vec{x}, \vec{y} >$
@@ -131,24 +128,24 @@ Inner products are symmetric and bilinear form in $\mathcal{R}^n$:
 \item positive $< \vec{x}, \vec{x} >$ $>$ 0 for $\vec{x} \neq 0$
 \end{itemize}
 
-The dot product is also known as the Euclidean inner product. One can define many inner products, but in this class assume we're using the Euclidean inner product (dot product) unless otherwise specified. 
+The dot product is also known as the Euclidean inner product. One can define many inner products, but \textit{in this class assume we're using the Euclidean inner product} (dot product) unless otherwise specified. 
 
 \subsection{Convergence}
 We can use the concepts of norms and inner products to develop some relationships and talk about convergence. 
 
-The Cauchy-Schwartz inequality states
+The \textit{Cauchy-Schwartz} inequality states
 %
 \begin{equation}
 < \vec{x}, \vec{y} > \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
 \end{equation}
 %
-Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \vec{x} \in \mathcal{R}^n$
+Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \vec{x} \in \mathbb{R}^n$
 %
 \begin{equation}
 C_1 ||\vec{x}||_a \leq ||\vec{x}||_b \leq C_2 ||\vec{x}||_a \qquad \text{where } C_1, C_2 = f(n) \nonumber
 \end{equation}
 %
-This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offered without proof). E.g.:
+This leads to the theorem that in $\mathbb{R}^n$ all norms are equivalent (offered without proof). E.g.:
 \begin{align}
 & ||\vec{x}||_{\infty} \leq ||\vec{x}||_2 \leq \sqrt[]{n} ||\vec{x}||_{\infty} \nonumber \\
 %
@@ -157,48 +154,52 @@ This leads to the theorem that in $\mathcal{R}^n$ all norms are equivalent (offe
 & ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt[]{n} ||\vec{x}||_2 \nonumber
 \end{align}
 
-The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
+The inequalities above may not be `sharp'. A sharp inequality is when there could be no better inequality when making the comparison. 
 
-Example: let's show the last item. We will use the Signum function, which extracts the sign of a real number
-\begin{align}
-              & -1 \text{ if } x < 0 \nonumber \\
-\text{sign}(x) \equiv &  0 \text{ if } x = 0 \nonumber \\
-              &  1 \text{ if } x > 0 \nonumber
-\end{align}
-%
-Let's define $v_i$ as sign$(x_i)$. Then
-%
-\begin{align}
-&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| = ||\vec{x}||_1 \nonumber \\
-%
-&\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
-%
-&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
-%
-&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt{n} \:, \text{ the right side of the inequality} \nonumber \\ 
-%
-&\text{we can also say } ||\vec{x}||_2 \leq ||\vec{v}||_2 ||\vec{x}||_2 \leq \sqrt{n} ||\vec{x}||_2 \nonumber \\
-%
-&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt{n} ||\vec{x}||_2 \nonumber
-\end{align}
+E.g., when comparing two real numbers/expressions, an inequality is sharp because we could not increase the left or decrease the right by a positive factor and still have it be true ($2 \leq 2$). 
 
-NEED $||\vec{x}||_2 \leq ||\vec{x}||_1$ !!!!
+%\textbf{Example}: let's show the last item. We will use the Signum function, which extracts the sign of a real number
+%\begin{equation}
+%\text{sign}(x) \equiv \begin{cases}
+%  -1 & \text{ if } x < 0 \nonumber \\
+%  0  & \text{ if } x = 0 \nonumber \\
+%  1  & \text{ if } x > 0 \nonumber
+%\end{cases}
+%\end{equation}
+%%
+%Let's define $v_i$ as sign$(x_i)$. Then
+%%
+%\begin{align}
+%&< \vec{x}, \vec{v} > = \sum_i x_i v_i = \sum_i x_i \text{sign}(x_i) = \sum_i |x_i| = ||\vec{x}||_1 \nonumber \\
+%%
+%&\text{but by the Cauchy-Schwartz inequality,}\nonumber \\
+%%
+%&< \vec{x}, \vec{v} > \leq ||\vec{x}||_2 ||\vec{v}||_2 \nonumber \\
+%%
+%&\text{and we can give an upper bound of } ||\vec{v}||_2 \leq \sqrt{n} \text{(the right side of the inequality);} \nonumber \\ 
+%%
+%&\text{we can also say } ||\vec{x}||_2 \leq ||\vec{v}||_2 ||\vec{x}||_2 \leq \sqrt{n} ||\vec{x}||_2 \nonumber \\
+%%
+%&\text{thus } ||\vec{x}||_2 \leq ||\vec{x}||_1 \leq \sqrt{n} ||\vec{x}||_2 \nonumber
+%\end{align}
+%
+%NEED $||\vec{x}||_2 \leq ||\vec{x}||_1$ !!!!
 
 Norm equivalence is very important because if we can prove some property (usually convergence or an error bound) in \textbf{some} norm, we have effectively proven it in \textbf{all} norms. 
 
 \subsubsection{Error}
-For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathcal{R}^n$ and some norm p we define
+For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathbb{R}^n$ and some norm $p$ we define
 %
 \begin{itemize}
 \item Absolute error: $||\hat{x} - \vec{x}||_p$
-\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||$, where $\vec{x} \neq 0$
+\item Relative error: $||\hat{x} - \vec{x}||_p / ||\vec{x}||_p$, where $\vec{x} \neq 0$
 \end{itemize}
 
 \subsubsection{Convergence}
-Given a sequence $\lbrace x^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm, we say that $\lbrace x^{(k)} \rbrace$ converges to $\vec{x}$ if
+Given a sequence $\lbrace \hat{x}^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm $p$, we say that $\lbrace \hat{x}^{(k)} \rbrace$ converges to $\vec{x}$ if
 %
 \begin{equation}
-\displaystyle\text{lim}_{k \rightarrow \infty} ||x^{(k)} - \vec{x}|| = 0 \nonumber
+\displaystyle\text{lim}_{k \rightarrow \infty} ||\hat{x}^{(k)} - \vec{x}||_p = 0 \nonumber
 \end{equation}
 
 %-------------------------------------------------------------
@@ -249,29 +250,216 @@ $\ve{A}\ve{B} \neq \ve{B}\ve{A}$
 Given $\ve{A} \in \mathbb{C}^{m \times n}$, \ve{A} is
 %
 \begin{enumerate}
-\item Transpose: $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times m} = \ve{A}^T from$
+\item Transpose: $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times m} = \ve{A}^T$ from
 
-$b_{	ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
+$b_{ij} = a_{ji}$ for $i = 1, \dots, n$ and $j = 1, \dots, m$
+%
+\newcommand{\aaa}{1-i}
+\newcommand{\aab}{2}
+\newcommand{\aba}{3+2i}
+\newcommand{\abb}{4}
+\newcommand{\aca}{5}
+\newcommand{\acb}{6+0.4i}
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb \\
+   \aca & \acb \\
+\end{pmatrix}\:, \qquad 
+%
+\ve{A}^T = \begin{pmatrix}
+   \aaa & \aba & \aca \\
+   \aab & \abb & \acb \\
+\end{pmatrix} \nonumber
+\end{equation}
 
+%--------------------
 \item Conjugate Transpose / adjoint, $\ve{A}^H = \cc{\ve{A}^T}$ is the complex conjugate of the transpose. 
 
-\item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal.
+Recall that complex conjugates are a pair of complex numbers, both the same except with imaginary parts of opposite signs. For example, The conjugate of the complex number $z=a+ib$, where $a$ and $b$ are real numbers, is $\overline{z} = a - ib$.
+%http://en.wikipedia.org/wiki/Complex_conjugate
+\renewcommand{\aaa}{1+i}
+\renewcommand{\aba}{3-2i}
+\renewcommand{\acb}{6-i}
+%
+\begin{equation}
+\ve{A}^H = \begin{pmatrix}
+   \aaa & \aba & \aca \\
+   \aab & \abb & \acb \\
+\end{pmatrix} \nonumber
+\end{equation}
 
-If this exists, $\ve{A}$ is non-singular / invertible. If the inverse exists, it is unique.
+%--------------------
+\item Inverse: $\ve{AA}^{-1} = \ve{A}^{-1}\ve{A} = \ve{I}$, where $\ve{I}$ is a diagonal matrix containing ones on the diagonal. If this exists, $\ve{A}$ is non-singular / invertible. 
+\renewcommand{\aaa}{4}
+\renewcommand{\aab}{3}
+\renewcommand{\aba}{3}
+\renewcommand{\abb}{2}
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
+%
+\renewcommand{\aaa}{-2}
+\renewcommand{\abb}{-4}
+%
+\begin{equation}
+\ve{A}^{-1} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
 
-\item Symmetric if $\ve{A} = \ve{A}^T$
 
-\item Antisymmetric / skew-symmetric if $\ve{A}^H = -\ve{A}$
-
-\item Hermitian / self-adjoint if $\ve{A} = \ve{A}^H$
-
+%--------------------
 \item Regular if $\ve{A}^{-1}$ exists
 
-\item Unitary if $\ve{A}\ve{A}^H = \ve{I}$
+%--------------------
+\item Hermitian / self-adjoint if $\ve{A} = \ve{A}^H$
+%
+\renewcommand{\aaa}{2}
+\renewcommand{\aab}{2+i}
+\newcommand{\aac}{4}
+\renewcommand{\aba}{2-i}
+\renewcommand{\abb}{3}
+\newcommand{\abc}{i}
+\renewcommand{\aca}{4}
+\renewcommand{\acb}{-i}
+\newcommand{\acc}{1}
+%
+\begin{equation}
+\ve{A} = \ve{A}^H= \begin{pmatrix}
+   \aaa & \aab & \aac \\
+   \aba & \abb & \abc \\
+   \aca & \acb & \acc \\
+\end{pmatrix} \nonumber
+\end{equation}
 
+%--------------------
+\item Symmetric if $\ve{A} = \ve{A}^T$
+%
+\renewcommand{\aaa}{1}
+\renewcommand{\aab}{2}
+\renewcommand{\aba}{2}
+\renewcommand{\abb}{3}
+%
+\begin{equation}
+\ve{A} = \ve{A}^T = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
+
+%--------------------
+\item Antisymmetric / skew-symmetric if $\ve{A}^H = -\ve{A}$
+%
+\renewcommand{\aaa}{0}
+\renewcommand{\aab}{-2}
+\renewcommand{\aba}{2}
+\renewcommand{\abb}{0}
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   \aaa & \aab \\
+   \aba & \abb 
+\end{pmatrix}\:, \qquad
+%
+\ve{A}^T = \begin{pmatrix}
+   \aaa & \aba \\
+   \aab & \abb 
+\end{pmatrix} \nonumber
+\end{equation}
+
+%--------------------
+\item Unitary if $\ve{A}\ve{A}^H = \ve{I}$
+%
+%http://college.cengage.com/mathematics/larson/elementary_linear/4e/shared/downloads/c08s5.pdf
+\begin{equation}
+\ve{A} = \frac{1}{2}\begin{pmatrix}
+   1+i & 1-i \\
+   1-i & 1+i 
+\end{pmatrix}\:,\nonumber
+\end{equation}
+%
+\begin{equation}
+\ve{AA}^H = \frac{1}{2}\begin{pmatrix}
+   1-i & 1+i \\
+   1+i & 1-i 
+\end{pmatrix}  \times
+\frac{1}{2}\begin{pmatrix}
+   1+i & 1-i \\
+   1-i & 1+i 
+\end{pmatrix} =
+\frac{1}{4}\begin{pmatrix}
+   4 & 0 \\
+   0 & 4 
+\end{pmatrix} = \ve{I}\nonumber
+\end{equation}
+
+%--------------------
 \item Normal if $\ve{A}\ve{A}^H = \ve{A}^H\ve{A}$
+%
+\begin{equation}
+\ve{A} = \begin{pmatrix}
+   1 & 1 & 0 \\
+   0 & 1 & 1 \\
+   1 & 0 & 1
+\end{pmatrix}\:, \qquad
+\ve{A}^H = \begin{pmatrix}
+   1 & 0 & 1 \\
+   1 & 1 & 0 \\
+   0 & 1 & 1
+\end{pmatrix}\:,\nonumber
+\end{equation}
+%
+\begin{equation}
+\ve{AA}^H = \begin{pmatrix}
+   1 & 1 & 0 \\
+   1 & 1 & 0 \\
+   0 & 1 & 1 
+\end{pmatrix}  \times
+\begin{pmatrix}
+   1 & 0 & 1 \\
+   1 & 1 & 0 \\
+   0 & 1 & 1 
+\end{pmatrix} =
+\begin{pmatrix}
+   2 & 1 & 1 \\
+   1 & 2 & 1 \\
+   1 & 1 & 2 
+\end{pmatrix} = \ve{A}^H\ve{A}\nonumber
+\end{equation}
+
+
+%--------------------
+\item Orthogonal if A is real and $\ve{AA}T = \ve{A}^T\ve{A}$, which means $\ve{A}^{-1} = \ve{A}^T$ .
+%
+\begin{equation}
+\ve{A} = \frac{1}{\sqrt{2}}\begin{pmatrix}
+   1 & 1 \\
+   1 & -1 
+\end{pmatrix}\:, \qquad
+\frac{1}{\sqrt{2}}\ve{A}^T = \begin{pmatrix}
+   1 & 1 \\
+   1 & -1 
+\end{pmatrix}\:,\qquad
+\ve{A}^T\ve{A} = \frac{1}{2}\begin{pmatrix}
+   2 & 0 \\
+   0 & 2 
+\end{pmatrix} = \ve{I} \nonumber
+\end{equation}
+
 \end{enumerate}
 
+Among complex matrices, all unitary, Hermitian, and skew-Hermitian matrices are normal. 
+
+Likewise, among real matrices, all orthogonal, symmetric, and skew-symmetric matrices are normal. 
+
+However, it is \textit{not} the case that all normal matrices are either unitary or (skew-)Hermitian (see example above).% http://en.wikipedia.org/wiki/Normal_matrix
 
 %-------------------------------------------------------------
 \subsection{Equations and Special Matrices}
@@ -292,9 +480,9 @@ To find $\vec{x}$, we need to find a way to affect $\ve{A}^{-1}\vec{b}$. This ca
 \item Block Tridagonal has blocks of elements (like sub-matrices) on the diagonal. The blocks may be full or only partially full. The blocks look like $\ve{D}_k = [\ve{D_{ij}}]_k$
 \end{itemize}
 
-The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal matrix
+The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal matrix.
 
-\textbf{Theorem}: The following are equivalent (see Math 54 or a textbook for proof)
+\textbf{Theorem}: The following are equivalent (see Math 54 or a textbook for proof):
 %
 \begin{enumerate}
 \item $\ve{A}$ is regular
@@ -308,11 +496,29 @@ The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal 
 %-------------------------------------------------------------
 \subsection{Minors, Cofactors, Determinants}
 
-Good illustration: http://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html
+
+If the determinant is zero, then the matrix is singular, meaning we cannot invert it and numerical solutions are pretty much impossible.
+
+\textbf{Properties of Determinants}
+\begin{itemize}
+\item det($\alpha\ve{A}$) = $\alpha^n$ det($\ve{A}$)
+
+\item det($\ve{A}^T$) = det($\ve{A}$)
+
+\item det($\ve{A}^{-1}$) = 1/det($\ve{A}$)
+
+\item det($\ve{AB}$) = det($\ve{A}$)det($\ve{B}$)
+
+\item det($\ve{A}^k$) = [det($\ve{A}$)]$^k$
+
+\item in general, det($\ve{A + B}$) $\neq$ det($\ve{A}$) + det($\ve{B}$) 
+\end{itemize}
+
+Good illustration: \href{http://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html}{http://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html}
 
 %If $\ve{A}$ is an $m \times n$ matrix and $k$ is an integer such that $0 < k \leq m$ and $k \leq n$ then a \textbf{$k \times k$ minor}, $M_{kk}$ of $\ve{A}$ is the determinant of the $k \times k$ matrix formed by deleting $m-k$ rows and $n-k$ columns. 
 
-For a square matrix, the \textbf{first order minor}, $M_{ij}$ just deletes the $i^{th}$ row and $j^{th}$ column and takes the determinant. E.g.
+For a square matrix, the \textbf{first order minor}, $M_{ij}$, just deletes the $i^{th}$ row and $j^{th}$ column and takes the determinant. E.g.
 %
 \begin{align}
     \ve{A} &= \begin{pmatrix}
@@ -336,7 +542,7 @@ C_{ij} = (-1)^{i+j} M_{ij} \nonumber
 %
 You can compute minors and cofactors for all of $\ve{A}$. The $n \times n$ matrix containing all of the cofactors is denoted $\ve{C}$ in this context.
 
-Using these terms, the determinant can be defined in terms of the Laplace expansion
+Using these terms, the \underline{determinant} (which we use for lots of stuff) can be defined in terms of the Laplace expansion
 %
 \begin{equation}
 \text{det}(\ve{A}) = \sum_{j=1}^n a_{ij} C_{ij} = \sum_{i=1}^n a_{ij} C_{ij} \nonumber
@@ -357,36 +563,17 @@ For the above matrix, lets look at the Laplace expansion along the second column
 &= -4 \cdot ((3 \cdot 11) - (5 \cdot -1)) + 0 -9 \cdot ((1 \cdot 5) - (7 \cdot 3)) = -8 \nonumber
 \end{align}
 
-
-\textbf{Properties of Determinants}
-\begin{itemize}
-\item det($\alpha\ve{A}$) = $\alpha^N$ det($\ve{A}$)
-
-\item det($\ve{A}^T$) = det($\ve{A}$)
-
-\item det($\ve{A}^{-1}$) = 1/det($\ve{A}$)
-
-\item det($\ve{AB}$) = det($\ve{A}$)det($\ve{B}$)
-
-\item det($\ve{A}^n$) = [det($\ve{A}$)]$^n$
-
-\item in general, det($\ve{A + B}$) $\neq$ det($\ve{A}$) + det($\ve{B}$) 
-\end{itemize}
-
-The inverse of $\ve{A}$ can be obtained from the determinant and cofactor matrix:
+The inverse of $\ve{A}$ (which we often need) can be obtained from the determinant and cofactor matrix:
 %
 \begin{equation}
 \ve{A}^{-1} = \frac{1}{\text{det}(\ve{A})}\ve{C}^T \nonumber
 \end{equation}
 %
-If the determinant is zero, then the matrix is singular.
-
-A real matrix where $\ve{A}^{-1} = \ve{A}^T$ is called \textbf{orthogonal}
-
+The benefit is that if we've used the cofactor method to get the determinant then we get the inverse for free. 
 
 %--------------------------------------------------------------------------
 \subsection{Matrix Norms}
-Given $\ve{A}, \ve{B} \in \mathcal{R}^{m \times n}$, a matrix norm, denoted by $|| \cdot ||$, has the following properties:
+Given $\ve{A}, \ve{B} \in \mathbb{R}^{m \times n}$, a matrix norm, denoted by $|| \cdot ||$, has the following properties:
 %
 \begin{enumerate}
 \item $||\ve{A}|| > 0$ and $||\ve{A}|| = 0$ iff $\ve{A} = 0$ (positive definite)
@@ -406,14 +593,15 @@ E.g., the Frobenius norm
 
 \item Not all norms are submultiplicative, we will only deal with those that are. 
 
-\item subordinate matrix norm for $\ve{A} \in \mathcal{R}_{m \times n}$ and $\vec{x} \in \mathcal{R}_n$:
+\item subordinate matrix norm for $\ve{A} \in \mathbb{R}^{m \times n}$ and $\vec{x} \in \mathbb{R}^n$:
 
 $||\ve{A}|| \equiv \displaystyle \sup_{\vec{x} \neq \vec{0}} ||\ve{A}\vec{x}|| / ||\vec{x}||$
 
-\item \textbf{supremum}, or least upper bound, of a set S of real numbers is denoted by sup S and is defined to be the smallest real number that is greater than or equal to every number in S.
+\item \textbf{supremum}, or least upper bound, of a set $S$ of real numbers is denoted by sup$S$ and is defined to be the smallest real number that is greater than or equal to every number in $S$.
+
+Consequently, the supremum is also referred to as the least upper bound (or LUB). If the supremum exists, it is unique, meaning that there will be only one supremum. 
 \end{itemize}
 
-ADD MORE INFO ABOUT SUP CHOICE/MEANING
 
 \textbf{examples:}
 %
@@ -453,11 +641,13 @@ Each eigenvalue is paired with a corresponding so-called eigenvector (or, in gen
 
 The decomposition of a square matrix $\ve{A}$ into eigenvalues and eigenvectors is known as eigen decomposition, and the fact that \textbf{this decomposition is always possible as long as the matrix consisting of the eigenvectors of $\ve{A}$ is square} is known as the eigen decomposition theorem.
 
-Let $\ve{A} \in \mathcal{R}^{n \times n}$. If there is a vector $\vec{x} \in \mathcal{R}^{n}$ such that
+Let $\ve{A} \in \mathbb{R}^{n \times n}$. If there is a vector $\vec{x} \in \mathbb{R}^{n}$ such that
 %
 \[\ve{A} \vec{x} = \lambda \vec{x}\]
 %
-for some scalar $\lambda$, then $\lambda$ is an eigenvalue of $\ve{A}$ with a corresponding (right) eigenvector $\vec{x}$.
+for some scalar $\lambda$, then $\lambda$ is an eigenvalue of $\ve{A}$ with a corresponding (right) eigenvector $\vec{x}$. Note that the eigenvalue represents the ``stretching factor" in the direction of its associated eigenvector. 
+
+(http://math.stackexchange.com/questions/54176/is-there-a-geometric-meaning-of-the-frobenius-norm)
  
 We find eigenvalues by re-writing the stated relationship as $(\ve{A} - \lambda \ve{I})\vec{x}=0$.
 
@@ -499,7 +689,7 @@ This gives $\ve{A}\vec{u}_1 = \lambda_1 \vec{u}_1$, etc.
 
 
 The spectrum of eigenvalues of a matrix $\ve{A}$ are defined formally as
-\[\sigma(\ve{A}) = [ \lambda \in \mathcal{C} : \det(\ve{A} - \lambda \ve{I})=0] \] 
+\[\sigma(\ve{A}) = [ \lambda \in \mathbb{C} : \det(\ve{A} - \lambda \ve{I})=0] \] 
 and an eigenvalue is 
 \[ \lambda \in \sigma(\ve{A}) \]
 %
@@ -511,20 +701,26 @@ and an eigenvalue is
 %--------------------------------------------------------------------------
 \subsection{Aside about Singular Values}
 
-\underline{Note:} Eigenvalues/vectors are only for square matrices. The analog for rectangular matrices is singular values. We are not going to focus on these, since we will be dealing with square matrices. However, this came up last class and appeared to cause some confusion. So, here's a quick aside:
+\underline{Note:} Eigenvalues/vectors are only for square matrices. The analog for rectangular matrices is singular values. We are not going to focus on these, since we will be dealing with square matrices. However, here's a quick aside:
 
 If a square matrix $\ve{A}$ has linearly independent eigenvectors, it can be factored as $\ve{A} = \ve{P}\ve{D}\ve{P}^{-1}$. Here $\ve{D}$ is a diagonal matrix containing the eigenvalues of $\ve{A}$ and $\ve{P}$ contains the corresponding, linearly independent eigenvectors of $\ve{A}$.  
 
-You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathcal{C}^{m \times n}$ can be factored as $\ve{Q}\ve{D}\ve{P}^{-1}$, and this is called the singular value decomposition. 
+You cannot do this for a rectangular matrix. However, \textbf{any} matrix $\ve{A} \in \mathbb{C}^{m \times n}$ can be factored as $\ve{Q}\ve{\Sigma}\ve{V}^{-1}$, and this is called the singular value decomposition. $\ve{Q}$ and $\ve{V}$ are unitary, and $\ve{\Sigma}$ is diagonal where the entries are the singular values of $\ve{A}$: $\sigma_1, \sigma_2, \dots, \sigma_n$ with $\sigma_1 \geq \cdots \geq \sigma_n$. 
 
-This comes from the notion that $\ve{A}^H\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). 
+This comes from the notion that $\ve{A}^H\ve{A}$ is symmetric and can be orthogonally diagonalized (get linearly-independent eigenvectors). We can also say it as the singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^H\ve{A}$. 
 
-The singular values of $\ve{A}$ are the square roots of the eigenvalues of $\ve{A}^H\ve{A}$, and are denoted by $\sigma_1, \sigma_2, \dots, \sigma_n$. 
+To see the geometric meaning we can note that 
+\[\ve{A} = \ve{Q} \ve{\Sigma} \ve{V}^{-1} \rightarrow \ve{A}\ve{V} = \ve{Q} \ve{\Sigma} \:,\]
+look at one column at a time and see
+\[\ve{A}\vec{v}_i = \sigma_i \vec{v}_i \:, \qquad i = 1, \cdots, n \:.\]
+
+Now you can see that these are like eigenvalues in terms geometric stretching. And finally we note that $||\ve{A}||_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \dots + \sigma_n^2}$, effectively meaning that the Frobenius norm measures the size of the distortion a matrix creates in a system. (see this reference for a good explanation: \href{http://www.math.iit.edu/~fass/477577_Chapter_2.pdf}{http://www.math.iit.edu/$\sim$fass/477577\_Chapter\_2.pdf}).
+
 
 %--------------------------------------------------------------------------
 \subsection{Spectral radius} 
 
-The spectral radius of $\ve{A} \in \mathcal{C}^{n \times n}$ is defined as 
+The spectral radius of $\ve{A} \in \mathbb{C}^{n \times n}$ is defined as 
 \[\rho(\ve{A}) \equiv \max \lbrace |\lambda|, \lambda \in \sigma(\ve{A}) \rbrace\]
 With the properties:
 %
@@ -557,7 +753,7 @@ Let's think about the meaning of the spectral radius. This is the largest change
 %\lambda &= \cc{\lambda} 
 %\qquad \text{recognize that the }\vec{u}\text{s factor out}\nonumber
 %\end{align}
- 
+% 
  %--------------------------------------------------------------------------
 \subsection{All matrix norms are bounded}
 
