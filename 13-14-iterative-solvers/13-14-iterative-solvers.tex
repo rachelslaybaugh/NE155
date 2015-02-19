@@ -64,7 +64,7 @@ Solutions for Linear Systems \\ February 20 and 23 and 12, 2015}
 
 Recall: Given $\ve{A}\vec{x} = \vec{b}$, how do you find $\vec{x}$?
 
-We talked about how to do this directly, how we'll talk about how to do this other ways.
+We talked about how to do this directly, now we'll talk about how to do this other ways.
 
 \begin{itemize}  
 \item Iterative Methods
@@ -96,7 +96,7 @@ We talked about how to do this directly, how we'll talk about how to do this oth
 We need iterative methods when our system of linear equations is large. Recall: produce a sequence of vectors, $\vec{x}^{(1)}, \vec{x}^{(2)}, \dots$ based on the prescription
   \[\vec{x}^{(k+1)} = F(\vec{x}^{(k)}, \vec{b})\:, \qquad \text{where } \displaystyle \lim_{k \rightarrow \infty} \vec{x}^{(k)} = \vec{x}\] 
 
-We will write this as \[\vec{x}^{(k+1)} = \ve{P}\vec{x}^{(k)} +  \tilde{\vec{b}}\:, k = 0, 1, \dots \]
+We will write this as \[\vec{x}^{(k+1)} = \ve{P}\vec{x}^{(k)} +  \tilde{\vec{b}}\:,\qquad k = 0, 1, \dots \]
 
 We will split $\ve{A}$ to execute our process.
 %
@@ -106,10 +106,7 @@ We will split $\ve{A}$ to execute our process.
 \ve{Q} \vec{x} &= \ve{S}\vec{x} + \vec{b} 
 \qquad\text{where } \ve{Q} = \ve{A} + \ve{S} \nonumber \\
 %
-\vec{x} &= \ve{Q}^{-1} \ve{S}\vec{x} + \ve{Q}^{-1} \vec{b} 
-\nonumber \\
-%
-\vec{x} &= \ve{P}\vec{x} + \tilde{\vec{b}}  
+\vec{x} &= \underbrace{\ve{Q}^{-1} \ve{S}}_{\ve{P}}\vec{x} + \underbrace{\ve{Q}^{-1} \vec{b}}_{\tilde{\vec{b}} }
 \qquad\text{assuming regular } \ve{Q}\nonumber
 \end{align}
 %
@@ -119,7 +116,7 @@ The \textbf{fixed-point} iterative process is:
 \vec{x}^{(k+1)} &= \ve{P}\vec{x}^{(k)} + \tilde{\vec{b}} \nonumber
 \end{align}
 
-To determine convergence, we define the iterative error as follows, noting that $\vec{x}$ is defines as a solution to $\ve{A}\vec{x} = \vec{b}$. 
+To determine convergence, we define the iterative error as follows, noting that $\vec{x}$ is defined as the solution to $\ve{A}\vec{x} = \vec{b}$. 
 %
 \begin{align}
 \vec{e}^{(k)} &= \vec{x}^{(k)} - \vec{x} \nonumber \\
@@ -131,73 +128,76 @@ To determine convergence, we define the iterative error as follows, noting that 
 %
 \vec{x}^{(k+1)} - \vec{x} &= \ve{P}(\vec{x}^{(k)} - \vec{x})\nonumber \\
 %
+\nonumber \\
+%
 \text{Thus, } \vec{e}^{(k+1)} &= \ve{P}\vec{e}^{(k)} \nonumber \\
 %
 \text{Further, } \vec{e}^{(k+1)} &= \ve{P}^2\vec{e}^{(k-1)} = \ve{P}^3\vec{e}^{(k-2)} = \dots = \ve{P}^{k+1}\vec{e}^{(0)}\nonumber
 %
 \end{align}
 %
-Now we can use norms  to determine a rate of convergence
-\[||\vec{e}^{(k+1)}|| = ||\ve{P}^{k+1}\vec{e}^{(0)}|| \leq ||\ve{P}^{k+1}|| ||\vec{e}^{(0)}|| \]
-and our rate of convergence is governed by $||\ve{P}^{k+1}||$
+Now we can use norms  to determine a rate of convergence:
+\[||\vec{e}^{(k+1)}|| = ||\ve{P}^{k+1}\vec{e}^{(0)}|| \leq ||\ve{P}^{k+1}|| ||\vec{e}^{(0)}||\:, \]
+and the rate of convergence is therefore governed by $||\ve{P}^{k+1}||$.
 
 There is a theorem (offered without proof):
-\[\lim_{k \rightarrow \infty} || \ve{P}^k ||^{1/k} = \rho	(\ve{P})\]
-and this implies
-\[|| \ve{P}^k || \approx \rho^k (\ve{P})\]
+\[\lim_{k \rightarrow \infty} || \ve{P}^k ||^{1/k} = \rho	(\ve{P})\:,\]
+where $\rho(\ve{P})$ is the spectral raidus of $\ve{P}$, and this implies
+\[|| \ve{P}^k || \approx \rho^k (\ve{P})\:.\]
 
 \underline{Alternative:} Recall that $|| \ve{P}^k ||_2$ = $\rho(\ve{P}^k)$ and that $ \rho^k (\ve{P}) = \rho(\ve{P}^k)$. We also know that all norms can be related, so finding an error bound in one norm bounds all norms. 
 
 Thus, a sufficient and necessary condition for convergence is:
 \[\rho^{k+1}(\ve{P}) < 1 \rightarrow \rho(\ve{P}) < 1 \]
 
-\underline{Note:} $\ve{Q}^{-1}$ must be easy to compute. We often select $\ve{Q}$ to be diagonal, triangular, or tri-diagonal. Further, $\ve{Q}$ must be chosen such that $\rho(\ve{P}) < 1$.
+\underline{\textbf{Note:}} $\ve{Q}^{-1}$ must be easy to compute. We often select $\ve{Q}$ to be diagonal, triangular, or tri-diagonal. Further, $\ve{Q}$ must be chosen such that $\rho(\ve{P}) < 1$.
 
 %--------------------------------------------------------------------
 \subsection*{Richardson Iteration / Source Iteration}
 
-In non-stationary Richardson iteration using some scalar $\omega$, the $k$th step is
+One of the simplest methods out there is Richardson/Source Iteration. There are two very similar versions. In \textit{non-stationary} Richardson iteration that uses some scalar $\omega$, the $k$th step is
 %
-\begin{equation}
-  \vec{x}^{(k+1)} = (\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b} \:. \nonumber
-\end{equation}
+\begin{align*}
+  \vec{x}^{(k+1)} &= (\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b} \:, \quad\ \text{which gives} \\
+  \ve{P}_R &= (\ve{I} - \omega^{(k)}\ve{A})\:.
+\end{align*}
 %
-$\ve{P} = (\ve{I} - \omega^{(k)}\ve{A})$. If $\omega^{(k)}$ is constant then this is the stationary Richardson method. 
+If $\omega^{(k)}$ is constant, then this is the \textit{stationary} Richardson method. 
 
 The algorithm for this method is, for $i = 1, \dots, n$:
-\[ x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \]
+\[ x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \:.\]
 
-People still use these methods. I've written a preconditioner that uses Richardson Iteration. The spectral radius determines the speed of convergence and is $c = \Sigma_s / \Sigma$. For problems dominated by scattering, SI will converge very slowly \cite{Evans2009d}. While this is the simplest iterative method used, there are other more sophisticated methods available. 
+People still use these methods. I've written a preconditioner that uses Richardson Iteration. The spectral radius of $\ve{P}_R$ determines the speed of convergence and is $c = \Sigma_s / \Sigma$. For problems dominated by scattering, this method will converge very slowly \cite{Evans2009d}. Fortunately, there are other more sophisticated methods available. 
 
 %--------------------------------------------------------------------
 \subsection*{Jacobi Iteration}
 
-Let $\ve{D} = diag(\ve{A})$, then
+Let $\ve{D} = \text{diag}(\ve{A})$, then
 \begin{align}
 \ve{D} \vec{x}^{k+1} &= (\ve{D} - \ve{A})\vec{x}^{(k)} + \vec{b} \nonumber \\
 %
 \vec{x}^{k+1} &= \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b} \nonumber
 \end{align}
 %
-In our original syntax, $\ve{P}_J = \ve{I} -  \ve{D}^{-1}\ve{A}$ and $\tilde{\vec{b}} =\ve{D}^{-1}\vec{b}$.
+Now, $\ve{P}_J = \ve{I} -  \ve{D}^{-1}\ve{A}$ and $\tilde{\vec{b}} =\ve{D}^{-1}\vec{b}$.
 
 The algorithm for this method is, for $i = 1, \dots, n$:
-\[ x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\]
+\[ x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\:.\]
 
 %Jacobi is unconditionally stable and linearly convergent, but may converge very slowly. 
 Jacobi will converge (perhaps quite slowly) if $\ve{P}_J$'s spectral radius is $<$ 1, but that's often difficult to estimate \cite{LeVeque2007}. 
 
 A \underline{sufficient} but not necessary condition for convergence is that $\ve{A}$ or $\ve{A}^T$ is \textbf{diagonally dominant}:
 %
-\[|a_{ii}| \geq \sum_{j \neq 1} |aij| \qquad \forall i \:.\]
+\[|a_{ii}| \geq \sum_{j \neq i} |a_{ij}| \qquad \forall i \:.\]
 
-Jacobi isn't a very sophisticated method, but it's easy to parallelize. Why might that be? The Jacobi method is order independent since all terms on the right are at the old iteration level. 
+Jacobi isn't a very sophisticated method, but it's easy to parallelize. Why might that be? \\The Jacobi method is order independent since all terms on the right are at the old iteration level. 
 
 
 %--------------------------------------------------------------------
 \subsection*{Gauss Seidel Iteration}
 
-Gauss Seidel is a simple modification of Jacobi, but becomes a bit more complicated. How can you think of changing Jacobi that might incorporate more information that we already have?
+Gauss Seidel is a simple modification of Jacobi, but becomes a bit more complicated. How can you think of changing Jacobi than might incorporate more information that we already have?
 
 The algorithm for this method is, for $i = 1, \dots, n$:
 \[ x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) \:.\]
@@ -213,9 +213,9 @@ The spectral radii for some materials of practical interest determined using cro
 
 A \underline{sufficient} but not necessary condition to converge is that $\ve{A}$ be \textbf{symmetric} and \textbf{positive definite}.
 
-A $n \times n$ Hermitian matrix $\ve{A}$ is said to be positive definite if $\vec{z}^H \ve{A} \vec{z}$ is real and positive for all non-zero complex vectors $\vec{z}$. This also simplifies to the pure-real case.
+An $n \times n$ Hermitian matrix $\ve{A}$ is said to be positive definite if $\vec{z}^H \ve{A} \vec{z}$ is real and positive for all non-zero complex vectors $\vec{z}$. This also simplifies to the pure-real case.
 
-Gauss Seidel is not so easy to parallelize. Why not? The GS method is order dependent, containing terms on the right hand side at both the new and old iterates.
+Gauss Seidel is not so easy to parallelize. Why not? \\The GS method is order dependent, containing terms on the right hand side at both the new and old iterates.
 
 
 %--------------------------------------------------------------------
@@ -391,6 +391,6 @@ $x_3$ & 1 & -6.65015 & -4.60042 & -5.096686 & -4.97349 & 0.02651 \\ \hline
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
 \bibliographystyle{plain}
-\bibliography{LinearSolns} 
+\bibliography{13-14-iterative-solvers} 
 
 \end{document}
