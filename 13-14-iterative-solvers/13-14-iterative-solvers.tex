@@ -204,9 +204,7 @@ The algorithm for this method is, for $i = 1, \dots, n$:
 %
 In matrix notation, this looks like:
 \[(\ve{D} + \ve{L})\vec{x}^{k+1} = -\ve{U} \vec{x}^{(k)} + \vec{b}\:, \]
-where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. 
-
-This makes $\ve{P}_{GS} = (\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
+where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. This makes $\ve{P}_{GS} = (\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
 converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly - especially in highly scattering systems \cite{LeVeque2007}. 
 
 The spectral radii for some materials of practical interest determined using cross sections with 41 thermal upscattering groups are: graphite = 0.9984, heavy water = 0.9998, and iron = 0.6120 \cite{Adams2002}, \cite{Evans2009d}.
@@ -231,14 +229,13 @@ For $i = 1, \dots, n$:
 \[ x^{(k+1)}_i = (1-\omega)x_i^{(k)} + \frac{\omega}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) \:.\]
 
 Whether and how much better we do that GS is determined by $\omega$.
+Determining the best $\omega$, $\omega_{opt}$ is problem-dependent and is not practical to do in general.
 %
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[height=2.25in]{SOR-omega}
 \end{center}
 \end{figure}
-%
-Determining the best $\omega$, $\omega_{opt}$ is problem-dependent and is not practical to do in general.
 
 %--------------------------------------------------------------------
 \subsection*{Number of Iterations?}
@@ -283,7 +280,7 @@ The \textbf{condition number} of a matrix $\mathbf{A}$ is defined as
 \[\kappa(\mathbf{A}) = ||\mathbf{A}|| \text{ }||\mathbf{A}^{-1}|| \:.
 \]
 %
-If the 2-norm, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. If $\mathbf{A}$ is singular, its condition number is infinity. 
+If the 2-norm is used, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. If $\mathbf{A}$ is singular, its condition number is infinity. 
 
 The base-b logarithm of $\kappa$ is an estimate of how many base-b digits are lost in solving a linear system with that matrix. In other words, it estimates worst-case loss of precision. A system is said to be singular if the condition number is infinite, and ill-conditioned if it is too large, where ``too large" means roughly $\log(\kappa) >\sim$ the precision of matrix entries. %http://mathworld.wolfram.com/ConditionNumber.html
 
@@ -376,7 +373,6 @@ $x_2$ & 1 & 3.8125 & 3.8828125 & 3.92676 & 3.95422 & 0.04578 \\ \hline
 $x_3$ & 1 & -5.046875 & -5.0292969 & -5.01831 & -5.00715 & 0.00715 \\ \hline 
 \end{tabular}
 
-\vspace*{1 em}
 \caption{SOR}
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
