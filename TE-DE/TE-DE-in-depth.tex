@@ -819,17 +819,17 @@ If scattering is
 \item and bounded: $\phi < \infty$ except near mathematical approximations (the source condition). 
 \end{itemize}
 
-\subsubsection{Interface Conditions}
-These are also fairly straightforward. We take the 0th and 1st moments of our TE condition
-\[\psi_1(\vec{r}_S, \vOmega, t) = \psi_2(\vec{r}_S,\vOmega, t)\qquad \forall \vOmega\]
+\subsubsection*{Interface Conditions}
+These are also fairly straightforward. We take the 0th and 1st moments of our TE condition,
+\[\psi_1(\vec{r}_S, \vOmega, t) = \psi_2(\vec{r}_S,\vOmega, t)\qquad \forall \vOmega\:,\]
 and we get two equations rather than one. Now
-\begin{align}
+\begin{align*}
 \phi_1(\vec{r}, t) &= \phi_2(\vec{r}, t) \\
 \vec{J}_1(\vec{r}, t) &= \vec{J}_2(\vec{r}, t)
-\end{align}
+\end{align*}
 
-\subsubsection{Vacuum Boundary Condition}
-These aren't quite so simpley. We start by thinking about the transport non-reentrant condition: 
+\subsubsection*{Vacuum Boundary Condition}
+These aren't quite so simple. We start by thinking about the transport non-reentrant condition: 
 \[\psi(\vec{r}_s, \vOmega, t) = 0 \text{ for } \vOmega \cdot \hat{e}_s < 0 \:,\]
 %
 which is a mathematical statement that there are no neutrons entering our volume. Also written as
@@ -840,22 +840,24 @@ However, with diffusion theory
 %
 and our partial currents become
 %
-\begin{align}
+\begin{align*}
 J_{\pm} &= \int_{2\pi^{\pm}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) =\\
-&\cong \frac{1}{4} \phi(\vec{r}, t) \mp \frac{D}{2} \hat{e}_s \cdot \nabla \phi(\vec{r}_s, t) = 0
-\end{align} 
+&\cong \frac{1}{4} \phi(\vec{r}, t) \mp \frac{D}{2} \hat{e}_s \cdot \nabla \phi(\vec{r}_s, t) = 0\:.
+\end{align*} 
 %
-For a 1-D slab with vacuum boundary at $x=x_s$:
+For a 1-D slab with a vacuum boundary at $x=x_s$:
 %
-\begin{align}
+\begin{align*}
 J_{-}(\vec{r}_s, t) = J_{-}(x_s, t) &= \frac{1}{4} \phi(x_s, t) + \frac{D}{2}\frac{d \phi}{dx}\Bigm\lvert_{x_s} = 0 \\
 \text{Or } \qquad \frac{1}{\phi(x_s, t)}\frac{d \phi}{dx}\Bigm\lvert_{x_s} &= -\frac{1}{2D}
-\end{align}
+\end{align*}
 
 This relationship implies that linearly extrapolating the flux beyond the vacuum boundary would lead to a vanishing flux at the point
-\[\tilde{x}_s = x_s + 2D = x_s + \frac{2}{3}\lambda_{tr}\]
+\[\tilde{x}_s = x_s + 2D = x_s + \frac{2}{3}\lambda_{tr}\:.\]
 %
-Thus, the vacuum condition $J_{-}(x_s) = 0$ is usually replaced with $\phi(\tilde{x}_s)= 0$. Additionally, computation with more detailed transport theory leads to an \textbf{extrapolation distance} of $0.7104\lambda_{tr} = z_0$ rather than $\frac{2}{3}\lambda_{tr}$.
+Thus, the vacuum condition $J_{-}(x_s) = 0$ is usually replaced with $\phi(\tilde{x}_s)= 0$. Additionally, computation with more detailed transport theory leads to an \textbf{extrapolation distance} of $0.7104\lambda_{tr} = z_0$ rather than $\frac{2}{3}\lambda_{tr}$. 
+
+DRAW PICTURE
 %
 \begin{figure}[h!]
 \begin{center}
@@ -867,30 +869,29 @@ In reality, though, $\lambda_{tr} \sim 0$ [cm] compared to the size of a reactor
 
 
 %------------------------------------------
-\subsection{Helmholtz Form}
-
-We can write the diffusion equation in steady state this way:
+\subsection*{Helmholtz Form}
+In steady state we can write the diffusion equation this way:
 %
-\begin{align}
+\begin{align*}
 -\nabla \cdot D\nabla \phi(\vec{r}) + 
-\Sigma_a \phi(\vec{r}) &= Q(\vec{r}) \\
+\Sigma_a \phi(\vec{r}) &= Q(\vec{r})\:, \\
 %
-\text{Where }\qquad Q(\vec{r}) &=
+\text{where }\qquad Q(\vec{r}) &=
 \nu \Sigma_f \phi(\vec{r}) +
-S(\vec{r})
-\end{align}
+S(\vec{r})\:,
+\end{align*}
 %
 which can be written as the Helmholtz equation of applied mathematics:
 %http://en.wikipedia.org/wiki/Helmholtz_equation
 %
-\begin{align}
-\nabla^2 \phi(\vec{r}) - \frac{1}{L^2}\phi(\vec{r}) &= \frac{-Q(\vec{r})}{D} \\
-\text{Where }\qquad L &\equiv \frac{D}{\Sigma_a}
-\end{align}
+\begin{align*}
+\nabla^2 \phi(\vec{r}) - \frac{1}{L^2}\phi(\vec{r}) &= \frac{-Q(\vec{r})}{D}\:, \\
+\text{where }\qquad L &\equiv \frac{D}{\Sigma_a}\:.
+\end{align*}
 %
 $L$ is called the neutron diffusion length. This is ``how far a neutron diffuses from a source prior to absorption". 
 
-In the Helmholtz formulation $\phi$ is amplitude and $\frac{1}{L}$ is wave number. 
+In the Helmholtz formulation, $\phi$ is amplitude and $\frac{1}{L}$ is wave number. 
 
 This formulation is useful because we know how to solve it. We write
 \[\phi(\vec{r}) = \phi_H(\vec{r}) + \phi_P(\vec{r}) \:,\]
@@ -901,32 +902,32 @@ For example, we often have:
 Going through how to solve this analytically in a variety of circumstances, geometries, etc.\ is another class (NE 150/250). We're going to focus on numerical solution techniques. But first, one more thing.
 
 %------------------------------------------
-\subsection{Criticality Calculations}
+\subsection*{Criticality Calculations}
 
 We can write our DE in steady state for a nuclear reactor core:
 %
-\begin{align}
+\begin{align*}
 -\nabla \cdot D\nabla \phi(\vec{r}) + 
-\Sigma_a \phi(\vec{r}) &= \nu \Sigma_f \phi(\vec{r}) \\
-\text{with} \qquad \phi(\tilde{x}_s) &= 0
-\end{align}
+\Sigma_a \phi(\vec{r}) &= \nu \Sigma_f \phi(\vec{r})\:, \\
+\text{with} \qquad \phi(\tilde{x}_s) &= 0\:.
+\end{align*}
 %
-Unless we have the proper combination of core composition ($\Sigma_a$, $\Sigma_f$, $D$) and geometry ($\vec{r}$ ,$\vec{r}_s$), there is \underline{no} general solution. 
+Unless we have the proper combination of core composition ($\Sigma_a$, $\Sigma_f$, $D$) and geometry ($\vec{r}$ ,$\vec{r}_s$) details, there is \underline{no} general solution. 
 
 To deal with this, we introduce a parameter $k$ into the equation:
 %
 \begin{equation}
 -\nabla \cdot D\nabla \phi(\vec{r}) + 
-\Sigma_a \phi(\vec{r}) = \frac{1}{k}\nu \Sigma_f \phi(\vec{r})
+\Sigma_a \phi(\vec{r}) = \frac{1}{k}\nu \Sigma_f \phi(\vec{r})\:. \nonumber
 \end{equation}
 %
-Then, for any value of $k$ we assert that there is always a solution. We use an iterative process to find the condition when $k=1$, called `critical'.
+Then, for any value of $k$ we assert that there is always a solution. We use an iterative process to find the condition when $k=1$, called ``critical''.
 
 A reactor is called \textbf{``critical''} if the chain reaction is self-sustaining and time-independent. Another way to think of the addition of $k$ is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
 
 This substitution changes the transport equation into an \textbf{eigenvalue problem.} A spectrum of eigenvalues can be found, but at \textbf{long times only the non-negative solution corresponding to the largest real eigenvalue will dominate}, and that's $k$. 
 
-$k$ can be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
+$k$ can also be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
 
 %--------------------------------------------------------------------
 \bibliographystyle{plain}
