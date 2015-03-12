@@ -221,7 +221,7 @@ Gauss Seidel is not so easy to parallelize. Why not? \\The GS method is order de
 
 SOR is similar to GS, but now we add a splash of control to try to converge faster than GS (sort of like weighted Richardson). 
 %
-\[(\ve{D} + \omega \ve{L})\vec{x}^{k+1} = [(1-\omega)\ve{D} - \omega \ve{U}] \vec{x}^{(k)} + \omega\vec{b}\:, \]
+\[(\ve{D} + \omega \ve{L})\vec{x}^{(k+1)} = [(1-\omega)\ve{D} - \omega \ve{U}] \vec{x}^{(k)} + \omega\vec{b}\:, \]
 %
 where $0 < \omega < 2$. Now $\ve{P}_{SOR} = (\ve{D} + \omega\ve{L})^{-1} [(1-\omega)\ve{D} - \omega \ve{U}]$. 
 
