@@ -119,9 +119,9 @@ Substituting into the original equation, we get:
 
 We only have $n-1$ equations, but because the boundaries are fixed that is all we need. This is clear when we look at the $i=1$ and $i=n-1$ cases:
 \begin{align}
-&\bigl(2 + h^2q_1\bigr)f_1 + \bigl(\frac{h}{2}p_1 - 1\bigr) f_{2} = -h^2 r_1 + \underbrace{\bigl(\frac{h}{2}p_1 + 1\bigr) \underbrace{\alpha}_{f_0}}_{bc_L} \:,\nonumber \\
+&\underbrace{-\bigl(\frac{h}{2}p_1 + 1\bigr) \underbrace{\alpha}_{f_0}}_{bc_L} + \bigl(2 + h^2q_1\bigr)f_1 + \bigl(\frac{h}{2}p_1 - 1\bigr) f_{2} = -h^2 r_1  \:,\nonumber \\
  %
-&\bigl(\frac{-h}{2}p_{n-1} - 1\bigr) f_{n-2} + \bigl(2 + h^2q_{n-1}\bigr)f_{n-1} = -h^2 r_{n-1} + \underbrace{\bigl(\frac{-h}{2}p_{n-1} + 1\bigr) \underbrace{\beta}_{f_n}}_{bc_R} \:.\nonumber
+&\bigl(\frac{-h}{2}p_{n-1} - 1\bigr) f_{n-2} + \bigl(2 + h^2q_{n-1}\bigr)f_{n-1}  \underbrace{-\bigl(\frac{-h}{2}p_{n-1} + 1\bigr) \underbrace{\beta}_{f_n}}_{bc_R}= -h^2 r_{n-1} \:.\nonumber
 \end{align}
 
 Thus, we can write this as a matrix equation:
@@ -139,8 +139,8 @@ Thus, we can write this as a matrix equation:
 f_1 \\ f_2 \\ \vdots \\ f_{n-2} \\ f_{n-1} \\
 \end{pmatrix}
 = 
-\begin{pmatrix}
--h^2 r_1 + bc_L \\ -h^2 r_2 \\ \vdots \\ -h^2 r_{n-1} \\ -h^2 r_{n-1} + bc_R\\ 
+-\begin{pmatrix}
+h^2 r_1 + bc_L \\ h^2 r_2 \\ \vdots \\ h^2 r_{n-2} \\ h^2 r_{n-1} + bc_R\\ 
 \end{pmatrix}\:.\nonumber
 \end{equation}
 
@@ -208,13 +208,37 @@ We can evaluate the lhs analytically and the rhs using some integration rule. Fo
 
 ----------\\
 Recall: from open Newton Cotes with Lagrange polynomials and $n=0$; it only uses one point:
-\[\int_a^b f(x)dx = \int_{x_{i-1/2}}^{x_{i+1/2}} f(x)dx = 2hf(x_i) + \frac{h^3}{3}f''(\xi)\:,\]
-where $x_{-1} < \xi < x_{1}$ and $h=(x_{i+1}-x_{i-1})/2$.\\
+\[\int_a^b f(x)dx = \int_{x_{i-1/2}}^{x_{i+1/2}} f(x)dx = hf(x_i) + \frac{h^3}{3}f''(\xi)\:,\]
+where $x_{i-1/2} < \xi < {i+1/2}$ and in this case $h=(x_{i+1/2}-x_{i-1/2})$.\\
 ----------
 %
 \[f'(x_{i+1/2}) - f'(x_{i-1/2}) = (x_{i+1/2} - x_{i+1/2})r(x_i)\:.\]
 %
-We can now use differencing schemes to represent the derivatives on the left. Given the definition of $h$ above, we also know $h = x_{i+1/2} - x_{i-1/2}$, giving
+We can now use differencing schemes to represent the derivatives on the left. We now consider the value centered at the half point and use the integer points on either side:
+%
+\begin{center}
+\begin{tikzpicture}
+\draw[dotted] (0,0)--(0.5,0);
+\draw (0.5,0)--(3.5,0);
+\draw[dotted] (3.55,0)--(4,0);
+\draw (.5,-.25)--(.5,.25);
+\draw (2,-.1)--(2,.1);
+\draw (3.5,-.25)--(3.5,.25);
+\node[below] at (.5,-.25) {$x_{i-1}$};
+\node[below] at (3.5,-.25) {$x_i$};
+\node[above] at (2, 0.75) {$x_{i-1/2}$};
+\node[below] at (2, -.75) {$h$};
+\node[above] at (1.25, .2) {$h/2$};
+\node[above] at (2.75, .2) {$h/2$};
+\end{tikzpicture}
+\end{center}
+%
+\begin{align*}
+f'(x_{i - 1/2}) &= \frac{f(x_{i - 1/2} + h/2) - f(x_{i - 1/2} - h/2)}{2*(h/2)}\:, \\
+&=\frac{f(x_{i}) - f(x_{i - 1})}{h} = \frac{f_i - f_{i - 1}}{h}\:.
+\end{align*} 
+%
+And similarly for $f'(x_{i + 1/2})$. We plug those into the integrated equation above to get
 \[\frac{f_{i+1} - 2f_i + f_{i-1}}{h} = hr(x_i)\:.\]
 
 This
@@ -278,13 +302,13 @@ Term by term:
 &\nonumber\\
 %
  \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \biggl(  -\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &=
--\biggl[D(x)\frac{d \phi(x)}{dx} \biggr]_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \qquad \text{defined at cell edge,}\nonumber \\
+-\biggl[D(x)\frac{d \phi(x)}{dx} \biggr]_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \qquad \text{defined at cell center,}\nonumber \\
 %
 &\\
--D(x)\frac{d \phi(x)}{dx}\big|_{(x_i + \frac{h_{i+1}}{2})} &\cong -D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) \:,\nonumber \\
+-D(x)\frac{d \phi(x)}{dx}\big|_{(x_i + \frac{h_{i+1}}{2})} &\cong -D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{2*(h_{i+1}/2)}\biggr) \:,\nonumber \\
 %
 &\\
--D(x)\frac{d \phi(x)}{dx}\big|_{(x_i - \frac{h_i}{2})} &\cong -D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{h_{i}}\biggr) \:.\nonumber
+-D(x)\frac{d \phi(x)}{dx}\big|_{(x_i - \frac{h_i}{2})} &\cong -D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{2*(h_{i}/2)}\biggr) \:.\nonumber
 \end{align*}
 
 Collecting all of the terms:
@@ -328,11 +352,13 @@ Next we'll worry about the \textbf{reflecting} or zero current condition. The fi
 \includegraphics[height=2in]{ReflectingBC}
 \end{figure}
 %
-\begin{align}
+\begin{align*}
 \int_{0}^{\frac{h_{1}}{2}} \biggl(-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &+ \int_{0}^{\frac{h_{1}}{2}} \Sigma_a(x) \phi(x) dx = \int_{0}^{\frac{h_{1}}{2}} S(x) dx \nonumber \:,\\
 %
+&\\
+%
 -D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \:.\nonumber 
-\end{align}
+\end{align*}
 %
 Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
 \[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\:.\]
