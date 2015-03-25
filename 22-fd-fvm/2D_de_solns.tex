@@ -1,6 +1,6 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
+% Spring 2015
 
 % formatting
 \documentclass[12pt]{article}
@@ -53,9 +53,9 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 27, 28, S14 \\
+{\bf NE 155, Classes 30, 31, S15 \\
 2-D Finite Difference/Volume methods\\ 
-April 2 \& 4, 2014}
+April 8 \& 10, 2015}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -66,7 +66,7 @@ April 2 \& 4, 2014}
 Much of this can be found in Duderstadt and Hamilton Chp.\ 5 Section II.B. 
 
 %-------------------------------------------------------------
-\section{PDEs}
+\section*{PDEs}
 
 We'll start by considering PDEs in general, and then move on to the Diffusion Equation specifically.
 
@@ -83,9 +83,8 @@ This equation is a \textbf{2nd order} PDE in two variables. It is \textbf{linear
 %-------------------------------------------------------------
 \vspace*{1em}
 
-Recall that we can classify PDEs based on the geometric behavior of their solutions. \\
-\underline{Note:} these classifications only apply to second order PDEs. 
-
+Recall that we can classify second order PDEs based on the geometric behavior of their solutions.
+%
 \begin{itemize}
 \item Elliptic if $B^2 - 4 AC < 0$. 
 
@@ -95,7 +94,7 @@ Recall that we can classify PDEs based on the geometric behavior of their soluti
 \end{itemize}
 
 %-------------------------------------------------------------
-\subsection{Elliptic Equations}
+\subsection*{Elliptic Equations}
 
 Recall that the 2-D Laplacian for the function$u(x,y)$ is
 %
