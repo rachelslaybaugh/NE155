@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo Methods Manual
+%\usepackage{mathrsfs}
+%\usepackage[mathcal]{euscript}
+%\usepackage{color}
+%\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+
+% math syntax
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+
+%---------------------------------------------------------------------------
+\title{NE 155, Class 28, S15 \\
+Taylor Series Methods and Runge-Kutta}
+\date{April 3, 2015}
+\begin{document}
+\author{guest lecturer: Kathryn Huff}
+\maketitle
+
+\hrulefill
+
+\section{Introduction}
+
+LeVeque book section
+
+%------------------------------------------------------------------------------
+\section{Taylor Series Derivation of Forward Euler}
+
+Simplest method, Forward euler, can be derived with a taylor series expansion 
+around a point in a finite difference system. 
+
+<insert>
+
+\section{Runge-Kutta Methods}
+
+To avoid multistep methods \dots
+Consider two stage explicit Runge-Kutta
+
+
+\section{Application to PRKE}
+Each of these can be applied to the PRKE\dots
+
+
+\section{One-Step vs. MultiStep}
+Introduce the notion of multistep methods.
+Consider the advantages of one-step over multistep.
+
+\end{document}
