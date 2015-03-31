@@ -1,6 +1,6 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
+% Spring 2015
 
 % formatting
 \documentclass[12pt]{article}
@@ -53,9 +53,9 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 27, 28, S14 \\
+{\bf NE 155, Classes 30, 31, S15 \\
 2-D Finite Difference/Volume methods\\ 
-April 2 \& 4, 2014}
+April 8 \& 10, 2015}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -63,10 +63,10 @@ April 2 \& 4, 2014}
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
 
-Much of this can be found in Duderstadt and Hamilton Chp.\ 5 Section II.B. 
+Much of this can be found in Duderstadt and Hamilton, Chp.\ 5 Section II.B. 
 
 %-------------------------------------------------------------
-\section{PDEs}
+\section*{PDEs}
 
 We'll start by considering PDEs in general, and then move on to the Diffusion Equation specifically.
 
@@ -83,9 +83,8 @@ This equation is a \textbf{2nd order} PDE in two variables. It is \textbf{linear
 %-------------------------------------------------------------
 \vspace*{1em}
 
-Recall that we can classify PDEs based on the geometric behavior of their solutions. \\
-\underline{Note:} these classifications only apply to second order PDEs. 
-
+Recall that we can classify second order PDEs based on the geometric behavior of their solutions.
+%
 \begin{itemize}
 \item Elliptic if $B^2 - 4 AC < 0$. 
 
@@ -95,12 +94,12 @@ Recall that we can classify PDEs based on the geometric behavior of their soluti
 \end{itemize}
 
 %-------------------------------------------------------------
-\subsection{Elliptic Equations}
+\subsection*{Elliptic Equations}
 
-Recall that the 2-D Laplacian for the function$u(x,y)$ is
+Recall that the 2-D Laplacian for the function $u(x,y)$ is
 %
 \begin{equation}
-\nabla^2 u(x,y) = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = u_{xx} + u_{yy} \nonumber
+\nabla^2 u(x,y) = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = u_{xx} + u_{yy} \:.\nonumber
 \end{equation}
 %
 The Laplacian is used in many of the equations that are commonly found in physics:
@@ -117,9 +116,9 @@ The Laplacian is used in many of the equations that are commonly found in physic
 \end{itemize}
 
 % -----------------------------------------------------
-\subsection{Meshing}
+\subsection*{Meshing}
 
-We will use 5 points to define our differenced Laplacian:
+We will use 5 points to define our central-differenced Laplacian:
 
 \begin{minipage}{0.5\textwidth}
 \begin{tikzpicture}
@@ -169,7 +168,7 @@ We will use 5 points to define our differenced Laplacian:
 \end{minipage} \hfill
 %
 \begin{minipage}{0.5\textwidth}
-  \[u(x_i,y_j) = u_{i,j} \qquad u(x_{i+1},y_j) = u_{i,j}\]
+  \[u(x_i,y_j) = u_{i,j} \qquad u(x_{i+1},y_j) = u_{i+1,j}\]
   \begin{align}
   \frac{\partial^2 u_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial u_{i,j}}{\partial x}\bigr) =
 \frac{u_{i-1,j} - 2u_{i,j} + u_{i+1,j}}{\Delta x_i^2} \nonumber \\
@@ -191,51 +190,53 @@ If $\Delta x_i = $ constant $= \Delta y_j = h$, then
 If we apply this to Laplace's equation and have fixed boundary conditions:
 %
 \begin{align}
-u_{i+1,j} &+ u_{i-1,j} + u_{i,j+1} + u_{i,j-1} - 4u_{i,j} = 0 \:, i = 1, 2, \dots, n-1 \:, j = 1, 2, \dots, m-1 \nonumber \\
+u_{i+1,j} &+ u_{i-1,j} + u_{i,j+1} + u_{i,j-1} - 4u_{i,j} = 0, \quad i = 1, 2, \dots, n-1, \quad j = 1, 2, \dots, m-1 \nonumber \\
 %
-u_{0,j} &= BC_L \:, j = 1, 2, \dots, m-1 \nonumber \\
-u_{i,0} &= BC_B \:, i = 1, 2, \dots, n-1 \nonumber \\
-u_{n,j} &= BC_R \:, j = 1, 2, \dots, m-1 \nonumber \\
-u_{i.m} &= BC_T \:, i = 1, 2, \dots, n-1 \nonumber
+u_{0,j} &= BC_L , \quad j = 1, 2, \dots, m-1 \nonumber \\
+u_{i,0} &= BC_B , \quad i = 1, 2, \dots, n-1 \nonumber \\
+u_{n,j} &= BC_R , \quad j = 1, 2, \dots, m-1 \nonumber \\
+u_{i.m} &= BC_T , \quad i = 1, 2, \dots, n-1 \nonumber
 \end{align}
 %
-And make sure to check how the corners need to be defined. We could apply this directly the the 2-D diffusion equation.
+Make sure to check how the corners need to be defined. 
+
+We could apply this directly the the 2-D diffusion equation.
 
 %--------------------------------------------------------------------
-\section{2-D Finite Volume Method, Diffusion Equation}
+\section*{2-D Finite Volume Method, Diffusion Equation}
 
 Remember that in 1-D we were solving this
 \[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S(x)\]
 %
 with an equilibrium (reflecting) condition at the centerline ($x_0 = 0$) and vacuum on the right ($x_n = a$):
 \begin{align}
-\frac{d}{dx}\phi(x) \big|_{x=0} &= 0 \qquad \text{zero net current} \nonumber\\
-\phi(\tilde{a}) &= 0 \qquad \tilde{a} = a + 2D \nonumber
+\frac{d}{dx}\phi(x) \big|_{x=0} &= 0 \qquad \text{zero net current,} \nonumber\\
+\phi(\tilde{a}) &= 0 \qquad \tilde{a} = a + 2D \:.\nonumber
 \end{align}
 
-We imposed a spatial mesh and said material discontinuities will coincide with the cell edges, $x_i$. Thus, we can assume that the cross sections and the diffusion coefficient are constant in each cell:
+We imposed a spatial mesh and said material discontinuities will coincide with the cell edges, $x_i$. Thus, we can assume that the cross sections and the diffusion coefficient are constant in each cell.
 %
-\begin{align}
-D(x) &= D_i \qquad \text{for } x_{i-1} \leq x_i \nonumber \\
-\Sigma_{a}(x) &= \Sigma_{a,i} \qquad \text{for } x_{i-1} \leq x_i \nonumber \\
-h_i &\equiv x_i - x_{i-1} \nonumber 
-\end{align}
+%\begin{align}
+%D(x) &= D_i \qquad \text{for } x_{i-1} \leq x_i \nonumber \\
+%\Sigma_{a}(x) &= \Sigma_{a,i} \qquad \text{for } x_{i-1} \leq x_i \nonumber \\
+%h_i &\equiv x_i - x_{i-1} \nonumber 
+%\end{align}
 %
-The unknown fluxes and known sources are defined at the mesh or cell edges:
-\begin{align}
-\phi(x_i) &= \phi_i \nonumber \\
-S(x_i) &= S_i \nonumber 
-\end{align}
+The unknown fluxes and known sources are defined at the mesh or cell edges.
+%\begin{align}
+%\phi(x_i) &= \phi_i \nonumber \\
+%S(x_i) &= S_i \nonumber 
+%\end{align}
 %
-We then went on to define things for the finite volume method
-\begin{center}
-\begin{figure}[h!]
-\includegraphics[height=2.5in]{FVM-DE}
-\end{figure}
-\end{center}
+We then went on to define things for the finite volume method.
+%\begin{center}
+%\begin{figure}[h!]
+%\includegraphics[height=2.5in]{FVM-DE}
+%\end{figure}
+%\end{center}
 
-Now, we're going to extend all of this to two dimensions. We'll start with the multi-D equation:
-\[-\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr) + \Sigma_a(\vec{r}) \phi(\vec{r}) = S(\vec{r})\]
+Now, we're going to extend all of that to two dimensions. We'll start with the multi-D equation:
+\[-\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr) + \Sigma_a(\vec{r}) \phi(\vec{r}) = S(\vec{r})\:.\]
 %
 This equation is elliptic:
 \begin{itemize}
@@ -245,16 +246,16 @@ This equation is elliptic:
 \end{itemize}
 
 In 2-D:
-\[-\frac{\partial}{\partial x}D(x,y)\frac{\partial}{\partial x} \phi(x,y) -\frac{\partial}{\partial y}D(x,y)\frac{\partial}{\partial y} \phi(x,y) + \Sigma_a(x,y) \phi(x,y) = S(x,y)\]
+\[-\frac{\partial}{\partial x}D(x,y)\frac{\partial}{\partial x} \phi(x,y) -\frac{\partial}{\partial y}D(x,y)\frac{\partial}{\partial y} \phi(x,y) + \Sigma_a(x,y) \phi(x,y) = S(x,y)\:.\]
 %
 For now we're going to say we have fixed boundary conditions:
-\[\phi(-a,y) = \Phi_L\:, \quad \phi(a,y) = \Phi_R\:, \quad \phi(x,-b) = \Phi_B\:, \quad \phi(x,b) = \Phi_T\:.\]
+\[\phi(-a,y) = \Phi_L\:, \quad \phi(a,y) = \Phi_R\:, \quad \phi(x,-b) = \Phi_B\:, \quad \phi(x,b) = \Phi_T\:,\]
 with $x \in [-a,a]$ and $y \in [-b,b]$.
 
 
 % ---------------------------------------------------------
 % ---------------------------------------------------------
-\subsection{Finite Volume}
+\subsection*{Finite Volume}
 
 \begin{figure}[h!]
 \begin{center}
@@ -285,13 +286,13 @@ Now, we integrate the 2-D equation over 4 rectangular partial-volumes (well, are
 
 
 % ---------------------------------------------------------
-\subsubsection{Streaming Term}
+\subsubsection*{Streaming Term}
 Use Gauss Theorem to replace the first volume integral with a surface integral:
 %
 \begin{align}
 -\int_V d\vec{r}\:\bigl[\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr)\bigr] &= -\int_S d\vec{S} \cdot\bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr) \nonumber \\
 %
-= -\int_S d\vec{S}\: D(\vec{r})\hat{n} \cdot \nabla \phi(\vec{r}) &= -\int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) \nonumber
+= -\int_S d\vec{S}\: D(\vec{r})\hat{n} \cdot \nabla \phi(\vec{r}) &= -\int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r})\:. \nonumber
 \end{align}
 %
 Next, we define the partial derivative w.r.t.\ direction on each surface, using $O(h)$ forward and backward difference schemes since they're simple:
@@ -314,8 +315,8 @@ and we do this for each set of surfaces.
 
 
 % ---------------------------------------------------------
-\subsubsection{Absorption Term}
-To integrate absorption, we do 4 integrals - one over each sub-volume:
+\subsubsection*{Absorption Term}
+To integrate absorption, we do four integrals - one over each sub-volume:
 %
 \begin{align}
 \int_{x_i-\frac{\delta_{i}}{2}}^{x_i+\frac{\delta_{i+1}}{2}} dx \int_{y_j-\frac{\epsilon_{j}}{2}}^{y_j+\frac{\epsilon_{j+1}}{2}}dy\:\Sigma_a(x,y) \phi(x,y) &= \Sigma_{a,i,j}\int\int_{V_{i,j}} dx dy \: \phi(x,y) + \nonumber \\
@@ -336,7 +337,7 @@ where
 
 
 % ---------------------------------------------------------
-\subsubsection{Source Term}
+\subsubsection*{Source Term}
 Using the same procedure for the source, we get:
 \begin{align}
 \int \int dx dy \: \:S(x,y) &= \boxed{ S_{i,j} V_{i,j} + S_{i+1,j} V_{i+1,j} + S_{i+1,j+1} V_{i+1,j+1} + S_{i,j+1} V_{i,j+1} }\nonumber \\
@@ -345,12 +346,12 @@ Using the same procedure for the source, we get:
 
 
 % ---------------------------------------------------------
-\subsubsection{Discretized Equations}
+\subsubsection*{Discretized Equations}
 Collecting all of the terms and separating them, we get a 5-point difference equation for $i=1,\dots,n-1$; $j=1,\dots,m-1$:
 %
-\[a_{i-1,j}^{ij}\phi_{i-1,j} + a_{i+1,j}^{ij}\phi_{i+1,j} + a_{i,j-1}^{ij}\phi_{i,j-1} + a_{i,j+1}^{ij}\phi_{i,j+1} +  a_{i,j}^{ij}\phi_{i,j} = S_{ij} \]
+\[a_{i-1,j}^{ij}\phi_{i-1,j} + a_{i+1,j}^{ij}\phi_{i+1,j} + a_{i,j-1}^{ij}\phi_{i,j-1} + a_{i,j+1}^{ij}\phi_{i,j+1} +  a_{i,j}^{ij}\phi_{i,j} = S_{ij} \:.\]
 %
-the lower index is the cell to which you are coupling, and the upper index is which cell you are in - this becomes important when we're ordering our matrix.
+The lower index is the cell to which you are coupling, and the upper index is which cell you are in - this becomes important when we're ordering our matrix.
 %
 \begin{align}
 a_{i-1,j}^{ij} &= -\frac{D_{i,j} \epsilon_{j} + D_{i,j+1} \epsilon_{j+1}}{2 \delta_{i}}  \nonumber \\
@@ -365,6 +366,7 @@ a_{i,j-1}^{ij} &= -\frac{D_{i,j} \delta_{i} + D_{i+1,j} \delta_{i+1}}{2 \epsilon
 a_{i,j+1}^{ij} &= -\frac{D_{i,j+1} \delta_{i} + D_{i+1,j+1} \delta_{i+1}}{2 \epsilon_{j+1}}  \nonumber \\
 (a_T^{ij} & \quad \text{capturing influence of \textbf{upper} flux on center cell}) \nonumber \\
 %
+\nonumber \\
 a_{i,j}^{ij} &= \Sigma_{a,ij} - \bigl(a_{i-1,j}^{ij} + a_{i+1,j}^{ij} + a_{i,j-1}^{ij} + a_{i,j+1}^{ij} \bigr)
  \:.\nonumber \\
  (a_C^{ij}) & \nonumber
@@ -373,7 +375,7 @@ a_{i,j}^{ij} &= \Sigma_{a,ij} - \bigl(a_{i-1,j}^{ij} + a_{i+1,j}^{ij} + a_{i,j-1
 In this formulation we now have $(n+1) \times (m+1)$ unknowns. 
 
 %-------------------------------------------------------
-\subsection{Matrix Form}
+\subsection*{Matrix Form}
 To write the system in a way that looks like $\ve{A}\vec{x} = \vec{b}$, we need to choose an ordering strategy for how we want to store the points. Let's look at a 3$\times$3 example:
 
 \begin{minipage}{0.5\textwidth}
@@ -533,28 +535,28 @@ Therefore using an iterative method like Jacobi, GS, or SOR is probably a better
 
 
 %-------------------------------------------------------
-\subsection{Boundary Conditions}
+\subsection*{Boundary Conditions}
 
-This all works fine for central points, but what about the boundaries? When we're at the edges, we get 4 entries rather than 5 because the edge values are know. For corners we have only 3 entries. 
+This all works fine for central points, but what about the boundaries? When we're at the edges, we get four entries rather than five because the edge values are known. For corners we have only three entries. 
 
 Let's see how this impacts our equations. Recall:
 %
 \[\phi(-a,y) = \Phi_L\:, \quad \phi(a,y) = \Phi_R\:, \quad \phi(x,-b) = \Phi_B\:, \quad \phi(x,b) = \Phi_T\:.\]
 %
 Let's choose what to do at the corners, and then define the rest of the boundaries:
-\[\phi_{0,0} = \Phi_B\:, \quad \phi_{n,0} = \Phi_R\:, \quad \phi_{0,m} = \Phi_L\:, \quad \phi_{n,m} = \Phi_T\:.\]
 %
 \begin{align}
-\phi_{0,j} &= \Phi_L \qquad j=1,\dots,m-1 \nonumber \\
-\phi_{n,j} &= \Phi_R \qquad j=1,\dots,m-1 \nonumber \\
-\phi_{i,0} &= \Phi_B \qquad i=1,\dots,n-1 \nonumber \\
-\phi_{i,m} &= \Phi_T \qquad i=1,\dots,n-1 \nonumber \\
+\phi_{0,0} = \Phi_B\:, \quad \phi_{n,0} &= \Phi_R\:, \quad \phi_{0,m} = \Phi_L\:, \quad \phi_{n,m} = \Phi_T\:. \nonumber \\
+\phi_{0,j} &= \Phi_L \qquad j=1,\dots,m-1 \:, \nonumber \\
+\phi_{n,j} &= \Phi_R \qquad j=1,\dots,m-1 \:, \nonumber \\
+\phi_{i,0} &= \Phi_B \qquad i=1,\dots,n-1 \:, \nonumber \\
+\phi_{i,m} &= \Phi_T \qquad i=1,\dots,n-1 \:. \nonumber 
 \end{align}
 
 Let's look at how this would impact the left ($i=0$) boundary. The $i=0$ equations are simply the boundary condition:
 \begin{itemize}
 \item Change the $a_{C}^{0,j}$ entries to $1$s, 
-\item the $a_{x}^{0,j}$, where $x$ is $R, T, B$ to $0$, and 
+\item the $a_{x}^{0,j}$, where $x$ is $R, T$, and $B$ to $0$, and 
 \item the $S_{0,j}$ entries to $\Phi_L$.
 \end{itemize} 
 
@@ -565,7 +567,7 @@ And analogously for the rest of the edges.
 
 
 
-\subsection{Larger Matrix}
+\subsection*{Larger Matrix}
 What about a bigger matrix?
 
 \begin{minipage}{0.5\textwidth}
@@ -599,7 +601,7 @@ What about a bigger matrix?
 \node[below left] at (6,4) {$11$};
 \node[below left] at (-.25,6) {$12$};
 \node[below left] at (2,6) {$13$};
-\node[below left] at (4,6) {$15$};
+\node[below left] at (4,6) {$14$};
 \node[below left] at (6,6) {$15$};
 \end{tikzpicture}
 \end{minipage}
@@ -742,13 +744,14 @@ S_{03} \\ S_{13} \\ S_{23} \\ S_{33}
 %-------------- indices ------------------
 \begin{tikzpicture}
 \draw[step=2cm] (0,0) grid (6,6);
-\foreach \y in {1, 2}
-    \foreach \x in  {0, 1, 2}
+\foreach \y in {1}
+    \foreach \x in  {0, 1}
         \node[below left] at (2*\x cm,2*\y cm) {$(\x,\y)$};        
 \node[below] at (0,-.25) {$(0,0)$};
 \node[below] at (2,-.25) {$(1,0)$};
-\node[below] at (4,-.25) {$(2,0)$};
+\node[below] at (4,-.25) {$...$};
 \node[below] at (6,-.25) {$(n,0)$};
+\node[below left] at (0,4) {$\vdots$};
 \node[below left] at (0,6) {$(0,m)$};
 \node[below left] at (2,6) {$(1,m)$};
 \node[below left] at (4,6) {$(n-1,m)$};
@@ -776,7 +779,7 @@ S_{03} \\ S_{13} \\ S_{23} \\ S_{33}
 \node[below left] at (6,4) {$11$};
 \node[below left] at (-.25,6) {$12$};
 \node[below left] at (2,6) {$13$};
-\node[below left] at (4,6) {$15$};
+\node[below left] at (4,6) {$14$};
 \node[below left] at (6,6) {$15$};
 \end{tikzpicture}
 \end{minipage}
