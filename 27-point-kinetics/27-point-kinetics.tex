@@ -224,9 +224,6 @@ the reactor to a single point. Inserting \eqref{sep_var_phi} and
   \frac{dn(t)}{dt} &= \frac{\rho(t)-\beta}{\Lambda}n(t) + \sum_{i=1}^{6}\lambda_iC_i(t)\\
   \frac{dC_i(t)}{dt} &= \frac{\beta_i}{\Lambda}n(t) - \lambda_i C_i(t)
   \label{prke}
-\end{align}
-
-\begin{align}
   \intertext{where}
   i&\in[1,6]\nonumber\\
   n &= \mbox{neutron population}\\
@@ -243,13 +240,6 @@ the reactor to a single point. Inserting \eqref{sep_var_phi} and
   k&\equiv \frac{\nu\Sigma_F/\Sigma_a}{1+L^2B_g^2}.\nonumber
 \end{align}
 
-\begin{align}
-\frac{dn(t)}{dt} &= \frac{\rho(t) - \beta}{l^*}n(t) + \sum_{i=1}^{N} \lambda_i C_i(t) \nonumber \\
-\frac{dC_i(t)}{dt} &= \frac{\beta_i}{l^*}n(t) - \lambda_i C_i(t) \qquad i=1,\dots,N \nonumber
-\intertext{where}
- &= \frac{k-1}{k} 
-\end{align}
-
 The PRKEs allow a nuclear engineer to remove the spatial aspects of the
 reactor from consideration to simplify the analysis of this initial value 
 problem. In particular, the assumptions that have gone into this set of 
@@ -259,14 +249,14 @@ equations include:
 \item there is no external neutron source
 \item Separation of variables ($\phi(\vec{r},E,t) = S(\vec{r},E,t)T(\vec{r},E,t)$)
 \item $\beta_i$ and $\lambda_i$ are constant over the transient
-\item There is no feedback ($\rho(t)$ is known)
+\item There is no feedback (e.g. flux is low, feedbacks are slow/weak, $\rho(t)$ is known)
 \end{itemize}
 
 %BCs: $n(0) = n_0$ and $C_i(0) = C_{i,0}$ for $i=1,\dots,N$.
 
 \paragraph{Exercise:}
 \emph{What initial conditions need to be defined in order to solve this initial 
-value problem?}
+value problem (eqn. \eqref{prke}?}
 \section{Coupling to Thermal-Hydraulic Feedbacks}
 
 In addition to modeling
