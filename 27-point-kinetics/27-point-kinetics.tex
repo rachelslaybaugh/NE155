@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo Methods Manual
+%\usepackage{mathrsfs}
+%\usepackage[mathcal]{euscript}
+%\usepackage{color}
+%\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+
+% math syntax
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+
+%---------------------------------------------------------------------------
+\title{NE 155, Class 27, S15 \\
+Reactor Kinetics in Zero Dimensions}
+\date{April 1, 2015}
+\begin{document}
+\author{guest lecturer: Kathryn Huff}
+\maketitle
+
+\hrulefill
+
+\section{Introduction}
+
+In reactors and other fission systems, neutron populations vary over time. This 
+lesson will introduce a method for analyzing this time evolution analytically.
+
+
+%------------------------------------------------------------------------------
+\section{Reactivity}
+
+Reactor control relies on a balance of neutrons.
+
+When an isotope fissions, it produces neutrons, energy, and fission products. 
+Most of the neutrons emitted due to fission are \emph{prompt}, within about 
+$10^-{14}s$ of the fisison. 
+
+However, a fraction of the neutros appear later. These appear via the fission 
+products. Some of the fission products (such as 87Br) are not very stable. 
+87Br, for example, 
+
+These delayed neutrons are critical to bing able to control the reactor.
+
+\section{The Diffusion Equation}
+In the steady-state diffusion equation, all neutrons are approxmiated to be ``prompt'' neutrons.
+
+<diffusion eqn>
+
+To incorporate delayed neutrons, the $\chi (E)$ fission spectrum must be properly weighted with prompt and delayed contributions.
+
+We need a time-dependent diffusion equation.
+
+\section{Time Dependence}
+
+<time dep, one speed diffusion>
+
+
+\section{The Point Reactor Kinetics Equations}
+
+One common method to evaluate transient scenarios is through reduction of
+dimensions by the use of of the Point Reactor Kinetics Equations (PRKE). If we assume a separation of variables solution  to \eqref{boltz_one_speed}, we
+arrive at:
+
+\begin{align}
+  \phi(r,t) &= vn(t)\psi_1(r) \label{sep_var_phi}\\
+  \hat{C}_i(r,t) &= C_i(t)\psi_1(r) \label{sep_var_c}\\
+  \intertext{where $\psi_1$ is the fundamental mode solution of}
+  \nabla^2\psi_n &+ B_g^2\psi_n = 0.
+\end{align}
+
+Using this separation of variables solution reduces the spatial complexity of
+the reactor to a single point. Inserting \eqref{sep_var_phi} and
+\eqref{sep_var_c} into \eqref{boltz_one_speed} gives the Point Reactor Kinetics Equations (PRKE).
+
+\begin{align}
+  \frac{dn(t)}{dt} &= \frac{\rho(t)-\beta}{\Lambda}n(t) + \sum_{i=1}^{6}\lambda_iC_i(t)\\
+  \frac{dC_i(t)}{dt} &= \frac{\beta_i}{\Lambda}n(t) - \lambda_i C_i(t)
+  \label{prke}
+\end{align}
+
+\begin{align}
+  \intertext{where}
+  i&\in[1,6]\nonumber\\
+  \Lambda&\equiv (v\nu\Sigma_F)^{-1}\nonumber\\
+  \rho(t) &\equiv\frac{k(t)-1}{k(t)}\nonumber\\
+         &\equiv\frac{\nu\Sigma_F-\Sigma_a(1+L^2B_g^2)}{\nu\Sigma_F}\nonumber\\
+  \intertext{and}
+  k&\equiv \frac{\nu\Sigma_F/\Sigma_a}{1+L^2B_g^2}.\nonumber
+\end{align}
+
+The PRKEs allow a nuclear engineer to remove the spatial aspects of the
+reactor from consideration, thereby only concerning themselves with the integral
+flux transients, which manifest as power transients.  In addition to modeling
+the neutronic properties of a nuclear reactor, the PRKE can be modified to
+include the thermal-hydraulic feedback effects that the power transient will
+induce.
+
+The PRKE are a set of stiff, nonlinear ordinary differential equations.
+For a reactor in which the only reactivity feedback comes from the fuel and the
+coolant:
+
+\input{./full_prke}
+
+Equation \ref{eqn:full_prke}, shows a generalized set of PRKE where
+variables include the normalized power, $p$, the delayed neutron precursor
+concentrations $\zeta_j$, decay heats, $\omega_k$, and the core average fuel and
+coolant temperatures $T_{fuel}$ and $T_{cool}$.  Additional equations
+quantifying other phenomena can add complexity to this suite of PDEs.
+
+\begin{align}
+\frac{dn(t)}{dt} &= \frac{\rho(t) - \beta}{l^*}n(t) + \sum_{i=1}^{N} \lambda_i C_i(t) \nonumber \\
+\frac{dC_i(t)}{dt} &= \frac{\beta_i}{l^*}n(t) - \lambda_i C_i(t) \qquad i=1,\dots,N \nonumber
+\intertext{where}
+ n &= \mbox{neutron population}\\
+ \beta &= \mbox{fraction of neutrons that are delayed}\\
+ \lambda_i &= \mbox{effective decay constant of the ith precursor}[\frac{1}{s}]\\
+ C_i(t) &= \mbox{delayed neutron concentration due to the ith precursor}\\
+ l &= \mbox{mean neutron lifetime}\\
+ \rho &= \mbox{reactivity}\\
+ &= \frac{k-1}{k} 
+\end{align}
+
+BCs: $n(0) = n_0$ and $C_i(0) = C_{i,0}$ for $i=1,\dots,N$.
+
+\end{document}
