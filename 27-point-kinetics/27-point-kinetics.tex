@@ -54,12 +54,11 @@ cover:
 \begin{itemize}
 \item delayed neutrons,
 \item the importance of delayed neutrons for reactor control,
-\item the derivation of the point reactor kinetics equations (PRKE),
-\item and an approach to their solution.
+\item and the derivation of the point reactor kinetics equations (PRKE).
 \end{itemize}
 
 Additionally, if we have time, this lesson will also cover feedback effects, 
-incuding: 
+including: 
 \begin{itemize}
 \item the importance of feedbacks
 \item the form of the PRKEs with simple temperature feedback.
@@ -85,7 +84,7 @@ However, a fraction of the neutrons appear later. Some fission products are
 unstable and decay within seconds or minutes of the fission. Among those, a few 
 decay by neutron emission. These particular fission products are called ``delayed 
 neutron precursors''.  $^{87}$Br, for example, has a half-life of 55.9 seconds 
-and tends to decay by neutron emsission.
+and tends to decay by neutron emission.
 
 \subsection{Delayed Neutron Precursor Data}
 Typically, we group delayed neutron precursors into 6 or 8 groups according to 
@@ -104,7 +103,7 @@ t_{1/} &= \mbox{half life} [s]\\
 \end{align}
 
 These parameters are used to incorporate the contributions of delayed neutrons 
-into transient calcluations.
+into transient calculations.
 
 \section{Delayed Neutrons and Reactor Control}
 These delayed neutrons are critical to controlling the reactor. 
@@ -264,16 +263,16 @@ the neutronic properties of a nuclear reactor, the PRKE can be modified to
 include the thermal-hydraulic feedback effects that the power transient will
 induce.
 
-\paragraph{Exercise:} \emph{Can you think of some sources of feedbak in a 
-reacor?}
+\paragraph{Exercise:} \emph{Can you think of some sources of feedback in a 
+reactor?}
 
 \subsection{Coupled Multiphysics}
 
-Typcially, transient analyses in reactors seek to characterize the relationship
+Typically, transient analyses in reactors seek to characterize the relationship
 between neutron population and temperature, which are coupled together by
 reactivity.  That is, any change in power of a reactor can be related to a
 quantity known as the reactivity, $\rho$, which characterizes the offset of the
-nuclear reactor from criticality. In all power reactors, the the scalar flux of
+nuclear reactor from criticality. In all power reactors,  the scalar flux of
 neutrons is what determines the reactor's power. The reactor power, in turn,
 affects the temperature. Reactivity feedback then results due to the temperature
 dependence of geometry, material densities, the neutron spectrum, and
@@ -296,9 +295,9 @@ feedback that is out-of-phase with the neutron population
 \cite{stacey_nuclear_2007}.
 
 \subsection{Coupled PRKE}
-The PRKE are a set of stiff, nonlinear ordinary differential equations.
-For a reactor in which the only reactivity feedback comes from the fuel and the
-coolant:
+When coupled to other physics, the PRKE are a set of stiff, nonlinear ordinary 
+differential equations.  For a reactor in which the only reactivity feedback 
+comes from the fuel and the coolant:
 
 \input{./full_prke}
 
