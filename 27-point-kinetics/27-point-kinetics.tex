@@ -47,23 +47,60 @@ Reactor Kinetics in Zero Dimensions}
 \section{Introduction}
 
 In reactors and other fission systems, neutron populations vary over time. This 
-lesson will introduce a method for analyzing this time evolution analytically.
+lesson will introduce a method for analyzing this time evolution analytically 
+by neglecting variation of the flux shape. In particular, this lesson will 
+cover:
+
+\begin{itemize}
+\item delayed neutrons,
+\item the importance of delayed neutrons for reactor control,
+\item the derivation of the point reactor kinetics equations (PRKE),
+\item and an approach to their solution.
+\end{itemize}
+
+Additionally, if we have time, this lesson will also cover feedback effects, 
+incuding: 
+\begin{itemize}
+\item the importance of feedbacks
+\item the form of the PRKEs with simple temperature feedback.
+\end{itemize}
 
 
 %------------------------------------------------------------------------------
-\section{Reactivity}
+\section{Delayed Neutrons}
+Reactor control relies on a balance of neutrons. When an isotope fissions, it 
+produces neutrons, energy, and fission products.  Most of the neutrons emitted 
+due to fission are \emph{prompt}, nearly all within $10^{-10}s$ of the fission. 
 
-Reactor control relies on a balance of neutrons.
+\subsection{Delayed Neutron Emission}
+However, a fraction of the neutros appear later when certain fission products 
+emit a neutron upon decay. These certain fission products are called ``delayed 
+neutron precursors''.  $^{87}$Br, for example, has a half-life of 55.9 seconds.
 
-When an isotope fissions, it produces neutrons, energy, and fission products. 
-Most of the neutrons emitted due to fission are \emph{prompt}, within about 
-$10^-{14}s$ of the fisison. 
+\subsection{Delayed Neutron Precursor Data}
+Typically, we group delayed neutron precursors into 6 or 8 groups. Standardized 
+data exist for these calculations.
 
-However, a fraction of the neutros appear later. These appear via the fission 
-products. Some of the fission products (such as 87Br) are not very stable. 
-87Br, for example, 
+\input{delayed_neutron_tab}
 
-These delayed neutrons are critical to bing able to control the reactor.
+\section{Delayed Neutrons and Reactor Control}
+These delayed neutrons are critical to controlling the reactor. If there were 
+no delayed neutrons, then the time constant for power increase would simply be 
+$l_p$, the prompt neutron lifetime. That isn't the case, but if it were, the 
+reactor power would proceed thus:
+
+\begin{align}
+P(t) &= P_0k^{\frac{t}{l_p}
+\end{align}
+
+In a universe without delayed neutrons, the equation above would be true. 
+Noting that the prompt neutron lifetime is about $2\times10^{-5}s$, take a 
+moment to think about the implications of this.
+
+\paragraph{Exercise}
+If a control rod were moved to introduce an excess reactivity of $0.0005\Delta 
+k$, what would the power be one second later?
+
 
 \section{The Diffusion Equation}
 In the steady-state diffusion equation, all neutrons are approxmiated to be ``prompt'' neutrons.
@@ -77,7 +114,6 @@ We need a time-dependent diffusion equation.
 \section{Time Dependence}
 
 <time dep, one speed diffusion>
-
 
 \section{The Point Reactor Kinetics Equations}
 
