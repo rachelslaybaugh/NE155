@@ -113,11 +113,10 @@ To capture the reasons why, we will need the following definitions.
 \rho &= \mbox{reactivity}\\
 &= \frac{k-1}{k}\\
 k &= \mbox{multiplication factor}\\
-&(k < 1) \rightarrow \mbox{large, negative reactivity}\\
-&(k > 1) \rightarrow \mbox{large, positive reactivity}\\
-&(k < 1) \rightarrow \mbox{critical}\\
+&(k < 1) \rightarrow \mbox{negative reactivity}\\
+&(k > 1) \rightarrow \mbox{positive reactivity}\\
+&(k = 1) \rightarrow \mbox{critical}\\
 \beta &= \mbox{delayed neutron fraction}\\
-&(\rho << \beta) \mbox{ controllable transient}\\
 &(\rho < \beta) \mbox{ delayed supercriticality}\\
 &(\rho > \beta) \mbox{ prompt supercriticality}\\
 l &= \mbox{mean neutron lifetime}
@@ -129,9 +128,9 @@ Note that the units of $\rho$ can be confusing.
 \input{./rho_units}
 
 \subsection{Thought Experiment}
-If there were no delayed neutrons, then the time constant for power increase would simply be 
-$l_p$, the prompt neutron lifetime. That isn't the case, but if it were, the 
-reactor power would proceed thus:
+If there were no delayed neutrons, then the time constant for power increase 
+would be approximately  $l_p$, the prompt neutron lifetime. That isn't the 
+case, but if it were, the reactor power would proceed thus:
 
 \begin{align}
 l &= \mbox{mean generation time}\\
@@ -175,7 +174,13 @@ contributions. To incorporate delayed neutrons explicitly (rather than
 implicitly as above), it is necessary to begin with the time-dependent, 
 one-speed diffusion equation, and including a source contribution from delayed 
 neutrons. That contribution depends on the concentration of delayed neutron 
-precursors.  The delayed neutron precursor concentrations obey the equation,
+precursors.  
+
+\begin{align}
+C_i(r,t)d^3r \equiv \mbox{the expected number of fictitious precursors of the 
+ith kind about r in }d^3r\mbox{ which will always decay by neutron emission.}
+
+The delayed neutron precursor concentrations obey the equation,
 
 \begin{align}
   \frac{\partial \hat{C}_i(t,r)}{\partial t} =
@@ -229,10 +234,9 @@ the reactor to a single point. Inserting \eqref{sep_var_phi} and
   \beta &= \mbox{fraction of neutrons that are delayed}\\
   \lambda_i &= \mbox{effective decay constant of the ith precursor}[\frac{1}{s}]\\
   C_i(t) &= \mbox{delayed neutron concentration due to the ith precursor}\\
-  l &= \mbox{mean neutron lifetime}\\
-  \Lambda &= \mbox{prompt neutron lifetime}\\
+  \Lambda &= \mbox{effective neutron lifetime}\\
   &\equiv (v\nu\Sigma_F)^{-1}\nonumber\\
-  \rho(t) \rho &= \mbox{reactivity}\\
+  \rho(t) &= \mbox{reactivity}\\
   &\equiv\frac{k(t)-1}{k(t)}\nonumber\\
          &\equiv\frac{\nu\Sigma_F-\Sigma_a(1+L^2B_g^2)}{\nu\Sigma_F}\nonumber\\
   \intertext{and}
@@ -246,7 +250,8 @@ equations include:
 
 \begin{itemize}
 \item there is no external neutron source
-\item Separation of variables ($\phi(\vec{r},E,t) = S(\vec{r},E,t)T(\vec{r},E,t)$)
+\item One energy group ($\phi(\vec{r},E,t) = \phi(\vec{r},t)$
+\item Separation of variables ($\phi(\vec{r},t) = S(t)\psi(\vec{r})$)
 \item $\beta_i$ and $\lambda_i$ are constant over the transient
 \item There is no feedback (e.g. flux is low, feedbacks are slow/weak, $\rho(t)$ is known)
 \end{itemize}
