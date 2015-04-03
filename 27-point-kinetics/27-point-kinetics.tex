@@ -251,7 +251,7 @@ equations include:
 
 \begin{itemize}
 \item there is no external neutron source
-\item One energy group ($\phi(\vec{r},E,t) = \phi(\vec{r},t)$
+\item One energy group ($\phi(\vec{r},E,t) = \phi(\vec{r},t)$)
 \item Separation of variables ($\phi(\vec{r},t) = S(t)\psi(\vec{r})$)
 \item $\beta_i$ and $\lambda_i$ are constant over the transient
 \item There is no feedback (e.g. flux is low, feedbacks are slow/weak, $\rho(t)$ is known)
@@ -261,7 +261,67 @@ equations include:
 
 \paragraph{Exercise:}
 \emph{What initial conditions need to be defined in order to solve this initial 
-value problem (eqn. \eqref{prke}?}
+value problem (eqn. \eqref{prke}?)}
+
+
+\section{Analytical Solution of the PRKE}
+
+\begin{align}
+\rho(0) &= 0\\
+P(0) &= P_0\\
+C(0) &= \frac{\beta}{\lambda\Lambda}P_0\\
+\rho(t>0) &= \rho_0
+\end{align}
+
+Assume solutions:
+\begin{align}
+P(t) = Pe^{wt}\\
+C(t) = Ce^{wt}
+\end{align}
+
+Such that:
+
+\begin{align}
+\omega P &= \frac{\rho - \beta}{\Lambda} P + \lambda C\\
+\omega C &= \frac{\beta}{\Lambda}P - \lambda C
+\end{align}
+
+This system can be written:
+\[
+\begin{bmatrix}
+\omega - \frac{\rho_0-\beta}{\Lambda} & \lambda  \\
+-\frac{\beta}{\Lambda} & \omega + \lambda
+\end{bmatrix}
+\begin{bmatrix}
+P  \\
+C  
+\end{bmatrix}
+=
+\begin{bmatrix}
+0  \\
+0  
+\end{bmatrix}
+\]
+
+A solution exists only if the determinant is 0:
+\begin{align}
+\Lambda\omega^2 + \left(\lambda\Lambda + \beta - \rho_0\right)\omega - \rho_0\Lambda = 0
+\end{align}
+
+Using the quadratic formula gives the solution:
+
+\begin{align}
+\omega = \frac{1}{2 \Lambda}\left[ -\left( \beta - \rho_0 +\lambda\Lambda 
+\right) \pm \sqrt{(\beta-\rho_0+\lambda\Lambda)^2 +4\lambda\Lambda\rho_0} \right]
+\end{align}
+
+thus, if we assume $\lambda\Lambda << \beta$ and $\rho_0 << \beta$ then :
+
+\begin{align}
+\omega_1 \approx \frac{\lambda \rho_o}{\beta-\rho_0}\\
+\omega_2 \approx \frac{\beta - \rho_o}{\Lambda}
+\end{align}
+
 \section{Coupling to Thermal-Hydraulic Feedbacks}
 
 In addition to modeling
