@@ -46,28 +46,103 @@ Taylor Series Methods and Runge-Kutta}
 
 \section{Introduction}
 
-LeVeque book section
+Recall that the initial value problem takes the form:
+\begin{align}
+u'(t) &= f(u(t), t), \mbox{ for } t>t_0
+\label{ivp}
+\intertext{where}
+u(t_0) &= u_0
+\end{align}
+In such a problem, we desire to compute $u(t_1)$, $u(t_2)$, $u(t_n)$ and so on. 
+
+There are many methods for solving initial value problems numerically. 
+This lesson will introduce a simple one, Forward Euler, which is derived from a 
+Taylor series expansion. We will then use Forward Euler to introduce a two-stage explicit 
+Runge-Kutta method as well, for higher accuracy.  
+
 
 %------------------------------------------------------------------------------
 \section{Taylor Series Derivation of Forward Euler}
 
-Simplest method, Forward euler, can be derived with a taylor series expansion 
-around a point in a finite difference system. 
+The simplest method for finding $u(t_n)$ is Forward Euler, which approximates $u(t_n)$. Let's call this approximation, $U^n$. In this notation, Forward Euler is based on replacing $u'(t_n)$ with $(U^{n+1} - U^n)/k$, where $k$ is the width of the timestep.
+The Forward Euler method arises from a Taylor series expansion of $u(t_{n+1})$ 
+about $u(t_n)$:
 
-<insert>
+\begin{align}
+u(t_{n+1}) = u(t_n) + ku'(t_n) + \frac{1}{2}k^2u''(t_n) + \cdots
+\label{taylor}
+\end{align}
+
+With this, the $O(k^2)$ terms can be dropped to give:
+\begin{align}
+u(t_{n+1}) \sim u(t_n) + ku'(t_n) 
+\end{align}
+
+And, based on equation \eqref{ivp} we can replace $u'(t_n)$ with 
+$f(u(t_n),t_n)$:
+
+\begin{align}
+\frac{1}{2}k^2u''(t_n) + \cdots\\
+u(t_{n+1}) = u(t_n) + kf(u(t_n),t_n)
+\end{align}
+
+This expression gives a truncation error of order $O(k^2)$. More 
+accurate schemes can be derived with a Taylor series expansion by retaining 
+higher order terms in equation \eqref{taylor}. Since we are only given 
+$u'(t_n) = f(u(t_n),t_n)$, however, the computation of such schemes requires 
+repeated recursive differentiation of this function, and can get quite messy.
+
 
 \section{Runge-Kutta Methods}
 
-To avoid multistep methods \dots
-Consider two stage explicit Runge-Kutta
+Runge-Kutta is a method used in practice to get a higher order approximation 
+\emph{without} explicitly calculating higher order derivatives.
+
+Runge-Kutta uses two stages. The first stage is an update using Euler's method, 
+approximating $u(t_{n+1/2})$. 
+
+\begin{align}
+U^{n+1/2} = U^n + \frac{1}{2}kf(U^n)\\
+\end{align}
+
+The second stage evaluates the function, $f$, at the midpoint to estimate the 
+slope.
+
+\begin{align}
+U^{n+1} = U^n + kf(U^{n+1/2})
+\end{align}
+
+These equations can be combined into a single expression:
+
+\begin{align}
+U^{n+1} = U^n + kf(U^n + \frac{1}{2}kf(U^n))
+\end{align}
+
+This approximation, because it uses two points, like a centered approximation, 
+is order $O(k)$ accurate.
+
+A generic r-stage Runge-Kutta method can be expressed as:
+\begin{align}
+Y_1 = U^n + k\sum_{j=1}^r a_{1j}f(Y_j, t_n + c_jk)
+Y_2 = U^n + k\sum_{j=2}^r a_{2j}f(Y_j, t_n + c_jk)
+.
+.
+.
+Y_r = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)
+U^{n+1} = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)
+\end{align}
+
 
 
 \section{Application to PRKE}
-Each of these can be applied to the PRKE\dots
 
+Each of these can be applied to the PRKE. In particular, let's consider the 
+application of a Forward Euler.
 
-\section{One-Step vs. MultiStep}
-Introduce the notion of multistep methods.
-Consider the advantages of one-step over multistep.
+To avoid confusion with the multiplication factor, the width of our timestep will be called $\Delta t$.
+
+\begin{align}
+n(t_{n+1}) = n(t) + \Delta t\left[\frac{\rho(t_n)-\beta}{\Lambda}n(t_n) + \displaystyle\sum^{j=J}_{j=1}\lambda_j\zeta_j\right]\\
+\end{align}
 
 \end{document}
