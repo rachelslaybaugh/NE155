@@ -13,29 +13,14 @@
       .\\
       .\\
       \zeta_J\\
-      \omega_1\\
-      .\\
-      .\\
-      .\\
-      \omega_k\\
-      .\\
-      .\\
-      .\\
-      \omega_K\\
       T_{fuel}\\
       T_{cool}\\
-      T_{refl}\\
-      T_{matr}\\
-      T_{grph}\\
-      .\\
-      .\\
-      .\\
     \end{array}
     \right]
     =
     \left[
       \begin{array}{ c }
-        \frac{\rho(t,T^{fuel},T_{cool},\cdots)-\beta}{\Lambda}p +
+        \frac{\rho(t,T^{fuel},T_{cool})-\beta}{\Lambda}p +
         \displaystyle\sum^{j=J}_{j=1}\lambda_j\zeta_j\\
         \frac{\beta_1}{\Lambda} p - \lambda_1\zeta_1\\
         .\\
@@ -46,23 +31,8 @@
         .\\
         .\\
         \frac{\beta_J}{\Lambda}p-\lambda_J\zeta_J\\
-        \kappa_1p - \lambda_1\omega_1\\
-        .\\
-        .\\
-        .\\
-        \kappa_kp - \lambda_k\omega_k\\
-        .\\
-        .\\
-        .\\
-        \kappa_{k p} - \lambda_k\omega_{k}\\
-        f_{fuel}(p, C_p^{fuel}, T_{fuel}, T_{cool},\cdots)\\
-        f_{cool}(C_p^{cool}, T_{fuel}, T_{cool},\cdots)\\
-        f_{refl}(C_p^{refl}, T_{fuel}, T_{refl},\cdots)\\
-        f_{matr}(C_p^{matr}, T_{fuel}, T_{matr},\cdots)\\
-        f_{grph}(C_p^{grph}, T_{fuel}, T_{grph},\cdots)\\
-        .\\
-        .\\
-        .\\
+        f_{fuel}(p, c_p^{fuel}, T_{fuel}, T_{cool},\cdots)\\
+        f_{cool}(c_p^{cool}, T_{fuel}, T_{cool},h,A_{fuel},A_{flow}\cdots)\\
       \end{array}
       \right]
       \label{eqn:full_prke}

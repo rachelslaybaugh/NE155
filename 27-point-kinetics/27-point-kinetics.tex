@@ -1,8 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
-\usepackage{setspace}
-\onehalfspacing
+%\usepackage{setspace}
+%\onehalfspacing
 
 \usepackage{amssymb}
 %% The amsthm package provides extended theorem environments
@@ -47,43 +47,172 @@ Reactor Kinetics in Zero Dimensions}
 \section{Introduction}
 
 In reactors and other fission systems, neutron populations vary over time. This 
-lesson will introduce a method for analyzing this time evolution analytically.
+lesson will introduce a method for analyzing this time evolution analytically 
+by neglecting variation of the flux shape. In particular, this lesson will 
+cover:
 
+\begin{itemize}
+\item delayed neutrons,
+\item the importance of delayed neutrons for reactor control,
+\item and the derivation of the point reactor kinetics equations (PRKE).
+\end{itemize}
+
+Additionally, if we have time, this lesson will also cover feedback effects, 
+including: 
+\begin{itemize}
+\item the importance of feedbacks
+\item the form of the PRKEs with simple temperature feedback.
+\end{itemize}
+
+Note that much of this can be found in Duderstadt and Hamilton.
+
+\subsection{Transient Analysis}
+
+Transient analysis is necessary when the neutron flux varies with time.
+Commonly studied transient scenarios include normal startup and shutdown of a
+reactor as well as abnormal scenarios that cause reactivity increases and
+decreases during otherwise normal operation.
 
 %------------------------------------------------------------------------------
-\section{Reactivity}
+\section{Delayed Neutrons}
+Reactor control relies on a balance of neutrons. When an isotope fissions, it 
+produces neutrons, energy, and fission products.  Most of the neutrons emitted 
+due to fission are \emph{prompt}, nearly all within $10^{-10}s$ of the fission. 
 
-Reactor control relies on a balance of neutrons.
+\subsection{Delayed Neutron Emission}
+However, a fraction of the neutrons appear later. Some fission products are 
+unstable and decay within seconds or minutes of the fission. Among those, a few 
+decay by neutron emission. These particular fission products are called ``delayed 
+neutron precursors''.  $^{87}$Br, for example, has a half-life of 55.9 seconds 
+and tends to decay by neutron emission.
 
-When an isotope fissions, it produces neutrons, energy, and fission products. 
-Most of the neutrons emitted due to fission are \emph{prompt}, within about 
-$10^-{14}s$ of the fisison. 
+\subsection{Delayed Neutron Precursor Data}
+Typically, we group delayed neutron precursors into 6 or 8 groups according to 
+their half-lives. Standardized data exist for these calculations, as in Table 
+\ref{tab:delayedneutrons}.
 
-However, a fraction of the neutros appear later. These appear via the fission 
-products. Some of the fission products (such as 87Br) are not very stable. 
-87Br, for example, 
+\input{delayed_neutron_tab}
 
-These delayed neutrons are critical to bing able to control the reactor.
+In the above table:
+\begin{align}
+j &= \mbox{group index}\\
+t_{1/} &= \mbox{half life} [s]\\
+\lambda_j^d &= \mbox{decay constant} [1/s]\\
+\eta_j &= \mbox{fission factor} [n/f]\\
+\beta_j &= \mbox{delayed neutron fraction} [\nu_d/\nu_{tot}]
+\end{align}
 
-\section{The Diffusion Equation}
-In the steady-state diffusion equation, all neutrons are approxmiated to be ``prompt'' neutrons.
+These parameters are used to incorporate the contributions of delayed neutrons 
+into transient calculations.
 
-<diffusion eqn>
+\section{Delayed Neutrons and Reactor Control}
+These delayed neutrons are critical to controlling the reactor. 
+To capture the reasons why, we will need the following definitions.
 
-To incorporate delayed neutrons, the $\chi (E)$ fission spectrum must be properly weighted with prompt and delayed contributions.
+\begin{align}
+\rho &= \mbox{reactivity}\\
+&= \frac{k-1}{k}\\
+k &= \mbox{multiplication factor}\\
+&(k < 1) \rightarrow \mbox{negative reactivity}\\
+&(k > 1) \rightarrow \mbox{positive reactivity}\\
+&(k = 1) \rightarrow \mbox{critical}\\
+\beta &= \mbox{delayed neutron fraction}\\
+&(\rho < \beta) \mbox{ delayed supercriticality}\\
+&(\rho > \beta) \mbox{ prompt supercriticality}\\
+l &= \mbox{mean neutron lifetime}
+\end{align}
 
-We need a time-dependent diffusion equation.
+\subsection{Units of Reactivity}
+Note that the units of $\rho$ can be confusing. 
 
-\section{Time Dependence}
+\input{./rho_units}
 
-<time dep, one speed diffusion>
+\subsection{Thought Experiment}
+If there were no delayed neutrons, then the time constant for power increase 
+would be approximately  $l_p$, the prompt neutron lifetime. That isn't the 
+case, but if it were, the reactor power would proceed thus:
 
+\begin{align}
+l &= \mbox{mean generation time}\\
+n(t+l) &= n(t) + l\frac{dn}{dt} = k_\infty n(t)
+\intertext{such that}
+\frac{dn}{dt} &= \left(\frac{k-1}{l}\right)n(t)
+\intertext{which gives}
+n(t) &= n_0e^{\frac{(k-1)t}{l}}
+\intertext{characterized by the time constant}
+T &= \mbox{reactor period}\\
+  &= \frac{l}{k-1}
+\end{align}
+
+In a universe without delayed neutrons, the mean neutron lifetime ($l$) would be 
+the prompt neutron lifetime ($l_p$).  Noting that the prompt neutron lifetime is about 
+$2\times10^{-5}s$, take a moment to think about the implications of this.
+
+\paragraph{Exercise}
+\emph{If a control rod were moved to introduce an excess reactivity of }$0.0005\Delta 
+k$\emph{, what would the power be one second later?}
+
+\section{Derivation}
+
+It's clear that the delayed neutrons are important. So, how do we include them 
+in our model of neutrons in a reactor? 
+
+\subsection{The Diffusion Equation}
+Let's begin by observing the steady-state diffusion equation. 
+
+\begin{align}
+-\nabla D(\vec{r},E)\nabla\phi(\vec{r},E) +& \Sigma_t(\vec{r},E)\phi(\vec{r},E) 
+= \nonumber\\
+&\int_0^\infty \Sigma_s(\vec{r},E'\rightarrow E)\phi(\vec{r},E')dE'\nonumber\\ 
+&+ \sum_j \chi_T^j(E)\int_0^\infty v\Sigma_p^j(\vec{r},E')\phi(\vec{r},E')dE' + 
+Q(\vec{r},E)
+\end{align}
+
+Review this equation. Note how, to incorporate delayed neutrons, the $\chi (E)$ 
+fission spectrum must be properly weighted with prompt and delayed 
+contributions. To incorporate delayed neutrons explicitly (rather than 
+implicitly as above), it is necessary to begin with the time-dependent, 
+one-speed diffusion equation, and including a source contribution from delayed 
+neutrons. That contribution depends on the concentration of delayed neutron 
+precursors.  
+
+\begin{align}
+C_i(r,t)d^3r \equiv \mbox{the expected number of fictitious precursors of the 
+ith kind about r in }d^3r\mbox{ which will always decay by neutron emission.}
+\end{align}
+
+The delayed neutron precursor concentrations obey the equation,
+
+\begin{align}
+  \frac{\partial \hat{C}_i(t,r)}{\partial t} =
+  \beta_i\nu\Sigma_f(r,t)\phi(r,t) -
+  \lambda_i\hat{C}_i(r,t)
+  \intertext{where}
+  i\in [1,6].
+  \label{delayed_precursors}
+\end{align}
+$\beta_i$ and $\lambda_i$ depend on the incident neutron energy, fissionable
+isotope, and precursor group.  In this way, the  linearized Boltzmann transport
+equation has seven dimensions.  Taking delayed neutrons into account, the one
+speed neutron diffusion equation can be written,
+
+\begin{align}
+  \frac{1}{v}\frac{\partial \phi(r,t)}{\partial t} - D(r,t)\nabla^2\phi(r,t) + \
+  \Sigma_a(r,t)\phi(r,t) = (1-\beta)\nu\Sigma_F(r,t)\phi(r,t) + \
+  \sum_{i=1}^6\lambda_i\hat{C}_i(r,t).
+  \label{boltz_one_speed}
+\end{align}
+
+Transient analysis methods seek to solve this equation for changes in the
+parameters caused by changing reactor conditions. Additional PDEs are added to
+this calculation to capture the dependence of temperature on heat conduction and
+the effect of fluid flow.
 
 \section{The Point Reactor Kinetics Equations}
 
-One common method to evaluate transient scenarios is through reduction of
-dimensions by the use of of the Point Reactor Kinetics Equations (PRKE). If we assume a separation of variables solution  to \eqref{boltz_one_speed}, we
-arrive at:
+One common method to evaluate transient scenarios is through reduction of 
+dimensions. If we assume a separation of variables solution  to 
+\eqref{boltz_one_speed}, we arrive at:
 
 \begin{align}
   \phi(r,t) &= vn(t)\psi_1(r) \label{sep_var_phi}\\
@@ -100,50 +229,151 @@ the reactor to a single point. Inserting \eqref{sep_var_phi} and
   \frac{dn(t)}{dt} &= \frac{\rho(t)-\beta}{\Lambda}n(t) + \sum_{i=1}^{6}\lambda_iC_i(t)\\
   \frac{dC_i(t)}{dt} &= \frac{\beta_i}{\Lambda}n(t) - \lambda_i C_i(t)
   \label{prke}
-\end{align}
-
-\begin{align}
   \intertext{where}
   i&\in[1,6]\nonumber\\
-  \Lambda&\equiv (v\nu\Sigma_F)^{-1}\nonumber\\
-  \rho(t) &\equiv\frac{k(t)-1}{k(t)}\nonumber\\
+  n &= \mbox{neutron population}\\
+  \beta &= \mbox{fraction of neutrons that are delayed}\\
+  \lambda_i &= \mbox{effective decay constant of the ith precursor}[\frac{1}{s}]\\
+  C_i(t) &= \mbox{delayed neutron concentration due to the ith precursor}\\
+  \Lambda &= \mbox{effective neutron lifetime}\\
+  &\equiv (v\nu\Sigma_F)^{-1}\nonumber\\
+  \rho(t) &= \mbox{reactivity}\\
+  &\equiv\frac{k(t)-1}{k(t)}\nonumber\\
          &\equiv\frac{\nu\Sigma_F-\Sigma_a(1+L^2B_g^2)}{\nu\Sigma_F}\nonumber\\
   \intertext{and}
   k&\equiv \frac{\nu\Sigma_F/\Sigma_a}{1+L^2B_g^2}.\nonumber
 \end{align}
 
 The PRKEs allow a nuclear engineer to remove the spatial aspects of the
-reactor from consideration, thereby only concerning themselves with the integral
-flux transients, which manifest as power transients.  In addition to modeling
+reactor from consideration to simplify the analysis of this initial value 
+problem. In particular, the assumptions that have gone into this set of 
+equations include:
+
+\begin{itemize}
+\item there is no external neutron source
+\item One energy group ($\phi(\vec{r},E,t) = \phi(\vec{r},t)$)
+\item Separation of variables ($\phi(\vec{r},t) = S(t)\psi(\vec{r})$)
+\item $\beta_i$ and $\lambda_i$ are constant over the transient
+\item There is no feedback (e.g. flux is low, feedbacks are slow/weak, $\rho(t)$ is known)
+\end{itemize}
+
+%BCs: $n(0) = n_0$ and $C_i(0) = C_{i,0}$ for $i=1,\dots,N$.
+
+\paragraph{Exercise:}
+\emph{What initial conditions need to be defined in order to solve this initial 
+value problem (eqn. \eqref{prke}?)}
+
+
+\section{Analytical Solution of the PRKE}
+
+\begin{align}
+\rho(0) &= 0\\
+P(0) &= P_0\\
+C(0) &= \frac{\beta}{\lambda\Lambda}P_0\\
+\rho(t>0) &= \rho_0
+\end{align}
+
+Assume solutions:
+\begin{align}
+P(t) = Pe^{wt}\\
+C(t) = Ce^{wt}
+\end{align}
+
+Such that:
+
+\begin{align}
+\omega P &= \frac{\rho - \beta}{\Lambda} P + \lambda C\\
+\omega C &= \frac{\beta}{\Lambda}P - \lambda C
+\end{align}
+
+This system can be written:
+\[
+\begin{bmatrix}
+\omega - \frac{\rho_0-\beta}{\Lambda} & \lambda  \\
+-\frac{\beta}{\Lambda} & \omega + \lambda
+\end{bmatrix}
+\begin{bmatrix}
+P  \\
+C  
+\end{bmatrix}
+=
+\begin{bmatrix}
+0  \\
+0  
+\end{bmatrix}
+\]
+
+A solution exists only if the determinant is 0:
+\begin{align}
+\Lambda\omega^2 + \left(\lambda\Lambda + \beta - \rho_0\right)\omega - \rho_0\Lambda = 0
+\end{align}
+
+Using the quadratic formula gives the solution:
+
+\begin{align}
+\omega = \frac{1}{2 \Lambda}\left[ -\left( \beta - \rho_0 +\lambda\Lambda 
+\right) \pm \sqrt{(\beta-\rho_0+\lambda\Lambda)^2 +4\lambda\Lambda\rho_0} \right]
+\end{align}
+
+thus, if we assume $\lambda\Lambda << \beta$ and $\rho_0 << \beta$ then :
+
+\begin{align}
+\omega_1 \approx \frac{\lambda \rho_o}{\beta-\rho_0}\\
+\omega_2 \approx \frac{\beta - \rho_o}{\Lambda}
+\end{align}
+
+\section{Coupling to Thermal-Hydraulic Feedbacks}
+
+In addition to modeling
 the neutronic properties of a nuclear reactor, the PRKE can be modified to
 include the thermal-hydraulic feedback effects that the power transient will
 induce.
 
-The PRKE are a set of stiff, nonlinear ordinary differential equations.
-For a reactor in which the only reactivity feedback comes from the fuel and the
-coolant:
+\paragraph{Exercise:} \emph{Can you think of some sources of feedback in a 
+reactor?}
+
+\subsection{Coupled Multiphysics}
+
+Typically, transient analyses in reactors seek to characterize the relationship
+between neutron population and temperature, which are coupled together by
+reactivity.  That is, any change in power of a reactor can be related to a
+quantity known as the reactivity, $\rho$, which characterizes the offset of the
+nuclear reactor from criticality. In all power reactors,  the scalar flux of
+neutrons is what determines the reactor's power. The reactor power, in turn,
+affects the temperature. Reactivity feedback then results due to the temperature
+dependence of geometry, material densities, the neutron spectrum, and
+microscopic cross sections \cite{bell_nuclear_1970}.
+
+Nuclear reactors operate in state of criticality, which implies a steady state
+neutron flux (and hence power).  Should the reactor deviate from criticality, a
+power transient will result. The magnitude and duration of the power transient
+will be dependent upon the length and strength of the deviation.  In an
+Accident Transient Without Scram (ATWS), only intrinsic negative feedback 
+responses within a reactor design
+are relied upon to prevent an uncontrollable power excursion.  Since some
+feedback may be positive while other feedback is negative, an analysis of the
+balance must be addressed. Additionally, due to the effect of delayed neutrons,
+the timescales of fluid flow, heat conduction, thermal transport, or other
+phenomena, both positive and negative feedback may be delayed. Thus, a transient
+assessment of the time evolution of the neutron population within the core is
+essential to capture power-level instabilities resulting when reactivity
+feedback that is out-of-phase with the neutron population
+\cite{stacey_nuclear_2007}.
+
+\subsection{Coupled PRKE}
+When coupled to other physics, the PRKE are a set of stiff, nonlinear ordinary 
+differential equations.  For a reactor in which the only reactivity feedback 
+comes from the fuel and the coolant:
 
 \input{./full_prke}
 
-Equation \ref{eqn:full_prke}, shows a generalized set of PRKE where
+Equation \ref{eqn:full_prke} shows a generalized set of PRKE where
 variables include the normalized power, $p$, the delayed neutron precursor
-concentrations $\zeta_j$, decay heats, $\omega_k$, and the core average fuel and
+concentrations $\zeta_j$, and the core average fuel and
 coolant temperatures $T_{fuel}$ and $T_{cool}$.  Additional equations
 quantifying other phenomena can add complexity to this suite of PDEs.
 
-\begin{align}
-\frac{dn(t)}{dt} &= \frac{\rho(t) - \beta}{l^*}n(t) + \sum_{i=1}^{N} \lambda_i C_i(t) \nonumber \\
-\frac{dC_i(t)}{dt} &= \frac{\beta_i}{l^*}n(t) - \lambda_i C_i(t) \qquad i=1,\dots,N \nonumber
-\intertext{where}
- n &= \mbox{neutron population}\\
- \beta &= \mbox{fraction of neutrons that are delayed}\\
- \lambda_i &= \mbox{effective decay constant of the ith precursor}[\frac{1}{s}]\\
- C_i(t) &= \mbox{delayed neutron concentration due to the ith precursor}\\
- l &= \mbox{mean neutron lifetime}\\
- \rho &= \mbox{reactivity}\\
- &= \frac{k-1}{k} 
-\end{align}
 
-BCs: $n(0) = n_0$ and $C_i(0) = C_{i,0}$ for $i=1,\dots,N$.
-
+\bibliographystyle{plain}
+\bibliography{bibliography}
 \end{document}
