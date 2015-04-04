@@ -125,12 +125,12 @@ The unknown values are again defined at the mesh or cell edges, e.g.\ $\phi(x_i)
 We derive the equations just like we did in the fixed source case, but now instead of $S_i$ we have $\nu \Sigma_{f,i}$ on the rhs and a $1/k$ in multiplying the rhs vector.
 
 \begin{align}
-\frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h_i^2} - \frac{1}{L_i^2}\phi_i = \frac{1}{k}\frac{-\nu\Sigma_{f,i}}{D_i} \qquad i &= 1, 2, \dots, n-1 \:,\nonumber \\
+\frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h_i^2} - \frac{1}{L_i^2}\phi_i = \frac{1}{k}\frac{-\nu\Sigma_{f,i}}{D_i}\phi_i \qquad i &= 1, 2, \dots, n-1 \:,\nonumber \\
 %
--\phi_{i-1} + \bigl(2 + \frac{h_i^2}{L_i^2}\bigr)\phi_i - \phi_{i+1} = \frac{1}{k} h_i^2 \frac{\nu\Sigma_{f,i}}{D_i} \qquad i &= 1, 2, \dots, n-1\: \text{ or,} \nonumber\\
+-\phi_{i-1} + \bigl(2 + \frac{h_i^2}{L_i^2}\bigr)\phi_i - \phi_{i+1} = \frac{1}{k} h_i^2 \frac{\nu\Sigma_{f,i}}{D_i}\phi_i \qquad i &= 1, 2, \dots, n-1\: \text{ or,} \nonumber\\
 %
 \nonumber \\
-\frac{-D_i}{h_i^2}\phi_{i-1} + \biggl(\frac{2D_i}{h_i^2} + \Sigma_{a,i} \biggr)\phi_i - \frac{D_i}{h_i^2}\phi_{i+1} = \frac{1}{k} \nu\Sigma_{f,i} \qquad i &= 1, \dots, n-1 \:.\nonumber 
+\frac{-D_i}{h_i^2}\phi_{i-1} + \biggl(\frac{2D_i}{h_i^2} + \Sigma_{a,i} \biggr)\phi_i - \frac{D_i}{h_i^2}\phi_{i+1} = \frac{1}{k} \nu\Sigma_{f,i}\phi_i \qquad i &= 1, \dots, n-1 \:.\nonumber 
 \end{align}
 
 With this formulation we still have the problem that our unknown is defined the cell edges and if the properties in neighboring cells differ we will have discontinuities. To be able to handle \textit{material discontinuities} we're going to do our volume integration again.
