@@ -128,6 +128,7 @@
 
 %Patterson and Henesey; computer architecture bible; written at berkeley
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What is Monte Carlo?}
@@ -147,6 +148,7 @@
 \end{itemize}
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Historical Perspective}
@@ -161,6 +163,7 @@
   \item Berger (1963): first complete coupled electron-photon transport code 
 \end{itemize}
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,9 +193,10 @@
 \end{columns}
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Evaluate $\pi$ by Random Sampling (theory)}
+\begin{frame}{Evaluate $\pi$ by Random Sampling}
 
 \begin{columns}
   \begin{column}{0.45\textwidth}
@@ -216,64 +220,6 @@
 \end{columns}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Evaluate $\pi$ by Random Sampling (math)}
-
-\begin{columns}
-  \begin{column}{0.3\textwidth}
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=0.75in,clip]{quarter-circle}
-	\end{center}
-  	\end{figure}
-  \end{column}
-  \begin{column}{0.7\textwidth}
-    \begin{equation}
-      g(x) = \sqrt{1 - x^2}	\qquad G = \int_0^1 g(x)dx = \frac{\pi}{4} \nonumber
-    \end{equation}
-  \end{column}
-\end{columns}
-\pause
-\begin{equation}
-  G = \int_0^1 g(x)dx = (1-0)\overline{g(x)} \nonumber
-\end{equation}
-Determine $\overline{g(x)}$ by random sampling:\\
-\vspace*{0.5em}
-\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k$ randomly on the interval $(0,1)$,
-\[ \overline{g(x)} \equiv \frac{1}{N}\sum_{k=1}^N g(\hat{x}_k) = \frac{1}{N}\sqrt{1 - \hat{x}_k^2}\]
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Evaluate $\pi$ by Random Sampling (physics)}
-
-\begin{columns}
-  \begin{column}{0.3\textwidth}
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=0.75in,clip]{quarter-circle}
-	\end{center}
-  	\end{figure}
-  \end{column}
-  \begin{column}{0.7\textwidth}
-    \begin{equation}
-      g(x) = \sqrt{1 - x^2}	\qquad G = \int_0^1 g(x)dx = \frac{\pi}{4} \nonumber
-    \end{equation}
-  \end{column}
-\end{columns}
-\pause
-\vspace*{0.5em}
-G = area under curve, \\
-\hspace*{0.75 em} = fraction of unit square under curve\\
-\vspace*{0.5em}
-\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k, \hat{y}_k$ randomly on the interval $(0,1)$,\\
-\vspace*{0.5em}
-$m_N$ = $\#$ of times in $N$ trials that $\hat{x}_k^2 + \hat{y}_k^2 \leq 1$,
-\[G = \frac{m_N}{N}\]
-
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -306,35 +252,93 @@ $m_N$ = $\#$ of times in $N$ trials that $\hat{x}_k^2 + \hat{y}_k^2 \leq 1$,
   	\end{figure}
   \end{column}
 \end{columns}
+\pause
+Nicholas Metropolis, S.\ Ulam. ''The Monte Carlo Method," J\textit{ournal of the American Statistical Association}, \textbf{44}, No.\ 247. (Sep., 1949), 335-341.
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Monte Carlo Paper}
 
-    \textit{The Monte Carlo Method}
-    
-%    \renewcommand\windowpagestuff{%
-%    \includegraphics[height=1in,clip]{../figs/spatial-cell}
-%    \raggedright}
-%    \opencutright
-%    \vfill
-%    \begin{cutout}{9}{0.7\textwidth}{0pt}{2}
-%    \begin{itemize}
-%    \item DGFEM: Lagrange, Complete; Simple Corner Balance; AHOTN; Linear Nodal;
-%     Linear-Linear; Diamond Difference type
-%    
-%    \item Originally written in Fortran (Sebastian Schunert and Yousry Azmy,
-%    \textcolor{cardinal}{NC State})
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{General Purpose MC Codes}
+
+\begin{itemize}
+\item \alert{MCNP}: developed at LANL, distributed via RSICC, \href{http://rsicc.ornl.gov}{http://rsicc.ornl.gov}
 %
-%    \hspace*{2 em}[PyNE's first Fortran!]
-%    
-%    \item Wrapped with f2py (Josh Howland, \textcolor{byellow}{Berkeley})
-%    \item Accessible via PyNE interface   
-%    \item Examples, tests, documentation
-%    \end{itemize}
-%    \end{cutout}
-    
+%\item PENELOPE: developed and maintained at U Barcelona, distributed via the Nuclear Energy Agency (http://www.nea.fr/abs/html/nea-1525.html
+
+\item \alert{Geant4}: developed by a large collaboration in the HEP community, \href{ http://geant4.web.cern.ch/geant4/}{http://geant4.web.cern.ch/geant4/}
+
+\item \alert{EGSnrc}: developed at NRC (Canada), \href{http://www.irs.inms.nrc.ca/EGSnrc/EGSnrc.html}{http://www.irs.inms.nrc.ca/EGSnrc/EGSnrc.html}
+
+\item \alert{SERPENT}: Developed by Dr. Jaakko Leppanen, VTT, Finland, \href{ http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/}
+
+\item \alert{Shift}: developed at ORNL, distributed via RSICC, \href{http://rsicc.ornl.gov}{http://rsicc.ornl.gov}
+
+\end{itemize}
+
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evaluate $\pi$ by Random Sampling (math)}
+
+\begin{columns}
+  \begin{column}{0.3\textwidth}
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=0.75in,clip]{quarter-circle}
+	\end{center}
+  	\end{figure}
+  \end{column}
+  \begin{column}{0.7\textwidth}
+    \begin{equation}
+      g(x) = \sqrt{1 - x^2}	\qquad G = \int_0^1 g(x)dx = \frac{\pi}{4} \nonumber
+    \end{equation}
+  \end{column}
+\end{columns}
+\pause
+\begin{equation}
+  G = \int_0^1 g(x)dx = (1-0)\overline{g(x)} \nonumber
+\end{equation}
+Determine $\overline{g(x)}$ by random sampling:\\
+\vspace*{0.5em}
+\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k$ randomly on the interval $(0,1)$,
+\[ \overline{g(x)} \equiv \frac{1}{N}\sum_{k=1}^N g(\hat{x}_k) = \frac{1}{N}\sqrt{1 - \hat{x}_k^2}\]
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evaluate $\pi$ by Random Sampling (physics)}
+
+\begin{columns}
+  \begin{column}{0.3\textwidth}
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=0.75in,clip]{quarter-circle}
+	\end{center}
+  	\end{figure}
+  \end{column}
+  \begin{column}{0.7\textwidth}
+    \begin{equation}
+      g(x) = \sqrt{1 - x^2}	\qquad G = \int_0^1 g(x)dx = \frac{\pi}{4} \nonumber
+    \end{equation}
+  \end{column}
+\end{columns}
+\pause
+\vspace*{0.5em}
+G = area under curve, \\
+\hspace*{0.75 em} = fraction of unit square under curve\\
+\vspace*{0.5em}
+\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k, \hat{y}_k$ randomly on the interval $(0,1)$,\\
+\vspace*{0.5em}
+$m_N$ = $\#$ of times in $N$ trials that $\hat{x}_k^2 + \hat{y}_k^2 \leq 1$,
+\[G = \frac{m_N}{N}\]
+
+\end{frame}
+
+
 
 \end{document}
