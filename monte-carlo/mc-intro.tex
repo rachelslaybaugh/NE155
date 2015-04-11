@@ -340,5 +340,157 @@ $m_N$ = $\#$ of times in $N$ trials that $\hat{x}_k^2 + \hat{y}_k^2 \leq 1$,
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why/When Monte Carlo?}
+
+\begin{itemize}
+\item Applications that are mathematically equivalent to integration over many dimensions.
+\begin{itemize}
+\item Analytic integration may be impossible
+\item Deterministic numerical integration may be slow and/or require error prone approximations
+\end{itemize} 
+\item However, statistically accurate results can require significant computer time
+\item Monte Carlo and parallel computing go well together
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MC is Used in Many Fields}
+
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+  \begin{itemize}
+\item High Energy Physics \\
+\hspace*{1em} Many nucleon interactions
+\item Process Engineering \\
+\hspace*{1em} Combine uncertainties in many\\
+\hspace*{1em} variables
+\item Financial sector \\
+\hspace*{1em} Prices and rates of return for many \\
+\hspace*{1em}objects
+\item Risk Analysis \\
+\hspace*{1em} Many individual contributions to \\
+\hspace*{1em}risk
+\end{itemize}
+  \end{column}
+  \begin{column}{0.4\textwidth}
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=1.75in,clip]{cco-beam}
+  		%http://www.npl.co.uk/irmodelling/monte-carlo-workshop-and-mcneg-2007
+	\end{center}
+  	\end{figure}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What is MC Radiation Transport?}
+
+Simulate many independent particles in a system
+\begin{itemize}
+\item Treat each physical process as a
+\textit{probabilistic process}
+\item \textit{Randomly sample} each process using an
+independent stream of random numbers
+\item Follow each particle from birth until it no
+longer matters
+\item Accumulate the contributions of each
+particle to find the statistically-expected
+mean behavior and variance
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mathematical Validity}
+
+\begin{itemize}
+\item Consider particles with a phase space
+describing position, $\vec{r}$, and velocity, $\vec{v}$
+\vspace*{0.5 em}
+\item A neutral particle can be transmitted
+from one position to another at a
+constant velocity
+\[T(\vec{r}\:' \rightarrow \vec{r}, \vec{v})\]
+\pause
+\item A particle can undergo a collision at a
+single position that changes its velocity
+\[C(\vec{r}, \vec{v}\:' \rightarrow \vec{v})\]
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contributions After 0 Collisions}
+
+\begin{itemize}
+\item Consider a particle born from a source
+described by 
+\[Q(\vec{r}\:', \vec{v}\:')\]
+\item This particle will contribute to the flux at $(\vec{r}, \vec{v})$ before any collisions
+\end{itemize}
+
+\[\psi_0(\vec{r}, \vec{v}) = \int_{\vec{r}\:'} Q(\vec{r}\:', \vec{v}\:')T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) d\vec{r}\:'\]
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contributions After 1 Collision}
+
+\begin{itemize}
+\item The uncollided particles, $\psi_0(\vec{r}\:', \vec{v}\:')$, could undergo 1 \textcolor{cardinal}{collision} and then be \alert{transmitted} to the point $(\vec{r}, \vec{v})$
+\end{itemize}
+
+\[\psi_1(\vec{r}, \vec{v}) = \underbrace{\int_{\vec{r}\:'} \biggl[ \underbrace{\int_{\vec{v}\:'} \psi_0(\vec{r}\:', \vec{v}\:') C(\vec{r}\:', \vec{v}\:' \rightarrow \vec{v})  d\vec{v}\:'}_{\textcolor{cardinal}{collision}}\biggr] T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) d\vec{r}\:'}_{\alert{transmission}}\]
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contributions After $k$ Collisions}
+
+\begin{itemize}
+\item Particles that have undergone $k$ collisions, $\psi_k(\vec{r}\:', \vec{v}\:')$, could undergo another \textcolor{cardinal}{collision} and then be \alert{transmitted} to the point $(\vec{r}, \vec{v})$ 
+\end{itemize}
+
+\[\psi_{k+1}(\vec{r}, \vec{v}) = \underbrace{\int_{\vec{r}\:'} \biggl[ \underbrace{\int_{\vec{v}\:'} \psi_k(\vec{r}\:', \vec{v}\:') C(\vec{r}\:', \vec{v}\:' \rightarrow \vec{v})  d\vec{v}\:'}_{\textcolor{cardinal}{collision}}\biggr] T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) d\vec{r}\:'}_{\alert{transmission}}\]
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Combine Collision and Transmission Kernels}
+
+\begin{align*}
+\vec{p} &= (\vec{r}, \vec{v}) \quad \text{and}\\
+%
+R(\vec{p}\:'\rightarrow\vec{p}) &\equiv C(\vec{r}\:', \vec{v}\:' \rightarrow \vec{v}) T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) \\
+%
+\psi_{k+1}(\vec{r}, \vec{v}) &= \int_{p_k} \psi_k(\vec{p}_k) R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
+%
+\psi_{k+1}(\vec{r}, \vec{v}) &= \int_{p_k} \biggl[ \int_{p_{k-1}} \psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} \biggr] R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
+%
+&\text{and so on \dots}
+\end{align*}
+
+\end{frame}
+
 
 \end{document}
