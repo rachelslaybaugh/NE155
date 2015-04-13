@@ -341,7 +341,7 @@ Determine $\overline{g(x)}$ by random sampling:\\
 G = area under curve, \\
 \hspace*{0.75 em} = fraction of unit square under curve\\
 \vspace*{0.5em}
-\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k, \hat{y}_k$ randomly on the interval $(0,1)$,\\
+\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k, \hat{y}_k$ randomly on the interval $[0,1]$,\\
 \vspace*{0.5em}
 $m_N$ = $\#$ of times in $N$ trials that $\hat{x}_k^2 + \hat{y}_k^2 \leq 1$,
 \[G = \frac{m_N}{N}\]
@@ -501,13 +501,13 @@ described by
 R(\vec{p}\:'\rightarrow\vec{p}) &\equiv C(\vec{r}\:', \vec{v}\:' \rightarrow \vec{v}) T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) \\
 &\\
 %
-\psi_{k+1}(\vec{r}, \vec{v}) = \int_{p_k} \psi_k(\vec{p}_k) &R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
+\psi_{k+1}(\vec{r}, \vec{v}) = \int_{\vec{p}_k} \psi_k(\vec{p}_k) &R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
 %
 &\\
-\psi_{k+1}(\vec{r}, \vec{v}) = \int_{p_k} \biggl[ \int_{p_{k-1}}  &\psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} \biggr] R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
+\psi_{k+1}(\vec{r}, \vec{v}) = \int_{\vec{p}_k} \biggl[ \int_{\vec{p}_{k-1}}  &\psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} \biggr] R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
 &\text{\dots and so on \dots}
 &\\
-\psi_{k+1}(\vec{r}, \vec{v}) = \int_{p_k} &\int_{p_{k-1}} \cdots \int_{p_0} \psi_{0}(\vec{p}_{0}) R(\vec{p}_{0} \rightarrow \vec{p}_{1}) d\vec{p}_{0} \cdots \\
+\psi_{k+1}(\vec{r}, \vec{v}) = \int_{\vec{p}_k} &\int_{\vec{p}_{k-1}} \cdots \int_{\vec{p}_0} \psi_{0}(\vec{p}_{0}) R(\vec{p}_{0} \rightarrow \vec{p}_{1}) d\vec{p}_{0} \cdots \\
 &\psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
 \end{align*}
 
