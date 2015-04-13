@@ -109,21 +109,25 @@
 \begin{frame}{Learning Objectives}
 
 \begin{columns}
-  \begin{column}{0.6\textwidth}
+  \begin{column}{0.5\textwidth}
     \begin{enumerate}
     \item Define Monte Carlo simulation
     \item Understand the history of Monte Carlo methods
     \item Justify the choice of Monte Carlo for radiation transport
+    \item Understand the mathematical validity of Monte Carlo for radiation transport
     \end{enumerate}
   \end{column}
-  \begin{column}{0.4\textwidth}
+  \begin{column}{0.5\textwidth}
   	\begin{figure}
-%  	\begin{center}
-%  		\includegraphics[height=2in,clip]{}
-%	\end{center}
+  	\begin{center}
+  		\includegraphics[height=2in,clip]{atr-model}
+  		%http://www.ornl.gov/science-discovery/more-science/mathematics/nuclear-systems-modeling-and-simulation
+	\end{center}
   	\end{figure}
   \end{column}
 \end{columns}
+
+Notes derived from Jasmina Vujic and Paul Wilson
 \end{frame}
 
 %Patterson and Henesey; computer architecture bible; written at berkeley
@@ -155,11 +159,16 @@
 
   \begin{itemize}
   \item Comte du Buffon (1777): needle tossing experiment to calculate $\pi$
+  \pause
   \item Laplace (1886): random points in a rectangle to calculate $\pi$
-  \item Lord Kelvin used random sampling to aid in evaluating time integrals associated with kinetic theory of gases
+    \pause
+  \item Lord Kelvin (1901): used random sampling to aid in evaluating time integrals associated with kinetic theory of gases
+    \pause
   \item Fermi (1930): was among the first to use random sampling methods to study neutron moderation while still in Rome, Italy
+    \pause
   %\item Manhattan project (40’s): simulations during the initial development of nuclear weapons. Fermi, von Neumann and Ulam coined the term ``Monte Carlo"
   \item 1947: Fermi, von Neumann, Frankel, Metropolis, Ulam, and others developed computer-oriented Monte Carlo method at Los Alamos to trace neutrons through fissionable materials; coined the term ``Monte Carlo"
+    \pause
   \item Berger (1963): first complete coupled electron-photon transport code 
 \end{itemize}
 \end{frame}
@@ -180,13 +189,13 @@
     \item Institutions: Ecole Militaire; Alma mater: University of Caen
     \end{itemize}
     \vspace*{0.5 em}
-    Marquis Pierre-Simon de Laplace, ``Theorie Analytique des Probabilities, Livre 2",  \textit{Ouvres Completes de Laplace, de L'Academie des Sciences}, 356-366, Paris, Vol.\ 7, part 2, 1786.
+    Marquis Pierre-Simon de Laplace, ``Theorie Analytique des Probabilities, Livre 2",  \textit{Ouvres Completes de Laplace}, de L'Academie des Sciences, Paris, \textbf{7}, part 2, 356-366 (1786).
   \end{column}
   \begin{column}{0.4\textwidth}
   	\begin{figure}
   	\begin{center}
   		\includegraphics[height=2in,clip]{laplace}
-  		\caption{Laplace}
+  		%\caption{Laplace}
 	\end{center}
   	\end{figure}
   \end{column}
@@ -211,7 +220,7 @@
     \item Area of square, $A_s= 4$
     \item Area of circle, $A_c = \pi$
     \item Fraction of random points \\in circle
-    \[p = \frac{A_c}{A_c} = \frac{\pi}{4}\]
+    \[p = \frac{A_c}{A_s} = \frac{\pi}{4}\]
     \item Random points = $N$
     \item Random points in circle  = $N_c$, $\therefore$
     \[p = \frac{N_c}{N}\:; \quad \pi = \frac{4N_c}{N}\]
@@ -230,8 +239,8 @@
     \begin{itemize}
     \item The first human engineered nuclear detonation, 
     the Trinity Test in New Mexico.
-    \item Active: 1942–1945
-    \item Branch: U.S. Army Corps of Engineers
+    \item Active: 1942--1945
+    \item Branch: U.S.\ Army Corps of Engineers
     \item Monte Carlo Pioneers:
     \begin{itemize}
       \item Enrico Fermi,
@@ -253,7 +262,7 @@
   \end{column}
 \end{columns}
 \pause
-Nicholas Metropolis, S.\ Ulam. ''The Monte Carlo Method," J\textit{ournal of the American Statistical Association}, \textbf{44}, No.\ 247. (Sep., 1949), 335-341.
+Nicholas Metropolis, S.\ Ulam. ''The Monte Carlo Method," J\textit{ournal of the American Statistical Association}, \textbf{44}, No.\ 247, 335-341 (Sep. 1949).
 \end{frame}
 
 
@@ -303,7 +312,7 @@ Nicholas Metropolis, S.\ Ulam. ''The Monte Carlo Method," J\textit{ournal of the
 \end{equation}
 Determine $\overline{g(x)}$ by random sampling:\\
 \vspace*{0.5em}
-\hspace*{2 em}for $k = 1, \dots, N$, chose $\hat{x}_k$ randomly on the interval $(0,1)$,
+\hspace*{2 em}for $k = 1, \dots, N$, choose $\hat{x}_k$ randomly on the interval $(0,1)$,
 \[ \overline{g(x)} \equiv \frac{1}{N}\sum_{k=1}^N g(\hat{x}_k) = \frac{1}{N}\sqrt{1 - \hat{x}_k^2}\]
 
 \end{frame}
@@ -345,13 +354,18 @@ $m_N$ = $\#$ of times in $N$ trials that $\hat{x}_k^2 + \hat{y}_k^2 \leq 1$,
 \begin{frame}{Why/When Monte Carlo?}
 
 \begin{itemize}
-\item Applications that are mathematically equivalent to integration over many dimensions.
+\item Applications that are mathematically equivalent to \textit{integration over many dimensions}
+\vspace*{0.25 em}
 \begin{itemize}
 \item Analytic integration may be impossible
+\vspace*{0.25 em}
 \item Deterministic numerical integration may be slow and/or require error prone approximations
 \end{itemize} 
-\item However, statistically accurate results can require significant computer time
-\item Monte Carlo and parallel computing go well together
+\vspace*{0.5 em}
+\pause
+\item However, statistically accurate results can require \textbf{significant computer time}
+\item Fortunately, Monte Carlo and parallel computing go well together
+\item and we also have Variance Reduction methods
 \end{itemize}
 
 \end{frame}
@@ -398,10 +412,13 @@ Simulate many independent particles in a system
 \begin{itemize}
 \item Treat each physical process as a
 \textit{probabilistic process}
+\pause
 \item \textit{Randomly sample} each process using an
 independent stream of random numbers
+\pause
 \item Follow each particle from birth until it no
 longer matters
+\pause
 \item Accumulate the contributions of each
 particle to find the statistically-expected
 mean behavior and variance
@@ -482,15 +499,72 @@ described by
 \vec{p} &= (\vec{r}, \vec{v}) \quad \text{and}\\
 %
 R(\vec{p}\:'\rightarrow\vec{p}) &\equiv C(\vec{r}\:', \vec{v}\:' \rightarrow \vec{v}) T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) \\
+&\\
 %
-\psi_{k+1}(\vec{r}, \vec{v}) &= \int_{p_k} \psi_k(\vec{p}_k) R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
+\psi_{k+1}(\vec{r}, \vec{v}) = \int_{p_k} \psi_k(\vec{p}_k) &R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
 %
-\psi_{k+1}(\vec{r}, \vec{v}) &= \int_{p_k} \biggl[ \int_{p_{k-1}} \psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} \biggr] R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
-%
-&\text{and so on \dots}
+&\\
+\psi_{k+1}(\vec{r}, \vec{v}) = \int_{p_k} \biggl[ \int_{p_{k-1}}  &\psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} \biggr] R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
+&\text{\dots and so on \dots}
+&\\
+\psi_{k+1}(\vec{r}, \vec{v}) = \int_{p_k} &\int_{p_{k-1}} \cdots \int_{p_0} \psi_{0}(\vec{p}_{0}) R(\vec{p}_{0} \rightarrow \vec{p}_{1}) d\vec{p}_{0} \cdots \\
+&\psi_{k-1}(\vec{p}_{k-1}) R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{k-1} R(\vec{p}_k \rightarrow \vec{p}_{k+1}) d\vec{p}_k \\
 \end{align*}
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sum Over All Collisions}
+
+\[\psi(\vec{p}) = \sum_{k=0}^{\infty} \psi_k(\vec{p})\]
+
+\vspace*{1 em}
+Arriving at the \textit{integral form} of the transport equation
+
+\[\psi(\vec{r}, \vec{v}) = \int_{\vec{r}\:'} \biggl[ \int_{\vec{v}\:'} \psi(\vec{r}\:', \vec{v}\:') C(\vec{r}\:', \vec{v}\:' \rightarrow \vec{v})  d\vec{v}\:'\biggr] T(\vec{r}\:' \rightarrow \vec{r}, \vec{v}) d\vec{r}\:'\]
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mathematical Validity}
+
+\begin{align*}
+\Psi_{k}(\vec{p}) = \int\int &\cdots \int \Psi_{0}(\vec{p}_{0}) R(\vec{p}_{0} \rightarrow \vec{p}_{1})R(\vec{p}_{1} \rightarrow \vec{p}_{2}) \\&\cdots R(\vec{p}_{k-1} \rightarrow \vec{p}_{k}) d\vec{p}_{0} d\vec{p}_{1} \cdots d\vec{p}_{k-1}
+\end{align*}
+
+\begin{itemize}
+\item Integration over many variables
+\hspace*{0.5 em}
+\item Generate a ``history"\\
+(sequence of states $\vec{p}_0, \vec{p}_1 , \dots, \vec{p}_k$)
+\begin{itemize}
+ \item Randomly sample from source: $\Psi_0 (\vec{p}_0)$
+ \item Randomly sample for each of $k$ transitions: $R(\vec{p}_{k-1} \rightarrow \vec{p}_{k})$
+\end{itemize}
+\pause
+\item Average for result $A$ by averaging of $M$ histories
+\end{itemize}
+
+\[\left\langle A \right\rangle = \int A(\vec{p})\Psi(\vec{p}) d\vec{p} 
+= \frac{1}{M} \sum_{m=1}^M \biggl[ \sum_{k=1}^{\infty} A(\vec{p}_{k,m}) \Psi(\vec{p}_{k,m}) \biggr] \]
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Can Model Very Complex Things}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=3in,clip]{pbmr}
+	\end{center}
+  	\end{figure}
+
+\end{frame}
 
 \end{document}
