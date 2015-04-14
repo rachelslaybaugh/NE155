@@ -92,7 +92,7 @@
 % title stuff for footer
 \title{NE 155}
 \author{R.\ N.\ Slaybaugh}
-\date{April 13, 2015}
+\date{April 15, 2015}
 
 \begin{document}
 
@@ -102,6 +102,34 @@
 \title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
 \subtitle{Lecture 33: Probability and Statics}
 \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Major Components of MC Algorithm}
+
+\begin{itemize}
+  \item \textbf{PDFs}: the physical/mathematical system must be described by a set of pdfs.
+  % That's next class
+  \pause
+  \item \textbf{Random number generator}: a source of random \#s uniformly distributed on the unit interval.
+  % We're going to skip this
+  \pause
+  \item \textbf{Sampling rule}: prescription for sampling the pdf (given having random \#s)
+  % That's also next class
+  \pause
+  \item \textbf{Scoring}: the outcomes must be accumulated/\underline{tallied} for quantities of interest
+  % we might cover it
+  \pause
+  \item \textit{\textbf{Error estimation}: an estimate of the statistical error (\underline{variance}) of the solution}
+  % This class!
+    \pause
+  \item \textbf{Variance Reduction}: methods for reducing the variance and computation time simultaneously
+  % briefly this class, maybe more at the end
+    \pause
+  \item \textbf{Parallelization}: efficient use of computers
+  % probably not
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -131,8 +159,6 @@
 \vspace*{1em}
 Notes derived from Jasmina Vujic and Paul Wilson
 \end{frame}
-
-%Patterson and Henesey; computer architecture bible; written at berkeley
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
