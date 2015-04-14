@@ -96,10 +96,10 @@ their half-lives. Standardized data exist for these calculations, as in Table
 In the above table:
 \begin{align}
 j &= \mbox{group index}\\
-t_{1/} &= \mbox{half life} [s]\\
+t_{1/2} &= \mbox{half life} [s]\\
 \lambda_j^d &= \mbox{decay constant} [1/s]\\
-\eta_j &= \mbox{fission factor} [n/f]\\
-\beta_j &= \mbox{delayed neutron fraction} [\nu_d/\nu_{tot}]
+\eta_j &= \mbox{fission factor} [neutrons/fisson]\\
+\beta_j &= \mbox{delayed neutron fraction} \\&\quad[\text{neutrons from delayed fission / neutrons from all fission}]\nonumber
 \end{align}
 
 These parameters are used to incorporate the contributions of delayed neutrons 
@@ -177,18 +177,18 @@ neutrons. That contribution depends on the concentration of delayed neutron
 precursors.  
 
 \begin{align}
-C_i(r,t)d^3r \equiv \mbox{the expected number of fictitious precursors of the 
-ith kind about r in }d^3r\mbox{ which will always decay by neutron emission.}
+C_i(r,t)d^3r \equiv &\mbox{ the expected number of fictitious precursors of the 
+ith}\\
+&\mbox{ kind about r in }d^3r\mbox{ that will always decay by neutron emission.}\nonumber
 \end{align}
 
 The delayed neutron precursor concentrations obey the equation,
 
 \begin{align}
-  \frac{\partial \hat{C}_i(t,r)}{\partial t} =
+  \frac{\partial \hat{C}_i(t,r)}{\partial t} &=
   \beta_i\nu\Sigma_f(r,t)\phi(r,t) -
-  \lambda_i\hat{C}_i(r,t)
-  \intertext{where}
-  i\in [1,6].
+  \lambda_i\hat{C}_i(r,t)\:,\\
+  &\text{where }  i\in [1,6].
   \label{delayed_precursors}
 \end{align}
 $\beta_i$ and $\lambda_i$ depend on the incident neutron energy, fissionable
@@ -344,7 +344,7 @@ affects the temperature. Reactivity feedback then results due to the temperature
 dependence of geometry, material densities, the neutron spectrum, and
 microscopic cross sections \cite{bell_nuclear_1970}.
 
-Nuclear reactors operate in state of criticality, which implies a steady state
+Nuclear reactors operate in a state of criticality, which implies a steady state
 neutron flux (and hence power).  Should the reactor deviate from criticality, a
 power transient will result. The magnitude and duration of the power transient
 will be dependent upon the length and strength of the deviation.  In an
@@ -352,7 +352,7 @@ Accident Transient Without Scram (ATWS), only intrinsic negative feedback
 responses within a reactor design
 are relied upon to prevent an uncontrollable power excursion.  Since some
 feedback may be positive while other feedback is negative, an analysis of the
-balance must be addressed. Additionally, due to the effect of delayed neutrons,
+balance must be addressed. Additionally, because of the effect of delayed neutrons,
 the timescales of fluid flow, heat conduction, thermal transport, or other
 phenomena, both positive and negative feedback may be delayed. Thus, a transient
 assessment of the time evolution of the neutron population within the core is
