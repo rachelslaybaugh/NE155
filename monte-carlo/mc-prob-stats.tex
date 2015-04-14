@@ -128,6 +128,7 @@
   \end{column}
 \end{columns}
 
+\vspace*{1em}
 Notes derived from Jasmina Vujic and Paul Wilson
 \end{frame}
 
@@ -211,15 +212,76 @@ answers
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Two Types of MC Methodology}
+
+\alert{Analog}
+\begin{itemize}
+    \item Natural laws are \textbf{preserved}
+    \item The game is the ``analog" of the physical problem of interest (the history of each particle is simulated exactly)
+\end{itemize}
+\pause
+
+\alert{Non-Analog}
+\begin{itemize}
+    \item To reduce computation time, the strict analog simulation of particles is abandoned (i.e.\ we CHEAT)
+    \item Variance Reduction techniques:
+    \begin{itemize}
+    \item Absorption suppression
+    \item Russian Roulette (history termination)
+    \item Splitting (history propagation)
+    \item Forced collisions
+    \item Source biasing
+    \item Hybrid methods
+    \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Analog vs.\ Weighted MC}
+
+\alert{Analog}
+\begin{itemize}
+    \item No alteration of PDFs
+    \item At collision, particle is killed if absorption
+    \item Particle is born with weight 1
+    \item weight unchanged throughout history
+    \item Score when tallying events is 1
+\end{itemize}
+\pause
+
+\alert{Non-Analog} (weighted)
+\begin{itemize}
+    \item Alter PDFs to favor events of interest
+    \item Particle can have different birth weight
+    \item Weight is altered if biased PDF is used
+    \item Particle survives ``absorption" and weight is changed
+    \item Splitting and RR can change weight
+    \item Score current weight when tallying
+    \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Probability \& Statistics Summary}
 
     \begin{itemize}
     \item Rich variety of statistical analysis is
 possible.
+\pause
+\vspace*{.5em}
     \item The difference between accuracy and
 precision is important
+\pause
+\vspace*{.5em}
     \item Accuracy is not always known and can
 be difficult to improve
+\pause
+\vspace*{.5em}
     \item Precision can be improved by more
 histories in a measurement, but not
 always more histories in a problem
