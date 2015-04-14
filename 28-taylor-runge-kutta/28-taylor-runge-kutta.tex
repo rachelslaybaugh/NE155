@@ -57,7 +57,7 @@ In such a problem, we desire to compute $u(t_1)$, $u(t_2)$, $u(t_n)$ and so on.
 
 There are many methods for solving initial value problems numerically. 
 This lesson will introduce a simple one, Forward Euler, which is derived from a 
-Taylor series expansion. We will then use Forward Euler to introduce a two-stage explicit 
+Taylor series expansion. We will then use Forward Euler to introduce a two-stage, explicit 
 Runge-Kutta method as well, for higher accuracy.  
 
 
@@ -123,12 +123,10 @@ is order $O(k)$ accurate.
 
 A generic r-stage Runge-Kutta method can be expressed as:
 \begin{align}
-Y_1 = U^n + k\sum_{j=1}^r a_{1j}f(Y_j, t_n + c_jk)
-Y_2 = U^n + k\sum_{j=2}^r a_{2j}f(Y_j, t_n + c_jk)
-.
-.
-.
-Y_r = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)
+Y_1 = U^n + k\sum_{j=1}^r a_{1j}f(Y_j, t_n + c_jk)\\
+Y_2 = U^n + k\sum_{j=2}^r a_{2j}f(Y_j, t_n + c_jk)\\
+\vdots\nonumber\\
+Y_r = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)\\
 U^{n+1} = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)
 \end{align}
 
