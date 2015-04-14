@@ -1,0 +1,397 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Class 34, NE 155
+%%
+
+\documentclass[xcolor=x11names,compress]{beamer}
+
+\definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{decorations.fractals}
+\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+\usepackage{tabu}
+% Links
+\usepackage{hyperref}
+\definecolor{links}{HTML}{003262}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+
+% addition of color
+\usepackage{xcolor}
+\definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{byellow}{rgb}{0.55037, 0.38821, 0.06142}
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\definecolor{forestgreen(web)}{rgb}{0.13, 0.55, 0.13}
+\definecolor{cardinal}{rgb}{0.77, 0.12, 0.23}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=CoolBlack}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=dgreen} % just testing; I think this looks better
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=black}
+
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+
+% Margins
+\usepackage{changepage}
+
+\mode<presentation>
+{
+  \definecolor{berkeleyblue}{HTML}{003262}
+  \definecolor{berkeleygold}{HTML}{FDB515}
+  \usetheme{Boadilla}      % or try Darmstadt, Madrid, Warsaw, Boadilla...
+  %\usecolortheme{dove} % or try albatross, beaver, crane, ...
+  \setbeamercolor{structure}{fg=berkeleyblue,bg=berkeleygold}
+  \setbeamercolor{palette primary}{bg=berkeleyblue,fg=white} % changed this
+  \setbeamercolor{palette secondary}{fg=berkeleyblue,bg=berkeleygold} % changed this
+  \setbeamercolor{palette tertiary}{bg=berkeleyblue,fg=white} % changed this
+  \usefonttheme{structurebold}  % or try serif, structurebold, ...
+  \useinnertheme{circles}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \usebackgroundtemplate{}
+}
+%---
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+% adding slide numbers
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+% equation stuff
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\Sn}{\ensuremath{S_N} }
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title stuff for footer
+\title{NE 155}
+\author{R.\ N.\ Slaybaugh \\
+(well, Max Fratoni!)}
+\date{April 17, 2015}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
+\subtitle{Lecture 34: Random Sampling}
+\titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Major Components of MC Algorithm}
+
+\begin{itemize}
+  \item \textit{\textbf{PDFs}: the physical/mathematical system must be described by a set of pdfs.}
+  % This class
+  \pause
+  \item \textbf{Random number generator}: a source of random \#s uniformly distributed on the unit interval.
+  % We're going to skip this
+  \pause
+  \item \textit{\textbf{Sampling rule}: prescription for sampling the pdf (given having random \#s)}
+  % This class
+  \pause
+  \item \textbf{Scoring}: the outcomes must be accumulated/\underline{tallied} for quantities of interest
+  % we might cover it
+  \pause
+  \item \textbf{Error estimation}: an estimate of the statistical error (\underline{variance}) of the solution
+  % Last class
+    \pause
+  \item \textbf{Variance Reduction}: methods for reducing the variance and computation time simultaneously
+  % briefly last class, maybe more at the end
+    \pause
+  \item \textbf{Parallelization}: efficient use of computers
+  % probably not
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline / Learning Objectives}
+
+    \begin{enumerate}
+    \item Physics as Probability
+    \item Definitions: PDF \& CDF
+    \item Motivation \& Goal of Random Sampling
+    \item Basic Random Sampling Techniques
+      \begin{itemize}
+        \item Direct Discrete Sampling
+        \item Direct Continuous Sampling
+        \item Rejection Sampling
+      \end{itemize}
+    \end{enumerate}
+
+\vspace*{1em}
+Notes derived from Jasmina Vujic and Paul Wilson
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Learning Objectives}
+
+    \begin{enumerate}
+    \item Provide examples of probabilistic
+representations of physics
+    \item Distinguish between a PDF and CDF
+    \item Distinguish between a \textit{discrete} PDF
+(CDF) and \\ a \textit{continuous} PDF (CDF)
+    \item Describe the goal of random sampling
+    \item Identify and implement the best
+random sampling technique for a given
+distribution
+    \end{enumerate}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Physics as Probability}
+
+Various physical phenomena can be
+represented by probability distributions
+
+\begin{itemize}
+  \item Photon emission energy
+    \begin{itemize}
+    \item Each possible energy has a different probability
+(intensity)
+    \end{itemize} 
+    \pause
+    \vspace*{0.5 em}
+  \item Scattering cross-sections
+    \begin{itemize}
+    \item Each possible scattering angle has a different
+probability as a function of the energy
+    \end{itemize}
+    \pause
+    \vspace*{0.5 em}
+  \item Transmission through a medium
+    \begin{itemize}
+    \item Probability of reaching a particular position
+depends on the cross-section
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probability Density Functions}
+
+All variables, $x$, have a \underline{Probability Density Function (PDF)}, $p(x)$, with the following characteristics:
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \begin{center}
+    \textcolor{berkeleygold}{\underline{Continuous}} 
+    \end{center}
+    %
+    \begin{align*}
+    P\left\lbrace a \leq x \leq b \right\rbrace &= \int_a^b p(x)dx\\
+    & \\
+    p(x) & \geq 0 \\
+    \int_{-\infty}^{\infty} p(x)dx &= 1
+    \end{align*}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \begin{center}
+    \textcolor{berkeleyblue}{\underline{Discrete}}  
+    \end{center}
+    %
+    \begin{align*}
+    P(x = x_k) &= p_k \equiv p(x_k)\\
+    k &= 1, \dots, N \\
+    & \\
+    p_k & \geq 0 \\
+    \sum_{k=1}^N p_k &= 1
+    \end{align*}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cumulative Distribution Functions}
+
+All PDFs, $p(x)$, have an associated \underline{Cumulative Distribution Function (CDF)}, $P(x)$, with the following properties:
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \begin{center}
+    \textcolor{berkeleygold}{\underline{Continuous}} 
+    \end{center}
+    %
+    \begin{align*}
+    P\left\lbrace x' \leq x \right\rbrace &= P(x) = \int_{-\infty}^x p(x')dx'\\
+    & \\
+    P(-\infty) &= 0 \:,\quad P(\infty) = 1 \\
+    0 &\leq P(x) \leq 1 \\
+    &\frac{dP(x)}{dx} \geq 0
+    \end{align*}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \begin{center}
+    \textcolor{berkeleyblue}{\underline{Discrete}}  
+    \end{center}
+    %
+    \begin{align*}
+    P\left\lbrace x' \leq x \right\rbrace &= P_k \equiv P(x_k) = \sum_{j=1}^k p_j\\
+    k &= 1, \dots, N \\
+    P_0 &= 0 \:,\quad P_N = 1 \\
+    0 &\leq P_k \leq 1 \\
+    P_k & \geq P_{k-1} \\
+    \end{align*}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Two Encounters with Probability Distributions}
+
+\begin{itemize}
+    \item Probability distributions for the outcome
+of each physical event
+    \item We use \textbf{Random Sampling} techniques to
+evaluate these at each occurrence
+    \item Underlying probability distribution for
+each physical measurement of interest
+    \item We estimate the statistical moments of
+these distributions to get our physical
+answers
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{To the Board}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2in,clip]{board}
+  		%http://topicalteaching.com/2013/09/08/how-should-teachers-dress/
+	\end{center}
+  	\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Two Types of MC Methodology}
+
+\alert{Analog}
+\begin{itemize}
+    \item Natural laws are \textbf{preserved}
+    \item The game is the ``analog" of the physical problem of interest (the history of each particle is simulated exactly)
+\end{itemize}
+\pause
+
+\alert{Non-Analog}
+\begin{itemize}
+    \item To reduce computation time, the strict analog simulation of particles is abandoned (i.e.\ we CHEAT)
+    \item Variance Reduction techniques:
+    \begin{itemize}
+    \item Absorption suppression
+    \item Russian Roulette (history termination)
+    \item Splitting (history propagation)
+    \item Forced collisions
+    \item Source biasing
+    \item Hybrid methods
+    \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Analog vs.\ Weighted MC}
+
+\alert{Analog}
+\begin{itemize}
+    \item No alteration of PDFs
+    \item At collision, particle is killed if absorption
+    \item Particle is born with weight 1
+    \item weight unchanged throughout history
+    \item Score when tallying events is 1
+\end{itemize}
+\pause
+
+\alert{Non-Analog} (weighted)
+\begin{itemize}
+    \item Alter PDFs to favor events of interest
+    \item Particle can have different birth weight
+    \item Weight is altered if biased PDF is used
+    \item Particle survives ``absorption" and weight is changed
+    \item Splitting and RR can change weight
+    \item Score current weight when tallying
+    \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probability \& Statistics Summary}
+
+    \begin{itemize}
+    \item Rich variety of statistical analysis is
+possible.
+\pause
+\vspace*{.5em}
+    \item The difference between accuracy and
+precision is important
+\pause
+\vspace*{.5em}
+    \item Accuracy is not always known and can
+be difficult to improve
+\pause
+\vspace*{.5em}
+    \item Precision can be improved by more
+histories in a measurement, but not
+always more histories in a problem
+    \end{itemize}
+
+\end{frame}
+
+
+\end{document}
