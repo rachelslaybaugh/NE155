@@ -113,22 +113,16 @@
 \begin{itemize}
   \item \textit{\textbf{PDFs}: the physical/mathematical system must be described by a set of pdfs.}
   % This class
-  \pause
   \item \textbf{Random number generator}: a source of random \#s uniformly distributed on the unit interval.
   % We're going to skip this
-  \pause
   \item \textit{\textbf{Sampling rule}: prescription for sampling the pdf (given having random \#s)}
   % This class
-  \pause
   \item \textbf{Scoring}: the outcomes must be accumulated/\underline{tallied} for quantities of interest
   % we might cover it
-  \pause
   \item \textbf{Error estimation}: an estimate of the statistical error (\underline{variance}) of the solution
   % Last class
-    \pause
   \item \textbf{Variance Reduction}: methods for reducing the variance and computation time simultaneously
   % briefly last class, maybe more at the end
-    \pause
   \item \textbf{Parallelization}: efficient use of computers
   % probably not
 \end{itemize}
@@ -284,30 +278,11 @@ All PDFs, $p(x)$, have an associated \underline{Cumulative Distribution Function
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Two Encounters with Probability Distributions}
-
-\begin{itemize}
-    \item Probability distributions for the outcome
-of each physical event
-    \item We use \textbf{Random Sampling} techniques to
-evaluate these at each occurrence
-    \item Underlying probability distribution for
-each physical measurement of interest
-    \item We estimate the statistical moments of
-these distributions to get our physical
-answers
-\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{To the Board}
+\begin{frame}{Random Sampling Basics}
 
   	\begin{figure}
   	\begin{center}
-  		\includegraphics[height=2in,clip]{board}
-  		%http://topicalteaching.com/2013/09/08/how-should-teachers-dress/
+  		\includegraphics[height=2.75in,clip]{cont-pdf-cdf}
 	\end{center}
   	\end{figure}
 
@@ -316,82 +291,184 @@ answers
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Two Types of MC Methodology}
+\begin{frame}{Random Sampling Basics}
 
-\alert{Analog}
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2.75in,clip]{cont-pdf-cdf-2}
+	\end{center}
+  	\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Random Sampling Basics}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2.75in,clip]{cont-pdf-cdf-3}
+	\end{center}
+  	\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Random Sampling Basics}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2.75in,clip]{disc-pdf-cdf}
+	\end{center}
+  	\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why Random Sampling}
+
+Various physical phenomena can be
+represented by probabilistic distributions
+
 \begin{itemize}
-    \item Natural laws are \textbf{preserved}
-    \item The game is the ``analog" of the physical problem of interest (the history of each particle is simulated exactly)
+    \item The known probability distribution
+represents the \textit{collective} behavior
+\vspace*{1em}
+    \item We need to know the behavior at \textit{each}
+single event
+\vspace*{1em}
+    \item We need to \underline{recreate} the collective behavior after \underline{many} events
 \end{itemize}
-\pause
-
-\alert{Non-Analog}
-\begin{itemize}
-    \item To reduce computation time, the strict analog simulation of particles is abandoned (i.e.\ we CHEAT)
-    \item Variance Reduction techniques:
-    \begin{itemize}
-    \item Absorption suppression
-    \item Russian Roulette (history termination)
-    \item Splitting (history propagation)
-    \item Forced collisions
-    \item Source biasing
-    \item Hybrid methods
-    \end{itemize}
-    \end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Analog vs.\ Weighted MC}
+\begin{frame}{Random Sampling Purpose}
 
-\alert{Analog}
+Use a random process to select a single
+value with the following requirements
+
 \begin{itemize}
-    \item No alteration of PDFs
-    \item At collision, particle is killed if absorption
-    \item Particle is born with weight 1
-    \item weight unchanged throughout history
-    \item Score when tallying events is 1
+    \item Each sample should be independent from
+other samples
+\vspace*{1em}
+    \item The PDF formed from a large number of
+samples should converge to the initial PDF
+\vspace*{1em}
+    \item Recover the full resolution of the initial PDF
 \end{itemize}
-\pause
-
-\alert{Non-Analog} (weighted)
-\begin{itemize}
-    \item Alter PDFs to favor events of interest
-    \item Particle can have different birth weight
-    \item Weight is altered if biased PDF is used
-    \item Particle survives ``absorption" and weight is changed
-    \item Splitting and RR can change weight
-    \item Score current weight when tallying
-    \end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Probability \& Statistics Summary}
+\begin{frame}{Sampling Techniques}
+
+Random sampling uses \underline{uniformly distributed
+random variables} to \alert{choose a value for a
+variable} according to its probability density
+function
 
     \begin{itemize}
-    \item Rich variety of statistical analysis is
-possible.
-\pause
-\vspace*{.5em}
-    \item The difference between accuracy and
-precision is important
-\pause
-\vspace*{.5em}
-    \item Accuracy is not always known and can
-be difficult to improve
-\pause
-\vspace*{.5em}
-    \item Precision can be improved by more
-histories in a measurement, but not
-always more histories in a problem
+    \item \textit{Basic} sampling techniques
+      \begin{itemize}
+      \item Direct discrete sampling
+      \item Continuous discrete sampling
+      \item Rejection sampling
+      \end{itemize}
+    \pause
+    \vspace*{.5em}
+    \item \textit{Advanced }sampling techniques
+      \begin{itemize}
+      \item Histogram
+      \item Piecewise linear
+      \item Alias sampling
+      \item Advanced continuous PDFs
+      \end{itemize}
     \end{itemize}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Uniformly-Distributed Random Variable}
+
+    \begin{itemize}
+    \item Standard notation
+      \begin{itemize}
+      \item Single random variable: $\xi$
+      \item Pair of random variables: $(\xi, \eta)$
+      \end{itemize}
+    \vspace*{.5em}
+    \item PDF for random variables:
+    \end{itemize}
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    %
+    \begin{align*}
+    p(\xi) = \begin{cases} 
+     1 & 0 \leq \xi < 1 \\ 
+     0 & \text{ otherwise} 
+     \end{cases}
+    \end{align*}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=1.5in,clip]{unif-dist-var}
+	\end{center}
+  	\end{figure}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Direct Discrete Sampling}
+
+Sampling Procedure
+
+    \begin{itemize}
+    \item Generate $\xi$
+    \item Determine $k$ such that $P_{k-1} \leq \xi \leq P_k$
+    \item Return $x = x_k$
+    \end{itemize}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics<1>[height=1.5in,clip]{disc-pdf}
+  		\includegraphics<2>[height=1.5in,clip]{disc-pdf-samp}
+	\end{center}
+  	\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Direct Discrete Sampling}
+
+\vspace*{1 em}
+Consider the CDF
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=2.5in,clip]{disc-cdf}
+	\end{center}
+  	\end{figure}
+
+\end{frame}
+
 
 
 \end{document}
