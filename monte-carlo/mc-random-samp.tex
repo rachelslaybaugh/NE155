@@ -18,6 +18,7 @@
 \usefonttheme{serif}
 \usepackage{palatino}
 \usepackage{tabu}
+\usepackage[normalem]{ulem}
 % Links
 \usepackage{hyperref}
 \definecolor{links}{HTML}{003262}
@@ -467,6 +468,113 @@ Consider the CDF
 	\end{center}
   	\end{figure}
 
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Direct Discrete Sampling}
+
+    \begin{itemize}
+    \item Requires a table search on $P_k$
+      \begin{itemize}
+      \item Linear search requires $O(N)$ time
+      \item Binary search requires $O(\log_2 N)$ time
+      \end{itemize}
+    \vspace*{.5em}
+    \pause
+    \item Special case: Uniform discrete PDF
+      \begin{itemize}
+      \item $p_k = 1/N$
+      \item $P_k = k/N$
+      \item $k = \left\lfloor{1 + N\xi}\right\rfloor$ (floor function)
+      \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Direct Continuous Sampling}
+
+    \begin{itemize}
+    \item Can only be used if CDF can be inverted
+    \item Direct solution of $P(x)= \xi$
+    \item Sampling Procedure:
+    \end{itemize}
+    \hspace*{3 em} Generate $\xi$ , \hspace*{1 em} Determine $x = P^{-1}(\xi)$
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics<1>[height=1.5in,clip]{cont-pdf}
+  		\includegraphics<2>[height=1.5in,clip]{cont-cdf-on-pdf}
+  		\includegraphics<3>[height=1.5in,clip]{cont-cdf-on-pdf-grey}
+	\end{center}
+  	\end{figure}    
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Direct Continuous Sampling}
+
+    \begin{itemize}
+    \item Advantages: 
+      \begin{itemize}
+      \item Straightforward math \& coding
+      \end{itemize}
+    \vspace*{1 em}
+    \item Disadvantages:
+      \begin{itemize}
+      \item Can involve computationally slow functions
+      \item Not always possible to invert $P(x)$
+      \end{itemize}
+    \end{itemize}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Normalization}
+
+    \begin{itemize}
+    \item Random sampling depends on \textbf{shape} and not on \sout{magnitude}
+    \item Normalization for formal definition of PDF/CDF
+required
+    \end{itemize}
+%
+\[
+  \begin{aligned}
+  \action<+->{f(t)dt &= e^{-\lambda t} dt \:, \quad t > 0 \\}
+  %
+  \action<+->{F(t) &= \int_{-\infty}^t f(t')dt' = \int_0^t f(t') dt' = \biggl[- \frac{e^{-\lambda t'}}{\lambda} \biggr]_0^t = \frac{1}{\lambda} \bigl(1 - e^{-\lambda t}\bigr)\\
+    F(\infty) &= \frac{1}{\lambda}\\}
+    %
+    \action<+->{\\p(t) &= \lambda f(t) = \lambda e^{-\lambda t} dt \:, \quad t > 0 \\
+    %
+    P(t) &= \int_{-\infty}^t p(t')dt' = \int_0^t \lambda f(t') dt' = \bigl[e^{-\lambda t'} \bigr]_0^t = 1 - e^{-\lambda t}\\
+    %
+    P(\infty) &= 1}
+  \end{aligned}
+\]    
+%    \begin{align*}
+%    f(t)dt &= e^{-\lambda t} dt \:, \quad t > 0 \\
+%    %
+%    F(t) &= \int_{-\infty}^t f(t')dt' = \int_0^t f(t') dt' = \biggl[- \frac{e^{-\lambda t'}}{\lambda} \biggr]_0^t = \frac{1}{\lambda} \bigl(1 - e^{-\lambda t}\bigr)\\
+%    %
+%    F(\infty) &= \frac{1}{\lambda}\\
+%    \end{align*}
+%    \pause
+%    \begin{align*}
+%    p(t) &= \lambda f(t) = \lambda e^{-\lambda t} dt \:, \quad t > 0 \\
+%    %
+%    P(t) &= \int_{-\infty}^t p(t')dt' = \int_0^t \lambda f(t') dt' = \bigl[e^{-\lambda t'} \bigr]_0^t = 1 - e^{-\lambda t}\\
+%    %
+%    P(\infty) &= 1
+%    \end{align*}
+    
 \end{frame}
 
 
