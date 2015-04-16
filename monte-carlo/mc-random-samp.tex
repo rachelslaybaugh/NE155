@@ -132,7 +132,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Outline / Learning Objectives}
+\begin{frame}{Outline}
 
     \begin{enumerate}
     \item Physics as Probability
@@ -594,7 +594,7 @@ required
   \begin{aligned}
   \action<+->{g(x) dx &= mx \qquad 0 \leq x < 1\\}
   %
-  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = \int_0^x mx' dx' = \frac{m}{2}\bigl[x'^2 \bigr]_0^x = \frac{m}{2} x^2\\
+  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = \int_0^x mx' dx' = \frac{m}{2}\bigl[x'^2 \bigr]_0^x = \frac{m}{2} x^2\\q
     G(\infty) &= G(1) = \frac{m}{2}\\}
     %
     \action<+->{\\p(x) &= \frac{mx}{\frac{m}{2}} = 2x \qquad 0 \leq x < 1\\}
@@ -628,6 +628,114 @@ required
     x &= P^{-1}(\xi) = \sqrt{\xi}(b-a) + a \qquad\text{Independent of }m
   \end{aligned}
 \]    
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rejection Sampling}
+
+    \begin{itemize}
+    \item Many CDFs cannot be inverted
+      \begin{itemize}
+      \item e.g.\ Klien-Nishina cross-section
+      \end{itemize}
+    \vspace*{1 em}
+    \pause
+    \item Use an approach that is more graphical
+      \begin{itemize}
+      \item Select a point in a 2-D domain
+      \item Determine whether that point is above or below the PDF
+      \item Keep those that are below
+      \item Start over if above
+      \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rejection Sampling}
+
+    \begin{itemize}
+    \item Select a bounding function, g(x), such that
+      \begin{itemize}
+      \item $g(x)= p(x)$ for all $x$
+      \item $g(x)$ is easy to sample
+      \end{itemize}
+    \item Simplest choice is $g(x) = C$
+    \item May not be best choice
+    \vspace*{1 em}
+    \pause
+    \item Generate pair of random variables, $(\xi, \eta)$
+      \begin{itemize}
+      \item $x' = G^{-1} (\xi)$
+      \item If $\eta < p(x')/g(x')$, accept $x'$
+      \item Else, reject $x'$
+      \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rejection Sampling}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics<1>[height=2.5in,clip]{rej-samp1}
+  		\includegraphics<2>[height=2.5in,clip]{rej-samp2}
+  		\includegraphics<3>[height=2.5in,clip]{rej-samp3}
+  		\includegraphics<4>[height=2.5in,clip]{rej-samp4}
+	\end{center}
+  	\end{figure} 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rejection Sampling}
+
+    \begin{itemize}
+    \item Advantages
+      \begin{itemize}
+      \item Computationally simple
+      \item Always works
+      \end{itemize}
+    \vspace*{1 em}
+    \pause
+    \item Disadvantages
+      \begin{itemize}
+      \item Will be inefficient if shapes of $g(x)$ and $p(x)$ are not similar
+      \end{itemize}
+    \end{itemize}
+    
+    \begin{equation}
+    \text{Efficiency }= \frac{\int p(x)dx}{\int g(x) dx} \nonumber
+    \end{equation}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Random Sampling Summary}
+
+    \begin{itemize}
+    \item Physics can be represented \textit{probabilistically}
+\pause
+\vspace*{.5em}
+    \item We can create PDFs and from those generate CDFs
+\pause
+\vspace*{.5em}
+    \item These can be either continuous or discrete
+\pause
+\vspace*{.5em}
+    \item We learned some basic ways to use random numbers to \textit{sample} from these distributions to \alert{simulate physics}
+    \end{itemize}
     
 \end{frame}
 
