@@ -559,24 +559,77 @@ required
     P(\infty) &= 1}
   \end{aligned}
 \]    
-%    \begin{align*}
-%    f(t)dt &= e^{-\lambda t} dt \:, \quad t > 0 \\
-%    %
-%    F(t) &= \int_{-\infty}^t f(t')dt' = \int_0^t f(t') dt' = \biggl[- \frac{e^{-\lambda t'}}{\lambda} \biggr]_0^t = \frac{1}{\lambda} \bigl(1 - e^{-\lambda t}\bigr)\\
-%    %
-%    F(\infty) &= \frac{1}{\lambda}\\
-%    \end{align*}
-%    \pause
-%    \begin{align*}
-%    p(t) &= \lambda f(t) = \lambda e^{-\lambda t} dt \:, \quad t > 0 \\
-%    %
-%    P(t) &= \int_{-\infty}^t p(t')dt' = \int_0^t \lambda f(t') dt' = \bigl[e^{-\lambda t'} \bigr]_0^t = 1 - e^{-\lambda t}\\
-%    %
-%    P(\infty) &= 1
-%    \end{align*}
     
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shifted Uniform}
+
+\[
+  \begin{aligned}
+  \action<+->{g(x) dx &= C \quad a \leq x < b\\}
+  %
+  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = C \int_a^x dx' = C\bigl[x' \bigr]_a^x = C \bigl(x - a)\\
+    G(\infty) &= G(b) = C(b-a)\\}
+    %
+    \action<+->{\\p(x) &= \frac{g(x)}{G(\infty)} = \frac{C}{C(b-a)} = \frac{1}{b-a} \quad a \leq x < b\\}
+    %
+    \action<+->{P(x) &= \int_{-\infty}^x p(x')dx' = \frac{1}{b-a}\int_a^x dx' = \frac{x-a}{b-a}\\
+    %
+    &\\
+    x &= P^{-1}(\xi) = \xi\bigl(b-a\bigr) + a}
+  \end{aligned}
+\]    
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Simple Line, Slope = $m$}
+
+\[
+  \begin{aligned}
+  \action<+->{g(x) dx &= mx \qquad 0 \leq x < 1\\}
+  %
+  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = \int_0^x mx' dx' = \frac{m}{2}\bigl[x'^2 \bigr]_0^x = \frac{m}{2} x^2\\
+    G(\infty) &= G(1) = \frac{m}{2}\\}
+    %
+    \action<+->{\\p(x) &= \frac{mx}{\frac{m}{2}} = 2x \qquad 0 \leq x < 1\\}
+    %
+    \action<+->{P(x) &= \int_{-\infty}^x p(x')dx' = \int_0^x 2x' dx' = \bigl[x'^2 \bigr]_0^x = x^2\\
+    %
+    &\\
+    x &= P^{-1}(\xi) = \sqrt{\xi} \qquad\text{Independent of }m}
+  \end{aligned}
+\]    
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shifted Line}
+
+\[
+  \begin{aligned}
+  g(x) dx &= m(x - a) \qquad a \leq x < b\\
+  %
+  G(x) &= \int_{-\infty}^x g(x')dx' = \int_a^x m(x'-a) dx' = \frac{m}{2}\bigl[(x'-a)^2 \bigr]_0^x = \frac{m}{2} (x-a)^2\\
+    G(\infty) &= G(1) = \frac{m}{2}(b-a)^2\\
+    %
+    \\p(x) &= \frac{m(x-a)}{\frac{m}{2}(b-a)^2} = 2 \frac{x-a}{(b-a)^2}\qquad a \leq x < b\\
+    %
+    P(x) &= \int_{-\infty}^x p(x')dx' = \frac{1}{(b-a)^2}\int_a^x 2(x'-a) dx' = \frac{(x-a)^2}{(b-a)^2}\\
+    %
+    &\\
+    x &= P^{-1}(\xi) = \sqrt{\xi}(b-a) + a \qquad\text{Independent of }m
+  \end{aligned}
+\]    
+    
+\end{frame}
 
 
 \end{document}
