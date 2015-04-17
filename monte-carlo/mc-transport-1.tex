@@ -186,12 +186,12 @@ After we've gotten to \alert{Circle B}, we have a neutral particle:
   \item With energy $E$
 \end{itemize}
 What are possible next events?
-
+\pause
   	\begin{figure}
   	\begin{center}
-  		\includegraphics<1>[height=1.25in,clip]{collision}
-  		\includegraphics<2>[height=1.25in,clip]{boundary-xing}
-  		\caption{\only<1>{Collision}\only<2>{Surface Crossing}}
+  		\includegraphics<2>[height=1.25in,clip]{collision}
+  		\includegraphics<3>[height=1.25in,clip]{boundary-xing}
+  		\caption{\only<2>{Collision}\only<3>{Surface Crossing}}
 	\end{center}
   	\end{figure}
 
@@ -204,16 +204,25 @@ What are possible next events?
 
 Collisions are probabilistic
 \begin{itemize}
-  \item Along a particular path, the probability of a collision at a distance, $s$, from the start:
-  \[p_c(s) = \Sigma(s) e^{-\Sigma(s) s} ds \]
-  \item The cross section, $\Sigma(s)$, is piecewise constant, but changing
-  \item Integrating along path: CDF is piecewise
+  \item Recall: $\Sigma_t$ = macroscopic cross section of material 
+\[\Sigma_t = \sum_{j=1}^J N_j \sigma_t^j\]
+  %where $N_j$ is the number density of the $j$th isotope
+  \item Along a particular path, the probability of a collision at distance $s$ from the start:
+    \begin{align*}
+    p_c(s) &= \Sigma_t(s) e^{-\Sigma_t(s) s} ds \\
+    P_c(n) &= \int_0^s \Sigma_t(s) e^{-\Sigma_t(s) s'}ds' = -e^{-\Sigma_t(s) s'} |_0^s = 1 - e^{-\Sigma_t(s) s}
+  \end{align*}
+  %\item This is the probability of interaction per unit distance $\times$ probability of traveling $s$ without interacting
+%  \vspace*{0.5 em}
+%  \pause
+  \item The cross section, $\Sigma_t(s)$, is piecewise constant, \underline{but changing}
+%  \item Integrating along path: CDF is piecewise
 \end{itemize}
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=.33in,clip]{xsec-cdf}
-	\end{center}
-  	\end{figure}
+%  	\begin{figure}
+%  	\begin{center}
+%  		\includegraphics[height=.33in,clip]{xsec-cdf}
+%	\end{center}
+%  	\end{figure}
 
 \end{frame}
 
@@ -224,7 +233,8 @@ Collisions are probabilistic
 
 \begin{itemize}
   \item Variable transformation: measure distance in units of mean free path:
-  $n = \Sigma(s)s\:,\: dn = \Sigma(s)ds$
+  \[n = \Sigma_t(s)s\:,\quad dn = \Sigma_t(s)ds\]
+  \item We'll start with the PDF and integrate to get the CDF
   \begin{align*}
     p_c(n)dn &= e^{-n} dn\\
     P_c(n) &= \int_0^n e^{-n'}dn' = -e^{-n'} |_0^n = 1 - e^{-n}
@@ -237,76 +247,94 @@ Collisions are probabilistic
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Cumulative Distribution Functions}
+\begin{frame}{Sampling Distance to Collision}
 
-All PDFs, $p(x)$, have an associated \underline{Cumulative Distribution Function (CDF)}, $P(x)$, with the following properties:
+Randomly sample to determine number of mean free paths until next collision, $n_c$
 
-\begin{columns}
-  \begin{column}{0.5\textwidth}
-    \begin{center}
-    \textcolor{berkeleygold}{\underline{Continuous}} 
-    \end{center}
-    %
-    \begin{align*}
-    P\left\lbrace x' \leq x \right\rbrace &= P(x) = \int_{-\infty}^x p(x')dx'\\
-    & \\
-    P(-\infty) &= 0 \:,\quad P(\infty) = 1 \\
-    0 &\leq P(x) \leq 1 \\
-    &\frac{dP(x)}{dx} \geq 0
-    \end{align*}
-  \end{column}
-  \begin{column}{0.5\textwidth}
-    \begin{center}
-    \textcolor{berkeleyblue}{\underline{Discrete}}  
-    \end{center}
-    %
-    \begin{align*}
-    P\left\lbrace x' \leq x \right\rbrace &= P_k \equiv P(x_k) = \sum_{j=1}^k p_j\\
-    k &= 1, \dots, N \\
-    P_0 &= 0 \:,\quad P_N = 1 \\
-    0 &\leq P_k \leq 1 \\
-    P_k & \geq P_{k-1} \\
-    \end{align*}
-  \end{column}
-\end{columns}
+\begin{itemize}
+  \item $g(n_c) dn_c = e^{-n_c} dn_c$ 
+  \vspace{.5em}
+  \item $G(n_c) dn_c = 1 - e^{-n_c}$ 
+  \vspace{.5em}
+  \item Directly invert to get: $\boxed{n_c = - \ln(1 - \xi)}$ 
+  \item Also note $1-\xi$ is equivalent to $\xi$
+  \vspace{.5em}
+  \item In the absence of material boundaries ($\Sigma \neq f(s)$), the distance to a collision, $s_c$, is
+  \[s_c = \frac{n_c}{\Sigma_t}\]
+\end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Random Sampling Basics}
+\begin{frame}{Calculating Distance to Boundary}
 
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=2.75in,clip]{cont-pdf-cdf}
-	\end{center}
-  	\end{figure}
+\begin{itemize}
+  \item Usually have \textit{more than one material}
+  \item Distance to boundary is deterministic
+  \item Algebra to determine distance between point and surface, $s_b$
+  \item Convert it to units of mean free path for the current cell’s material, 
+  \[n_b = s_b \Sigma_t\] 
+    \pause
+  \textbf{Compare}
+  \item $n_b > n_c$:
+  \begin{itemize}
+    \item Boundary is further away than collision
+    \item \alert{Collision occurs}
+  \end{itemize}
+  \pause
+  \item $n_b < n_c$:
+  \begin{itemize}
+    \item Boundary is closer than collision
+    \item \alert{Boundary crossing occurs}
+  \end{itemize}
+\end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Random Sampling Basics}
+\begin{frame}{Option A: Collision}
 
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=2.75in,clip]{cont-pdf-cdf-2}
-	\end{center}
-  	\end{figure}
+\begin{itemize}
+  \item Using physics models and/or cross-sections
+  \begin{itemize}
+    \item Sample new direction
+    \item Sample new energy
+  \end{itemize}
+  \item Energy and direction may depend on each other
+  \vspace*{0.5 em}
+  \pause
+  \item Repeat
+  \begin{itemize}
+    \item Sample new $n_c$ following collision
+    \item Calculate new $n_b$ in new direction
+  \end{itemize}
+\end{itemize}
+
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Random Sampling Basics}
+\begin{frame}{Option B: Cell Boundary}
 
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=2.75in,clip]{cont-pdf-cdf-3}
-	\end{center}
-  	\end{figure}
+  \begin{itemize}
+  \item Move particle along ray
+  \begin{itemize}
+    \item Update $n_c = n_c - n_b$
+  \end{itemize}
+  \item \textbf{DO NOT SAMPLE} for new $n_c$
+  \vspace*{1 em}
+  \pause
+  \item Calculate new $n_b$ in new cell
+  \begin{itemize}
+    \item New set of boundaries
+    \item New value of $\Sigma_t$
+  \end{itemize}
+\end{itemize}
 
 \end{frame}
 
