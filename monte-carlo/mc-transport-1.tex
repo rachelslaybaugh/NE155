@@ -113,20 +113,18 @@
 
     \begin{enumerate}
     \item Overview of Monte Carlo for Neutron Transport
-    \item Basic tracking of particles through a geometry
+    \item Determining next event location
       \begin{itemize}
-      \item Determining next event location
-%Sampling flight path
-%Distance to boundary in analytic
-%geometry
+      \item Sampling flight path
+      \item Distance to boundary %in analytic geometry
       \item Next event selection
-      \item Next event processing
+%      \item Next event processing
       \end{itemize}
     \item Collision Physics
       \begin{itemize}
       \item Sampling target nuclide
       \item Sampling reaction type
-      \item Sampling exit energy
+%      \item Sampling exit energy
       \item Sampling exit direction
       \item Sampling exiting particles
       \end{itemize}
@@ -151,7 +149,7 @@ Notes derived from Jasmina Vujic and Paul Wilson
       \item Sample the distance to the next physics event
       \item Compute the distance between a point and surface along a given direction
       \item Determine next event
-      \item Process outcome of next event
+      %\item Process outcome of next event
       \end{itemize}
     \item Understand ...
     \end{enumerate}
@@ -204,9 +202,7 @@ What are possible next events?
 
 Collisions are probabilistic
 \begin{itemize}
-  \item Recall: $\Sigma_t$ = macroscopic cross section of material 
-\[\Sigma_t = \sum_{j=1}^J N_j \sigma_t^j\]
-  %where $N_j$ is the number density of the $j$th isotope
+  \item Note that $\Sigma_t$, the total macroscopic cross section, will be a function of space if we have multiple materials
   \item Along a particular path, the probability of a collision at distance $s$ from the start:
     \begin{align*}
     p_c(s) &= \Sigma_t(s) e^{-\Sigma_t(s) s} ds \\
@@ -272,24 +268,41 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 
 \begin{itemize}
   \item Usually have \textit{more than one material}
+  \vspace*{1 em}
   \item Distance to boundary is deterministic
+  \vspace*{1 em}
   \item Algebra to determine distance between point and surface, $s_b$
-  \item Convert it to units of mean free path for the current cell’s material, 
+  \vspace*{1 em}
+  \item Convert it to units of mean free path for the current cell's material, 
   \[n_b = s_b \Sigma_t\] 
-    \pause
-  \textbf{Compare}
-  \item $n_b > n_c$:
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Geometry Representations}
+
+\begin{itemize}
+  \item Combinatorial Surfaces
   \begin{itemize}
-    \item Boundary is further away than collision
-    \item \alert{Collision occurs}
+    \item Define surfaces
+    \item Boolean operations combine surfaces to create cells
   \end{itemize}
-  \pause
-  \item $n_b < n_c$:
+  \vspace*{1 em}
+  \item Combinatorial Solids
   \begin{itemize}
-    \item Boundary is closer than collision
-    \item \alert{Boundary crossing occurs}
+    \item Choose solid objects
+    \item Boolean operations combine objects to create regions
+  \end{itemize}
+  \vspace*{1 em}
+  \item B-Rep (Vertex-Edge)
+  \begin{itemize}
+    \item Each object is a single set of vertices and edges connecting them
   \end{itemize}
 \end{itemize}
+
 
 \end{frame}
 
@@ -298,13 +311,24 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Option A: Collision}
 
+  $n_b > n_c$:
+  \begin{itemize}
+    \item Boundary is further away than collision
+    \item \alert{Collision occurs}
+  \end{itemize}
+    \vspace*{0.5 em}
+  \pause
+
 \begin{itemize}
   \item Using physics models and/or cross-sections
   \begin{itemize}
+    \item Sample target nuclide
+    \item Sample reaction type
     \item Sample new direction
     \item Sample new energy
+    \item Sample exiting particles (if applicable)
   \end{itemize}
-  \item Energy and direction may depend on each other
+  \item Some of these may depend on each other
   \vspace*{0.5 em}
   \pause
   \item Repeat
@@ -320,6 +344,14 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Option B: Cell Boundary}
+
+  $n_b < n_c$:
+  \begin{itemize}
+    \item Boundary is closer than collision
+    \item \alert{Boundary crossing occurs}
+  \end{itemize}
+    \vspace*{0.5 em}
+  \pause
 
   \begin{itemize}
   \item Move particle along ray
@@ -338,34 +370,21 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Random Sampling Basics}
-
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=2.75in,clip]{disc-pdf-cdf}
-	\end{center}
-  	\end{figure}
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Why Random Sampling}
-
-Various physical phenomena can be
-represented by probabilistic distributions
+\begin{frame}{So You Had a Collision?}
 
 \begin{itemize}
-    \item The known probability distribution
-represents the \textit{collective} behavior
-\vspace*{1em}
-    \item We need to know the behavior at \textit{each}
-single event
-\vspace*{1em}
-    \item We need to \underline{recreate} the collective behavior after \underline{many} events
+  \item Sample \textbf{target nuclide} for a mixture with $J$ nuclides
+    \[\Sigma_t = \sum_{j=1}^J N_j \sigma_{t,j}\]
+  \item Discrete PDF to determine which nuclide is hit
+    \[p_i = \frac{\Sigma_{t,j}}{\Sigma_t}\]
+  \pause
+  \item Sample \textbf{reaction type} for an nuclide with R types of reactions
+     \[\Sigma_{t,j} = \sum_{x=1}^R \Sigma_{x,j}\]
+  \item Discrete PDF to determine which reaction occurs
+    \[p_x = \frac{\Sigma_{x,j}}{\Sigma_{t,j}}\]
 \end{itemize}
 
 \end{frame}
@@ -373,19 +392,20 @@ single event
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Random Sampling Purpose}
-
-Use a random process to select a single
-value with the following requirements
+\begin{frame}{Outcome of Reaction}
 
 \begin{itemize}
-    \item Each sample should be independent from
-other samples
+    \item Particle maybe absorbed
 \vspace*{1em}
-    \item The PDF formed from a large number of
-samples should converge to the initial PDF
+    \item Particle may continue its history in a \textit{different direction} and with a \textit{different energy}
 \vspace*{1em}
-    \item Recover the full resolution of the initial PDF
+    \item Energy-angle distributions are tabulated in different formats
+    \begin{itemize}
+      \item Scattering laws have analytic forms with parameters in data tables\\
+      (Direct inversion or rejection sampling)
+      \item Tabulated data that describes a piecewise analytic interpolation\\
+      (Hybrid sampling; we skipped this)
+    \end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -393,375 +413,25 @@ samples should converge to the initial PDF
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Sampling Techniques}
+\begin{frame}{Using a Scattering Angle}
 
-Random sampling uses \underline{uniformly distributed
-random variables} to \alert{choose a value for a
-variable} according to its probability density
-function
-
+\begin{itemize}
+    \item Particle maybe absorbed
+\vspace*{1em}
+    \item Particle may continue its history in a \textit{different direction} and with a \textit{different energy}
+\vspace*{1em}
+    \item Energy-angle distributions are tabulated in different formats
     \begin{itemize}
-    \item \textit{Basic} sampling techniques
-      \begin{itemize}
-      \item Direct discrete sampling
-      \item Continuous discrete sampling
-      \item Rejection sampling
-      \end{itemize}
-    \pause
-    \vspace*{.5em}
-    \item \textit{Advanced }sampling techniques
-      \begin{itemize}
-      \item Histogram
-      \item Piecewise linear
-      \item Alias sampling
-      \item Advanced continuous PDFs
-      \end{itemize}
+      \item Scattering laws have analytic forms with parameters in data tables\\
+      (Direct inversion or rejection sampling)
+      \item Tabulated data that describes a piecewise analytic interpolation\\
+      (Hybrid sampling; we skipped this)
     \end{itemize}
+\end{itemize}
 
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Uniformly-Distributed Random Variable}
-
-    \begin{itemize}
-    \item Standard notation
-      \begin{itemize}
-      \item Single random variable: $\xi$
-      \item Pair of random variables: $(\xi, \eta)$
-      \end{itemize}
-    \vspace*{.5em}
-    \item PDF for random variables:
-    \end{itemize}
-
-\begin{columns}
-  \begin{column}{0.5\textwidth}
-    %
-    \begin{align*}
-    p(\xi) = \begin{cases} 
-     1 & 0 \leq \xi < 1 \\ 
-     0 & \text{ otherwise} 
-     \end{cases}
-    \end{align*}
-  \end{column}
-  \begin{column}{0.5\textwidth}
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=1.5in,clip]{unif-dist-var}
-	\end{center}
-  	\end{figure}
-  \end{column}
-\end{columns}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Direct Discrete Sampling}
-
-Sampling Procedure
-
-    \begin{itemize}
-    \item Generate $\xi$
-    \item Determine $k$ such that $P_{k-1} \leq \xi \leq P_k$
-    \item Return $x = x_k$
-    \end{itemize}
-
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics<1>[height=1.5in,clip]{disc-pdf}
-  		\includegraphics<2>[height=1.5in,clip]{disc-pdf-samp}
-	\end{center}
-  	\end{figure}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Direct Discrete Sampling}
-
-\vspace*{1 em}
-Consider the CDF
-
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics[height=2.5in,clip]{disc-cdf}
-	\end{center}
-  	\end{figure}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Direct Discrete Sampling}
-
-    \begin{itemize}
-    \item Requires a table search on $P_k$
-      \begin{itemize}
-      \item Linear search requires $O(N)$ time
-      \item Binary search requires $O(\log_2 N)$ time
-      \end{itemize}
-    \vspace*{.5em}
-    \pause
-    \item Special case: Uniform discrete PDF
-      \begin{itemize}
-      \item $p_k = 1/N$
-      \item $P_k = k/N$
-      \item $k = \left\lfloor{1 + N\xi}\right\rfloor$ (floor function)
-      \end{itemize}
-    \end{itemize}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Direct Continuous Sampling}
-
-    \begin{itemize}
-    \item Can only be used if CDF can be inverted
-    \item Direct solution of $P(x)= \xi$
-    \item Sampling Procedure:
-    \end{itemize}
-    \hspace*{3 em} Generate $\xi$ , \hspace*{1 em} Determine $x = P^{-1}(\xi)$
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics<1>[height=1.5in,clip]{cont-pdf}
-  		\includegraphics<2>[height=1.5in,clip]{cont-cdf-on-pdf}
-  		\includegraphics<3>[height=1.5in,clip]{cont-cdf-on-pdf-grey}
-	\end{center}
-  	\end{figure}    
-    
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Direct Continuous Sampling}
-
-    \begin{itemize}
-    \item Advantages: 
-      \begin{itemize}
-      \item Straightforward math \& coding
-      \end{itemize}
-    \vspace*{1 em}
-    \item Disadvantages:
-      \begin{itemize}
-      \item Can involve computationally slow functions
-      \item Not always possible to invert $P(x)$
-      \end{itemize}
-    \end{itemize}
-    
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Normalization}
-
-    \begin{itemize}
-    \item Random sampling depends on \textbf{shape} and not on \sout{magnitude}
-    \item Normalization for formal definition of PDF/CDF
-required
-    \end{itemize}
-%
-\[
-  \begin{aligned}
-  \action<+->{f(t)dt &= e^{-\lambda t} dt \:, \quad t > 0 \\}
-  %
-  \action<+->{F(t) &= \int_{-\infty}^t f(t')dt' = \int_0^t f(t') dt' = \biggl[- \frac{e^{-\lambda t'}}{\lambda} \biggr]_0^t = \frac{1}{\lambda} \bigl(1 - e^{-\lambda t}\bigr)\\
-    F(\infty) &= \frac{1}{\lambda}\\}
-    %
-    \action<+->{\\p(t) &= \lambda f(t) = \lambda e^{-\lambda t} dt \:, \quad t > 0 \\
-    %
-    P(t) &= \int_{-\infty}^t p(t')dt' = \int_0^t \lambda f(t') dt' = \bigl[e^{-\lambda t'} \bigr]_0^t = 1 - e^{-\lambda t}\\
-    %
-    P(\infty) &= 1}
-  \end{aligned}
-\]    
-    
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Shifted Uniform}
-
-\[
-  \begin{aligned}
-  \action<+->{g(x) dx &= C \quad a \leq x < b\\}
-  %
-  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = C \int_a^x dx' = C\bigl[x' \bigr]_a^x = C \bigl(x - a)\\
-    G(\infty) &= G(b) = C(b-a)\\}
-    %
-    \action<+->{\\p(x) &= \frac{g(x)}{G(\infty)} = \frac{C}{C(b-a)} = \frac{1}{b-a} \quad a \leq x < b\\}
-    %
-    \action<+->{P(x) &= \int_{-\infty}^x p(x')dx' = \frac{1}{b-a}\int_a^x dx' = \frac{x-a}{b-a}\\
-    %
-    &\\
-    x &= P^{-1}(\xi) = \xi\bigl(b-a\bigr) + a}
-  \end{aligned}
-\]    
-    
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Simple Line, Slope = $m$}
-
-\[
-  \begin{aligned}
-  \action<+->{g(x) dx &= mx \qquad 0 \leq x < 1\\}
-  %
-  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = \int_0^x mx' dx' = \frac{m}{2}\bigl[x'^2 \bigr]_0^x = \frac{m}{2} x^2\\q
-    G(\infty) &= G(1) = \frac{m}{2}\\}
-    %
-    \action<+->{\\p(x) &= \frac{mx}{\frac{m}{2}} = 2x \qquad 0 \leq x < 1\\}
-    %
-    \action<+->{P(x) &= \int_{-\infty}^x p(x')dx' = \int_0^x 2x' dx' = \bigl[x'^2 \bigr]_0^x = x^2\\
-    %
-    &\\
-    x &= P^{-1}(\xi) = \sqrt{\xi} \qquad\text{Independent of }m}
-  \end{aligned}
-\]    
-    
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Shifted Line}
-
-\[
-  \begin{aligned}
-  g(x) dx &= m(x - a) \qquad a \leq x < b\\
-  %
-  G(x) &= \int_{-\infty}^x g(x')dx' = \int_a^x m(x'-a) dx' = \frac{m}{2}\bigl[(x'-a)^2 \bigr]_0^x = \frac{m}{2} (x-a)^2\\
-    G(\infty) &= G(1) = \frac{m}{2}(b-a)^2\\
-    %
-    \\p(x) &= \frac{m(x-a)}{\frac{m}{2}(b-a)^2} = 2 \frac{x-a}{(b-a)^2}\qquad a \leq x < b\\
-    %
-    P(x) &= \int_{-\infty}^x p(x')dx' = \frac{1}{(b-a)^2}\int_a^x 2(x'-a) dx' = \frac{(x-a)^2}{(b-a)^2}\\
-    %
-    &\\
-    x &= P^{-1}(\xi) = \sqrt{\xi}(b-a) + a \qquad\text{Independent of }m
-  \end{aligned}
-\]    
-    
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Rejection Sampling}
-
-    \begin{itemize}
-    \item Many CDFs cannot be inverted
-      \begin{itemize}
-      \item e.g.\ Klien-Nishina cross-section
-      \end{itemize}
-    \vspace*{1 em}
-    \pause
-    \item Use an approach that is more graphical
-      \begin{itemize}
-      \item Select a point in a 2-D domain
-      \item Determine whether that point is above or below the PDF
-      \item Keep those that are below
-      \item Start over if above
-      \end{itemize}
-    \end{itemize}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Rejection Sampling}
-
-    \begin{itemize}
-    \item Select a bounding function, g(x), such that
-      \begin{itemize}
-      \item $g(x)= p(x)$ for all $x$
-      \item $g(x)$ is easy to sample
-      \end{itemize}
-    \item Simplest choice is $g(x) = C$
-    \item May not be best choice
-    \vspace*{1 em}
-    \pause
-    \item Generate pair of random variables, $(\xi, \eta)$
-      \begin{itemize}
-      \item $x' = G^{-1} (\xi)$
-      \item If $\eta < p(x')/g(x')$, accept $x'$
-      \item Else, reject $x'$
-      \end{itemize}
-    \end{itemize}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Rejection Sampling}
-
-  	\begin{figure}
-  	\begin{center}
-  		\includegraphics<1>[height=2.5in,clip]{rej-samp1}
-  		\includegraphics<2>[height=2.5in,clip]{rej-samp2}
-  		\includegraphics<3>[height=2.5in,clip]{rej-samp3}
-  		\includegraphics<4>[height=2.5in,clip]{rej-samp4}
-	\end{center}
-  	\end{figure} 
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Rejection Sampling}
-
-    \begin{itemize}
-    \item Advantages
-      \begin{itemize}
-      \item Computationally simple
-      \item Always works
-      \end{itemize}
-    \vspace*{1 em}
-    \pause
-    \item Disadvantages
-      \begin{itemize}
-      \item Will be inefficient if shapes of $g(x)$ and $p(x)$ are not similar
-      \end{itemize}
-    \end{itemize}
-    
-    \begin{equation}
-    \text{Efficiency }= \frac{\int p(x)dx}{\int g(x) dx} \nonumber
-    \end{equation}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Random Sampling Summary}
-
-    \begin{itemize}
-    \item Physics can be represented \textit{probabilistically}
-\pause
-\vspace*{.5em}
-    \item We can create PDFs and from those generate CDFs
-\pause
-\vspace*{.5em}
-    \item These can be either continuous or discrete
-\pause
-\vspace*{.5em}
-    \item We learned some basic ways to use random numbers to \textit{sample} from these distributions to \alert{simulate physics}
-    \end{itemize}
-    
-\end{frame}
 
 
 \end{document}
