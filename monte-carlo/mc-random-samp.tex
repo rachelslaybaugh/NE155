@@ -215,7 +215,7 @@ All variables, $x$, have a \underline{Probability Density Function (PDF)}, $p(x)
     \end{center}
     %
     \begin{align*}
-    P\left\lbrace a \leq x \leq b \right\rbrace &= \int_a^b p(x)dx\\
+    p\left\lbrace a \leq x \leq b \right\rbrace &= \int_a^b p(x)dx\\
     & \\
     p(x) & \geq 0 \\
     \int_{-\infty}^{\infty} p(x)dx &= 1
@@ -227,7 +227,7 @@ All variables, $x$, have a \underline{Probability Density Function (PDF)}, $p(x)
     \end{center}
     %
     \begin{align*}
-    P(x = x_k) &= p_k \equiv p(x_k)\\
+    p(x = x_k) &= p_k \equiv p(x_k)\\
     k &= 1, \dots, N \\
     & \\
     p_k & \geq 0 \\
@@ -547,12 +547,12 @@ required
 %
 \[
   \begin{aligned}
-  \action<+->{f(t)dt &= e^{-\lambda t} dt \:, \quad t > 0 \\}
+  \action<+->{g(t)dt &= e^{-\lambda t} dt \:, \quad t > 0 \\}
   %
-  \action<+->{F(t) &= \int_{-\infty}^t f(t')dt' = \int_0^t f(t') dt' = \biggl[- \frac{e^{-\lambda t'}}{\lambda} \biggr]_0^t = \frac{1}{\lambda} \bigl(1 - e^{-\lambda t}\bigr)\\
-    F(\infty) &= \frac{1}{\lambda}\\}
+  \action<+->{G(t) &= \int_{-\infty}^t g(t')dt' = \int_0^t g(t') dt' = \biggl[- \frac{e^{-\lambda t'}}{\lambda} \biggr]_0^t = \frac{1}{\lambda} \bigl(1 - e^{-\lambda t}\bigr)\\
+    G(\infty) &= \frac{1}{\lambda}\\}
     %
-    \action<+->{\\p(t) &= \lambda f(t) = \lambda e^{-\lambda t} dt \:, \quad t > 0 \\
+    \action<+->{\\p(t) &= \lambda g(t) = \lambda e^{-\lambda t} dt \:, \quad t > 0 \\
     %
     P(t) &= \int_{-\infty}^t p(t')dt' = \int_0^t \lambda f(t') dt' = \bigl[e^{-\lambda t'} \bigr]_0^t = 1 - e^{-\lambda t}\\
     %
@@ -594,7 +594,7 @@ required
   \begin{aligned}
   \action<+->{g(x) dx &= mx \qquad 0 \leq x < 1\\}
   %
-  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = \int_0^x mx' dx' = \frac{m}{2}\bigl[x'^2 \bigr]_0^x = \frac{m}{2} x^2\\q
+  \action<+->{G(x) &= \int_{-\infty}^x g(x')dx' = \int_0^x mx' dx' = \frac{m}{2}\bigl[x'^2 \bigr]_0^x = \frac{m}{2} x^2\\
     G(\infty) &= G(1) = \frac{m}{2}\\}
     %
     \action<+->{\\p(x) &= \frac{mx}{\frac{m}{2}} = 2x \qquad 0 \leq x < 1\\}
