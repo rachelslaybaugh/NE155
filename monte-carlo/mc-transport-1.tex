@@ -147,7 +147,7 @@ Notes derived from Jasmina Vujic and Paul Wilson
       \item Understand the steps necessary for tracking particles
       \item Understand the use of mean free path
       \item Sample the distance to the next physics event
-      \item Compute the distance between a point and surface along a given direction
+      %\item Compute the distance between a point and surface along a given direction
       \item Determine next event
       %\item Process outcome of next event
       \end{itemize}
@@ -203,7 +203,7 @@ What are possible next events?
 Collisions are probabilistic
 \begin{itemize}
   \item Note that $\Sigma_t$, the total macroscopic cross section, will be a function of space if we have multiple materials
-  \item Along a particular path, the probability of a collision at distance $s$ from the start:
+  \item Along a particular path, the \textit{probability of a collision at distance $s$} from the start:
     \begin{align*}
     p_c(s) &= \Sigma_t(s) e^{-\Sigma_t(s) s} ds \\
     P_c(n) &= \int_0^s \Sigma_t(s) e^{-\Sigma_t(s) s'}ds' = -e^{-\Sigma_t(s) s'} |_0^s = 1 - e^{-\Sigma_t(s) s}
@@ -228,15 +228,15 @@ Collisions are probabilistic
 \begin{frame}{Sampling Distance to Collision}
 
 \begin{itemize}
-  \item Variable transformation: measure distance in units of mean free path:
+  \item Variable transformation: measure distance in units of \textit{mean free path}:
   \[n = \Sigma_t(s)s\:,\quad dn = \Sigma_t(s)ds\]
   \item We'll start with the PDF and integrate to get the CDF
-  \begin{align*}
+ \begin{align*}
     p_c(n)dn &= e^{-n} dn\\
     P_c(n) &= \int_0^n e^{-n'}dn' = -e^{-n'} |_0^n = 1 - e^{-n}
   \end{align*}
   \item Importantly, this is now \underline{independent of the material}
-\end{itemize}
+\end{itemize} 
 
 \end{frame}
 
@@ -252,8 +252,8 @@ Randomly sample to determine number of mean free paths until next collision, $n_
   \vspace{.5em}
   \item $G(n_c) dn_c = 1 - e^{-n_c}$ 
   \vspace{.5em}
-  \item Directly invert to get: $\boxed{n_c = - \ln(1 - \xi)}$ 
-  \item Also note $1-\xi$ is equivalent to $\xi$
+  \item Directly invert to get: $\boxed{n_c = - \ln(1 - \xi)}$ \\
+   \hspace*{1.5em} (note $1-\xi$ is equivalent to $\xi$)
   \vspace{.5em}
   \item In the absence of material boundaries ($\Sigma \neq f(s)$), the distance to a collision, $s_c$, is
   \[s_c = \frac{n_c}{\Sigma_t}\]
@@ -302,7 +302,8 @@ Randomly sample to determine number of mean free paths until next collision, $n_
     \item Each object is a single set of vertices and edges connecting them
   \end{itemize}
 \end{itemize}
-
+\vspace*{1 em}
+We're skipping how to find $n_b$, just know that we can find it
 
 \end{frame}
 
@@ -311,7 +312,7 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Option A: Collision}
 
-  $n_b > n_c$:
+  \underline{$n_b > n_c$}:
   \begin{itemize}
     \item Boundary is further away than collision
     \item \alert{Collision occurs}
@@ -324,9 +325,9 @@ Randomly sample to determine number of mean free paths until next collision, $n_
   \begin{itemize}
     \item Sample target nuclide
     \item Sample reaction type
-    \item Sample new direction
-    \item Sample new energy
-    \item Sample exiting particles (if applicable)
+    \item Sample new direction 
+    \item Sample new energy 
+    \item Sample exiting particles 
   \end{itemize}
   \item Some of these may depend on each other
   \vspace*{0.5 em}
@@ -345,7 +346,7 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Option B: Cell Boundary}
 
-  $n_b < n_c$:
+  \underline{$n_b < n_c$}:
   \begin{itemize}
     \item Boundary is closer than collision
     \item \alert{Boundary crossing occurs}
@@ -378,12 +379,12 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 \begin{itemize}
   \item Sample \textbf{target nuclide} for a mixture with $J$ nuclides
     \[\Sigma_t = \sum_{j=1}^J N_j \sigma_{t,j}\]
-  \item Discrete PDF to determine which nuclide is hit
+  \item \textit{Discrete PDF} to determine which nuclide is hit
     \[p_i = \frac{\Sigma_{t,j}}{\Sigma_t}\]
   \pause
   \item Sample \textbf{reaction type} for an nuclide with R types of reactions
      \[\Sigma_{t,j} = \sum_{x=1}^R \Sigma_{x,j}\]
-  \item Discrete PDF to determine which reaction occurs
+  \item \textit{Discrete PDF} to determine which reaction occurs
     \[p_x = \frac{\Sigma_{x,j}}{\Sigma_{t,j}}\]
 \end{itemize}
 
@@ -415,22 +416,45 @@ Randomly sample to determine number of mean free paths until next collision, $n_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Using a Scattering Angle}
 
+Scattering angles are defined relative to the original direction (considered as the z-axis)
+
 \begin{itemize}
-    \item Particle maybe absorbed
-\vspace*{1em}
-    \item Particle may continue its history in a \textit{different direction} and with a \textit{different energy}
-\vspace*{1em}
-    \item Energy-angle distributions are tabulated in different formats
-    \begin{itemize}
-      \item Scattering laws have analytic forms with parameters in data tables\\
-      (Direct inversion or rejection sampling)
-      \item Tabulated data that describes a piecewise analytic interpolation\\
-      (Hybrid sampling; we skipped this)
-    \end{itemize}
+    \item Polar angle, $\phi$, determined by sampling from data
+\vspace*{0.5em}
+    \item Azimuthal angle, $\theta$, determined by sampling isotropically
+    \vspace*{0.5em}
+   % \item Consider old/original direction as the z-axis in a different coordinate system
+    \item The new direction is $\bigl(\sin(\phi) \cos(\theta), \sin(\phi) \sin(\theta), \cos(\theta)\bigr)$ \[= \bigl(\sqrt{1 - \mu^2} \cos(\theta),  \sqrt{1 - \mu^2} \sin(\theta), \mu \bigr)\]
 \end{itemize}
+
+  	\begin{figure}
+  	\begin{center}
+  		\includegraphics[height=1in,clip]{scattering-angle-2}
+	\end{center}
+  	\end{figure}
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Summary}
+
+We've developed a general sense of using MC for neutron transport
+\begin{itemize}
+    \item Basic Algorithm
+    \pause
+    \vspace*{0.5 em}
+    \item We can determine if particles have collisions or cross boundaries
+    \item \textit{After a collisions} we need to determine many things associated with the collisions (target, reaction, direction, energy)
+    \item Repeat analysis for collisions/crossing until particle \textbf{terminates}
+    \pause
+    \vspace*{0.5 em}
+    \item Next time: tallying results
+\end{itemize}
+
+
+\end{frame}
 
 
 
