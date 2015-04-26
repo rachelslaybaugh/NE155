@@ -93,8 +93,8 @@
 % title stuff for footer
 \title{NE 155}
 \author{R.\ N.\ Slaybaugh \\
-(well, Max Fratoni!)}
-\date{April 20, 2015}
+(well, Katy Huff actually)}
+\date{April 22, 2015}
 
 \begin{document}
 
@@ -102,7 +102,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
-\subtitle{Lecture 34: Geometry and Collisions}
+\subtitle{Lecture 35: Estimators and Tallies}
 \titlepage
 \end{frame}
 
@@ -112,22 +112,12 @@
 \begin{frame}{Outline}
 
     \begin{enumerate}
-    \item Overview of Monte Carlo for Neutron Transport
-    \item Determining next event location
-      \begin{itemize}
-      \item Sampling flight path
-      \item Distance to boundary %in analytic geometry
-      \item Next event selection
-%      \item Next event processing
-      \end{itemize}
-    \item Collision Physics
-      \begin{itemize}
-      \item Sampling target nuclide
-      \item Sampling reaction type
-%      \item Sampling exit energy
-      \item Sampling exit direction
-      \item Sampling exiting particles
-      \end{itemize}
+    \item Tally \& Estimator Basics
+    \item Surface Current Tally
+    \item Flux Tallies and Estimators
+    \item Energy Deposition Tallies and Estimators
+    \item Pulse Height Tally
+    \item Detector Tallies
     \end{enumerate}
 
 \vspace*{1em}
@@ -141,17 +131,15 @@ Notes derived from Jasmina Vujic and Paul Wilson
 \begin{frame}{Learning Objectives}
 
     \begin{enumerate}
-    \item Be able to provide MC transport algorithm
-    \item Understand basic tracking of particles through a geometry
-      \begin{itemize}
-      \item Understand the steps necessary for tracking particles
-      \item Understand the use of mean free path
-      \item Sample the distance to the next physics event
-      %\item Compute the distance between a point and surface along a given direction
-      \item Determine next event
-      %\item Process outcome of next event
-      \end{itemize}
-    \item Understand what sampling needs to happen after a collision
+    \item Understand relationship between tallies
+and estimators
+• Explain derivation of volume and
+surface track length estimators
+• Demonstrate difference between track
+length energy deposition estimator and
+pulse height tally
+• Understand next-event estimator and
+its application to point detectors
     \end{enumerate}
 
 \end{frame}
