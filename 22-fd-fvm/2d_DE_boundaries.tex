@@ -123,11 +123,15 @@ and we defined the partial derivative w.r.t.\ direction on each surface. We now 
 %
 We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. The two terms that are different are for the top and bottom of the cell:
 %
-\begin{align}
-- \int_{S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{0,j} - \phi_{0,j-1}}{\epsilon_{j}} \biggl(\frac{D_{1,j} \delta_{1}}{2}\biggr) \nonumber \\ 
+\begin{align*}
+- \int_{S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{0,j} - \phi_{0,j-1}}{\epsilon_{j}} \biggl(\frac{D_{1,j} \delta_{1}}{2}\biggr) \: \\ 
 %
-- \int_{S_6} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{0,j+1} - \phi_{0,j}}{\epsilon_{j+1}} \biggl(\frac{D_{1,j+1} \delta_{1}}{2}\biggr) \nonumber
-\end{align}
+- \int_{S_6} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{0,j+1} - \phi_{0,j}}{\epsilon_{j+1}} \biggl(\frac{D_{1,j+1} \delta_{1}}{2}\biggr) \:\\
+%
+S_1+S_8 &= 0\:,\\
+%
+S_4+S_5 &= \frac{\phi_{1,j} - \phi_{0,j}}{\delta_{1}} \biggl(\frac{D_{1,j} \epsilon_{j} + D_{1,j+1} \epsilon_{j+1}}{2}\biggr)\:.
+\end{align*}
 
 The absorption and streaming terms now become:
 \begin{align}
@@ -140,17 +144,17 @@ The absorption and streaming terms now become:
 \vspace*{2em}
 Collecting all of the terms and separating them, we get a 4-point difference equation for $i=0$; $j=1,\dots,m-1$:
 %
-\[\boxed{a_{1,j}^{*,0j}\phi_{1,j} + a_{0,j-1}^{*,0j}\phi_{0,j-1} + a_{0,j+1}^{*,0j}\phi_{0,j+1} +  a_{0,j}^{*,0j}\phi_{0,j} = S^*_{0j}} \]
+\[\boxed{a_{1,j}^{0j}\phi_{1,j} + a_{0,j-1}^{*,0j}\phi_{0,j-1} + a_{0,j+1}^{*,0j}\phi_{0,j+1} +  a_{0,j}^{*,0j}\phi_{0,j} = S^*_{0j}} \]
 %
 Recall: the lower index is the cell to which you are coupling, and the upper index is which cell you are in. The coefficients how change to become
 \begin{align}
-a_{1,j}^{*,0j} &= -\frac{D_{1,j} \epsilon_{j} + D_{1,j+1} \epsilon_{j+1}}{2 \delta_{1}}  \nonumber \\
+a_{1,j}^{0j} &= -\frac{D_{1,j} \epsilon_{j} + D_{1,j+1} \epsilon_{j+1}}{2 \delta_{1}}  \nonumber \\
 %
 a_{0,j-1}^{*,0j} &= -\frac{D_{1,j} \delta_{1}}{2 \epsilon_{j}}  \nonumber \\
 %
 a_{0,j+1}^{*,0j} &= -\frac{D_{1,j+1} \delta_{1}}{2 \epsilon_{j+1}}  \nonumber \\
 %
-a_{0,j}^{*,0j} &= \Sigma^*_{a,0j} - \bigl(a_{1,j}^{*,0j} + a_{0,j-1}^{*,0j} + a_{0,j+1}^{*,0j} \bigr)
+a_{0,j}^{*,0j} &= \Sigma^*_{a,0j} - \bigl(a_{1,j}^{0j} + a_{0,j-1}^{*,0j} + a_{0,j+1}^{*,0j} \bigr)
  \:.\nonumber 
 \end{align}
 
