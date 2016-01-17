@@ -88,11 +88,12 @@
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{amsmath}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % title stuff for footer
 \title{NE 155}
 \author{R.\ N.\ Slaybaugh}
-\date{January 23, 2015}
+\date{January 22, 2016}
 
 \begin{document}
 
@@ -132,7 +133,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{How do we measure utility?\footnote{en.wikipedia.org}}
+\begin{frame}{How do we measure utility?\footnote{\href{en.wikipedia.org}{en.wikipedia.org}}}
 
 \textbf{IPS} (Instructions Per Second) is a measure of a computer's processor speed. IPS can be useful when comparing performance between processors made from a similar architecture, but are difficult to compare between CPU architectures
 
@@ -150,7 +151,7 @@
 \begin{frame}{Computing Machines, Origins}
 \begin{figure}
 \includegraphics[height=2.25in,clip]{RomanAbacus}
-\caption{Roman Abacus, http://history-computer.com/CalculatingTools/abacus.html}
+\caption{Roman Abacus, \href{http://history-computer.com/CalculatingTools/abacus.html}{http://history-computer.com/CalculatingTools/abacus.html}}
 \end{figure}
 
 \end{frame}
@@ -161,8 +162,9 @@
 
 \begin{figure}
 \includegraphics[height=2in,clip]{BabbageDiffMachine}
-\caption{Reconstruction of Babbage's Analytical Engine, the first general-purpose programmable computer, http://en.wikipedia.org/wiki/History\_of\_computing\_hardware
-\#Punched\_card\_data\_processing}
+\caption{Reconstruction of Babbage's Analytical Engine, the first general-purpose programmable computer, \href{http://en.wikipedia.org/wiki/History_of_computing_hardware
+\#Punched_card_data_processing}{http://en.wikipedia.org/wiki/History\_of\_computing\_hardware
+\#Punched\_card\_data\_processing}}
 \end{figure}
 
 \end{frame}
@@ -173,7 +175,7 @@
 
 \begin{figure}
 \includegraphics[height=2in,clip]{Z3DeutschesMuseum}
-\caption{Zuse Z3 replica on display at Deutsches Museum in Munich, en.wikipedia.org/wiki/Z3\_(computer)}
+\caption{Zuse Z3 replica on display at Deutsches Museum in Munich, \href{en.wikipedia.org/wiki/Z3_(computer)}{en.wikipedia.org/wiki/Z3\_(computer)}}
 \end{figure}
 
 \end{frame}
@@ -184,7 +186,7 @@
 
 \begin{figure}
 \includegraphics[height=2in,clip]{ManchesterMark1}
-\caption{The Manchester Mark 1 was one of the world's first stored-program computers, http://www.computer50.org/mark1/ip-mm1.mark1.html}
+\caption{The Manchester Mark 1 was one of the world's first stored-program computers, \href{http://www.computer50.org/mark1/ip-mm1.mark1.html}{http://www.computer50.org/mark1/ip-mm1.mark1.html}}
 \end{figure}
 
 \end{frame}
@@ -206,8 +208,9 @@
 
 \begin{figure}
 \includegraphics[height=2in,clip]{Atlas1963}
-\caption{The University of Manchester Atlas 1963, http://en.wikipedia.org/wiki/History\_of\_computing\_hardware
-\#Punched\_card\_data\_processing}
+\caption{The University of Manchester Atlas 1963, \href{http://en.wikipedia.org/wiki/History_of_computing_hardware
+\#Punched_card_data_processing}{http://en.wikipedia.org/wiki/History\_of\_computing\_hardware
+\#Punched\_card\_data\_processing}}
 \end{figure}
 
 \end{frame}
@@ -353,6 +356,7 @@ To achieve high performance, the programmer needs to identify, schedule, and coo
 \item \textbf{Strong Scaling}: increase element count with problem size fixed (solve a problem faster)\\
 \vspace*{0.5 em}
 $Speedup = \frac{\text{Time with P cores}}{\text{Time with 1 core}}$
+\vspace*{1 em}
 \item \textbf{Weak Scaling}: increase element count and problem size to keep problem size per element fixed (solve bigger problems)\\
 \vspace*{0.5 em}
 $Speedup = \frac{\text{Time with 1 core}}{\text{Time with P cores}}$
@@ -423,24 +427,22 @@ Intel Xeon Phi Board\\ \vspace*{1 em}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\href{http://www.top500.org/list/2014/11/}{Top 500 Computers, Nov 2014}}
+\begin{frame}{\href{http://www.top500.org/}{Top 500 Computers, Nov 2015}}
 
 \begin{center}
-\includegraphics[height=2.5in]{Supercomputers-history}\\
-Log y axis in GFLOPS, x axis in years
+\includegraphics[height=2.5in]{Supercomputers-history-2015}\\
+x axis in years
 \end{center}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\href{http://en.wikipedia.org/wiki/TOP500}{Top 10 Computers, Nov 2014}}
+\begin{frame}{\href{http://en.wikipedia.org/wiki/TOP500}{Top 10 Computers, Nov 2015}}
 
 \begin{center}
-\includegraphics[height=3in]{2014-top-10}
+\includegraphics[height=3in]{2015-top-10}
 \end{center}
-
-%Look at the \href{http://www.top500.org/statistics/efficiency-power-cores/}{Power and Efficiency} trends.
 
 \end{frame}
 
@@ -459,7 +461,8 @@ Log y axis in GFLOPS, x axis in years
 \begin{frame}{Power Efficiency, Nov 2013}
 
 \begin{center}
-\includegraphics[height=2.25in]{Top500-efficiency}
+\includegraphics[height=2.5in]{Green500evolution}
+%"Green500 evolution" by Stefan Parviainen - Own work. Licensed under CC0 via Commons - https://commons.wikimedia.org/wiki/File:Green500_evolution.svg#/media/File:Green500_evolution.svg
 \end{center}
 
 \end{frame}
