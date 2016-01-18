@@ -150,14 +150,14 @@ note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and
 \begin{align}
 -\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = S(x) \nonumber \\
 \text{defined for }& \alpha \le x \le \beta \nonumber \\
-\text{BC: }& \frac{d\phi}{dx} + \gamma \phi = \sigma \qquad \text{at } x=\alpha \text{ and } x = \beta \text{ (BVP)}\nonumber
+\text{BC: }& a\frac{d\phi}{dx} + \gamma \phi = \sigma \qquad \text{at } x=\alpha \text{ and } x = \beta \text{ (BVP)}\nonumber
 \end{align}
 %
 This has
 \begin{itemize}
 \item \textbf{Neumann} BCs if $\gamma = 0$ (specifies the values that the \textit{derivative} of a solution is to take on the boundary of the domain)
-\item \textbf{Dirichet} BCs: if $\frac{d\phi}{dx} = 0$ (specifies the values that a \textit{solution} is to take on the boundary of the domain)
-\item \textbf{Mixed} BCs if [$\gamma \ne 0$ and $\frac{d\phi}{dx} = 0$ at $x = \alpha$] and [$\frac{d\phi}{dx} \ne 0$  and $\gamma = 0$ at $x = \beta$] (the solution is required to satisfy a Dirichlet or a Neumann boundary condition in a mutually exclusive way on disjoint parts of the boundary)
+\item \textbf{Dirichet} BCs: if $a=0$ (specifies the values that a \textit{solution} is to take on the boundary of the domain)
+\item \textbf{Mixed} BCs if [$\gamma \ne 0$ and $a = 0$ at $x = \alpha$] and [$a \ne 0$ and $\gamma = 0$ at $x = \beta$] (the solution is required to satisfy a Dirichlet or a Neumann boundary condition in a mutually exclusive way on disjoint parts of the boundary)
 \item If $S(x)$ is nonzero at least somewhere over the physical range, a unique solution exists.
 \end{itemize}
 
@@ -186,7 +186,7 @@ The homogeneous equation %[If  $\phi(x)$  is a solution, so is  $c \phi(x)$, whe
 \frac{d\phi}{dx} + \gamma_R \phi &= \Macro \qquad \text{at }x=\beta \qquad \gamma_R \geq 0\nonumber 
 \end{align}
 %
-is known as the \underline{Sturm-Liouville} eigenvalue problem. If $\gamma_L = \gamma_R = 0$, the BCs become $\phi(\alpha) = \phi(\beta) = 0$.
+is known as the \underline{Sturm-Liouville} eigenvalue problem. (If $\gamma_L = \gamma_R = 0$, the BCs become $\phi(\alpha) = \phi(\beta) = 0$.)
 
 The solution has an infinite number of eigenfunctions, $\phi_i(x)$ with corresponding \textbf{REAL} and \textbf{DISTINCT} eigenvalues, $\lambda_i$. 
 
@@ -235,11 +235,18 @@ This equation is a 2nd order PDE in two variables. It is linear if $A$ through $
 \vspace*{1em}
 \underline{Classification of PDEs}:%http://en.wikipedia.org/wiki/Partial_differential_equation#Classification
 
-To think about classification, think about replacing $\partial x$ by $x$ and  $\partial y$ by $y$ (formally this is done via Fourier transform). This converts the PDE into a polynomial of the same degree.
-
 Just as one classifies conic sections and quadratic forms into parabolic, hyperbolic, and elliptic based on the discriminant $B^2 - 4AC$, the same can be done for a second-order PDE at a given point. 
 
+[To think about classification, think about replacing $\partial x$ by $x$ and  $\partial y$ by $y$ (formally this is done via Fourier transform). This converts the PDE into a polynomial of the same degree.]
+
 \textit{Note:} these classifications only apply to second order PDEs. 
+
+\noindent The reason we care about this in the context of the Transport Equation:
+\begin{itemize}
+\item In a void, the transport equation is like a hyperbolic wave equation. 
+\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes elliptic for the steady-state case. 
+\item If the scattering is forward-peaked then the equation is parabolic.
+\end{itemize}
 
 %-------------------------------------------------------------
 \begin{itemize}
@@ -297,14 +304,6 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 \item \underline{Hyperbolic}: There is only one negative eigenvalue and all the rest are positive, or there is only one positive eigenvalue and all the rest are negative.
 \item \underline{Ultrahyperbolic}: There is more than one positive eigenvalue and more than one negative eigenvalue, and there are no zero eigenvalues. There is only limited theory for ultrahyperbolic equations (Courant and Hilbert, 1962).
 \end{enumerate}
-
-\noindent The reason we care based on the TE
-\begin{itemize}
-\item In a void, the transport equation is like a hyperbolic wave equation. 
-\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes elliptic for the steady-state case. 
-\item If the scattering is forward-peaked then the equation is parabolic.
-\end{itemize}
-
 
 %%-------------------------------------------------------------
 %\vspace*{1em}
