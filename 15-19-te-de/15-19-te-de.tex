@@ -48,8 +48,8 @@
 
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 15-19, S15 \\
-TE and DE \\ February 25 -- March 6, 2015}
+{\bf NE 155, Classes 4-8, S16 \\
+TE and DE \\ January 27 -- February 5, 2016}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -74,33 +74,33 @@ Largely from Lewis and Miller Chp.\ 1 \cite{Lewis1993} and Duderstadt and Hamilt
 
 Spatial logistics
 \begin{itemize}
-\item $d\vec{r} = d^3r$ = ordinary volume = $r^2 sin(\theta) d\theta d\varphi dr$
+\item $d\vec{r} = d^3r$ = ordinary volume = $r^2 \sin(\theta) d\theta d\varphi dr$
 %
 \item $v$ = speed (scaler)
 \item $\vec{v}$ = velocity (vector)
-\item $d\vec{v} = d^3v$ = velocity volume = $v^2 sin(\theta')d\theta' d\varphi' dr$
+\item $d\vec{v} = d^3v$ = velocity volume = $v^2 \sin(\theta')d\theta' d\varphi' dr$
 \item $v = \sqrt{(2E)/m}$ where $m$ is the rest mass of the particle. Thus, we can relate energy and speed.
 
 \item $\vOmega$: unit directional vector in velocity space, $\vec{v} = v\vOmega$
-\item $d\vOmega = sin(\theta')d\theta' d\varphi' =  d^2\Omega$
+\item $d\vOmega = \sin(\theta')d\theta' d\varphi' =  d^2\Omega$
 %\item thus $d\vec{v} = v^2 dv d\vOmega$
 \end{itemize}
 
-Given that these are the possible reactions we're generally going to worry about:
+These are the possible reactions we're generally going to worry about:
 
-\hspace*{2em}total (t): all interactions. We can break total into:
+\hspace*{1em}total (t): all interactions. We can break total into:
 \begin{itemize}
 \item scattering (s): a neutron interacts with an atom and bounces off either elastically or inelastically.
 \item absorption (a): a neutron is absorbed by a nucleus. If this happens it might
 \item fission (f): cause the nucleus to split into two pieces, releasing more neutrons.
 \end{itemize}
 
-These are useful physics terms:
+Physics terms we will use:
 \begin{enumerate}
-\item \textbf{microscopic x-sec} ($\sigma$, [$cm^2$]): measure of the probability that an incident neutron will collide with a specific nucleus. $\sigma_j$ indicates a specific reaction, e.g.\ $j=f$ is fission.
+\item \textbf{microscopic x-sec} ($\sigma$, [$cm^2$]): measure of the probability that an incident neutron will collide with a specific nucleus; $\sigma_j$ indicates a specific reaction, e.g.\ $j=f$ is fission.
 
 \item \textbf{macroscopic x-sec} ($\Sigma$ [$cm^{-1}$]): measure of the probability per unit path length that an incident neutron will collide with a target
-\[\Sigma_j = \sigma_j N\]
+\[\Sigma_j = \sigma_j N\:,\]
 where N is the atomic density of the target.
 
 \item \textbf{double-differential scattering x-sec} ($\sigma_s(E, \vOmega \rightarrow E', \vOmega')dE' d\vOmega'$): measure of the probability that a neutron of energy $E$ and moving in direction $\vOmega$ scatters off of a specific nucleus into energy range $[E', E' + dE']$ and direction range $[\vOmega', \vOmega' + d\vOmega']$.
@@ -108,8 +108,7 @@ where N is the atomic density of the target.
 \item \textbf{fission yield} ($\nu(E)$): average \# of neutrons released by a fission induced by a neutron of energy E.
 
 \item \textbf{fission spectrum} ($\chi(E)dE$): average \# of neutrons produced from fission that are born with energy in $[E, E + dE]$. This is normalized such that
-\[\int_0^{\infty} \chi(E)dE =1\]
-
+\[\int_0^{\infty} \chi(E)dE =1\:.\]
 
 \item \textbf{particle angular density} ($n(\vec{r}, E, \vOmega, t)d\vec{r} d\vOmega dE$): expected number of particles in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$.
 
@@ -121,31 +120,31 @@ n(\vec{r}, \vec{v}, t) &= \frac{m}{v}n(\vec{r}, E, \vOmega, t)
 \end{align*}
 
 \item \textbf{particle density}: ($N(\vec{r},E,t)d^3r dE$): expected number of particles in $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ at time $t$.
-\[N(\vec{r},E,t)d^3r dE = \int_{4\pi} d\vOmega n(\vec{r}, E, \vOmega, t) \]
+\[N(\vec{r},E,t)d^3r dE = \int_{4\pi} d\vOmega\: n(\vec{r}, E, \vOmega, t)d^3r dE \]
 
 \item \textbf{angular flux}: $\psi(\vec{r}, E, \vOmega, t) \equiv v n(\vec{r}, E, \vOmega, t)$.
 
 \item \textbf{scalar flux}: $\phi(\vec{r},E,t) \equiv v N(\vec{r},E,t)$.
 %
-\[= \int_{4\pi} d\vOmega \psi(\vec{r}, E, \vOmega, t) \]
+\[= \int_{4\pi} d\vOmega\: \psi(\vec{r}, E, \vOmega, t) \]
 
 \item \textbf{interaction rate density}: expected number of $j$ reactions per volume per energy at time $t$.
 %
-\[\int_{4\pi} d\vOmega \Sigma_j v n(\vec{r}, E, \vOmega, t) = \Sigma_j \phi(\vec{r},E,t)\]
+\[\int_{4\pi} d\vOmega \:\Sigma_j v n(\vec{r}, E, \vOmega, t) = \Sigma_j \phi(\vec{r},E,t)\]
 
 \item \textbf{angular current density} or partial current: $\vec{j}(\vec{r}, E, \vOmega, t) = \vec{v} n(\vec{r}, E, \vOmega, t)$; 
 
 $\vec{j}(\vec{r}, E, \vOmega, t) \cdot \hat{e}\: dA\: dE\: d\vOmega$ is the expected number of particles crossing $dA$ along unit direction $\hat{e}$ with energy in $[E, E + dE]$ and direction in $[\vOmega, \vOmega + d\vOmega]$ at time $t$.
 
 \item \textbf{net current}: $\vec{J}(\vec{r}, E, t) $ is the net \# of particles crossing a unit area per second along a direction normal to that area with energies in $[E, E + dE]$ at time $t$.
-\[\vec{J}(\vec{r}, E, t) = \int_{4\pi} d\vOmega \vOmega \psi(\vec{r}, E, \vOmega, t)\]
+\[\vec{J}(\vec{r}, E, t) = \int_{4\pi} d\vOmega\: \vOmega \psi(\vec{r}, E, \vOmega, t)\]
 
 \end{enumerate}
 
 %-----------------------------------------
 \subsection*{Assumptions}
 \begin{enumerate}
-\item Particles are point objects ($\lambda = h/(mv)$ is small compared to the atomic diameter): its state is fully described by its location, velocity vector, and a given time. This ignores rotation and quantum effects.
+\item Particles are point objects ($\lambda = h/(mv))$ is small compared to the atomic diameter): its state is fully described by its location, velocity vector, and a given time. This ignores rotation and quantum effects.
 
 \item Neutral particles travel in straight lines between collisions.
 
@@ -163,7 +162,7 @@ $\vec{j}(\vec{r}, E, \vOmega, t) \cdot \hat{e}\: dA\: dE\: d\vOmega$ is the expe
 \section*{Derivation}
 The TE is a \underline{detailed} balance of the particle population over phase space that is as close to exact as possible. 
 
-DRAW VOLUME PICTURE
+DRAW a Differential volume picture.
 
 Consider a volume $V$ with surface $S$. For each point $\vec{r} \in S$, let $\hat{e}_S$ be the outward normal vector.
 
@@ -200,7 +199,7 @@ This is the definition of the double differential scattering cross section:
 
 2) Expected rate of neutron production by fission
 
-Note: fission neutrons are isotropic, thus they are produced at $\frac{1}{4\pi}$ per steradian. This means the fraction within $[\vOmega, \vOmega + d\vOmega]$ is $\frac{d\vOmega}{4\pi}$.
+Note: fission neutrons are isotropic, thus they are produced at $\frac{1}{4\pi}$ per steradian. This means the fraction within $[\vOmega, \vOmega + d\vOmega]$ is $\frac{d\vOmega}{4\pi}$ (fyi: including this normalization differs among textbooks and research papers).
 
 Also, recall that $\chi(E)dE$ is the fraction of neutrons born into $[E, E + dE]$. Thus
 %
@@ -247,21 +246,21 @@ Thus, the total leakage out of $V$ is
 
 We can use divergence theorem to rewrite this w.r.t.\ $V$ (rather than $S$):
 \[\int_S \hat{e}_S \cdot \vec{F} (\vec{r}) dS = \int_V \nabla \cdot \vec{F} (\vec{r}) dV\]
-where
-\[\nabla = \vec{i}\frac{d}{dx} + \vec{j}\frac{d}{dy} + \vec{k}\frac{d}{dz}\]
-is the gradient operator.
+%where
+%\[\nabla = \vec{i}\frac{d}{dx} + \vec{j}\frac{d}{dy} + \vec{k}\frac{d}{dz}\]
+%is the gradient operator.
 
 This gives
-\[\Bigl[\int_V d^3r \: \nabla \cdot \bigl( \underbrace{\vec{j}(\vec{r}_s, E, \vOmega, t)}_{\vec{v}n = v \vOmega n} \bigr) \Bigr] dE d\vOmega \]
+\[\Bigl[\int_V d^3r \: \nabla \cdot \bigl( \underbrace{\vec{j}(\vec{r}_s, E, \vOmega, t)}_{=\vec{v}n = v \vOmega n} \bigr) \Bigr] dE d\vOmega \]
 %
 And we can use this identity:
 \begin{align}
 %
 \vOmega \cdot (\nabla f) &= \nabla \cdot \vOmega f \text{ because }\vOmega\text{ is not a function.} \nonumber\\
-\bigl[\nabla \cdot \vOmega f &= f(\underbrace{\nabla \cdot \vOmega}_{0}) + \vOmega \cdot (\nabla f)\bigr] \nonumber
+\nabla \cdot \vOmega f &= f(\underbrace{\nabla \cdot \vOmega}_{0}) + \vOmega \cdot (\nabla f) \nonumber
 \end{align}
 %
-\[ \boxed{\Bigl[\int_V d^3r \: \vOmega \cdot \nabla \bigl(v n(\vec{r}_s, E, \vOmega, t) \bigr) \Bigr] dE d\vOmega }\]
+\[\therefore \:\: \boxed{\Bigl[\int_V d^3r \: \vOmega \cdot \nabla \bigl(v n(\vec{r}_s, E, \vOmega, t) \bigr) \Bigr] dE d\vOmega }\]
 
 Note: $\vOmega \cdot \nabla$ represents the derivative along the direction of motion.
 
@@ -273,8 +272,8 @@ Suppressing dependencies to save space for the moment
 %
 \begin{align}
 \int_V d^3r \Bigl[\frac{\partial n}{\partial t} &- 
-\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) v' n' \nonumber\\&-
-\frac{\chi(E)}{4\pi} \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \nu(E') \Sigma_f(E') v' n' -
+\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \:\Sigma_s(E', \vOmega' \rightarrow E, \vOmega) v' n' \nonumber\\&-
+\frac{\chi(E)}{4\pi} \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \:\nu(E') \Sigma_f(E') v' n' -
 s +
 \Sigma_t v n + 
 \vOmega \cdot \nabla v n \Bigr] = 0 \nonumber
@@ -327,9 +326,9 @@ $\forall E$ and $\vOmega$.
 \end{figure}
 \end{minipage} \hfill
 \begin{minipage}{0.45\textwidth}
-$\psi(\vec{r}_S, E, \vOmega, t) = \psi_{IN}(\vec{r}_S, E, \vOmega, t)$ for $\vec{e} \cdot \vOmega < 0$: specifying incoming neutrons. Note, the incoming flux can be a functional expression; it can also be zero.
+$\psi(\vec{r}_S, E, \vOmega, t) = \psi_{IN}(\vec{r}_S, E, \vOmega, t)$ for \\$\vec{e} \cdot \vOmega < 0$: specifying incoming neutrons. Note, the incoming flux can be a functional expression; it can also be zero.
 
-This is equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{r}_S, E, t) = \int_{\vec{e} \cdot \vOmega < 0} d\vOmega (\vec{e} \cdot \vOmega) \psi(\vec{r}_S, E, \vOmega, t)\:.$$
+This is equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{r}_S, E, t) = \int_{\vec{e} \cdot \vOmega < 0} d\vOmega \:(\vec{e} \cdot \vOmega) \psi(\vec{r}_S, E, \vOmega, t)\:.$$
 \end{minipage}
 
 \item \underline{Reflective Condition}: there is mirror symmetry at some surface:
@@ -338,7 +337,7 @@ This is equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{
 \item \underline{Periodic Condition}: you know there is a repetition in the system
 \[\psi(\vec{r}_S, E, \vOmega, t) = \psi(\vec{r}_S \pm \vec{p}, E, \vOmega, t)\:.\]
 
-\item \underline{Finiteness Condition}: to by physically valid we need to meet the condition \\$0 < \psi(\vec{r}_S, E, \vOmega, t) < \infty$, with the possible exception of point sources,
+\item \underline{Finiteness Condition}: to by physically valid we need to meet the condition \\$0 < \psi(\vec{r}, E, \vOmega, t) < \infty$, with the possible exception of point sources,
 
 \item which we handle with the \underline{Source Condition}: localized sources are introduced as mathematical singularities at the location of the source.
 
@@ -371,7 +370,7 @@ Assume all particles are at the same speed, so we no longer need energy dependen
 \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) +
 \Sigma_t \psi(\vec{r}, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)  
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \rightarrow \vOmega) \psi(\vec{r}, \vOmega', t)  
 + \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(\vec{r},  \vOmega', t) 
 + s(\vec{r}, \vOmega, t) 
 %Q(\vec{r}, \vOmega, t)
@@ -389,7 +388,7 @@ Assume all particles are at the same speed, so we no longer need energy dependen
 
 We'd like to simplify even farther by only worrying about one dimension, so we'll get rid of $y$ and $z$.
 
-\begin{minipage}{0.5\textwidth}
+%\begin{minipage}{0.5\textwidth}
 $\vec{r} = (x, y, z)$
 
 $d\vOmega = \sin(\theta) d\theta	d\varphi = d\mu d\varphi$
@@ -397,13 +396,13 @@ $d\vOmega = \sin(\theta) d\theta	d\varphi = d\mu d\varphi$
 Note $\mu = \cos(\theta)$ so $d\mu = \sin(\theta)$
 
 $\Omega_x = \cos(\theta) = \mu$
-\end{minipage} \hfill
-\begin{minipage}{0.45\textwidth}
-\begin{figure}[H]
-\includegraphics[height=1in]{1Dspace}
-\caption{swap z for y, y for x, and x for z}
-\end{figure}
-\end{minipage}
+%\end{minipage} \hfill
+%\begin{minipage}{0.45\textwidth}
+%\begin{figure}[H]
+%\includegraphics[height=1in]{1Dspace}
+%\caption{swap z for y, y for x, and x for z}
+%\end{figure}
+%\end{minipage}
 
 % \vec{r} switched to x
 \begin{align*}
@@ -411,7 +410,7 @@ $\Omega_x = \cos(\theta) = \mu$
 \bigl(\Omega_x \frac{\partial}{\partial x} + \cancel{\Omega_y \frac{\partial}{\partial y}} + \cancel{\Omega_z \frac{\partial}{\partial z}} \bigr)\psi(x, \vOmega, t) +
 \Sigma_t \psi(x, \vOmega, t) = \nonumber\\
 %
-& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \psi(x, \vOmega', t)  + 
+& \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \rightarrow \vOmega) \psi(x, \vOmega', t)  + 
 \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(x,  \vOmega', t) + s(x, \vOmega, t)%+ Q(x, \vOmega, t) \nonumber
 \end{align*}
 
@@ -477,7 +476,7 @@ $\Omega_x = \cos(\theta) = \mu$
 %--------------------------------------------
 \section*{Diffusion Equation Derivation}
 
-We will now derive the diffusion equation by assuming the \textbf{angular flux depends only weakly on direction}, $\vOmega$. 
+We will now derive the diffusion equation by \textbf{assuming the angular flux depends only weakly on direction}, $\vOmega$. 
 %
 % Why?
 Why derive the diffusion equation from the transport equation?
@@ -491,7 +490,7 @@ The diffusion equation is derived by starting with the transport equation and \t
 
 Recall the definition of scalar flux and net current:
 \begin{align*}
-\phi(\vec{r}, t) &= \int_{4\pi} d\vOmega \psi(\vec{r}, \vOmega, t) \\
+\phi(\vec{r}, t) &= \int_{4\pi} d\vOmega \:\psi(\vec{r}, \vOmega, t) \\
 \vec{J}(\vec{r}, t) &= \int_{4\pi} d\vOmega \:\vOmega \psi(\vec{r}, \vOmega, t)
 \end{align*}
 
@@ -504,12 +503,12 @@ Now let's do the integration and go through it term by term:
 \underbrace{\vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t)}_{2} +
 \underbrace{\Sigma_t \psi(\vec{r}, \vOmega, t)}_{3} = \nonumber\\
 %
-&\underbrace{\int_{4\pi} d\vOmega'\: \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)}_{4} 
+&\underbrace{\int_{4\pi} d\vOmega'\: \Sigma_s(\vOmega' \rightarrow \vOmega) \psi(\vec{r}, \vOmega', t)}_{4} 
 + \underbrace{\frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega'\: \psi(\vec{r},  \vOmega', t)}_{5}
 + \underbrace{s(\vec{r}, \vOmega, t)}_{6}\biggr]
 \end{align*}
 %
-This is called the zeroeth order moment w.r.t $\vOmega$. 
+This is called the zeroeth order moment w.r.t.\ $\vOmega$. 
 
 \textbf{1.} No approximations
 \begin{equation}
@@ -540,12 +539,12 @@ Thus
 Let's interchange the order of integrations over $\vOmega$ and $\vOmega'$:
 %
 \begin{align*}
-\int_{4\pi} d\vOmega\: &\int_{4\pi} d\vOmega'\: \Sigma_s(\vOmega' \cdot \vOmega) \psi(\vec{r}, \vOmega', t)\\
+\int_{4\pi} d\vOmega\: &\int_{4\pi} d\vOmega'\: \Sigma_s(\vOmega' \rightarrow \vOmega) \psi(\vec{r}, \vOmega', t)\\
 %
-&= \int_{4\pi} d\vOmega'\: \bigl[ \int_{4\pi} d\vOmega \Sigma_s(\vOmega' \cdot \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)
+&= \int_{4\pi} d\vOmega'\: \bigl[ \int_{4\pi} d\vOmega\: \Sigma_s(\vOmega' \rightarrow \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)
 \end{align*}
 
-Then we can simplify the scattering term with the assumption (which is often true) that $\Sigma_s(\vOmega' \cdot \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu =\vOmega' \cdot \vOmega$.  This implies
+Then we can simplify the scattering term with the assumption (which is often true) that $\Sigma_s(\vOmega' \rightarrow \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu =\vOmega' \cdot \vOmega$.  This implies
 \[\int_{4\pi} d\vOmega \:\Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu\: \Sigma_s(\mu) = \Sigma_s\]
 %
 And therefore:
@@ -561,7 +560,7 @@ And therefore:
 \[\int_{4\pi} d\vOmega \:\vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) = \nabla \cdot \int_{4\pi} d\vOmega \:\vOmega \psi(\vec{r}, \vOmega, t) = \nabla \cdot \vec{J}(\vec{r}, t)\:. \]
 
 \vspace*{2em}
-When we put all of the terms together we get the \textbf{neutron continuity equation}. You can see that we have 1 equation, but 2 unknowns (technically 4 unknowns b/c $\vec{J}$ has 3 spatial components):
+When we put all of the terms together we get the \textbf{neutron continuity equation}. You can see that we have 1 equation, but 2 unknowns (technically 3 equations and 4 unknowns b/c $\vec{J}$ has 3 spatial components):
 \begin{equation}
 \frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) + 
 \nabla \cdot \vec{J}(\vec{r}, t) + 
@@ -580,7 +579,6 @@ We at least have a relationship between $\phi$ and $\vec{J}$.
 The next step is to take the first angular moment of the transport equation to try to develop additional relationships that we can use to solve for $\phi$. Thus, we multiply the one-group TE by $\vOmega$ and integrate over angle (with the zeroth moment, which is what we took to get the continuity equation, we didn't do the multiplication). 
 
 NOTE: at this point I'm dropping the fission term for simplicity (the extension is straightforward). We will assume any fission neutrons are included in our source term, $S$. 
-
 
 % Identities
 We will use the following identities in this part of the derivation:
@@ -646,7 +644,7 @@ Expand the scattering cross section in Legendre Polynomials, which are a sequenc
 %
 \[P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n} \bigl[\bigl( x^2 -1 \bigr)^n\bigr] \:.\]
 
-Then:
+Use the polynomials as follows and take the first two terms of the expansion:
 \begin{align*}
 &\Sigma_s(\vOmega' \cdot \vOmega) = \sum_{l=0}^{\infty} \frac{2l+1}{4\pi} \Sigma_{sl} P_l(\vOmega')P_l(\vOmega) \\
 %
@@ -696,7 +694,7 @@ Taking higher moments by repeating the multiply by $\vOmega$ and integrating isn
 \subsection*{Linearly Anisotropic Approximation}
 And finally, \underline{we introduce an approximation about the angular flux} (so far we have only approximated the scattering as linearly anisotropic). We now \textbf{assume that the angular flux is at most linearly anisotropic} as well.
 
-To implement this assumption, the angular flux is expanded in angle and only the first two terms are retained:  
+To implement this assumption, the angular flux is expanded in angle and only the first two terms are retained (similar to what we just did with scattering):  
 %
 \begin{align*}
 \psi(\vOmega) &\cong  \frac{1}{4\pi}\bigl( \psi_{0} + 3\vOmega \cdot \vec{\psi_{1}} \bigr) \qquad l=1 \text{; linearly isotropic} \\
