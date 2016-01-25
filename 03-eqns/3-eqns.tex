@@ -67,7 +67,7 @@ In science and engineering in general, and nuclear engineering and reactor analy
 The most general form of an \nth order linear ordinary differential eqn.\ is
 %
 \begin{equation}
-a_{n}(x)y^{(n)}(x) + a_{n-1}(x)y^{(n-1)}(x) + \cdots + a_{2}(x)y^{(2)}(x) + a_{1}(x)y(x) + a_0(x) = f(x) \nonumber
+a_{n}(x)y^{(n)}(x) + a_{n-1}(x)y^{(n-1)}(x) + \cdots + a_{2}(x)y^{(2)}(x) + a_{1}(x)y'(x) + a_0(x)y(x) = f(x) \nonumber
 \end{equation}
 %
 \noindent where
@@ -87,8 +87,8 @@ Boundary conditions:
 
 \underline{Reminders}
 \begin{itemize}
-\item Linear means each term is either a constant or the product of a constant and the first power of a single variable (in this case $y$).
-\item the highest derivative is to the first power.
+\item 1st order means that $n=1$. The  coefficients $a_1$ and $a_0$ may depend on $y$ or $y'$.
+\item Linear means each coefficient only depends on $x$ (i.e., not on $y$ or derivatives of $y$).
 \end{itemize}
 
 %-------------------------------------------------------------
@@ -224,7 +224,7 @@ A partial differential equation is an equation containing an unknown function of
 If the PDE is linear in $u$ and all derivatives of $u$, then we say that the PDE is linear.
 %
 \begin{equation}
-A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu(x) = G \nonumber
+A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu(x,y) = G \nonumber
 \end{equation}
 %
 This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ do not depend on $u$ (they may depend on $x$ and/or $y$). 
