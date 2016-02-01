@@ -302,11 +302,11 @@ And finally, \underline{we introduce an approximation about the angular flux} (s
 
 To implement this assumption, the angular flux is expanded in angle and only the first two terms are retained (similar to what we just did with scattering):  
 %
-%\begin{align*}
-\[\psi(\vOmega) \cong  \frac{1}{4\pi}\bigl( \psi_{0} + 3\vOmega \cdot \vec{\psi_{1}} \bigr) \qquad l=1 \text{; linearly isotropic} \]%\\
+\begin{align*}
+\psi(\vOmega) &\cong  \frac{1}{4\pi}\bigl( \psi_{0} + 3\vOmega \cdot \vec{\psi_{1}} \bigr) \qquad l=1 \text{; linearly isotropic} \\
 %
-%\psi(\vOmega) &\cong \frac{1}{4\pi}\bigl(\phi(\vec{r}, t) + 3 \vOmega \cdot \vec{J}(\vec{r}, t)\bigr) \:.
-%\end{align*}
+\psi(\vOmega) &\cong \frac{1}{4\pi}\bigl(\phi(\vec{r}, t) + 3 \vOmega \cdot \vec{J}(\vec{r}, t)\bigr) \:.
+\end{align*}
 The truncated angular flux expansion is then inserted into the streaming term in the current continuity equation, Eqn.\ \eqref{eq:currentcont}, giving 
 %
 \begin{align*}
@@ -342,7 +342,7 @@ Let's substitute these into our equation set: equations \eqref{eq:neutroncont} a
 \frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) + 
 \nabla \cdot \vec{J}(\vec{r}, t) + 
 \Sigma_a \phi(\vec{r}, t) =
-\nu \Sigma_f \phi(\vec{r}, t) +
+%\nu \Sigma_f \phi(\vec{r}, t) +
 S(\vec{r}, t) \\
 %
 \frac{1}{v}\frac{\partial \vec{J}}{\partial t} 
@@ -359,7 +359,7 @@ If we also assume \underline{steady state} (or weak temporal dependence) and \un
 \begin{align*}
 \frac{1}{3} \nabla \phi(\vec{r}, t) +
 \Sigma_{tr}  &\vec{J}(\vec{r}) = 0 \\
-&\boxed{\vec{J}(\vec{r}) = -\frac{1}{3\Sigma_{tr}} \nabla \phi(\vec{r}, t) = -D\nabla \phi(\vec{r}, t) } \qquad \text{Fick's Law}
+&\boxed{\vec{J}(\vec{r}) = -\frac{1}{3\Sigma_{tr}} \nabla \phi(\vec{r}) = -D\nabla \phi(\vec{r}) } \qquad \text{Fick's Law}
 \end{align*}
 %
 where
@@ -433,16 +433,24 @@ For diffusion, we take the 0th and 1st moments of our TE condition and get two e
 \end{align*}
 
 \subsubsection*{Vacuum Boundary Condition}
-These aren't quite so simple. We start by thinking about a non-reentrant condition for the TE: 
+These aren't quite so simple. We start by thinking about a non-reentrant condition for the TE where $\vec{r}_s$ is the outside boundary and $\hat{e}_s$ is the unit normal pointing outward: 
 \[\psi(\vec{r}_s, \vOmega, t) = 0 \text{ for } \vOmega \cdot \hat{e}_s < 0 \:,\]
 %
-which is a mathematical statement that there are no neutrons entering our volume. This is the same as saying
-\[J_{-}(\vec{r},t) = \int_{\vOmega \cdot \hat{e}_s < 0} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) = 0 \:.\]
+which is a mathematical statement that there are no neutrons entering our volume. 
 
-However, with diffusion theory
+To translate this into a diffusion equation statement, we will use \textit{partial currents}: the number of neutrons crossing either inward ($J_{-}$) or outward ($J_{+}$) across a surface:
+\begin{align*}
+J_{-}(\vec{r},t) &= \int_{\vOmega \cdot \hat{e} < 0} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}, \vOmega, t) \\
+J_{+}(\vec{r},t) &= \int_{\vOmega \cdot \hat{e} > 0} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}, \vOmega, t)\:.
+\end{align*}
+We will also say $\int_{\vOmega \cdot \hat{e} < 0} = \int_{2\pi^{-}}$ and  $\int_{\vOmega \cdot \hat{e} > 0} = \int_{2\pi^{+}}$. 
+
+With this notation we can re-write our boundary condition:
+\[J_{\pm}(\vec{r},t) = \int_{2\pi^{\pm}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) = 0 \:,\]
+note that in diffusion theory
 \[\psi(\vec{r}_s, \vOmega, t) \cong \frac{1}{4\pi}\bigl(\phi(\vec{r}_s, t)  -\frac{1}{\Sigma_{tr}} \nabla \phi(\vec{r}_s, t)\bigr)\]
 %
-and our partial currents become
+and then our partial currents become (note that which of +/- you choose depends on which edge of the problem you are on)
 %
 \begin{align*}
 J_{\pm} &= \int_{2\pi^{\pm}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) =\\
