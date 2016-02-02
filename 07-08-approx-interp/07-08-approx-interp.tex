@@ -52,8 +52,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 8 \& 9, S15 \\
-Interpolation and Approximation\\ February 6 and 9, 2015}
+{\bf NE 155, Classes 7 \& 8, S16 \\
+Interpolation and Approximation\\ February 3 and 5, 2016}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -69,13 +69,13 @@ Sometimes rather than calculating values of a function, we need to approximate o
 \item It may be difficult or impossible to analytically evaluate the function
 \item We may have only a table of values at certain points and need to
 determine the values in between
-\item It may be much faster to compute values of an approximation
-function than of the original function, particularly if we have to
-calculate the function values over and over again
+\item It may be much faster to compute values of an approximate
+function than of the original function (important if we have to
+calculate the function values over and over again)
 \item A function may be defined implicitly
 \end{itemize}
-
-This is relevant in numerical \textbf{integration/differentiation} and in \textbf{solving differential equations}.
+%
+Interpolation and/or approximation is used in numerical \textbf{integration/differentiation} and in \textbf{solving differential equations}.
 
 \underline{Problem:} given a function $f(x)$ or a set  of discrete values $\{x_i, f(x_i)\}$, try to find $g(x)$ that in some sense approximates $f(x)$. 
 
@@ -98,7 +98,7 @@ There are several common types of Interpolating functions
 \begin{itemize}
 \item \textbf{Polynomial}: $g(x) = P(x) = \sum_i a_i x^i$
 
-\item \textbf{Piecewise polynomial}: slap some polynomials together so their ends meet
+\item \textbf{Piecewise polynomial}: slap some polynomials together so their ends meet with some degree of smoothness
 
 \item \textbf{Trig functions}: e.g., Fourier series $g(x) = \frac{1}{2} a_0 + \sum_k [a_k \sin(kx) + b_k \cos(kx)]$ %http://mathworld.wolfram.com/FourierSeries.html
 
@@ -127,12 +127,12 @@ let $f$ be $C^0 \in [a,b]$. Given $\epsilon > 0$, $\exists$ a polynomial, $P(x)$
 
 
 \begin{addmargin}[3em]{1em}
-\underline{Aside about terminology:} In mathematical analysis, \textit{smoothness} has to do with how many derivatives of a function exist and are continuous. The function $f$ is said to be of (differentiability) class $C^k$ if the derivatives $f', f'', \cdots, f(k)$ exist and are continuous (the continuity is implied by differentiability for all the derivatives except for $f(k)$). 
+\underline{Aside about terminology:} In mathematical analysis, \textit{smoothness} has to do with how many derivatives of a function exist and are continuous. The function $f$ is said to be of (differentiability) class $C^k$ if the derivatives $f', f'', \cdots, f^{(k)}$ exist and are continuous (the continuity is implied by differentiability for all the derivatives except for $f^{(k)}$). 
 \end{addmargin}%http://en.wikipedia.org/wiki/Smoothness
 
 
 %--------------------------------------------------------------------
-\subsection*{Taylor Polynomial}
+\subsection*{Taylor Polynomials}
 If $f(x)$ is known but difficult to evaluate, we can replace it by a Taylor polynomial around $x = a$
 \begin{align}
 f(x) &= f(a) + f'(a)(x-a) + f''(a)\frac{(x-a)^2}{2!} + \cdots + f^{(n-1)}(a)\frac{(x-a)^{n-1}}{(n-1)!} + R_n \nonumber \\
@@ -142,10 +142,11 @@ f(x) &= f(a) + f'(a)(x-a) + f''(a)\frac{(x-a)^2}{2!} + \cdots + f^{(n-1)}(a)\fra
 R_n &= f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]\nonumber
 %http://mathworld.wolfram.com/TaylorSeries.html
 \end{align}
+[finite difference]
 
 
 %--------------------------------------------------------------------
-\subsection*{Lagrange Interpolating Polynomial}
+\subsection*{Lagrange Interpolating Polynomials}
 %
 \underline{Theorem:} 
 Instead, if we have $(n+1)$ distinct points $x_0, x_1,\dots, x_n$ and $f(x)$ is a function defined by these points, then $\exists$ a unique polynomial, $P_n(x)$, of degree $\leq n$ that interpolates $f$ at the $n + 1$ distinct points s.t.\
@@ -251,7 +252,7 @@ and
 \[h = \max_{0 \leq j \leq n-1} (x_{j+1} - x_{j})\]
 \end{itemize}
 
-We're not going to go over the spline algorithm, but you get a \textbf{tridiagonal system} out of it. \\ \textit{What ways might we solve a tridiagonal system?} \\ LU decomposition (Thomas algorithm).
+We're not going to go over the spline algorithm, but you get a \textbf{tridiagonal system} out of it\textemdash which is nice because these are fairly easy to solve directly. %\\ \textit{What ways might we solve a tridiagonal system?} \\ LU decomposition (Thomas algorithm).
 
 The Python function for this is \textit{scipy.interpolate.splrep}
 
@@ -292,7 +293,7 @@ y_0 \\ y_1 \\ \vdots \\ y_m
 %
 Why can't we just solve this matrix system?\\ $n < m$ and the system is overdetermined.\\ Instead, we look to minimize the error, $e = ||\ve{A}\vec{z} - \vec{b}||$.
 
-We must choose a norm in which to minimize the error. It is quote common to choose the 2-norm; the 2-norm squared is
+We must choose a norm in which to minimize the error. It is quite common to choose the 2-norm; the 2-norm squared is
 \[e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i)\bigr)^2\]
 %
 To minimize this w.r.t.\ the $a$s, we take the partial derivative and set equal to zero:
@@ -406,10 +407,10 @@ $\{ \phi_0, \phi_1, \dots, \phi_n\}$ is an orthogonal set of functions over $[a,
 \begin{array}{ll}
 0 & \mbox{if } j \neq k \\
 \alpha_x & \mbox{if } j = k
-\end{array} \nonumber
+\end{array}\:. \nonumber
 \end{equation}
 %
-if $\alpha = 1$, then the functions are also orthonormal.
+If $\alpha = 1$, then the functions are also orthonormal.
 
 If there is an orthogonal set of functions on $[a,b]$, then the least squares approximation to $f$ on $[a,b]$ is:
 \begin{align*}
