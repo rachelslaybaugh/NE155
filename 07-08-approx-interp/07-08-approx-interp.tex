@@ -123,7 +123,7 @@ Why polynomials?
 \textbf{Theorem:} (Weierstrauss approximation theorem)
 
 let $f$ be $C^0 \in [a,b]$. Given $\epsilon > 0$, $\exists$ a polynomial, $P(x)$, such that 
-\[|f(x) - p(x)| \leq \epsilon, \qquad x \in [a,b] \:.\]
+\[|f(x) - P(x)| \leq \epsilon, \qquad x \in [a,b] \:.\]
 
 
 \begin{addmargin}[3em]{1em}
@@ -212,7 +212,7 @@ The simplest way to do this is \textbf{piecewise linear}.\\ What might be a prob
 The most common approach is to use \textbf{cubic splines}: a cubic polynomial between each successive pair of nodes. For cubic splines, we can get continuous 2nd derivatives at the knots - which is all we can ask from cubic polynomials. 
 
 %-------------------------------------------------------
-\textbf{Spline interpolation:} Given a function $f(x)$ defined on $[a,b]$ and a set of numbers (knots) $a=x_0 < x_1 < ... < x_n = b$, we can say the following about a cubic spline interpolant, $S(x)$, for $f$:
+\textbf{Spline interpolation:} Given a function $f(x)$ defined on $[\alpha, \beta]$ and a set of numbers (knots) $\alpha=x_0 < x_1 < ... < x_n = \beta$, we can say the following about a cubic spline interpolant, $S(x)$, for $f$:
 %
 \begin{itemize}
 \item on each sub-interval $[x_j, x_{j+1}]$, $S$ is a cubic polynomial:
