@@ -77,7 +77,7 @@ calculate the function values over and over again)
 %
 Interpolation and/or approximation is used in numerical \textbf{integration/differentiation} and in \textbf{solving differential equations}.
 
-\underline{Problem:} given a function $f(x)$ or a set  of discrete values $\{x_i, f(x_i)\}$, try to find $g(x)$ that in some sense approximates $f(x)$. 
+\underline{Problem:} given a function $f(x)$ or a set  of discrete values $\{x_i, f(x_i)\}$, try to find $g(x)$ that in some sense represents $f(x)$. 
 
 \begin{enumerate}
 \item \textbf{Approximation} An approximation function \underline{does not} need to fit through all given function values. 
@@ -156,7 +156,7 @@ This polynomial is given by
 %
 \[P(x) = f(x_0)L_0(x) + \dots + f(x_n)L_n(x) = \sum_{k=0}^{n}f(x_k)L_k(x)\:,\]
 %
-where the $L_i(x)$ are Lagrange polynomials:
+where the $L_k(x)$ are Lagrange polynomials:
 %
 \begin{align}
 L_k(x) &= \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)}\nonumber\\
@@ -173,8 +173,8 @@ Note: this is sometimes called full degree polynomial interpolation.
 \subsubsection*{Error}
 \underline{Theorem:} If $x_0, x_1,\dots, x_n$ are $(n+1)$ distinct points $\in [a,b]$ and $f$ is $C^{n+1} \in [a,b]$ then for each $x\in [a,b]$ there exists $\xi(x) \in [a,b]$ s.t.
 \begin{align}
-f(x) - P_n(x)& = \frac{f^{n+1}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n)\nonumber \\
-&\boxed{e = \frac{f^{n+1}(\xi)}{(n+1)!}\prod_{i=0}^n (x-x_i)}\nonumber
+f(x) - P_n(x)& = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n)\nonumber \\
+&\boxed{e = \frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n (x-x_i)}\nonumber
 \end{align}
 %
 %The Lagrange polynomial of degree $n$ uses information at the
