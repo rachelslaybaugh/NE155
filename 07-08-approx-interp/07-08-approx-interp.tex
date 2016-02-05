@@ -245,9 +245,9 @@ Which of these do you expect to be the most accurate and why? The least?
 \item ``not-a-knot": least accurate because you're removing data
 \item ``free" or ``natural": introduces $O(h^2)$ error near the end points.
 \item ``clamped" or ``complete": most accurate, but we need to know the end point derivatives.
-\[e = \max_{a \leq x \leq b} |f(x) - S(x)| \leq \frac{5}{384}h^4 M\]
+\[e = \max_{\alpha \leq x \leq \beta} |f(x) - S(x)| \leq \frac{5}{384}h^4 M\]
 where
-\[M = \max_{a \leq x \leq b} |f(x)^{(4)}|\]
+\[M = \max_{\alpha \leq x \leq \beta} |f(x)^{(4)}|\]
 and
 \[h = \max_{0 \leq j \leq n-1} (x_{j+1} - x_{j})\]
 \end{itemize}
