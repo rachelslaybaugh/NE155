@@ -49,8 +49,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 10, 11, \& 12, S15 \\
-Differentiation \& Integration \\ February 11, 13, and 18 2015}
+{\bf NE 155, Classes 9, 10, \& 11 S16 \\
+Differentiation \& Integration \\ February 8, 10, \& 12, 2016}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -60,7 +60,19 @@ Differentiation \& Integration \\ February 11, 13, and 18 2015}
 
 %--------------------------------------------------------------------
 \section*{Differentiation}
-\underline{Problem} Given a function $f(x)$ at $x_0, x_1, \dots, x_n$ approximate $f'(x)$ or $f''(x)$, etc. 
+We're building the skills required to solve
+\begin{equation}
+\frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) 
+-\nabla \cdot D\nabla \phi(\vec{r}, t) + 
+\Sigma_a \phi(\vec{r}, t) =
+\nu \Sigma_f \phi(\vec{r}, t) +
+S(\vec{r}, t) \:. \nonumber
+\end{equation}
+In practice, we can rarely get an analytical solution for $\phi$ so we have to solve it some other way. 
+If we don't know what $\phi$ looks like, how do we take its derivative?
+We need \textbf{numerical differentiation} so that we can come up with a way to express $\nabla^2 \phi$ or $\frac{\partial}{\partial t}\phi$ (or anything similar in any other equation).
+
+\underline{Problem}: Given a function $f(x)$ at $x_0, x_1, \dots, x_n$ approximate $f'(x)$ or $f''(x)$, etc. 
 
 Numerical differentiation is  
 \begin{itemize}
@@ -72,12 +84,15 @@ Numerical differentiation is
 \item inherently sensitive to round-off error. 
 \end{itemize}
 
-\textbf{Example} Given $f \in C^2 [a,b]$ and $x_0 \in [a,b]$, find an approximation to $f'(x_0)$.
+\textbf{Example} Given $f$ is $ C^2 \in [a,b]$ and $x_0 \in [a,b]$, find an approximation to $f'(x_0)$.
 
-We're going to come at this from \textbf{Taylor's theorem}.
-%
+We're going to come at this from \textbf{Taylor's theorem}, which gives an approximation of a k-times differentiable function around a given point by a k-th order Taylor polynomial.
+% https://en.wikipedia.org/wiki/Taylor%27s_theorem
+
+We'll start with a first order expansion:
+\[
+f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(c)}{2}(x-x_0)^2 \]
 \begin{align*}
-f(x) &= f(x_0) + f'(x_0)(x - x_0) + \frac{f''(c)}{2}(x-x_0)^2 \\
 % 
 \therefore f'(x_0) &= \frac{f(x) - f(x_0)}{(x - x_0)} - \frac{f''(c)}{2}(x-x_0) \\
 %
@@ -113,7 +128,7 @@ We can extend this principle to get higher levels of accuracy. To do that we do 
 \node[below] at (8,-.25) {$x_n$};
 \end{tikzpicture}
 \end{center}
-
+%
 \begin{align*}
 f(x_0) &= f(x_0)\\
 %
@@ -129,13 +144,14 @@ f(x_0 \pm 2h) &= f(x_0) \pm 2h f'(x_0) + 2 h^2 f''(x_0) \pm \frac{4}{3} h^3 f'''
 \[f'(x_0) = \frac{f(x_0 + h) - f(x_0)}{h} - \frac{1}{2}hf''(c)\]
 
 \underline{$O(h^2)$}: combine the point and the next two points forward; we're going to need to figure out the coefficients though:
-%
+
 \begin{align*}
 a f(x_0) &+ b f(x_0 + h) + c f(x_0 + 2h) = f'(x_0) \\
 %
-a f(x_0) &+ b[f(x_0) + hf'(x_0) + h^2\frac{f''(x_0)}{2} + h^3\frac{f'''(x_0)}{6}] \nonumber \\
-&+ c[f(x_0) + 2h f'(x_0) + 2 h^2 f''(x_0) + \frac{4}{3} h^3 f'''(x_0)] =f'(x_0) \\
-%
+a f(x_0) &+ b[f(x_0) + hf'(x_0) + h^2\frac{f''(x_0)}{2} + h^3\frac{f'''(\mu)}{6}] \nonumber \\
+&+ c[f(x_0) + 2h f'(x_0) + 2 h^2 f''(x_0) + \frac{4}{3} h^3 f'''(\mu)] =f'(x_0)
+\end{align*}
+\begin{align*}
 (a + b &+ c)f(x_0) + h(b + 2c)f'(x_0) + h^2(\frac{b}{2} + 2c) f''(x_0) \nonumber \\
 &+ h^3(\frac{b}{6} +  \frac{4c}{3}) f'''(\mu) = f'(x_0)
 \end{align*}
@@ -199,6 +215,13 @@ f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 +
 \end{align*}
 
 \subsubsection*{Two Variables}
+\begin{align*}
+\frac{\partial^2 f_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial f_{i,j}}{\partial x}\bigr) =
+\frac{f_{i-1,j} - 2f_{i,j} + f_{i+1,j}}{\Delta x^2} \\
+%
+\frac{\partial^2 f_{i,j}}{\partial y^2} = \frac{\partial}{\partial y}\bigl(\frac{\partial f_{i,j}}{\partial y}\bigr) =
+\frac{f_{i,j-1} - 2f_{i,j} + f_{i,j+1}}{\Delta y^2}
+\end{align*}
 \begin{center}
 \begin{tikzpicture}
 \draw (-.25,0)--(7.25,0);
@@ -223,22 +246,13 @@ f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 +
 \draw (-.25,7)--(.25,7);
 \node[left] at (-.25, 0) {$y_0$};
 \node[left] at (-.25,1) {$y_1$};
-\node[left] at (-.25,3) {$y_{i-1}$};
-\node[left] at (-.25,4) {$y_i$};
-\node[left] at (-.25,5) {$y_{i+1}$};
+\node[left] at (-.25,3) {$y_{j-1}$};
+\node[left] at (-.25,4) {$y_j$};
+\node[left] at (-.25,5) {$y_{j+1}$};
 \node[left] at (-.25,7) {$y_n$};
 \node at (2,3.5) {$\Delta y$};
 \end{tikzpicture}
 \end{center}
-
-\begin{align*}
-\frac{\partial^2 f_{i,j}}{\partial x^2} = \frac{\partial}{\partial x}\bigl(\frac{\partial f_{i,j}}{\partial x}\bigr) =
-\frac{f_{i-1,j} - 2f_{i,j} + f_{i+1,j}}{\Delta x^2} \\
-%
-\frac{\partial^2 f_{i,j}}{\partial y^2} = \frac{\partial}{\partial y}\bigl(\frac{\partial f_{i,j}}{\partial y}\bigr) =
-\frac{f_{i,j-1} - 2f_{i,j} + f_{i,j+1}}{\Delta y^2}
-\end{align*}
-
 
 
 %--------------------------------------------------------------------
@@ -254,6 +268,10 @@ long time to calculate analytically.
 \item The integrand is given in terms of a table. That is, we are
 provided with discrete values of $f(x)$ at $n+1$ data points.
 \end{itemize}
+
+For us, we use this particularly for the scattering and fission in the Transport Equation:
+\[\int_{4\pi} d\vOmega' \int_0^{\infty} dE' \Sigma_s(E', \vOmega' \rightarrow E, \vOmega) \psi(\vec{r}, E', \vOmega', t)  +
+ \frac{\chi(E)}{4\pi} \int_0^{\infty} dE' \nu(E') \Sigma_f(E') \int_{4\pi} d\vOmega' \psi(\vec{r}, E', \vOmega', t) \]
 
 The general strategy is:
 \begin{itemize}
@@ -327,7 +345,9 @@ $x_0 = a$, $x_1 = b$, $h = x_1 - x_0$
 &L_0(x) = \frac{x-x_1}{x_0-x_1}\:, \qquad L_1(x) = \frac{x-x_0}{x_1-x_0} \\
 %
 w_0 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_1}{x_0-x_1}\bigr) dx\:; 
-\\ &\text{let } x = x_0 + th  \:, \quad dx = hdt\:, \quad t = \frac{x-x_0}{h}\:,\\
+\\ &\text{let } x = x_0 + th  \:, \quad dx = h\:dt\:, \quad t = \frac{x-x_0}{h}\:,
+\end{align*}
+\begin{align*}
 &\text{change bounds and note that the denominator is }-h \\
 %
 w_0 &= h \int_0^1 \bigl(\frac{x_1 - x_0 - ht}{h}\bigr)dt = \int_0^1 h(1-t)dt \\
@@ -401,7 +421,6 @@ We're going to skip the details, but what we get out is that the error for Simps
 
 Thus, Simpson's rule has degree of precision 3 and is $O(h^5)$.
 
-\clearpage
 \textbf{In General:}
 \begin{center}
 \begin{tabular}{c c c}
