@@ -406,7 +406,7 @@ $\{ \phi_0, \phi_1, \dots, \phi_n\}$ is an orthogonal set of functions over $[a,
 \int_a^b w(x) \phi_j(x) \phi_k(x) dx = \biggl\{
 \begin{array}{ll}
 0 & \mbox{if } j \neq k \\
-\alpha_x & \mbox{if } j = k
+\alpha_j & \mbox{if } j = k
 \end{array}\:. \nonumber
 \end{equation}
 %
@@ -415,7 +415,7 @@ If $\alpha = 1$, then the functions are also orthonormal.
 If there is an orthogonal set of functions on $[a,b]$, then the least squares approximation to $f$ on $[a,b]$ is:
 \begin{align*}
 P(x) &= \sum_{j=0}^n c_j(x) \phi_j(x) \\
-c_j &= \frac{1}{\alpha_j} \int_a^b w(x)\phi_j(x)f(x)dx \qquad k=0, 1, \dots, n\:.
+c_j &= \frac{1}{\alpha_j} \int_a^b w(x)\phi_j(x)f(x)dx \qquad j=0, 1, \dots, n\:.
 \end{align*}
 
 To see the relationship with Fourier series, we use the orthonormal basis set on $[-\pi, \pi]$:
@@ -429,11 +429,13 @@ To see the relationship with Fourier series, we use the orthonormal basis set on
 Then, the least squares approximation to $f$ on $[-\pi,\pi]$ with this set of functions is
 %
 \begin{align*}
-S_n(x) &= \sum_j=0^{2n-1} c_j(x) \phi_j(x) \\
-c_j &= \int_{-\pi}^{\pi} \phi_j(x)f(x)dx \:, \qquad k=0, 1, \dots, 2n-1 \:,
+S_n(x) &= \sum_{j=0}^{2n-1} c_j(x) \phi_j(x) \\
+c_j &= \int_{-\pi}^{\pi} \phi_j(x)f(x)dx \:, \qquad j=0, 1, \dots, 2n-1 \:,
 \end{align*}
 %
 and in the limit as $n \rightarrow \infty$, $S_n(x) \rightarrow$ the Fourier series of $f(x)$.  
+
+More about orthogonal series and Fourier:\\ \href{http://ms.mcmaster.ca/courses/20102011/term4/math2zz3/Lecture1.pdf}{http://ms.mcmaster.ca/courses/20102011/term4/math2zz3/Lecture1.pdf}
 
 
 %--------------------------------------------------------------------
