@@ -74,14 +74,10 @@ We need \textbf{numerical differentiation} so that we can come up with a way to 
 
 \underline{Problem}: Given a function $f(x)$ at $x_0, x_1, \dots, x_n$ approximate $f'(x)$ or $f''(x)$, etc. 
 
-Numerical differentiation is  
-\begin{itemize}
-\item useful when a function is defined by 
+Numerical differentiation is useful when a function is defined by 
 \begin{itemize}
 \item data
 \item differential equations (ODEs, PDEs)
-\end{itemize}
-\item inherently sensitive to round-off error. 
 \end{itemize}
 
 \textbf{Example} Given $f$ is $ C^2 \in [a,b]$ and $x_0 \in [a,b]$, find an approximation to $f'(x_0)$.
@@ -173,7 +169,7 @@ Solving all of that gives
 \begin{align*}
 a &= -\frac{3}{2h} \\
 b &= \frac{2}{h} \\
-c &= \frac{1}{2h} \\
+c &= -\frac{1}{2h} \\
 &\text{error term } = -\frac{1}{3}h^2 f'''(\mu) \\
 \therefore \quad &\boxed{f'(x_0) = \frac{-3 f(x_0) + 4f(x_0 + h) - f(x_0 + 2h)}{2h} -\frac{1}{3}h^2 f'''(\mu)}
 \end{align*}
@@ -283,7 +279,7 @@ that are subtended by a small group of data points.
 domains of definition.
 \end{itemize}
 
-Thus, given $f \in C[a,b]$ compute $I(f) = \int_a^b f(x) dx$.
+Thus, given $f \in[a,b]$, compute $I(f) = \int_a^b f(x) dx$.
 
 The way we do this is called \textbf{numerical integration} or \textbf{numerical quadrature}:
 \[I(f) \approx I_n(f) = \sum_{i=0}^n w_i f(x_i)\]
@@ -303,6 +299,7 @@ Fix quadrature points ($x_i$), then choose quadrature weights ($w_i$). Usually f
 For a given $n$, choose the ``best" quadrature points ($x_i$) and quadrature weights ($w_i$):\\
 \underline{Gaussian Quadrature}
 
+\vspace*{1em}
 the \textbf{degree of precision} of a quadrature formula, $I_n(f)$, is the positive integer $m$ s.t.:
 \begin{enumerate}
 \item $I(p) = I_n(p)$ for every poly of degree $\leq m$.
