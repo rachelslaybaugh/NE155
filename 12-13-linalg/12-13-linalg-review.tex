@@ -327,14 +327,14 @@ Recall that complex conjugates are a pair of complex numbers, both the same exce
 
 
 %--------------------
-\item Orthogonal if A is real and $\ve{AA}T = \ve{A}^T\ve{A}$, which means $\ve{A}^{-1} = \ve{A}^T$ .
+\item Orthogonal if A is real and $\ve{AA}^T = \ve{A}^T\ve{A}$, which means $\ve{A}^{-1} = \ve{A}^T$ .
 %
 \begin{equation}
 \ve{A} = \frac{1}{\sqrt{2}}\begin{pmatrix}
    1 & 1 \\
    1 & -1 
 \end{pmatrix}\:, \qquad
-\frac{1}{\sqrt{2}}\ve{A}^T = \begin{pmatrix}
+\ve{A}^T = \frac{1}{\sqrt{2}}\begin{pmatrix}
    1 & 1 \\
    1 & -1 
 \end{pmatrix}\:,\qquad
@@ -346,14 +346,16 @@ Recall that complex conjugates are a pair of complex numbers, both the same exce
 
 \end{enumerate}
 
-Among complex matrices, all unitary, Hermitian, and skew-Hermitian matrices are normal. 
+Among complex matrices, all unitary ($\ve{AA}^H = \ve{I}$), Hermitian/self-adjoint ($\ve{A} = \ve{A}^H$), and skew-Hermitian ($\ve{A}^H = -\ve{A}$) matrices are normal (($\ve{AA}^H = \ve{A}^H\ve{A}$)). 
 
-Likewise, among real matrices, all orthogonal, symmetric, and skew-symmetric matrices are normal. 
+Likewise, among real matrices, all orthogonal ($\ve{AA}^T = \ve{A}^T\ve{A}$), symmetric ($\ve{A} = \ve{A}^T$), and skew-symmetric ($\ve{A}^T = -\ve{A}$) matrices are normal. 
 
 However, it is \textit{not} the case that all normal matrices are either unitary or (skew-)Hermitian (see example above).% http://en.wikipedia.org/wiki/Normal_matrix
 
 %-------------------------------------------------------------
 \subsection*{Equations and Special Matrices}
+
+All of the information above is context to help us solve actual problems. 
 
 We often write systems of equations as $\ve{A}\vec{x} = \vec{b}$ from
 \begin{align}
@@ -376,7 +378,7 @@ The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal 
 \textbf{Theorem}: The following are equivalent (see Math 54 or a textbook for proof):
 %
 \begin{enumerate}
-\item $\ve{A}$ is regular
+\item $\ve{A}$ is regular ($\ve{A}^{-1}$ exists)
 \item Rank($\ve{A}$) = n
 \item $\ve{A}\vec{x} = 0$ iff $x=0$
 \item $\ve{A}\vec{x} = \vec{b}$ is uniquely solveable $\forall \vec{b}$
