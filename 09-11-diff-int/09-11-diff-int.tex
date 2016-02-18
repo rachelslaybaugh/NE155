@@ -460,7 +460,9 @@ Similarly, apply the Simpson rule on each subinterval. %Given $x_0, x_1, \dots, 
 %
 \begin{align*}
 \int_{x_0}^{x_n} f(x)dx &= \sum_{i=2}^n \bigl[ \frac{h}{3}\bigl(f(x_{i-2}) + 4f(x_{i-1}) + f(x_i)\bigr) - \frac{f^{(4)}(c_i)}{90}h^5 \bigr]\\
-&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{\substack{i=1,\\i=\text{odd}}}^{n-1} f(x_i) + 2\sum_{\substack{i=2,\\i=\text{even}}}^{n-1} f(x_i) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)
+&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{\substack{i=1,\\i=\text{odd}}}^{n-1} f(x_i) + 2\sum_{\substack{i=2,\\i=\text{even}}}^{n-1} f(x_i) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)\\
+&\text{alternatively}\\
+&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{i=1}^{n/2} f(x_{2i-1}) + 2\sum_{i=1}^{n/2-1} f(x_{2i}) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)
 \end{align*}
 
 
@@ -471,6 +473,8 @@ The previous examples were called \textbf{closed} Newton-Cotes because $f(x)$ is
 \textbf{Open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are defined as $x_{j} = x_0 + jh, j = 0, \dots, n$, $h = (b-a)/(n+2)$. 
 
 However, we define $x_{0} = a + h$, which implies $x_{n} = b - h$. Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$).
+
+Best quick explanation of difference I've found on slides 17 and 18:\\ \href{http://www.math.uconn.edu/~leykekhman/courses/MATH_5520/Notes/quadrature_1.pdf}{http://www.math.uconn.edu/$\sim$leykekhman/courses/MATH\_5520/Notes/quadrature\_1.pdf}
 
 \vspace*{1 em}
 The \underline{midpoint rule} is what we get with \underline{$n=0$}; it only uses one point:
