@@ -448,21 +448,20 @@ Just apply the trapezoid rule on each subinterval. Given $x_0, x_1, \dots, x_n$ 
 \textit{DRAW PICTURE}
 
 \begin{align*}
-\int_{x_0}^{x_n} f(x)dx &= \sum_{i=1}^n \int_{x_{i-1}}^{x_i} f(x)dx\\
+\int_{a}^{b} f(x)dx &= \sum_{i=1}^n \int_{x_{i-1}}^{x_i} f(x)dx\\
 &= \sum_{i=1}^n \bigl[ \frac{h}{2}\bigl(f(x_{i-1}) + f(x_i)\bigr) - \frac{h^3}{12}f''(c_i) \bigr] \\
-&= \frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^3}{12} \underbrace{\sum_{i=1}^n f''(c_i)}_{n f''(\mu)\:, n = (x_n-x_0)/h}\\
+&= \frac{h}{2}\bigl(f(a) + 2\sum_{i=1}^{n-1}f(x_i) + f(b)\bigr) - \frac{h^3}{12} \underbrace{\sum_{i=1}^n f''(c_i)}_{\substack{n f''(\mu),\\ n = (b-a)/h}}\\
 %
-\int_{a}^{b} f(x)dx &= \boxed{\frac{h}{2}\bigl(f(x_0) + 2\sum_{i=1}^{n-1}f(x_i) + f(x_n)\bigr) - \frac{h^2}{12}(b-a)f''(\mu) }
+\int_{a}^{b} f(x)dx &= \boxed{\frac{h}{2}\bigl(f(a) + 2\sum_{i=1}^{n-1}f(x_i) + f(b)\bigr) - \frac{h^2}{12}(b-a)f''(\mu) }
 \end{align*}
  
 \textbf{Composite Simpson}:\\
-Similarly, apply the Simpson rule on each subinterval. %Given $x_0, x_1, \dots, x_n$ and $f(x_0), f(x_1), \dots f(x_n)$, the grid space is $h = \frac{x_n-x_0}{n}$. 
+Similarly, apply the Simpson rule on each subinterval. Note that for the functionally-equivalent sense of $n$ intervals we really need to use $2n$ points since each Simpson is applied using 3 points, and the end points are re-used. Therefore $\int_{a}^{b} f(x)dx = $
 %
 \begin{align*}
-\int_{x_0}^{x_n} f(x)dx &= \sum_{i=2}^n \bigl[ \frac{h}{3}\bigl(f(x_{i-2}) + 4f(x_{i-1}) + f(x_i)\bigr) - \frac{f^{(4)}(c_i)}{90}h^5 \bigr]\\
-&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{\substack{i=1,\\i=\text{odd}}}^{n-1} f(x_i) + 2\sum_{\substack{i=2,\\i=\text{even}}}^{n-1} f(x_i) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)\\
-&\text{alternatively}\\
-&= \frac{h}{3}\bigl(f(x_0) + 4\sum_{i=1}^{n/2} f(x_{2i-1}) + 2\sum_{i=1}^{n/2-1} f(x_{2i}) + f(x_n)\bigr) - \frac{h^4}{90}(b-a)f^{(4)}(\mu)
+\sum_{i=1}^{n/2}\int_{x_{2i-1}}^{x_{2i}} f(x)dx &= \sum_{i=1}^{n/2} \bigl[ \frac{h}{3}\bigl(f(x_{2i-2}) + 4f(x_{2i-1}) + f(x_{2i})\bigr) - \frac{f^{(4)}(c_i)}{90}h^5 \bigr]\\
+&\quad \text{MVT: } \sum_{i=1}^{n/2}f^{(4)}(c_i) = \frac{n}{2}f^{(4)}(\mu) = \frac{b-a}{2h}f^{(4)}(\mu)\\
+&= \frac{h}{3}\bigl(f(a) + \underbrace{4\sum_{i=1}^{n/2} f(x_{2i-1})}_{\text{odd points}} + \underbrace{2\sum_{i=1}^{n/2-1} f(x_{2i})}_{\text{even points}} + f(b)\bigr) - \frac{h^4}{180}(b-a)f^{(4)}(\mu)
 \end{align*}
 
 
