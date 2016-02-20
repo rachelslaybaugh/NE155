@@ -355,7 +355,7 @@ Recall that complex conjugates are a pair of complex numbers, both the same exce
 \end{equation}
 
 %--------------------
-\item Antisymmetric / skew-symmetric if $\ve{A}^H = -\ve{A}$
+\item Antisymmetric / skew-symmetric if $\ve{A}^T = -\ve{A}$ (or, skew-Hermitian if $\ve{A}^H = -\ve{A}$)
 %
 \renewcommand{\aaa}{0}
 \renewcommand{\aab}{-2}
@@ -543,10 +543,11 @@ C_{ij} = (-1)^{i+j} M_{ij} \nonumber
 You can compute minors and cofactors for all of $\ve{A}$. The $n \times n$ matrix containing all of the cofactors is denoted $\ve{C}$ in this context.
 
 Using these terms, the \underline{determinant} (which we use for lots of stuff) can be defined in terms of the Laplace expansion
+\begin{align*}
+\text{det}(\ve{A}) &= \sum_{j=1}^n a_{ij} C_{ij} \text{ for any i} \in \{1,...,n\} \\
 %
-\begin{equation}
-\text{det}(\ve{A}) = \sum_{j=1}^n a_{ij} C_{ij} = \sum_{i=1}^n a_{ij} C_{ij} \nonumber
-\end{equation}
+&= \sum_{i=1}^n a_{ij} C_{ij} \text{ for any j} \in \{1,...,n\}
+\end{align*}
 
 For the above matrix, lets look at the Laplace expansion along the second column ($j = 2$; sum runs over $i$)
 \begin{align}
