@@ -184,17 +184,17 @@ The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^
       m_{n1} & \cdots & m_{n,n-1} & 1 
     \end{pmatrix} \qquad
   \ve{U} = \begin{pmatrix}
-      a_{11} & a_{12} & \cdots & a_{1n} \\
-      0      & a_{22} & \cdots & a_{2n} \\
+      u_{11} & u_{12} & \cdots & u_{1n} \\
+      0      & u_{22} & \cdots & u_{2n} \\
       \vdots & \vdots & \ddots & \vdots \\     
-      0      & 0      & \cdots &  a_{nn} 
+      0      & 0      & \cdots &  u_{nn} 
     \end{pmatrix}
     \nonumber   
 \end{equation} 
 %
-For a given column, $j = 1, \dots, n$, the $m_{ij}$ are $a_{ij} / a_{jj}$ for $i = j, \dots, n$. 
+For a given column, $j = 1, \dots, n$, the $m_{ij}$ (which as you'll see below we can think of as $m$ultipliers) are $a^*_{ij} / a^*_{jj}$ for $i = j, \dots, n$. 
 
-Caveat: we use the entries in the version of $\ve{A}$ \textit{that comes from the process of row-reducing} $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
+Here the $a^*$ are the the entries in the version of $\ve{A}$ \textit{that comes from the process of row-reducing} $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
 
 \textbf{example}
 \begin{equation}
