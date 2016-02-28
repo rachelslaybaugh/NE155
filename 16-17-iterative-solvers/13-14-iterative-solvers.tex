@@ -98,7 +98,7 @@ We need iterative methods when our system of linear equations is large. Recall: 
 
 We will write this as \[\vec{x}^{(k+1)} = \ve{P}\vec{x}^{(k)} +  \tilde{\vec{b}}\:,\qquad k = 0, 1, \dots \]
 
-We will split $\ve{A}$ to execute our process.
+We will add a matrix $\ve{S}$ to both sides to execute our process.
 %
 \begin{align}
 (\ve{A} + \ve{S}) \vec{x} &= \ve{S}\vec{x} + \vec{b} \nonumber \\
@@ -137,7 +137,7 @@ To determine convergence, we define the iterative error as follows, noting that 
 \end{align}
 %
 Now we can use norms  to determine a rate of convergence:
-\[||\vec{e}^{(k+1)}|| = ||\ve{P}^{k+1}\vec{e}^{(0)}|| \leq ||\ve{P}^{k+1}|| ||\vec{e}^{(0)}||\:, \]
+\[||\vec{e}^{(k+1)}|| = ||\ve{P}^{k+1}\vec{e}^{(0)}|| \leq ||\ve{P}^{k+1}||\: ||\vec{e}^{(0)}||\:, \]
 and the rate of convergence is therefore governed by $||\ve{P}^{k+1}||$.
 
 There is a theorem (offered without proof):
@@ -147,7 +147,7 @@ where $\rho(\ve{P})$ is the spectral raidus of $\ve{P}$, and this implies
 
 \underline{Alternative:} Recall that $|| \ve{P}^k ||_2$ = $\rho(\ve{P}^k)$ and that $ \rho^k (\ve{P}) = \rho(\ve{P}^k)$. We also know that all norms can be related, so finding an error bound in one norm bounds all norms. 
 
-Thus, a sufficient and necessary condition for convergence is:
+Thus, a sufficient \textit{and} necessary condition for convergence is:
 \[\rho^{k+1}(\ve{P}) < 1 \rightarrow \rho(\ve{P}) < 1 \]
 
 \underline{\textbf{Note:}} $\ve{Q}^{-1}$ must be easy to compute. We often select $\ve{Q}$ to be diagonal, triangular, or tri-diagonal. Further, $\ve{Q}$ must be chosen such that $\rho(\ve{P}) < 1$.
@@ -204,7 +204,7 @@ The algorithm for this method is, for $i = 1, \dots, n$:
 %
 In matrix notation, this looks like:
 \[(\ve{D} + \ve{L})\vec{x}^{k+1} = -\ve{U} \vec{x}^{(k)} + \vec{b}\:, \]
-where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. This makes $\ve{P}_{GS} = (\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
+where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. This makes $\ve{P}_{GS} = -(\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
 converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly - especially in highly scattering systems \cite{LeVeque2007}. 
 
 The spectral radii for some materials of practical interest determined using cross sections with 41 thermal upscattering groups are: graphite = 0.9984, heavy water = 0.9998, and iron = 0.6120 \cite{Adams2002}, \cite{Evans2009d}.
