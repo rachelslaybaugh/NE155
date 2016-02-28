@@ -229,7 +229,7 @@ For $i = 1, \dots, n$:
 \[ x^{(k+1)}_i = (1-\omega)x_i^{(k)} + \frac{\omega}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) \:.\]
 
 Whether and how much better we do that GS is determined by $\omega$.
-Determining the best $\omega$, $\omega_{opt}$ is problem-dependent and is not practical to do in general.
+Determining the best $\omega$, $\omega_{opt}$, is problem-dependent and is not practical to do in general.
 %
 \begin{figure}[h!]
 \begin{center}
@@ -254,7 +254,7 @@ How many iterations does it take to reduce error by a factor of $\epsilon$?
 %Then
 %
 \begin{align}
-|| \vec{e}^{(k)} || &\leq \epsilon || \vec{e}^{(0)} || \nonumber \\
+|| \vec{e}^{(k)} || &\leq \epsilon \: || \vec{e}^{(0)} || \nonumber \\
 %
 || \vec{e}^{(k)} || &\leq \rho(\ve{P})^k || \vec{e}^{(0)} || \nonumber \\
 %
