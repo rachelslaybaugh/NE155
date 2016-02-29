@@ -21,6 +21,7 @@
 \renewcommand{\ttdefault}{cmtt}
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
+\usepackage{multicol}
 
 % Draw figures yourself
 \usepackage{tikz} 
@@ -180,7 +181,7 @@ What could we do instead? \underline{cell-centered}, which leads us to our next 
 %-----------------------------------------------------
 %-----------------------------------------------------
 \section*{Finite Volume Method}
-Rather than pointwise approximations on a grid, FVM approximates an average integral value on a reference volume.
+Rather than pointwise approximations on a grid, FVM approximates an average integral value on a reference volume. We will use this grid, noting that $x_{i-1/2} = x_i - h_i/2$.
 
 %
 \begin{center}
@@ -198,6 +199,8 @@ Rather than pointwise approximations on a grid, FVM approximates an average inte
 \node[below] at (6,-.25) {$x_{i+1}$};
 \node[above] at (3.75, 0.25) {$x_{i-1/2}$};
 \node[above] at (5.25, 0.25) {$x_{i+1/2}$};
+\node[below] at (3.75, -0.75) {$h_{i}$};
+\node[below] at (5.25, -0.75) {$h_{i+1}$};
 \end{tikzpicture}
 \end{center}
 
@@ -209,12 +212,13 @@ We can evaluate the lhs analytically and the rhs using some integration rule. Fo
 ----------\\
 Recall: from open Newton Cotes with Lagrange polynomials and $n=0$; it only uses one point:
 \[\int_a^b f(x)dx = \int_{x_{i-1/2}}^{x_{i+1/2}} f(x)dx = hf(x_i) + \frac{h^3}{3}f''(\xi)\:,\]
-where $x_{i-1/2} < \xi < {i+1/2}$ and in this case $h=(x_{i+1/2}-x_{i-1/2})$.\\
+where $x_{i-1/2} < \xi < x_{i+1/2}$ and in this case $h=(x_{i+1/2}-x_{i-1/2})$.\\
 ----------
 %
 \[f'(x_{i+1/2}) - f'(x_{i-1/2}) = (x_{i+1/2} - x_{i-1/2})r(x_i)\:.\]
 %
-We can now use differencing schemes to represent the derivatives on the left. We now consider the value centered at the half point and use the integer points on either side:
+We can now use differencing schemes to represent the derivatives on the left. \\
+Consider the value centered at the half point and use the integer points on either side:
 %
 \begin{center}
 \begin{tikzpicture}
@@ -253,13 +257,15 @@ This
 %---------------------------------------------
 \subsection*{DE} 
 What does this look like if we apply it to the steady-state, 1-D diffusion equation?
-\[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S(x)\:.\]
-%
-\begin{figure}[h!]
-\includegraphics[height=1in]{FVM-fig}
-\end{figure}
-%
+\[-\frac{d}{dx}D(x)\frac{d \phi(x)}{dx} + \Sigma_a(x) \phi(x) = S(x)\:.
+\]
+
 Let's also assume we have an equilibrium (reflecting) condition at the centerline ($x_0 = 0$) and vacuum on the right ($x_n = a$):
+
+\begin{figure*}[h!]
+\includegraphics[height=1in]{FVM-fig}
+\end{figure*}
+%
 \begin{align}
 \frac{d}{dx}\phi(x) \big|_{x=0} &= 0 \qquad \text{zero net current,} \nonumber\\
 \phi(\tilde{a}) &= 0 \qquad \tilde{a} = a + 2D \:.\nonumber
