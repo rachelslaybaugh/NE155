@@ -50,8 +50,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 22-24 S15 \\
-1-D Finite Difference and Volume Methods for 1D \\ March 13-18, 2015}
+{\bf NE 155, Classes 18, 19, 22 S16 \\
+1-D Finite Difference and Volume Methods for 1D \\ March 2, 4, 11, 2016}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -108,7 +108,7 @@ f'(x_i) &= \frac{f(x_i + h) - f(x_i - h)}{2h} - \frac{h^2}{6} f'''(\mu) \:,\nonu
 f''(x_i) &= \frac{f(x_i + h) - 2f(x_i) + f(x_i - h)}{h^2} + \frac{h^2}{12}f^{(4)}(\mu)\:, \nonumber
 \end{align}
 %
-We will also define $p_i = p(x_i)$, $q_i = q(x_i)$, $r_i = r(x_i)$.
+We will also define $p_i = p(x_i)$, $q_i = q(x_i)$, $r_i = r(x_i)$ and use the notation $f(x_i) = f_i$, $f(x_i+h) = f_{i+i}$, etc., which also means $f_0 = \alpha$ and $f_n = \beta$.
 
 Substituting into the original equation, we get:
 \begin{align}
@@ -124,7 +124,7 @@ We only have $n-1$ equations, but because the boundaries are fixed that is all w
 &\bigl(\frac{-h}{2}p_{n-1} - 1\bigr) f_{n-2} + \bigl(2 + h^2q_{n-1}\bigr)f_{n-1}  \underbrace{-\bigl(\frac{-h}{2}p_{n-1} + 1\bigr) \underbrace{\beta}_{f_n}}_{bc_R}= -h^2 r_{n-1} \:.\nonumber
 \end{align}
 
-Thus, we can write this as a matrix equation:
+We can write this as a matrix equation, moving the known boundary conditions to the right hand side:
 \begin{equation}
 \begin{pmatrix}
 \bigl(2 + h^2q_1\bigr) & \bigl(\frac{h}{2}p_1 - 1\bigr) & & \hdots & 0 \\
@@ -139,8 +139,8 @@ Thus, we can write this as a matrix equation:
 f_1 \\ f_2 \\ \vdots \\ f_{n-2} \\ f_{n-1} \\
 \end{pmatrix}
 = 
--\begin{pmatrix}
-h^2 r_1 + bc_L \\ h^2 r_2 \\ \vdots \\ h^2 r_{n-2} \\ h^2 r_{n-1} + bc_R\\ 
+\begin{pmatrix}
+-h^2 r_1 + bc_L \\ -h^2 r_2 \\ \vdots \\ -h^2 r_{n-2} \\ -h^2 r_{n-1} + bc_R\\ 
 \end{pmatrix}\:.\nonumber
 \end{equation}
 
