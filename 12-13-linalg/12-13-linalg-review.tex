@@ -757,7 +757,9 @@ Let's think about the meaning of the spectral radius. \textit{This is the larges
 %\end{align}
 
  %--------------------------------------------------------------------------
-\section*{All matrix norms are bounded}
+\section*{Spectral radii are bounded}
+
+(reference: \href{http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf}{http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf})
 
 For $\lambda \in \sigma(\ve{A})$ 
 \[|\lambda | \leq ||\ve{A}||\]
@@ -765,20 +767,20 @@ For $\lambda \in \sigma(\ve{A})$
 
 \underline{proof:} 
 \begin{enumerate}
-\item The eigenvalues of $\ve{A}$ satisfy $\ve{A}\vec{x} = \lambda x$, $\vec{x} \neq \vec{0}$. 
+\item The eigenvalues of $\ve{A}$ satisfy $\ve{A}\vec{x} = \lambda \vec{x}$, $\vec{x} \neq \vec{0}$. 
 
-\item Let the eigenvectors of $\ve{A}$ be $\vec{v} = [\vec{v_1}, \vec{v_2}, \dots, \vec{v_n}]$
+\item Let the eigenvectors of $\ve{A}$ be collected in a matrix $\ve{X} = [\vec{x_1}, \vec{x_2}, \dots, \vec{x_n}]$, giving $\ve{AX} = \lambda \ve{X}$.
 
 \item then 
 \begin{align}
-|\lambda |\: ||\vec{v}|| &= ||\lambda \vec{v}|| 
+|\lambda |\: ||\ve{X}|| &= ||\lambda \ve{X}|| 
 \qquad \text{property of norms} \nonumber \\
 %
-                     &= ||\ve{A}\vec{v}|| 
+                     &= ||\ve{A}\ve{X}|| 
                      \qquad \text{substitution} \nonumber \\
 %
-                     &\leq ||\ve{A}||\: ||\vec{v}||
-                     \qquad \text{triangle inequality} \nonumber \\
+                     &\leq ||\ve{A}||\: ||\ve{X}||
+                     \qquad \text{submultiplicative property} \nonumber \\
 %
 \therefore |\lambda | &\leq ||\ve{A}|| 
 \qquad \text{cancellation}\nonumber \\
