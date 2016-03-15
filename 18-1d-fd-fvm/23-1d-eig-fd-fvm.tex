@@ -333,10 +333,10 @@ In practice, it is desirable to avoid exponentiating a matrix, so we will use an
 We are also quite interested in the \textit{convergence behavior} of PI. After $m$ steps, the iteration vector will be: 
 %
 \begin{equation}
-  v_{m} = \bigl( \frac{\lambda_{1}^{m}}{e_{1}^{T}\ve{B}^{m}v_{0}} \bigr) \bigl(\frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} \bigr) \:. \nonumber
+  v_{m} = \bigl( \frac{\lambda_{1}^{m}}{e_{1}^{T}\ve{B}^{m}v_{0}} \bigr) \bigl(\frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} \bigr) \:' \nonumber
 \end{equation}
 % 
-If $\ve{B}$ has eigenpairs $\{(x_{j}, \lambda_{j}), 1 \le j \le n \}$ and $v_{0}$ has the expansion $v_{0} = \sum_{j=1}^{n} x_{j}\gamma_{j}$ then
+where $e_{1}^{T}$ is a vector with 1 in the first entry and zeros elsewhere; it selects the first row of $\ve{B}$ in the multiplication. If $\ve{B}$ has eigenpairs $\{(x_{j}, \lambda_{j}), 1 \le j \le n \}$ and $v_{0}$ has the expansion $v_{0} = \sum_{j=1}^{n} x_{j}\gamma_{j}$ then
 %
 \begin{equation}
   \frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} =  \frac{1}{\lambda_{1}^{m}} \sum_{j=1}^{n} \ve{B}^{m}x_{j}\gamma_{j} = \sum_{j=1}^{n} \bigl(\frac{\lambda_{j}}{\lambda_{1}} \bigr)^m x_{j} \gamma_{j} \:.
