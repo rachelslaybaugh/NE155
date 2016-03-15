@@ -511,7 +511,7 @@ Here's the compact form of the (Thomas) algorithm:
 \item Backward sub starting with $i=n-1$
 \[\phi_{n-1} = \frac{v_{n-1}}{u_{n-1}}\]
 
-\item Then for $i= n-2, \dots, 1$
+\item Then for $i= n-2, \dots, 0$
 \[\phi_i = \frac{1}{u_i}\bigl(v_i + C_i \phi_{i+1}\bigr)\]
 \end{enumerate}
 
@@ -527,16 +527,17 @@ Recall: produce a sequence of vectors, $\vec{\phi}^{(1)}, \vec{\phi}^{(2)}, \dot
   \[\vec{\phi}^{(k+1)} = F(\vec{\phi}^{(k)}, \vec{S})\:, \quad \text{where } \displaystyle \lim_{k \rightarrow \infty} \vec{\phi}^{(k)} = \vec{\phi}\:.\] 
 %
 \begin{align}
-(\ve{A} + \ve{B}) \vec{\phi} &= \ve{B}\vec{x} + \vec{S} \nonumber \\
+(\ve{A} + \ve{B}) \vec{\phi} &= \ve{B}\vec{\phi} + \vec{S} \nonumber \\
 %
 \ve{C} \vec{\phi} &= \ve{B}\vec{\phi} + \vec{S} 
 \qquad\text{where } \ve{C} = \ve{A} + \ve{B} \nonumber \\
 %
 \vec{\phi} &= \ve{C}^{-1} \ve{B}\vec{\phi} + \ve{C}^{-1} \vec{S} 
+\qquad\text{assuming regular } \ve{C}
 \nonumber \\
 %
 \vec{\phi} &= \ve{P}\vec{\phi} + \tilde{\vec{S}}  
-\qquad\text{assuming regular } \ve{C}\nonumber
+\nonumber
 \end{align}
 %
 And the \textbf{fixed-point} iterative process is:
