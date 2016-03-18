@@ -16,7 +16,7 @@
 \begin{document}
 
 \begin{center}
-{\bf NE 155 - Introduction to Numerical Simulations in Radiation Transport \\ Final Project \\ Due May 12, 2015 
+{\bf NE 155 - Introduction to Numerical Simulations in Radiation Transport \\ Final Project \\ Due May 10, 2016 
 }
 \end{center}
 
@@ -27,75 +27,48 @@
 
 \renewcommand{\arraystretch}{2}
 
-Below is a list of possible term projects (there are Monte Carlo and deterministic options). If you intend to share a project among a team of students (maximum three students per team), check to ensure that the project has sufficient scope. The project is 30\% of your grade and is due on May 12. The following schedule will be imposed:
+Below is a list of possible projects (there are Monte Carlo and deterministic options). If you intend to share a project among a team of students (maximum three students per team), check to ensure that the project has sufficient scope. The project is 30\% of your grade and is due on May 10 at the time of the final presentation. The following schedule will be imposed:
 
 \vspace*{2 em}
-\textbf{April 8:} Decide which project to work on; turn in list of team members (if applicable) and a one- or two-page abstract of project, including:
-\begin{itemize}
-\item what you plan to do
-\item major steps to execute the project
-\item deadlines associated with each step
-\item what you need to do to accomplish each step (laying out a path to success)
-\item if in a team, the division of work
-\end{itemize}
+\textbf{April 1:} Decide which project to work on; turn in list of team members (if applicable) and a one- or two-page \textit{abstract}, including:
+\begin{enumerate}
+\item What you plan to do
+\item Major steps to execute the project
+\item Deadlines associated with each step
+\item What you need to do to accomplish each step (laying out a path to success)
+\item If in a team, the division of work
+\end{enumerate}
 
 \vspace*{2 em}
-\textbf{April 20	:} Submit written report (4, 6, or 8 pages maximum for 1, 2, or 3 people, respectively) explaining your project. See the code project or analysis project rubrics for details of what to include.
+\textbf{April 15	:} Submit a written \textit{interim} report (4, 6, or 8 pages maximum for 1, 2, or 3 people, respectively) explaining your project. See the rubric for details of what to include.
 
 \vspace*{2 em}
-\textbf{May 12:} Presentations (between 5 and 15 minutes, depending on project and team size). See the code project or analysis project rubrics for details of what to include.
+\textbf{May 10:} Presentations (between 6 and 12 minutes, depending on project and team size). See the rubric for details of what to include.
 
 \vspace*{2 em}
-\textbf{May 12:} Final written reports (about 6-7 pages/team member as a rule of thumb) are due. See the code project or analysis project rubrics for details of what to include.
+\textbf{May 10:} Final written reports (about 6-7 pages/team member as a rule of thumb) are due. See the rubric for details of what to include.
 
 \clearpage 
 \begin{center}
 \textbf{Potential project topics:}
 \end{center}
-There are two main project types: \textbf{code} and \textbf{analysis}. They have different scoring criteria for the reports and presentations.
-
-\begin{center}
-\textit{Code topics:}
-\end{center}
-If you are comfortable writing your project in Python, I encourage you to consider using PyNE (\href{http://pyne.io}{http://pyne.io}) to facilitate your project. Depending on what you do, we might be able to contribute your project back to the PyNE code base over the summer.
 
 \begin{enumerate}
 \item Write a 2D diffusion solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project. 
 
-\item Write a 2D transport solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project. 
+\item Write a 2D transport solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project.
 
-%\item Plasma power density is defined in a ``plasma" coordinate system that is related to real space through Fourier coefficients. This defines the source on a set of known flux surfaces. We would like to be able to take this source data and transform it to Cartesian space such that it can be used by solvers more easily. The transformation involves some coordinate mapping and numerical integration. The result can be formatted as a cumulative distribution function for Monte Carlo sampling, or left as a meshed distribution of values. I have more details to help this along.
+\item Write a simple Monte Carlo solver that will include tallies, a subset of sampling routines, and implicit capture. I have more detailed specifications and some helpful tasks to facilitate completion if you choose this project. (It is unlikely this will be an easy choice if you do not already have familiarity with MC since we're covering that last).
 
-%This general idea was originally implemented in MATLAB. This project is to convert the original code to Python, improve the implementation, and perform some experiments to ensure it functions correctly. A stretch goal and/or continuing work would be to implement adaptive mesh selection.
+\item Propose your own project; this can include writing a code or studying and characterizing the way a code performs. Please use this as an opportunity to expand on or compliment work you are already doing.
 
-\item Propose your own project to write a method for deterministic or Monte Carlo code. 
+\item If you really really want to do an analysis project we can talk about that as an option.
 \end{enumerate}
 
-\begin{center}
-\textit{Analysis topics:}
-\end{center}
-You may need software that requires a license (MCNP, Serpent, SCALE). If you do not have the appropriate license already, it may not be a good idea to do one of those projects - though Serpent is pretty easy to obtain quickly.
+\vspace*{1 em}
+PLEASE use version control for your project. 
 
-\begin{enumerate}
-\item Propose your own project for doing analysis with an existing deterministic or Monte Carlo code. 
-
-\item There was a reactor in Baghdad that was used to measure a some nuclear data. We would like to model this experiment in MCNP to try to reproduce the inelastic neutron scattering data. This project involves creating a model based on two publications with information about the experiment, running the model, and comparing to the results. I can give you some source materials, and Lee Bernstein and I will help you get started. This one has no guarantee of success.  
-
-\item Some interesting problems in computational radiation dosimetry were posed by the European Commission; they can be modeled with MCNP A full description of the problems can be found at: \href{http://www.nea.fr/download/quados/quados.html}{http://www.nea.fr/download/quados/quados.html}
-
-The eight problems are: 
-\begin{itemize}
-\item Brachytherapy (photons)
-\item Endovascular (electrons)
-\item proton eye treatment (protons)
-\item TLD-albedo dosimeter response function (neutrons)
-\item ISO phantom backscatter (photons)
-\item Environmental scatter (neutrons)
-\item Simulation of response of germanium detector (photons)
-\item detection sensitivity to the position of an Am-Be source (neutrons)
-\end{itemize}	
-%
-%\item Nuclear material control and accountability is an important topic. Model a spent fuel cask and perform some analysis calculations with either Serpent, MCNP, or MAVRIC (a Monte Carlo code accelerated by deterministicly-created weight windows; it is part of the SCALE package). After you build the model you can do some comparison calculations. E.g.\ what happens if you remove some of the fuel or change the fuel composition?
-\end{enumerate}
+\vspace*{1 em}
+If you are comfortable writing your project in Python, consider using PyNE (\href{http://pyne.io}{http://pyne.io}) to facilitate your project. Depending on what you do, we might be able to contribute your project back to the PyNE code base over the summer.
 
 \end{document}
