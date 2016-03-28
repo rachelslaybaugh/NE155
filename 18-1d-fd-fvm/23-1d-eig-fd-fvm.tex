@@ -317,29 +317,29 @@ This idea applies to any discretization strategy. To use the finite difference f
 
 Power Iteration (PI) is an old and straightforward algorithm for finding an eigenvalue/vector pair. 
 
-The basic idea is that any non-zero vector can be written as a linear combination of the eigenvectors of $\ve{B}$ because the eigenvectors are linearly independent, namely $v_0 = \gamma_1 x_1 + \gamma_2 x_2 + \cdots + \gamma_n x_n$, where $x_{j}$ is the $j$th eigenvector and $\gamma_{j}$ is some constant. This specific expression assumes a non-defective $\ve{B}$, though this assumption is not necessary for the method to work. 
+The basic idea is that any non-zero vector can be written as a linear combination of the eigenvectors of $\ve{B}$ because the eigenvectors are linearly independent, namely $\vec{v}_0 = \gamma_1 \vec{x}_1 + \gamma_2 \vec{x}_2 + \cdots + \gamma_n \vec{x}_n$, where $\vec{x}_{j}$ is the $j$th eigenvector and $\gamma_{j}$ is some constant. This specific expression assumes a non-defective $\ve{B}$, though this assumption is not necessary for the method to work. 
 
-Another fact that is used to understand power iteration is that $\ve{B}^m x_i = \lambda_i^m x_i$. Thus
+Another fact that is used to understand power iteration is that $\ve{B}^m \vec{x}_i = \lambda_i^m \vec{x}_i$. Thus
 %
 \begin{equation}
-  \ve{B}^m v_{0} = \gamma_1 \lambda_1^m x_1 + \gamma_2 \lambda_2^m x_2 + \cdots + \gamma_n \lambda_n^m x_n \:.\nonumber
+  \ve{B}^m \vec{v}_{0} = \gamma_1 \lambda_1^m \vec{x}_1 + \gamma_2 \lambda_2^m \vec{x}_2 + \cdots + \gamma_n \lambda_n^m \vec{x}_n \:.\nonumber
   \label{eq:Ak}
 \end{equation}
 %
-Since $|\lambda_1| > |\lambda_i|, i \ne 1$, the first term in the expansion will dominate as $k \to \infty$ and $\ve{B}^m v_{0}$ therefore becomes an increasingly accurate approximation to $x_1$. 
+Since $|\lambda_1| > |\lambda_i|, i \ne 1$, the first term in the expansion will dominate as $m \to \infty$ and $\ve{B}^m \vec{v}_{0}$ therefore becomes an increasingly accurate approximation to $\vec{x}_1$. 
 
-In practice, it is desirable to avoid exponentiating a matrix, so we will use an algorithm that does something else. It is also helpful to normalize $v_0$ to avoid possible over or underflow.
+In practice, it is desirable to avoid exponentiating a matrix, so we will use an algorithm that does something else. It is also helpful to normalize $\vec{v}_0$ to avoid possible over or underflow.
 
 We are also quite interested in the \textit{convergence behavior} of PI. After $m$ steps, the iteration vector will be: 
 %
 \begin{equation}
-  v_{m} = \bigl( \frac{\lambda_{1}^{m}}{e_{1}^{T}\ve{B}^{m}v_{0}} \bigr) \bigl(\frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} \bigr) \:' \nonumber
+  \vec{v}_{m} = \bigl( \frac{\lambda_{1}^{m}}{\vec{e}_{1}^{T}\ve{B}^{m}\vec{v}_{0}} \bigr) \bigl(\frac{1}{\lambda_{1}^{m}}\ve{B}^{m}\vec{v}_{0} \bigr) \:' \nonumber
 \end{equation}
 % 
-where $e_{1}^{T}$ is a vector with 1 in the first entry and zeros elsewhere; it selects the first row of $\ve{B}$ in the multiplication. If $\ve{B}$ has eigenpairs $\{(x_{j}, \lambda_{j}), 1 \le j \le n \}$ and $v_{0}$ has the expansion $v_{0} = \sum_{j=1}^{n} x_{j}\gamma_{j}$ then
+where $\vec{e}_{1}^{T}$ is a vector with 1 in the first entry and zeros elsewhere; it selects the first row of $\ve{B}$ in the multiplication. If $\ve{B}$ has eigenpairs $\{(\vec{x}_{j}, \lambda_{j}), 1 \le j \le n \}$ and $\vec{v}_{0}$ has the expansion $\vec{v}_{0} = \sum_{j=1}^{n} \vec{x}_{j}\gamma_{j}$ then
 %
 \begin{equation}
-  \frac{1}{\lambda_{1}^{m}}\ve{B}^{m}v_{0} =  \frac{1}{\lambda_{1}^{m}} \sum_{j=1}^{n} \ve{B}^{m}x_{j}\gamma_{j} = \sum_{j=1}^{n} \bigl(\frac{\lambda_{j}}{\lambda_{1}} \bigr)^m x_{j} \gamma_{j} \:.
+  \frac{1}{\lambda_{1}^{m}}\ve{B}^{m}\vec{v}_{0} =  \frac{1}{\lambda_{1}^{m}} \sum_{j=1}^{n} \ve{B}^{m}\vec{x}_{j}\gamma_{j} = \sum_{j=1}^{n} \bigl(\frac{\lambda_{j}}{\lambda_{1}} \bigr)^m \vec{x}_{j} \gamma_{j} \:.
   \label{eq:PIexpand}
 \end{equation}
 %
