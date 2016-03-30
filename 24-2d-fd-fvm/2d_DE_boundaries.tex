@@ -271,10 +271,10 @@ The top boundary condition is:
 \node[above] at (5,4) {$s_6$};
 \node[above] at (3,4) {$s_7$};
 % surrounding grid and markers
-\draw plot[mark=*, mark options={fill=black}] (0,4) node[left] {$(i-1,m)$};
+\draw plot[mark=*, mark options={fill=black}] (0,4) node[above] {$(i-1,m)$};
 \draw (0,4) -- plot[mark=*, mark options={fill=black}] (4,4) node[above] {$(i,m)$};
 \draw (4,4)-- plot[mark=*, mark options={fill=black}] (4,0) node[below] {$(i,m-1)$};
-\draw (4,4)-- plot[mark=*, mark options={fill=black}] (8,4) node[above] {$(i,m+1)$};
+\draw (4,4)-- plot[mark=*, mark options={fill=black}] (8,4) node[above] {$(i+1,m)$};
 % arrows
 \draw[<->](0,0.5) -- (4,0.5);
 \node[below] at (2,0.5) {$\delta_{i}$};
@@ -284,7 +284,7 @@ The top boundary condition is:
 \node[left] at (0.5,2) {$\epsilon_{m}$};
 \end{tikzpicture}
 
-To implement the boundary condition, we integrate in the last half-cell, so from $y=\epsilon_m / 2$ to $y=b$. 
+To implement the boundary condition, we integrate in the last half-cell, so from $y=b-\epsilon_m / 2$ to $y=b$. 
 
 Recall that when we considered the streaming term we converted the volume integral into a surface integral: 
 \begin{align}
