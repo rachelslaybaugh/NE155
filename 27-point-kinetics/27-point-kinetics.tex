@@ -39,7 +39,7 @@
 Reactor Kinetics in Zero Dimensions}
 \date{April 1, 2016}
 \begin{document}
-%\author{guest lecturer: Kathryn Huff}
+\author{content provided by: Kathryn Huff}
 \maketitle
 
 \hrulefill
@@ -77,7 +77,7 @@ decreases during otherwise normal operation.
 \section{Delayed Neutrons}
 Reactor control relies on a balance of neutrons. When an isotope fissions, it 
 produces neutrons, energy, and fission products.  Most of the neutrons emitted 
-due to fission are \emph{prompt}, nearly all within $10^{-10}s$ of the fission. 
+due to fission are \emph{prompt}, nearly all released within $10^{-10}s$ of the fission. 
 
 \subsection{Delayed Neutron Emission}
 However, a fraction of the neutrons appear later. Some fission products are 
@@ -94,13 +94,13 @@ their half-lives. Standardized data exist for these calculations, as in Table
 \input{delayed_neutron_tab}
 
 In the above table:
-\begin{align}
+\begin{align*}
 j &= \mbox{group index}\\
 t_{1/2} &= \mbox{half life} [s]\\
 \lambda_j^d &= \mbox{decay constant} [1/s]\\
 \eta_j &= \mbox{fission factor} [neutrons/fisson]\\
 \beta_j &= \mbox{delayed neutron fraction} \\&\quad[\text{neutrons from delayed fission / neutrons from all fission}]\nonumber
-\end{align}
+\end{align*}
 
 These parameters are used to incorporate the contributions of delayed neutrons 
 into transient calculations.
@@ -109,18 +109,18 @@ into transient calculations.
 These delayed neutrons are critical to controlling the reactor. 
 To capture the reasons why, we will need the following definitions.
 
-\begin{align}
-\rho &= \mbox{reactivity}\\
+\begin{align*}
+\rho =& \mbox{reactivity}\\
 &= \frac{k-1}{k}\\
-k &= \mbox{multiplication factor}\\
+k =& \mbox{multiplication factor}\\
 &(k < 1) \rightarrow \mbox{negative reactivity}\\
 &(k > 1) \rightarrow \mbox{positive reactivity}\\
 &(k = 1) \rightarrow \mbox{critical}\\
-\beta &= \mbox{delayed neutron fraction}\\
+\beta =& \mbox{delayed neutron fraction}\\
 &(\rho < \beta) \mbox{ delayed supercriticality}\\
 &(\rho > \beta) \mbox{ prompt supercriticality}\\
-l &= \mbox{mean neutron lifetime}
-\end{align}
+l =& \mbox{mean neutron lifetime}
+\end{align*}
 
 \subsection{Units of Reactivity}
 Note that the units of $\rho$ can be confusing. 
@@ -128,25 +128,27 @@ Note that the units of $\rho$ can be confusing.
 \input{./rho_units}
 
 \subsection{Thought Experiment}
-If there were no delayed neutrons, then the time constant for power increase 
-would be approximately  $l_p$, the prompt neutron lifetime. That isn't the 
-case, but if it were, the reactor power would proceed thus:
+%If there were no delayed neutrons, then the time constant for power increase 
+%would be approximately  $l_p$, the prompt neutron lifetime. That isn't the 
+%case, but if it were, the reactor power would proceed thus:
+Reactor power behaves as:
 
 \begin{align}
 l &= \mbox{mean generation time}\\
-n(t+l) &= n(t) + l\frac{dn}{dt} = k_\infty n(t)
+n(t+l) &= n(t) + l\frac{dn}{dt} = k n(t)
 \intertext{such that}
 \frac{dn}{dt} &= \left(\frac{k-1}{l}\right)n(t)
 \intertext{which gives}
 n(t) &= n_0e^{\frac{(k-1)t}{l}}
 \intertext{characterized by the time constant}
 T &= \mbox{reactor period}\\
-  &= \frac{l}{k-1}
+  &= \frac{l}{k-1}\:.
 \end{align}
 
 In a universe without delayed neutrons, the mean neutron lifetime ($l$) would be 
-the prompt neutron lifetime ($l_p$).  Noting that the prompt neutron lifetime is about 
+the prompt neutron lifetime, $l_p$.  Noting that the prompt neutron lifetime is about 
 $2\times10^{-5}s$, take a moment to think about the implications of this.
+What would it be like to try to control a reactor like that?
 
 \paragraph{Exercise}
 \emph{If a control rod were moved to introduce an excess reactivity of }$0.0005\Delta 
@@ -172,7 +174,7 @@ Review this equation. Note how, to incorporate delayed neutrons, the $\chi (E)$
 fission spectrum must be properly weighted with prompt and delayed 
 contributions. To incorporate delayed neutrons explicitly (rather than 
 implicitly as above), it is necessary to begin with the time-dependent, 
-one-speed diffusion equation, and including a source contribution from delayed 
+one-speed diffusion equation, and include a source contribution from delayed 
 neutrons. That contribution depends on the concentration of delayed neutron 
 precursors.  
 
@@ -221,6 +223,17 @@ dimensions. If we assume a separation of variables solution  to
   \nabla^2\psi_n &+ B_g^2\psi_n = 0.
 \end{align}
 
+-----------------------\\
+ASIDE: $B^2$ is called buckling, which we can think of two ways \cite{lamarsh_introduction_2001}
+\begin{align*}
+B^2 &= \frac{1}{D}\bigl( \frac{1}{k}\Sigma_f - \Sigma_a \bigr) \\
+\intertext{or}
+&= \frac{k_{\infty} - 1}{L^2}\\
+\intertext{in either case}
+\nabla^2 \phi + B^2\phi = 0\:.
+\end{align*} 
+-----------------------
+
 Using this separation of variables solution reduces the spatial complexity of
 the reactor to a single point. Inserting \eqref{sep_var_phi} and
 \eqref{sep_var_c} into \eqref{boltz_one_speed} gives the Point Reactor Kinetics Equations (PRKE).
@@ -229,6 +242,8 @@ the reactor to a single point. Inserting \eqref{sep_var_phi} and
   \frac{dn(t)}{dt} &= \frac{\rho(t)-\beta}{\Lambda}n(t) + \sum_{i=1}^{6}\lambda_iC_i(t)\\
   \frac{dC_i(t)}{dt} &= \frac{\beta_i}{\Lambda}n(t) - \lambda_i C_i(t)
   \label{prke}
+ \end{align}
+ \begin{align*}
   \intertext{where}
   i&\in[1,6]\nonumber\\
   n &= \mbox{neutron population}\\
@@ -242,7 +257,7 @@ the reactor to a single point. Inserting \eqref{sep_var_phi} and
          &\equiv\frac{\nu\Sigma_F-\Sigma_a(1+L^2B_g^2)}{\nu\Sigma_F}\nonumber\\
   \intertext{and}
   k&\equiv \frac{\nu\Sigma_F/\Sigma_a}{1+L^2B_g^2}.\nonumber
-\end{align}
+\end{align*}
 
 The PRKEs allow a nuclear engineer to remove the spatial aspects of the
 reactor from consideration to simplify the analysis of this initial value 
