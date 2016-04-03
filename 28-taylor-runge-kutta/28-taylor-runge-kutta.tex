@@ -35,11 +35,11 @@
 \newcommand{\Macro}{\ensuremath{\Sigma}}
 
 %---------------------------------------------------------------------------
-\title{NE 155, Class 28, S15 \\
+\title{NE 155, Class 29, S16 \\
 Taylor Series Methods and Runge-Kutta}
-\date{April 3, 2015}
+\date{April 4, 2016}
 \begin{document}
-\author{guest lecturer: Kathryn Huff}
+\author{materials from: Kathryn Huff}
 \maketitle
 
 \hrulefill
@@ -81,10 +81,9 @@ u(t_{n+1}) \approx u(t_n) + ku'(t_n)
 And, based on equation \eqref{ivp} we can replace $u'(t_n)$ with 
 $f(u(t_n),t_n)$:
 
-\begin{align}
-\frac{1}{2}k^2u''(t_n) + \cdots\\
-u(t_{n+1}) = u(t_n) + kf(u(t_n),t_n)
-\end{align}
+\begin{equation}
+u(t_{n+1}) = u(t_n) + kf(u(t_n),t_n) + H.O.T.
+\end{equation}
 
 This expression gives a truncation error of order $O(k^2)$. More 
 accurate schemes can be derived with a Taylor series expansion by retaining 
@@ -139,8 +138,10 @@ application of a Forward Euler.
 
 To avoid confusion with the multiplication factor, the width of our timestep will be called $\Delta t$.
 
-\begin{align}
-n(t_{n+1}) = n(t) + \Delta t\left[\frac{\rho(t_n)-\beta}{\Lambda}n(t_n) + \displaystyle\sum^{j=J}_{j=1}\lambda_j\zeta_j\right]\\
-\end{align}
+\begin{equation}
+n(t_{n+1}) = n(t) + \Delta t\left[\frac{\rho(t_n)-\beta}{\Lambda}n(t_n) + \displaystyle\sum^{j=J}_{j=1}\lambda_j\zeta_j\right]
+\end{equation}
+
+
 
 \end{document}
