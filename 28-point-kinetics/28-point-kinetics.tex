@@ -166,7 +166,7 @@ Let's begin by observing the steady-state diffusion equation.
 -\nabla D(\vec{r},E)\nabla\phi(\vec{r},E) +& \Sigma_t(\vec{r},E)\phi(\vec{r},E) 
 = \nonumber\\
 &\int_0^\infty \Sigma_s(\vec{r},E'\rightarrow E)\phi(\vec{r},E')dE'\nonumber\\ 
-&+ \sum_j \chi_T^j(E)\int_0^\infty v\Sigma_p^j(\vec{r},E')\phi(\vec{r},E')dE' + 
+&+ \sum_j \chi^j(E)\int_0^\infty v\Sigma_f^j(\vec{r},E')\phi(\vec{r},E')dE' + 
 Q(\vec{r},E)
 \end{align}
 
@@ -199,7 +199,7 @@ equation has seven dimensions.  Taking delayed neutrons into account, the one
 speed neutron diffusion equation can be written,
 
 \begin{align}
-  \frac{1}{v}\frac{\partial \phi(r,t)}{\partial t} - D(r,t)\nabla^2\phi(r,t) + \
+  \frac{1}{v}\frac{\partial \phi(r,t)}{\partial t} - \nabla D(r,t) \nabla \phi(r,t) + \
   \Sigma_a(r,t)\phi(r,t) = (1-\beta)\nu\Sigma_F(r,t)\phi(r,t) + \
   \sum_{i=1}^6\lambda_i\hat{C}_i(r,t).
   \label{boltz_one_speed}
