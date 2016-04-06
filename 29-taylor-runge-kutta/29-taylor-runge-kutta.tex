@@ -85,7 +85,7 @@ $f(u(t_n),t_n)$:
 u(t_{n+1}) = u(t_n) + kf(u(t_n),t_n) + H.O.T.
 \end{equation}
 
-This expression gives a truncation error of order $O(k^2)$. More 
+This expression gives a one-step truncation error of order $O(k^2)$ (that is, this step introduces $O(k^2)$ error) and a global truncation error of $O(k)$ (because you take $T/k$ time steps to get to time $T$). More 
 accurate schemes can be derived with a Taylor series expansion by retaining 
 higher order terms in equation \eqref{taylor}. Since we are only given 
 $u'(t_n) = f(u(t_n),t_n)$, however, the computation of such schemes requires 
@@ -93,6 +93,7 @@ repeated recursive differentiation of this function, and can get quite messy.
 
 
 \section{Runge-Kutta Methods}
+LeVeque, Randall J. \textit{Finite Difference Methods for Ordinary and Partial Differential Equations}. Philadelphia, PA: SIAM, 2007. 
 
 Runge-Kutta is a method used in practice to get a higher order approximation 
 \emph{without} explicitly calculating higher order derivatives.
@@ -118,17 +119,21 @@ U^{n+1} = U^n + kf(U^n + \frac{1}{2}kf(U^n))
 \end{align}
 
 This approximation, because it uses two points, like a centered approximation, 
-is order $O(k)$ accurate.
+is order $O(k^3)$ one-step accurate (and $O(k^2)$ globally).
 
 A generic r-stage Runge-Kutta method can be expressed as:
 \begin{align}
-Y_1 = U^n + k\sum_{j=1}^r a_{1j}f(Y_j, t_n + c_jk)\\
-Y_2 = U^n + k\sum_{j=2}^r a_{2j}f(Y_j, t_n + c_jk)\\
-\vdots\nonumber\\
-Y_r = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)\\
-U^{n+1} = U^n + k\sum_{j=r}^r a_{rj}f(Y_j, t_n + c_jk)
+Y_1 &= U^n + k\sum_{j=1}^r a_{1j}f(Y_j, t_n + c_jk)\\
+Y_2 &= U^n + k\sum_{j=1}^r a_{2j}f(Y_j, t_n + c_jk)\\
+&\vdots\nonumber\\
+Y_r &= U^n + k\sum_{j=1}^r a_{rj}f(Y_j, t_n + c_jk)
 \end{align}
-
+\begin{align}
+U^{n+1} &= U^n + k\sum_{j=1}^r b_{j}f(Y_j, t_n + c_jk)\\
+&\sum_{j=1}^r a_{ij} = c_i\:, \qquad i = 1, 2, \dots, r \\
+&\sum_{j=1}^r b_{j} \:.
+\end{align}
+There are different ways to determine the coefficients that give different orders of accuracy. See textbook referenced for more information.
 
 
 \section{Application to PRKE}
