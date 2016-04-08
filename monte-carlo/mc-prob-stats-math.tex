@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+\usepackage{tabu}
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% writing elements
+\usepackage{mhchem}
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo Methods Manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+
+% math syntax
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\rvec}{\ensuremath{\vec{r}}}
+\newcommand{\vecr}{\ensuremath{\vec{r}}}
+\newcommand{\omvec}{\ensuremath{\hat{\Omega}}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+\newcommand{\sigs}{\ensuremath{\Sigma_s(\rvec,E'\rightarrow E,\omvec'\rightarrow\omvec)}}
+\newcommand{\el}{\ensuremath{\ell}}
+\newcommand{\sigso}{\ensuremath{\Sigma_{s,0}}}
+\newcommand{\sigsi}{\ensuremath{\Sigma_{s,1}}}
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+\begin{document}
+\begin{center}
+{\bf NE 155, S16\\
+April 8, 2016 
+}
+\end{center}
+
+
+%-------------------------------------------------------
+\textbf{Probability Distributions}\\
+We need to figure out all of these things about how particles are moving around in our system, but how do we do it?\\
+We get functional expressions of the probability that various things will happen and try to take enough samples to effectively capture those expressions.
+%
+\begin{itemize}
+\item For a random variable, $x$, the probability that $x$ will have a value between $a$ and $b$ is $P\{a \leq x \leq b\}$.
+%
+\item The \textit{probability density fuction} expresses the likelihood that $x'$ will take on a value between $x$ and $x+\Delta x$:
+\begin{align*}
+\lim_{\Delta x \to 0} f(x)\Delta x &= P \{ x \leq x' \leq x + \Delta x \}\\
+\int_a^b f(x) dx &= P\{a \leq x \leq b\}
+\end{align*}
+%
+\item We often normalize this PDF to integrate to one, using one of
+\begin{equation}
+\int_{-\infty}^{\infty} f(x) dx = 1 \quad \text{or} \quad
+\int_{x^-}^{x^+} f(x) dx = 1 \nonumber
+\end{equation}
+%
+\item To get the probability that our random variable $x'$ is less than or equal to some value $x$, we use a \textit{cumulative distribution function}:
+\begin{align*}
+F(x) &= P\{x' \leq x\} \\
+F(x) &= \int_{-\infty}^{x} f(x') dx' \\
+\lim_{x \to \infty} F(x) &\equiv F(\infty) = 1 \\
+\lim_{x \to -\infty} F(x) &\equiv F(-\infty) = 0 \\
+P \{ a \leq x' \leq b \} &= F(b) - F(a)
+\end{align*}
+\end{itemize}
+
+Various physical phenomena can be represented by probability distributions
+\begin{itemize}
+  \item Photon emission energy: Each possible energy has a different probability (intensity)
+  \item Scattering cross-sections: Each possible scattering angle has a different probability as a function of the energy
+  \item Transmission through a medium: Probability of reaching a particular position
+depends on the cross-section
+\end{itemize}
+%
+We in one way or another get these PDFs and/or CDFs and use random numbers to select values for use in simulation.
+
+
+%-------------------------------------------------------
+-------------------------------------------------------\\
+\textbf{Statistics}\\
+The ``true" mean value, $\mu$, of any PDF is the expected value, $E(x)$
+\[
+\mu = E(x) = \int x f(x) dx
+\]
+Because we can't usually do this, we use random samples and estimate the true mean from the ``sample" mean, $\bar{x}$
+\[
+\bar{x} = \frac{1}{N}\sum_{i=1}^N x_i \qquad \lim_{N \to \infty} \bar{x} \rightarrow \mu\:.
+\]
+The variance of a PDF is the measure of spread in that PDF
+\begin{align*}
+\sigma^2 &= E[(x - \mu)^2] = \int (x - \mu)^2 f(x) dx \\
+&= \int x^2 f(x) dx - 2 \mu \int x f(x) dx + \mu^2 \int f(x) dx\\
+&= E(x^2) - \mu^2
+\end{align*}
+%
+However, we don't know the PDF so we use the samples to get the sample variances
+\begin{align*}
+S_x^2 &= \frac{1}{N-1}\sum_{i=1}^N (x_i - \bar{x})^2 \\
+&= \frac{1}{N-1} \biggl[\sum_{i=1}^N x_i^2 - 2 \bar{x}\sum_{i=1}^N x_i + \bar{x}^2 \sum_{i=1}^N 1 \biggr] \\
+&\approx \bar{x^2} - \bar{x}^2
+\end{align*}
+
+The \underline{Central Limit Theorem} states that
+For $N$ \textit{independent} random variables, $x_i$, sampled from \textit{identical distributions}, their mean follows a Normal (Gaussian) distribution.\\
+(Note: this is the \textit{IID} requirement for MC)\\
+We can use this information to define \textit{confidence intervals}
+\begin{align*}
+\bar{x} - S_{\bar{x}} &< E(x) < \bar{x} + S_{\bar{x}} \quad \text{about 68\% of the time}\\
+\bar{x} - 2S_{\bar{x}} &< E(x) < \bar{x} + 2S_{\bar{x}} \quad \text{about 95\% of the time}
+\end{align*}
+
+The \textbf{standard deviation} of the mean is a measure of the error in the result
+\begin{align*}
+S_{\bar{x}}^2 &= E[(\bar{x} - \mu)^2] = E\biggl[ \biggl(\frac{1}{N}\sum_{i=1}^N x_i - \mu\biggr)^2\biggr] = E\biggl[ \biggl(\frac{1}{N^2}\sum_{i=1}^N (x_i - \mu)\biggr)^2\biggr]\\
+%
+&=\frac{1}{N^2} E\biggl[ \sum_{i=1}^N (x_i - \mu) \sum_{j=1}^N (x_j - \mu)\biggr] = \frac{1}{N^2} E\biggl[ \sum_{i=1}^N \sum_{j=1}^N (x_i - \mu)  (x_j - \mu)\biggr]\\
+%
+&= \frac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N E\bigl[  (x_i - \mu)  (x_j - \mu)\bigr] = \frac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N S^2_x \delta_{ij} = \frac{1}{N^2} \sum_{i=1}^N S_x^2 \\
+%
+&= \frac{N S_x^2}{N^2} = \boxed{\frac{S_x^2}{N}}
+\end{align*}
+The error in the results decreases with the square of increasing the number of histories.
+%
+\begin{figure}[h!]
+\begin{center}
+  \includegraphics[height=1 in,clip]{../../NE250/figs/gaussian}
+\end{center}
+  %\caption{Monte Carlo neutral particle transport algorithm}
+  \label{fig:gaussian}
+\end{figure}
+
+\textbf{Relative Error} is 
+\[
+R = \frac{S_{\bar{x}}}{\bar{x}} = \sqrt{\frac{\sum_{i=1}^N x_i^2}{\bigl(\sum_{i=1}^N x_i\bigr)^2} - \frac{1}{N}} 
+\]
+If $x_i$ are equal and non-zero, R=0.\\
+Thus, we can reduce the error by reducing the spread in $x_i$.
+
+\textbf{Accuracy vs.\ Precision}\\
+The distinction between accuracy and precision can be seen in Fig.~\ref{fig:accuracy}.\\
+%
+\begin{figure}[h!]
+\begin{center}
+  %\includegraphics[height=1 in,clip]{../figs/systematic-error}
+  \includegraphics[height=2 in,clip]{../../NE250/figs/accuracy-and-precision}
+\end{center}
+  \caption{"Accuracy and precision" by Pekaje at English Wikipedia - Transferred from en.wikipedia to Commons.. Licensed under GFDL via Commons - https://commons.wikimedia.org/wiki/File:Accuracy\_and\_precision.svg\#/media/
+  File:Accuracy\_and\_precision.svg}
+  \label{fig:accuracy}
+\end{figure}
+%
+\textit{Accuracy} is the degree of closeness of measurements of a quantity to that quantity's true value.\\
+The \textit{precision} of a measurement system, related to reproducibility and repeatability, is the degree to which repeated measurements under unchanged conditions show the same results.
+% https://en.wikipedia.org/wiki/Accuracy_and_precision
+
+Accuracy can be affected by systematic errors in simulation: physical and mathematical models; errors in geometry or source model; incorrect code use by user.\\
+Usually unknown.
+
+Conversely, precision can usually be improved: run more histories; use variance reduction; adjust your measurement (fewer scoring bins).
+
+\vspace*{1 em}
+
+\end{document}
