@@ -1,6 +1,6 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
+% Spring 2016
 
 % formatting
 \documentclass[12pt]{article}
@@ -51,24 +51,31 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Midterm 2 Review S15}
+{\bf NE 155, Midterm 2 Review S16}
 \end{center}
-
-The exam will be 50 minutes long and closed book. You may use a calculator and have a 1-page notes sheet (front and back) that you will turn in with the exam.
 
 \setlength{\unitlength}{1in}
 \begin{picture}(6,.1) 
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
 
-%--------------------------------------------------------------------
-Here are the topics we've covered and that are fair game for the exam:
+Here are the topics we've covered and that are fair game for the exam.
 
 The exam will be 50 minutes long and closed book. \\
 You may use a calculator.\\
 You may have an 8.5" x 11" page with writing on \textbf{ONE} side. You must turn it in with the exam.
 
-\section*{More deterministic methods}
+I encourage you to think about what can reasonably be asked about in 50 minutes if there are a few questions. 
+Also think about what can be asked on an exam at all vs.\ what really requires a computer. 
+
+A goal of mine is for you to understand underlying principles and the meaning behind things. \\
+If you understand the meaning most other things will come out of it.
+
+
+%--------------------------------------------------------------------
+
+
+\subsection*{More deterministic methods}
 Think about what things are reasonable to ask on a 50 minute exam when you can't solve anything with a computer: forms of equations, meaning, trends, etc.
 \begin{itemize}
 \item Iterative solutions of linear systems
@@ -113,7 +120,7 @@ Think about what things are reasonable to ask on a 50 minute exam when you can't
 \end{itemize}
 
 %-------------------------------------------------------------
-\section*{Point Kinetics and Taylor/RK}
+\subsection*{Point Kinetics and Taylor/RK}
 \begin{itemize}
 \item What the point kinetics equation is, including terms and assumptions
 \item Units of reactivity; what is reactor period 
@@ -123,7 +130,7 @@ Think about what things are reasonable to ask on a 50 minute exam when you can't
 
 
 %-------------------------------------------------------------
-\section*{MC: Math with Random Numbers}
+\subsection*{MC: Math with Random Numbers}
 You can use random numbers to do math in two primary ways: 
 \begin{itemize}
 \item sample physical distributions to reproduce physics needed to solve  problems
@@ -159,7 +166,7 @@ A good thing to think about is this comparison of methods
 
 
 %-------------------------------------------------------------
-\section*{MC algorithm}
+\subsection*{MC algorithm}
 \begin{figure}[h]
 \begin{center}
   \includegraphics[height=6 in,clip]{monte-carlo/MC-algorithm}
@@ -170,13 +177,22 @@ A good thing to think about is this comparison of methods
 
 Figure 1 shows the algorithm that is basically what happens in MC. We learned the items needed to do all of these steps.
 
+%--------------------------------------------------------
+\subsubsection*{Statistics}
+
+Monte Carlo solution statistics are based on the Central Limit Theorem, which is applicable when samples are taken from the same distribution (identical) and they are independent of one another. 
+
+In this case we can assert formulas for the sample mean, error, and variance and relate those to the true mean, error, and variance. 
+
+We have the ability to measure precision and criteria for determining how precise an answer must be for it to be acceptable. 
+
 
 %--------------------------------------------------------
-\subsection*{PDFs, CDFs}
+\subsubsection*{PDFs, CDFs}
 We learned how to define PDFs and CDFs for continuous and discrete variables; including how to normalize them. 
 
 %--------------------------------------------------------
-\subsection*{Sampling}
+\subsubsection*{Sampling}
 We learned how to sample different kinds of CDFs. An example of direct inversion is determining the \textbf{distance to the next interaction} (we also did this as a function of mean free path only):
 
 \begin{itemize}
@@ -214,7 +230,7 @@ After finding the location of the collision and the isotope collided with, we ne
 
 
 %--------------------------------------------------------
-\subsection*{Tallies}
+\subsubsection*{Tallies}
 
 We also talked about how to get results through 
 \begin{itemize}
@@ -226,13 +242,7 @@ We talked about a variety of formulas for how to do this.
 
 
 %--------------------------------------------------------
-\subsection*{Statistics}
-
-Monte Carlo solution statistics are based on the Central Limit Theorem, which is applicable when samples are taken from the same distribution (identical) and they are independent of one another. 
-
-In this case we can assert formulas for the sample mean, error, and variance and relate those to the true mean, error, and variance. 
-
-We have the ability to measure precision and criteria for determining how precise an answer must be for it to be acceptable. 
-
+\subsubsection*{Variance Reduction}
+We learned the basics of VR. How to measure improvement, the overarching goal of VR, types of VR, and some methods. We specifically covered implicit capture, splitting, and rouletting.
 
 \end{document}
