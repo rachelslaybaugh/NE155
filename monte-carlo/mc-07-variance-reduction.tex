@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
-\usepackage{setspace}
+\usepackage{setspace, paralist}
 \onehalfspacing
 
 \usepackage{amssymb}
@@ -12,7 +12,7 @@
 \renewcommand{\ttdefault}{cmtt}
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
-\usepackage{tabu}
+\usepackage{tabu, tabularx}
 
 % Draw figures yourself
 \usepackage{tikz} 
@@ -209,13 +209,36 @@ We would prefer to have an automated method that does not rely on guessing. The 
 
 \textit{Quick Aside:} the forward flux describes the particle distribution as a result of system conditions. \\
 The adjoint flux describes how important the particle distribution is to the answer in question. \\
-We are sort of going to breeze by this, but hopefully this is enough:
+We can use these ideas to make an importance map.
+
+We are sort of going to breeze by this, but hopefully this is enough. The \textit{adjoint operator} obeys the following identity: $\langle A^{\dagger}f, g\rangle = \langle f, Ag\rangle$ for all $f$ and $g$ is the vector space. Superscript $\dagger$ indicates adjoint quantities.\\
+
+The adjoint form of the transport equation (!):
+\begin{align*}
+\langle\zeta^{\dagger}, H \zeta\rangle = \int_{V} dV \int_{4\pi} d\vOmega \int_0^{\infty} dE \: &\zeta (\rvec, \vOmega, E) \times \biggl[-\vOmega \cdot \nabla \zeta^{\dagger}(\vec{r}, E, \vOmega)  + \Sigma_t(\rvec,E) \zeta^{\dagger}(\vec{r}, E, \vOmega) \\&- \int d\vOmega' \int dE'\: \Sigma_s(\rvec, E \rightarrow E', \vOmega \cdot \vOmega') \zeta^{\dagger}(\rvec, \vOmega', E') \biggr]
+\end{align*}
+%
+You can check that $\langle\zeta^{\dagger}, H \zeta\rangle = \langle\zeta, H^{\dagger} \zeta^{\dagger}\rangle$ will be satisfied if we define the adjoint operator as
+\[
+H^{\dagger} = -\vOmega \cdot \nabla  + \Sigma_t(\rvec,E) - \int d\vOmega' \int dE'\: \Sigma_s(\rvec, E \rightarrow E', \vOmega \cdot \vOmega')
+\]
+Where key differences are the negative in front of the streaming term and the reversal of energy direction in the scattering cross section.\\
+We also need the boundary condition of zero \textit{outgoing} adjoint flux.
+
+We can use the identity $\langle \phi^{\dagger}, H \phi\rangle = \langle \phi, H^{\dagger} \phi^{\dagger}\rangle$, recall $H \phi  =q$, and relate the adjoint flux to $R$, the system a response
 \begin{align*}
 R &= \int dV \int dE\: f(\vec{r}, E) \phi(\vec{r}, E) \quad \text{and}\\
+&= \int dV \int dE\: q^{\dagger}(\vec{r}, E) \phi(\vec{r}, E)\\
 &= \int dV \int dE\: \phi^{\dagger}(\vec{r}, E) q(\vec{r}, E)
 \end{align*}
-where $f$ is the response function of interest and we've left out angle for simplicity.\\
-We got here by setting $q^{\dagger} = f$ and using the adjoint identity. \\
+where $f$ is the response \textit{function} of interest and we've left out angle for simplicity.\\
+We got here by setting $q^{\dagger} = f$ and using the adjoint identity + substitution: $\langle \phi^{\dagger}, q\rangle = \langle \phi, q^{\dagger} \rangle$. \\
+
+This means that the detector response is the volume integral of the adjoint-weighted source distribution. \\
+What does that mean? \\
+The weighting of the adjoint flux directly corresponds to how influential a given source particle will be on the answer we're looking for (what we defined as the adjoint source).
+
+
 The physical interpretation of the adjoint flux is the influence or importance of a particle in phase space to what we used for the adjoint source: it maps source particles directly into the response. \\
 Thus, if we set the response that we are solving for to be the adjoint source, the adjoint flux is the importance map corresponding to that response. 
 
@@ -283,14 +306,14 @@ Again, if we had the global solution, wouldn't we be finished? The key to FW-CAD
 
 %-------------------------------------------------------
 -------------------------------------------------------\\
-Mention that here are some common \textbf{general purpose MC codes in nuclear:}
-\begin{itemize}
+Here are some common \textbf{general purpose MC codes in nuclear:}
+\begin{compactitem}
 \item \textbf{MCNP}: developed at LANL, distributed via RSICC, \href{http://rsicc.ornl.gov}{http://rsicc.ornl.gov}
 \item \textbf{Geant4}: developed by a large collaboration in the HEP community, \href{ http://geant4.web.cern.ch/geant4/}{http://geant4.web.cern.ch/geant4/}
 \item \textbf{EGSnrc}: developed at NRC (Canada), \href{http://www.irs.inms.nrc.ca/EGSnrc/EGSnrc.html}{http://www.irs.inms.nrc.ca/EGSnrc/EGSnrc.html}
 \item \textbf{SERPENT}: Developed by Dr. Jaakko Leppanen, VTT, Finland, \href{ http://montecarlo.vtt.fi/}{http://montecarlo.vtt.fi/}
 \item \textbf{Shift}: developed at ORNL, distributed via RSICC, \href{http://rsicc.ornl.gov}{http://rsicc.ornl.gov}
-\end{itemize}
+\end{compactitem}
 
 
 
