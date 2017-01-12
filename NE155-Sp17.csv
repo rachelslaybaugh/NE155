@@ -1,0 +1,45 @@
+Lecture,Date,Topic,Assigned,Due
+1,18-Jan,introduction,hw 0,
+2,20-Jan,computing and parallelization,,hw 0
+3,23-Jan,types of equations,,
+4,25-Jan,transport equation,,
+5,27-Jan,diffusion equation,hw 1,
+6,30-Jan,diffusion equation,,
+7,1-Feb,interpolation,,
+8,3-Feb,interpolation cont'd; approximation,hw 2,hw 1
+9,6-Feb,"approx, numerical differentiation",,
+10,8-Feb,"numerical diff, integration",,
+11,10-Feb,numerical integration,hw 3,hw 2
+12,13-Feb,"num int, vectors and matrices review",,
+13,15-Feb,norms and convergence,,
+14,17-Feb,eigenvalues review,,
+-,20-Feb,President's Day,,
+15,22-Feb,direct solvers,hw 4,hw 3
+16,24-Feb,direct solvers,,
+17,27-Feb,iterative solvers,,
+18,1-Mar,1-D finite diff and vol intro,,
+19,3-Mar,1-D finite vol for DE,,hw 4
+20,6-Mar,catch up + exam review,,
+21,8-Mar,Midterm 1 (through direct solvers),,
+22,10-Mar,1-D finite vol soln methods,hw 5,
+23,13-Mar,1-D fd eigenvalue solvers,,
+24,15-Mar,"1-D fd eigenvalue solvers, 2D fv",,
+25,17-Mar,"project planning, return midterm",,
+26,20-Mar,2-D finite vol for DE,,
+27,22-Mar,2-D finite vol for DE,hw 6,hw 5
+28,24-Mar,point kinetics,,
+-,27-31-Mar,spring break,,
+29,3-Apr,point kinetics,,
+30,5-Apr,"Taylor and Runge Kutta, MC intro",,abstract
+31,7-Apr,MC probability and statistics,,
+32,10-Apr,MC random sampling,,hw 6
+33,12-Apr,Monte Carlo random # generators,,
+34,14-Apr,MC geometry and collisions,hw 7,
+35,17-Apr,MC estimators and tallies,,interim report
+36,19-Apr,variance reduction,,
+37,21-Apr,"exam review, MC wrap up",,hw 7
+38,24-Apr,Midterm 2 (through MC),,
+39,26-Apr,variance reduction,,
+40,28-Apr,"review midterm 2, go over presentation/report expectations",,
+-,1-5-May,RRR week,,
+final,9-May,"Final presentations, 7 to 10 pm",,final reports
