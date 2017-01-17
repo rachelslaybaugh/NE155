@@ -10,6 +10,8 @@ Project/Quandos.pdf
 *.toc
 *.nav
 *.out
+*.xls
+*.xlsx
 04-te/phase_space-eps-converted-to.pdf
 05-de/TE-DE-high-level.pdf
 MC/MC-intro-tmp.pdf

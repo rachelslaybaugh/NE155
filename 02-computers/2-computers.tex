@@ -93,7 +93,7 @@
 % title stuff for footer
 \title{NE 155}
 \author{R.\ N.\ Slaybaugh}
-\date{January 22, 2016}
+\date{January 20, 2017}
 
 \begin{document}
 
@@ -111,13 +111,16 @@
 %\tableofcontents
 \begin{enumerate}
 \item History and terminology
+\vspace*{1 em}
 %  - define flops as measure of what we care about
 %  - chronological highlights of a few machines; show pictures, state details
 \item Basic computer architecture
+\vspace*{1 em}
 %  - hardware v software; we're talking about hardware now but the rest of the class will focus on software. We will care a little bit about the interface
 %  - definitions
 %  - Moore's law
 \item Introduction to Parallelism
+\vspace*{1 em}
 %  - basic considerations
 %  - types of parallelism
 %  - speedup
@@ -150,7 +153,7 @@
 \subsection{History}
 \begin{frame}{Computing Machines, Origins}
 \begin{figure}
-\includegraphics[height=2.25in,clip]{RomanAbacus}
+\includegraphics[height=2.25in,clip]{../figs/RomanAbacus}
 \caption{Roman Abacus, \href{http://history-computer.com/CalculatingTools/abacus.html}{http://history-computer.com/CalculatingTools/abacus.html}}
 \end{figure}
 
@@ -161,7 +164,7 @@
 \begin{frame}{Early Development of Computing}
 
 \begin{figure}
-\includegraphics[height=2in,clip]{BabbageDiffMachine}
+\includegraphics[height=2in,clip]{../figs/BabbageDiffMachine}
 \caption{Reconstruction of Babbage's Analytical Engine, the first general-purpose programmable computer, \href{http://en.wikipedia.org/wiki/History_of_computing_hardware
 \#Punched_card_data_processing}{http://en.wikipedia.org/wiki/History\_of\_computing\_hardware
 \#Punched\_card\_data\_processing}}
@@ -174,8 +177,8 @@
 \begin{frame}{First Electromechanical Computers}
 
 \begin{figure}
-\includegraphics[height=2in,clip]{Z3DeutschesMuseum}
-\caption{Zuse Z3 replica on display at Deutsches Museum in Munich, \href{en.wikipedia.org/wiki/Z3_(computer)}{en.wikipedia.org/wiki/Z3\_(computer)}}
+\includegraphics[height=2in,clip]{../figs/Z3DeutschesMuseum}
+\caption{Zuse Z3 replica on display at Deutsches Museum in Munich, \href{http://en.wikipedia.org/wiki/Z3_(computer)}{http://en.wikipedia.org/wiki/Z3\_(computer)}}
 \end{figure}
 
 \end{frame}
@@ -185,7 +188,7 @@
 \begin{frame}{Stored Programs}
 
 \begin{figure}
-\includegraphics[height=2in,clip]{ManchesterMark1}
+\includegraphics[height=2in,clip]{../figs/ManchesterMark1}
 \caption{The Manchester Mark 1 was one of the world's first stored-program computers, \href{http://www.computer50.org/mark1/ip-mm1.mark1.html}{http://www.computer50.org/mark1/ip-mm1.mark1.html}}
 \end{figure}
 
@@ -207,7 +210,7 @@
 \begin{frame}{Supercomputers}
 
 \begin{figure}
-\includegraphics[height=2in,clip]{Atlas1963}
+\includegraphics[height=2in,clip]{../figs/Atlas1963}
 \caption{The University of Manchester Atlas 1963, \href{http://en.wikipedia.org/wiki/History_of_computing_hardware
 \#Punched_card_data_processing}{http://en.wikipedia.org/wiki/History\_of\_computing\_hardware
 \#Punched\_card\_data\_processing}}
@@ -245,7 +248,7 @@ With the advent of the \alert{transistor} and the work on semi-conductors genera
 \begin{frame}{Computer Architecture}
  \begin{figure}
    \begin{center}
-     \includegraphics[height=2.25in,clip]{ComputerArchitecture}
+     \includegraphics[height=2.25in,clip]{../figs/ComputerArchitecture}
    \end{center}
  \end{figure}
 \end{frame}
@@ -255,7 +258,7 @@ With the advent of the \alert{transistor} and the work on semi-conductors genera
 \begin{frame}{Components}
  \begin{figure}
    \begin{center}
-     \includegraphics[height=2.25in,clip]{Components}
+     \includegraphics[height=2.25in,clip]{../figs/Components}
    \end{center}
  \end{figure}
 \end{frame}
@@ -284,7 +287,7 @@ The number of transistors on integrated circuits doubles approximately every 18 
 \end{itemize}
   \end{column}
   \begin{column}{0.3\textwidth}
-    \includegraphics[height=1.5in,clip]{GordonMoore1975}
+    \includegraphics[height=1.5in,clip]{../figs/GordonMoore1975}
   \end{column}
 \end{columns}
 \end{frame}
@@ -294,8 +297,8 @@ The number of transistors on integrated circuits doubles approximately every 18 
 \begin{frame}{Moore's ``Law"}
 
 \begin{figure}
-\includegraphics[height=2.75in,clip]{CPU-Scaling}
-%\caption{CPU scaling showing transistor density, power consumption, and efficiency, http://www.extremetech.com/computing/116561-the-death-of-cpu-scaling-from-one-core-to-many-and-why-were-still-stuck}
+\includegraphics[height=2.5in,clip]{../figs/Moores-Law-120-Years}
+\caption{By Steve Jurvetson - \url{https://www.flickr.com/photos/jurvetson/31409423572/}, CC BY 2.0}%, \url{https://commons.wikimedia.org/w/index.php?curid=55002144}}
 \end{figure}
 
 \end{frame}
@@ -363,7 +366,7 @@ $Speedup = \frac{\text{Time with 1 core}}{\text{Time with P cores}}$
 \end{itemize}
   \end{column}
   \begin{column}{0.35\textwidth}
-    \includegraphics[height=2in,clip]{PerformanceGap}
+    \includegraphics[height=2in,clip]{../figs/PerformanceGap}
   \end{column}
 \end{columns}
 
@@ -380,7 +383,7 @@ $Speedup = \frac{\text{Time with 1 core}}{\text{Time with P cores}}$
 %\end{itemize}
 \begin{center}
 Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
-\includegraphics[height=2.5in,clip]{MemorySystems}
+\includegraphics[height=2.75in,clip]{../figs/MemorySystems}
 \end{center}
 
 \end{frame}
@@ -395,7 +398,7 @@ Shared \hspace*{2 em} Distributed \hspace*{2 em} Distributed Shared
 
 \begin{center}
 NVIDIA GPU \\ \vspace*{1 em}
-\includegraphics[height=1.5in,clip]{GPU}
+\includegraphics[height=1.5in,clip]{../figs/GPU}
 \end{center}
 \end{frame}
 
@@ -409,7 +412,7 @@ NVIDIA GPU \\ \vspace*{1 em}
 
 \begin{center}
 Intel Xeon Phi Board\\ \vspace*{1 em}
-\includegraphics[height=1.75in,clip]{Intel-Xeon-Phi-Board}
+\includegraphics[height=1.75in,clip]{../figs/Intel-Xeon-Phi-Board}
 \end{center}
 \end{frame}
 
@@ -427,21 +430,26 @@ Intel Xeon Phi Board\\ \vspace*{1 em}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\href{http://www.top500.org/}{Top 500 Computers, Nov 2015}}
+\begin{frame}{\href{https://www.top500.org/statistics/perfdevel/}{Top 500 Computers, Nov 2016}}
 
 \begin{center}
-\includegraphics[height=2.5in]{Supercomputers-history-2015}\\
-x axis in years
+\begin{figure}
+\includegraphics[height=2.75in]{../figs/Supercomputers-history-2016}
+\caption{\url{https://www.top500.org/statistics/perfdevel/}}
+\end{figure}
 \end{center}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\href{http://en.wikipedia.org/wiki/TOP500}{Top 10 Computers, Nov 2015}}
+\begin{frame}{\href{https://www.top500.org/lists/2016/11/}{Top 10 Computers, Nov 2016}}
 
 \begin{center}
-\includegraphics[height=3in]{2015-top-10}
+\begin{figure}
+\includegraphics[height=3in]{../figs/2016-top-10}
+\caption{\url{https://www.top500.org/lists/2016/11/}}
+\end{figure}
 \end{center}
 
 \end{frame}
