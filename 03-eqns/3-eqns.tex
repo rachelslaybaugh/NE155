@@ -37,8 +37,8 @@
 %---------------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Class 3, S16 \\
-Types of Equations in the Engineering Fields \\ January 25, 2016}
+{\bf NE 155, Class 3, S17 \\
+Types of Equations in the Engineering Fields \\ January 23, 2017}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -78,7 +78,7 @@ a_{n}(x)y^{(n)}(x) + a_{n-1}(x)y^{(n-1)}(x) + \cdots + a_{2}(x)y^{(2)}(x) + a_{1
 
 Boundary conditions:
 \begin{enumerate}
-\item Initial Value Problem (\textbf{IVP}): if y and its derivatives are given at one end of the domain/interval (e.g.\ time zero if there's time or spatial starting point if there's only space, etc.)
+\item Initial Value Problem (\textbf{IVP}): if $y$ and its derivatives are given at one end of the domain/interval (e.g.\ time zero if there's time or spatial starting point if there's only space, etc.)
 \item Boundary Value Problem (\textbf{BVP}): if $y$ and/or its derivatives are given at \underline{each} end of the interval
 \end{enumerate}
 
@@ -120,8 +120,8 @@ Where (we'll talk  more about what these terms mean later)
 \begin{itemize}
 \item $n$ = \# neutrons / s
 \item $\beta$ = fraction of delayed neutrons
-\item $\lambda_i$ = effective decay constant of the ith precursor
-\item $C_i(t)$ = delayed neutron concentration of the ith precursor
+\item $\lambda_i$ = effective decay constant of the $i$th precursor
+\item $C_i(t)$ = delayed neutron concentration of the $i$th precursor
 \item $l^*$ = mean neutron lifetime
 \item $\rho = \frac{k-1}{k}$ = reactivity
 \end{itemize}
@@ -161,19 +161,8 @@ This has
 \item If $S(x)$ is nonzero at least somewhere over the physical range, a unique solution exists.
 \end{itemize}
 
-%-------------------------------------------------------
-%\vspace*{1 em} \underline{Reminder: eigenpairs}
-%
-%We can formulate systems of equations as matrix-vector systems that look like \ve{A}$x = \lambda x$. 
-%\begin{itemize}
-%\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
-%\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
-%\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
-%%\item Several eigenvectors can have the same eigenvalue
-%\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
-%\end{itemize}
-%-------------------------------------------------------------
 
+%-------------------------------------------------------------
 \vspace*{1em}
 \underline{2nd order ODE Example}:
 
@@ -243,11 +232,12 @@ Just as one classifies conic sections and quadratic forms into parabolic, hyperb
 
 \noindent The reason we care about this in the context of the Transport Equation:
 \begin{itemize}
-\item In a void, the transport equation is like a hyperbolic wave equation. 
-\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes elliptic for the steady-state case. 
-\item If the scattering is forward-peaked then the equation is parabolic.
+\item In a void, the transport equation is like a \textit{hyperbolic} wave equation. 
+\item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes \textit{elliptic} for the steady-state case. 
+\item If the scattering is forward-peaked then the equation is \textit{parabolic}.
 \end{itemize}
 
+Let's look at the classifications:
 %-------------------------------------------------------------
 \begin{itemize}
 \item \textbf{Elliptic} if $B^2 - 4 AC < 0$. %Solutions of elliptic PDEs are as smooth as the coefficients allow within the interior of the region where the equation and solutions are defined. For example, solutions of Laplace's equation are analytic within the domain where they are defined, but solutions may assume boundary values that are not smooth. The motion of a fluid at subsonic speeds can be approximated with elliptic PDEs, and the Euler–Tricomi equation is elliptic where $x < 0$. 
@@ -271,10 +261,12 @@ One property of constant coefficient elliptic equations is that their solutions 
 There aren't $B$ or $C$ terms, so $-4AC = 0$
 
 Equations that are parabolic at every point can be transformed into a form analogous to the heat equation by a change of independent variables. Solutions smooth out as the transformed time variable increases.
+\end{itemize}
 
 A perturbation of the initial (or boundary) data of an \textit{elliptic or parabolic} equation is felt at once by essentially all points in the domain. 
 
 %-------------------------------------------------------------
+\begin{itemize}
 \item \textbf{Hyperbolic} if $B^2 - 4 AC > 0$, e.g.
 \begin{align*}
 \frac{\partial^2 u}{\partial t^2} &- c^2\frac{\partial^2 u}{\partial x^2} = 0 \qquad \text{ 1-D wave eqn.} \nonumber
@@ -289,8 +281,20 @@ There's no $B$ term, and the $C$ term is negative so $-4AC > 0$
 %The Euler–Tricomi equation has parabolic type on the line where $x = 0$.
 \end{itemize}
 
+%-------------------------------------------------------
+\vspace*{1 em} \underline{Reminder: eigenpairs}
+
+We can formulate systems of equations as matrix-vector systems that look like \ve{A}$x = \lambda x$. 
+\begin{itemize}
+\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
+\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
+\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
+%\item Several eigenvectors can have the same eigenvalue
+\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
+\end{itemize}
+
 %-------------------------------------------------------------
-\underline{higher order PDE classification}\\
+\vspace*{1 em}  \underline{higher order PDE classification}\\
 If there are $n$ independent variables $x_1, x_2 , \dots, x_n$, a general linear partial differential equation of second order has the form
 %
 \begin{equation}
