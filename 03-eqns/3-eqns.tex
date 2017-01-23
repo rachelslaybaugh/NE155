@@ -136,7 +136,7 @@ The number of atoms in a sample during radioactive decay (assuming decay only he
 %
 \begin{align}
 \frac{dN_1(t)}{dt} &= -\lambda_1 N_1(t) \nonumber \\
-\frac{dN_i(t)}{dt} &= -\lambda_i N_i(t) + \lambda_{i-1}N_{i-1}(t) \qquad 1 < k < I \nonumber\\
+\frac{dN_i(t)}{dt} &= -\lambda_i N_i(t) + \lambda_{i-1}N_{i-1}(t) \qquad 1 < i < I \nonumber\\
 \frac{dN_I(t)}{dt} &= \lambda_{I-1} N_{I-1}(t) \nonumber \\
 \text{BC: }& N_i(t=0) = N_{i,0}\nonumber
 \end{align}
@@ -159,6 +159,18 @@ This has
 \item \textbf{Dirichet} BCs: if $a=0$ (specifies the values that a \textit{solution} is to take on the boundary of the domain)
 \item \textbf{Mixed} BCs if [$\gamma \ne 0$ and $a = 0$ at $x = \alpha$] and [$a \ne 0$ and $\gamma = 0$ at $x = \beta$] (the solution is required to satisfy a Dirichlet or a Neumann boundary condition in a mutually exclusive way on disjoint parts of the boundary)
 \item If $S(x)$ is nonzero at least somewhere over the physical range, a unique solution exists.
+\end{itemize}
+
+%-------------------------------------------------------
+\vspace*{1 em} \underline{Reminder: eigenpairs}
+
+We can formulate systems of equations as matrix-vector systems that look like \ve{A}$x = \lambda x$. 
+\begin{itemize}
+\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
+\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
+\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
+%\item Several eigenvectors can have the same eigenvalue
+\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
 \end{itemize}
 
 
@@ -279,18 +291,6 @@ There's no $B$ term, and the $C$ term is negative so $-4AC > 0$
   \end{itemize}
  
 %The Euler–Tricomi equation has parabolic type on the line where $x = 0$.
-\end{itemize}
-
-%-------------------------------------------------------
-\vspace*{1 em} \underline{Reminder: eigenpairs}
-
-We can formulate systems of equations as matrix-vector systems that look like \ve{A}$x = \lambda x$. 
-\begin{itemize}
-\item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
-\item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
-\item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
-%\item Several eigenvectors can have the same eigenvalue
-\item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
 \end{itemize}
 
 %-------------------------------------------------------------
