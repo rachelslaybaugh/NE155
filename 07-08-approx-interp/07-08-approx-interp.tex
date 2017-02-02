@@ -52,8 +52,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 7 \& 8, S16 \\
-Interpolation and Approximation\\ February 3 and 5, 2016}
+{\bf NE 155, Classes 8 \& 9, S17 \\
+Interpolation and Approximation\\ February 3 and 5, 2017}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -171,7 +171,7 @@ Note: this is sometimes called full degree polynomial interpolation.
 %--------------------------------------------------------------------
 \clearpage
 \subsubsection*{Error}
-\underline{Theorem:} If $x_0, x_1,\dots, x_n$ are $(n+1)$ distinct points $\in [a,b]$ and $f$ is $C^{n+1} \in [a,b]$ then for each $x\in [a,b]$ there exists $\xi(x) \in [a,b]$ s.t.
+\underline{Theorem:} If $x_0, x_1,\dots, x_n$ are $(n+1)$ distinct points $\in [a,b]$ and $f$ is $C^{n+1} \in [a,b]$ then for each $x\in [a,b] \: \exists \: \xi(x) \in [a,b]$ s.t.
 \begin{align}
 f(x) - P_n(x)& = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n)\nonumber \\
 &\boxed{e = \frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n (x-x_i)}\nonumber
@@ -352,8 +352,8 @@ You can do the least square procedure by taking the two-norm squared, taking the
 you can simply take the log and treat it like the linear case
 %
 \begin{align}
-\underbrace{ln(y)}_{y} &= \underbrace{ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} x \qquad \text{ or}\nonumber\\
-\underbrace{ln(y)}_{y} &= \underbrace{ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} \underbrace{ln(x)}_{x}\nonumber
+\underbrace{\ln(y)}_{y} &= \underbrace{\ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} x \qquad \text{ or}\nonumber\\
+\underbrace{\ln(y)}_{y} &= \underbrace{\ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} \underbrace{\ln(x)}_{x}\nonumber
 \end{align}
 
 
