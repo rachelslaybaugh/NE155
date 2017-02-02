@@ -430,7 +430,7 @@ If scattering is
 
 \textbf{Basic requirements}: the flux must
 \begin{itemize}
-\item be real and positive: $0 \leq \phi$
+\item be real and non-negative: $0 \leq \phi$
 \item and bounded: $\phi < \infty$ except near mathematical approximations (the source condition). 
 \end{itemize}
 
@@ -520,7 +520,7 @@ This formulation is useful because we know how to solve it. We write
 \[\phi(\vec{r}) = \phi_H(\vec{r}) + \phi_P(\vec{r}) \:,\]
 
 For example, we often have:
-\[\phi_H(\vec{r}) = A\exp\bigl(-\frac{|\vec{r}|}{L}\bigr) + B\exp\bigl(-\frac{|\vec{r}|}{L}\bigr) \:.\]
+\[\phi_H(\vec{r}) = A\exp\bigl(-\frac{|\vec{r}|}{L}\bigr) + B\exp\bigl(\frac{|\vec{r}|}{L}\bigr) \:.\]
 
 Going through how to solve this analytically in a variety of circumstances, geometries, etc.\ is another class (NE 150/250). We're going to focus on numerical solution techniques. But first, one more thing.
 
