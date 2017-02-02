@@ -290,7 +290,7 @@ All together this is the \textbf{current continuity equation}:
 \label{eq:currentcont}
 \end{equation}
 
-Now we have 2 moment equations that give us 4 total equations (neutron continuity and 3 tensor equations) and 10 unknowns ($\phi$, 3 from the $\vec{J}$, and 6 from the new tensor term). 
+Now we have 2 moment equations that give us 4 total equations (neutron continuity and 3 tensor equations) and 10 unknowns ($\phi$ = 1, $\vec{J}$ = 3, and the new tensor term = 6). 
 
 Taking higher moments by repeating the multiply by $\vOmega$ and integrating isn't going to help matters.
 
@@ -457,15 +457,15 @@ J_{+}(\vec{r},t) &= \int_{\vOmega \cdot \hat{e} > 0} d\vOmega \: \vOmega \cdot \
 We will also say $\int_{\vOmega \cdot \hat{e} < 0} = \int_{2\pi^{-}}$ and  $\int_{\vOmega \cdot \hat{e} > 0} = \int_{2\pi^{+}}$. 
 
 With this notation we can re-write our boundary condition:
-\[J_{\pm}(\vec{r},t) = \int_{2\pi^{\pm}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) = 0 \:,\]
+\[J_{-}(\vec{r}_s,t) = \int_{2\pi^{-}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) = 0 \:,\]
 note that in diffusion theory
 \[\psi(\vec{r}_s, \vOmega, t) \cong \frac{1}{4\pi}\bigl(\phi(\vec{r}_s, t)  -\frac{1}{\Sigma_{tr}} \nabla \phi(\vec{r}_s, t)\bigr)\]
 %
 and then our partial currents become (note that which of +/- you choose depends on which edge of the problem you are on)
 %
 \begin{align*}
-J_{\pm} &= \int_{2\pi^{\pm}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) =\\
-&\cong \frac{1}{4} \phi(\vec{r}, t) \mp \frac{D}{2} \hat{e}_s \cdot \nabla \phi(\vec{r}_s, t) = 0\:.
+J_{-} &= \int_{2\pi^{-}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) =\\
+&\cong \frac{1}{4} \phi(\vec{r}_s, t) \mp \frac{D}{2} \hat{e}_s \cdot \nabla \phi(\vec{r}_s, t) = 0\:.
 \end{align*} 
 %
 For a 1-D slab with a vacuum boundary at $x=x_s$:
@@ -484,7 +484,7 @@ DRAW PICTURE
 %
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[height=3 in]{DiffusionBC}
+\includegraphics[height=3 in]{../figs/DiffusionBC}
 \end{center}
 \end{figure}
 
@@ -493,7 +493,7 @@ In reality, though, $\lambda_{tr} \sim 0$ [cm] compared to the size of a reactor
 
 %------------------------------------------
 \subsection*{Helmholtz Form}
-In steady state we can write the diffusion equation this way:
+In steady state, we can write the diffusion equation this way:
 %
 \begin{align*}
 -\nabla \cdot D\nabla \phi(\vec{r}) + 
