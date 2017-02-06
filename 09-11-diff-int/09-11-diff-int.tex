@@ -34,6 +34,8 @@
 \usepackage{color}
 \usepackage{array}
 
+\usepackage{paralist, enumitem}
+
 \usepackage[pdftex]{hyperref}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
@@ -49,8 +51,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 9, 10, \& 11 S16 \\
-Differentiation \& Integration \\ February 8, 10, \& 12, 2016}
+{\bf NE 155, Classes 10, 11, \& 12 S17 \\
+Differentiation \& Integration \\ February 8, 10, \& 13, 2017}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -72,13 +74,14 @@ In practice, we can rarely get an analytical solution for $\phi$ so we have to s
 If we don't know what $\phi$ looks like, how do we take its derivative?
 We need \textbf{numerical differentiation} so that we can come up with a way to express $\nabla^2 \phi$ or $\frac{\partial}{\partial t}\phi$ (or anything similar in any other equation).
 
-\underline{Problem}: Given a function $f(x)$ at $x_0, x_1, \dots, x_n$ approximate $f'(x)$ or $f''(x)$, etc. 
+\underline{Problem}: Given a function $f(x)$ at $x_0, x_1, \dots, x_n$, approximate $f'(x)$ or $f''(x)$, etc. 
 
 Numerical differentiation is useful when a function is defined by 
-\begin{itemize}
+\vspace*{-0.5em}
+\begin{compactitem}
 \item data
 \item differential equations (ODEs, PDEs)
-\end{itemize}
+\end{compactitem}
 
 \textbf{Example} Given $f$ is $ C^2 \in [a,b]$ and $x_0 \in [a,b]$, find an approximation to $f'(x_0)$.
 
@@ -125,6 +128,7 @@ We can extend this principle to get higher levels of accuracy. To do that we do 
 \end{tikzpicture}
 \end{center}
 %
+\vspace*{-2em}
 \begin{align*}
 f(x_0) &= f(x_0)\\
 %
@@ -145,10 +149,8 @@ f(x_0 \pm 2h) &= f(x_0) \pm 2h f'(x_0) + 2 h^2 f''(x_0) \pm \frac{4}{3} h^3 f'''
 a f(x_0) &+ b f(x_0 + h) + c f(x_0 + 2h) = f'(x_0) \\
 %
 a f(x_0) &+ b[f(x_0) + hf'(x_0) + h^2\frac{f''(x_0)}{2} + h^3\frac{f'''(\mu)}{6}] \nonumber \\
-&+ c[f(x_0) + 2h f'(x_0) + 2 h^2 f''(x_0) + \frac{4}{3} h^3 f'''(\mu)] =f'(x_0)
-\end{align*}
-\begin{align*}
-(a + b &+ c)f(x_0) + h(b + 2c)f'(x_0) + h^2(\frac{b}{2} + 2c) f''(x_0) \nonumber \\
+&+ c[f(x_0) + 2h f'(x_0) + 2 h^2 f''(x_0) + \frac{4}{3} h^3 f'''(\mu)] =f'(x_0)\\
+(a + b &+ c)f(x_0) + h(b + 2c)f'(x_0) + h^2(\frac{b}{2} + 2c) f''(x_0) \\
 &+ h^3(\frac{b}{6} +  \frac{4c}{3}) f'''(\mu) = f'(x_0)
 \end{align*}
 %
@@ -253,6 +255,7 @@ f^{(4)}(x_0) &= \frac{f(x_0 - 2h) - 4f(x_0 - h) +6f(x_0) - 4f(x_0 + h) + f(x_0 +
 
 %--------------------------------------------------------------------
 %-------------------------------------------------------------------
+\vspace*{-2em}
 \section*{Integration}
 Why might we need to numerically integrate?
 \begin{itemize}
@@ -283,6 +286,8 @@ Thus, given $f \in[a,b]$, compute $I(f) = \int_a^b f(x) dx$.
 
 The way we do this is called \textbf{numerical integration} or \textbf{numerical quadrature}:
 \[I(f) \approx I_n(f) = \sum_{i=0}^n w_i f(x_i)\]
+\vspace*{-3em}
+
 $w_i \equiv$ quadrature weights\\
 $x_i \equiv$ quadrature points
 
@@ -322,7 +327,7 @@ The only error is in the polynomial interpolation.
 %--------------------------------------------------------------------
 \subsection*{Lagrange form of NC}
 Choosing Lagrange polynomials prevents us from needing to recalculate weights for every $f(x)$ (since we've fixed the points).
-
+%
 \begin{align*}
 P_n(x) &= \sum_{i=0}^{n}f(x_i)L_i(x) \\
 %
@@ -342,25 +347,25 @@ $x_0 = a$, $x_1 = b$, $h = x_1 - x_0$
 &L_0(x) = \frac{x-x_1}{x_0-x_1}\:, \qquad L_1(x) = \frac{x-x_0}{x_1-x_0} \\
 %
 w_0 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_1}{x_0-x_1}\bigr) dx\:; 
-\\ &\text{let } x = x_0 + th  \:, \quad dx = h\:dt\:, \quad t = \frac{x-x_0}{h}\:,
-\end{align*}
-\begin{align*}
+\\ &\text{let } x = x_0 + th  \:, \quad dx = h\:dt\:, \quad t = \frac{x-x_0}{h}\:,\\
 &\text{change bounds and note that the denominator is }-h \\
 %
 w_0 &= h \int_0^1 \bigl(\frac{x_1 - x_0 - ht}{h}\bigr)dt = \int_0^1 h(1-t)dt \\
 %
 w_0 &= h\bigl(t - \frac{1}{2}t^2 \bigr) |_0^1 = \frac{1}{2}h\\
 %
-&\text{similarly}\\
-%
 w_1 &= \int_{x_0}^{x_1} \bigl(\frac{x-x_0}{x_1-x_0}\bigr) dx = \frac{1}{2}h\\
 %
-& \therefore I_1(f) = w_0f(x_0) + w_1f(x_1) = \boxed{\frac{h}{2}\bigl(f(x_0) + f(x_1)\bigr)} \rightarrow \text{area of a trapezoid}
+\therefore I_1(f) = w_0f(x_0) &+ w_1f(x_1)  = \boxed{\frac{h}{2}\bigl(f(x_0) + f(x_1)\bigr)} \rightarrow \text{area of a trapezoid}
 \end{align*}
-
+%
 The trapezoid rule has degree of precision 1.
 
-\textit{DRAW PICTURE}
+\begin{figure}
+\begin{center}
+  \includegraphics[height=4in,clip]{QuadratureComparison}
+\end{center}
+\end{figure}
 
 %--------------------------------------------------------------------
 \subsubsection*{Error Analysis}
@@ -393,6 +398,7 @@ is the error term for trapezoid rule. You can see that this has degree of precis
 
 
 %--------------------------------------------------------------------
+\vspace*{-1em}
 \subsubsection*{Simpson's Rule}
 This is the Lagrange form of Newton-Cotes integration with $n=2$.
 
@@ -401,8 +407,9 @@ x_0 &= a \qquad x_1 = \frac{a+b}{2} \qquad x_2=b \qquad h=\frac{b-a}{2}\\
 %
 L_0 &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}\\
 L_1 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
-L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}\\
-%
+L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}
+\end{align*}
+\begin{align*}
 w_0 &= \int_{x_0}^{x_2} L_0(x)dx = \frac{h}{3}\\
 w_1 &= \int_{x_0}^{x_2} L_1(x)dx = \frac{4h}{3}\\
 w_2 &= \int_{x_0}^{x_2} L_2(x)dx = \frac{h}{3}\\
@@ -419,6 +426,7 @@ We're going to skip the details, but what we get out is that the error for Simps
 Thus, Simpson's rule has degree of precision 3 and is $O(h^5)$.
 
 \textbf{In General:}
+\vspace*{-1em}
 \begin{center}
 \begin{tabular}{c c c}
 $n$  & error        & precision \\ \hline
@@ -446,12 +454,11 @@ Some difficulties:
 Just apply the trapezoid rule on each subinterval. Given $x_0, x_1, \dots, x_n$ and $f(x_0), f(x_1), \dots f(x_n)$, the grid space is $h = \frac{x_n-x_0}{n}$.
 
 \textit{DRAW PICTURE}
-
+\vspace*{-1em}
 \begin{align*}
 \int_{a}^{b} f(x)dx &= \sum_{i=1}^n \int_{x_{i-1}}^{x_i} f(x)dx\\
 &= \sum_{i=1}^n \bigl[ \frac{h}{2}\bigl(f(x_{i-1}) + f(x_i)\bigr) - \frac{h^3}{12}f''(c_i) \bigr] \\
 &= \frac{h}{2}\bigl(f(a) + 2\sum_{i=1}^{n-1}f(x_i) + f(b)\bigr) - \frac{h^3}{12} \underbrace{\sum_{i=1}^n f''(c_i)}_{\substack{n f''(\mu),\\ n = (b-a)/h}}\\
-%
 \int_{a}^{b} f(x)dx &= \boxed{\frac{h}{2}\bigl(f(a) + 2\sum_{i=1}^{n-1}f(x_i) + f(b)\bigr) - \frac{h^2}{12}(b-a)f''(\mu) }
 \end{align*}
  
@@ -472,6 +479,12 @@ The previous examples were called \textbf{closed} Newton-Cotes because $f(x)$ is
 \textbf{Open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are defined as $x_{j} = x_0 + jh, j = 0, \dots, n$, $h = (b-a)/(n+2)$. 
 
 However, we define $x_{0} = a + h$, which implies $x_{n} = b - h$. Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$).
+\begin{figure}
+\begin{center}
+  \includegraphics[height=2in,clip]{ClosedNewtonCotes}\\
+  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}\\
+\end{center}
+\end{figure}
 
 Best quick explanation of difference I've found on slides 17 and 18:\\ \href{http://www.math.uconn.edu/~leykekhman/courses/MATH_5520/Notes/quadrature_1.pdf}{http://www.math.uconn.edu/$\sim$leykekhman/courses/MATH\_5520/Notes/quadrature\_1.pdf}
 
@@ -488,13 +501,8 @@ where $x_{-1} < \xi < x_{2}$ and $h=(b-a)/3$.
 \[ \int_{x_{-1}}^{x_{3}} f(x)dx = \frac{4h}{3}[2f(x_0) - f(x_1) + 2f(x_2)] + \frac{14h^5}{45}f^{(4)}(\xi)\]
 where $x_{-1} < \xi < x_{3}$ and $h=(b-a)/4$.
 
-\begin{figure}
-\begin{center}
-  \includegraphics[height=2in,clip]{ClosedNewtonCotes}\\
-  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}\\
-  \includegraphics[height=4in,clip]{QuadratureComparison}
-\end{center}
-\end{figure}
+
+
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
