@@ -291,10 +291,12 @@ y_0 \\ y_1 \\ \vdots \\ y_m
 \end{pmatrix}\nonumber
 \end{align}
 %
-Why can't we just solve this matrix system?\\ $n < m$ and the system is overdetermined.\\ Instead, we look to minimize the error, $e = ||\ve{A}\vec{z} - \vec{b}||$.
+Why can't we just solve this matrix system?\\ $n < m$ and the system is overdetermined.\\ Instead, we look to minimize the error, $E = ||\ve{A}\vec{z} - \vec{b}||$.
 
-We must choose a norm in which to minimize the error. It is quite common to choose the 2-norm; the 2-norm squared is
-\[e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i)\bigr)^2\]
+In the \textit{least squares} procedure, we minimize the \textit{square} of the error in some norm. 
+
+We must choose a norm in which to minimize the error. It is quite common to choose the 2-norm; the error in the 2-norm squared , which we will call $e$, is
+\[E^2 = e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i)\bigr)^2\]
 %
 To minimize this w.r.t.\ the $a$s, we take the partial derivative and set equal to zero:
 %
@@ -363,7 +365,7 @@ We can also find the least squares error for some polynomial approximation:
 %
 \[y = a_0 + a_1 x + a_2 x^2 + \dots +a_n x^n\]
 %
-where the error (residual) in the two norm is given by
+where the squared error (residual) in the two norm is given by
 %
 \[e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i+ \cdots + a_n x_i^n)\bigr)^2 \:.\]
 %
