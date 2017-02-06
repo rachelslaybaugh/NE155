@@ -334,8 +334,11 @@ P_n(x) &= \sum_{i=0}^{n}f(x_i)L_i(x) \\
 I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
 %
 &= \sum_{i=0}^{n} w_i f(x_i)\\
-\text{where } w_i &=  \int_a^b L_i(x)dx \qquad \therefore w_i \text{ are not dependent on } f(x)
+\text{where } w_i &=  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} \\
+&\text{sub in } x = a + th\\
+&=  (b-a)\frac{1}{n}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(i-k)}ds
 \end{align*}
+We can see $w_i$ are not dependent on $f(x)$.
 
 %--------------------------------------------------------------------
 \subsubsection*{Trapezoid Rule}
@@ -365,6 +368,7 @@ The trapezoid rule has degree of precision 1.
 \begin{center}
   \includegraphics[height=4in,clip]{QuadratureComparison}
 \end{center}
+\caption{examples of how different integration rules capture a function}
 \end{figure}
 
 %--------------------------------------------------------------------
@@ -408,8 +412,7 @@ x_0 &= a \qquad x_1 = \frac{a+b}{2} \qquad x_2=b \qquad h=\frac{b-a}{2}\\
 L_0 &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}\\
 L_1 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
 L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}
-\end{align*}
-\begin{align*}
+%
 w_0 &= \int_{x_0}^{x_2} L_0(x)dx = \frac{h}{3}\\
 w_1 &= \int_{x_0}^{x_2} L_1(x)dx = \frac{4h}{3}\\
 w_2 &= \int_{x_0}^{x_2} L_2(x)dx = \frac{h}{3}\\
@@ -476,17 +479,31 @@ Similarly, apply the Simpson rule on each subinterval. Note that for the functio
 \subsubsection*{Open Newton-Cotes}
 The previous examples were called \textbf{closed} Newton-Cotes because $f(x)$ is evaluated at the first and last points.
 
-\textbf{Open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are defined as $x_{j} = x_0 + jh, j = 0, \dots, n$, $h = (b-a)/(n+2)$. 
+\textbf{Open} Newton-Cotes does not evaluate $f(x)$ at the endpoints. The node points are still defined as $x_{j} = x_0 + jh, j = 0, \dots, n$,  but now 
+\vspace*{-1em}
+\begin{center}
+\begin{tabular}{c c c}
+Item & Open & Closed \\ \hline
+$h$  & $\frac{b-a}{n+2}$ & $\frac{b-a}{n}$ \\
+$x_0$ & $a+h$ & $a$ \\
+$x_n$ & $b-h$ & $b$ \\
+\end{tabular}
+\end{center}
+%
+Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$), which gives
+\[
+ w_i =  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} =  (b-a)\frac{1}{n+2}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(i-k)}ds
+ \]
 
-However, we define $x_{0} = a + h$, which implies $x_{n} = b - h$. Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$).
 \begin{figure}
 \begin{center}
-  \includegraphics[height=2in,clip]{ClosedNewtonCotes}\\
-  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}\\
+  \includegraphics[height=2in,clip]{ClosedNewtonCotes}
+  \includegraphics[height=1.75in,clip]{OpenNewtonCotes}
 \end{center}
+\caption{[left] example of \textbf{closed} Newton Cotes (where the interpolation \textit{matches} at the end points); [right] example of \textbf{open} Newton Cotes (where the interpolation \textit{does not match} at the end points)}
 \end{figure}
 
-Best quick explanation of difference I've found on slides 17 and 18:\\ \href{http://www.math.uconn.edu/~leykekhman/courses/MATH_5520/Notes/quadrature_1.pdf}{http://www.math.uconn.edu/$\sim$leykekhman/courses/MATH\_5520/Notes/quadrature\_1.pdf}
+%A quick explanation of difference I've found on slides 17 and 18:\\ \href{http://www.math.uconn.edu/~leykekhman/courses/MATH_5520/Notes/quadrature_1.pdf}{http://www.math.uconn.edu/$\sim$leykekhman/courses/MATH\_5520/Notes/quadrature\_1.pdf}
 
 \vspace*{1 em}
 The \underline{midpoint rule} is what we get with \underline{$n=0$}; it only uses one point:
