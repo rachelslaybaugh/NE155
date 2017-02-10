@@ -326,7 +326,7 @@ The only error is in the polynomial interpolation.
 
 %--------------------------------------------------------------------
 \subsection*{Lagrange form of NC}
-Choosing Lagrange polynomials prevents us from needing to recalculate weights for every $f(x)$ (since we've fixed the points).
+Choosing Lagrange polynomials prevents us from needing to recalculate weights for every $f(x)$ (since we've fixed the points). Note, we're assuming equally spaced points: $h = (b-a)/n$. This is not a necessary assumption, but indexing of $h$ would be required for unequally spaced points.
 %
 \begin{align*}
 P_n(x) &= \sum_{i=0}^{n}f(x_i)L_i(x) \\
@@ -335,7 +335,7 @@ I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
 %
 &= \sum_{i=0}^{n} w_i f(x_i)\\
 \text{where } w_i &=  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} \\
-&\text{sub in } x = a + th\\
+&\text{sub in } x = a + sh\\
 &=  (b-a)\frac{1}{n}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(i-k)}ds
 \end{align*}
 We can see $w_i$ are not dependent on $f(x)$.
@@ -398,7 +398,7 @@ Thus, we can use MVT for our integral to see that
 I(f) - I_1(f) &= \frac{1}{2}f''(\eta) \int_{x_0}^{x_1} (x-x_0)(x-x_1) dx \\
 &= \frac{1}{2}f''(\eta) \bigl(\frac{-h^3}{6}\bigr) \rightarrow \boxed{\frac{-h^3}{12}f''(\eta)}
 \end{align*}
-is the error term for trapezoid rule. You can see that this has degree of precision 1 b/c the second derivative drives the error and is $O(h^3)$.
+is the error term for trapezoid rule. You can see that this has \underline{degree of precision 1 b/c the second derivative} \underline{drives the error} and \textit{the error changes as $O(h^3)$ with mesh spacing}.
 
 
 %--------------------------------------------------------------------
@@ -411,7 +411,7 @@ x_0 &= a \qquad x_1 = \frac{a+b}{2} \qquad x_2=b \qquad h=\frac{b-a}{2}\\
 %
 L_0 &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}\\
 L_1 &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
-L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}
+L_2 &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}\\
 %
 w_0 &= \int_{x_0}^{x_2} L_0(x)dx = \frac{h}{3}\\
 w_1 &= \int_{x_0}^{x_2} L_1(x)dx = \frac{4h}{3}\\
