@@ -583,18 +583,18 @@ Given a sequence $\lbrace \hat{x}^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some n
 \end{equation}
 
 %http://fourier.eng.hmc.edu/e176/lectures/NM/node3.html
+%https://en.wikipedia.org/wiki/Rate_of_convergence
 When we think of the \textbf{rate of convergence}, we can look at how quickly this limit is reached. We measure this as
 \[ \lim_{k \rightarrow \infty} \frac{||\hat{x}^{(k+1)} - \vec{x}||_p}{||\hat{x}^{(k)} - \vec{x}||_p^q} = \mu\]
 Here $q \geq 1$ is called the \textit{order of convergence} and $\mu$ is the \textit{rate of convergences}. Also written as
-\[||\hat{x}^{(k+1)} - \vec{x}||_p = \mu ||\hat{x}^{(k)} - \vec{x}||_p^q \rightarrow ||e_{k+1}||_p = \mu||e_{k+1}||_p^p\:.
+\[||\hat{x}^{(k+1)} - \vec{x}||_p = \mu ||\hat{x}^{(k)} - \vec{x}||_p^q \rightarrow ||e_{k+1}||_p = \mu||e_{k}||_p^q\:.
 \]
 Consider
 \begin{compactitem}
-\item If $q=1$ and $0<\mu<1$,  $||e_{k+1}||_p =\mu || e_k ||_p < || e_k ||_p$, then
+\item If $q=1$ and $\mu$ varies with iteration ($\mu = \mu_k$),  $||e_{k+1}||_p =\mu_k || e_k ||_p < || e_k ||_p$, then
   \begin{compactitem}
-  \item if $\mu=1$, the convergence is sublinear
-  \item if $0<\mu<1$, the convergence is linear with the rate of convergence of $\mu$.
-  \item if $\mu=0$, the convergence is superlinear
+  \item if $\mu_k \rightarrow 1$ as $k \rightarrow \infty$, the convergence is sublinear
+  \item if $\mu_k \rightarrow 0$ as $k \rightarrow \infty$, the convergence is superlinear
   \end{compactitem}
 \item If $q=2$,  $|| e_{k+1} ||_p = \mu || e_k ||_p^2,\;\;(\mu>0)$, the convergence is quadratic.
 \item If $q=3$,  $ || e_{k+1} ||_p = \mu || e_k ||_p^3,\;\;(\mu>0)$, the convergence is cubic.
