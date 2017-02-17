@@ -506,6 +506,11 @@ The dot product is also known as the Euclidean inner product. One can define man
 \subsection*{Convergence}
 We can use the concepts of norms and inner products to develop some relationships and talk about convergence. 
 
+%https://en.wikipedia.org/wiki/Rate_of_convergence
+In numerical analysis, the speed at which a convergent sequence approaches its limit is called the \textit{rate of convergence}. This concept is of practical importance in dealing with a sequence of successive approximations for an iterative method, as then typically fewer iterations are needed to yield a useful approximation if the rate of convergence is higher. 
+
+Similar concepts are used for \textbf{discretization methods}. The solution of the discretized problem converges to the solution of the continuous problem as the grid size goes to zero, and the speed of convergence is one of the factors of the efficiency of the method. However, the terminology in this case is different from the terminology for iterative methods.
+
 The \textit{Cauchy-Schwartz} inequality states
 %
 \begin{equation}
@@ -574,6 +579,16 @@ Given a sequence $\lbrace \hat{x}^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some n
 \begin{equation}
 \displaystyle\text{lim}_{k \rightarrow \infty} ||\hat{x}^{(k)} - \vec{x}||_p = 0 \nonumber
 \end{equation}
+
+A similar situation exists for discretization methods. The important parameter here for the convergence speed is not the iteration number $k$ but it depends on the number of grid points and grid spacing. In this case, the number of grid points $n$ in a discretization process is inversely proportional to the grid spacing.
+
+In this case, a sequence $x_{n}$ is said to converge to $L$ with order $p$ if there exists a constant $C$ such that
+\[ \|x_{n}-L\| < Cn^{-p} \quad \forall \:n\:.\]
+This is written as $\|xn - L\| = O(n−p)$ using the ``big O" notation.
+
+This is the relevant definition when discussing methods for numerical quadrature or the solution of ordinary differential equations. A practical method to calculate the rate of convergence for a discretization method is to implement the following formula:
+\[ p\approx {\frac {\log {\frac {e_{new}}{e_{old}}}}{\log {\frac {h_{new}}{h_{old}}}}}\]
+
 
 
 %--------------------------------------------------------------------------
