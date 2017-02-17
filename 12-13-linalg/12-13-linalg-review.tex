@@ -5,7 +5,7 @@
 \documentclass[12pt]{article}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
-\usepackage{setspace}
+\usepackage{setspace, paralist}
 \onehalfspacing
 
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
@@ -504,14 +504,16 @@ Inner products are symmetric and bilinear form in $\mathbb{R}^n$:
 The dot product is also known as the Euclidean inner product. One can define many inner products, but \textit{in this class assume we're using the Euclidean inner product} (dot product) unless otherwise specified. 
 
 \subsection*{Convergence}
-We can use the concepts of norms and inner products to develop some relationships and talk about convergence. 
+We can use the concepts of norms and inner products to develop some relationships and talk about convergence. Note that there are two ways we think of convergence in numerical methods:
+\begin{enumerate}
+\item the \textbf{method}: the speed at which a numerical guess approaches the true solution with iteration count;
+\item the \textbf{discretization}: speed at which a numerical guess approaches the true solution with reduction in  grid size.
+\end{enumerate}
 
 %https://en.wikipedia.org/wiki/Rate_of_convergence
-In numerical analysis, the speed at which a convergent sequence approaches its limit is called the \textit{rate of convergence}. This concept is of practical importance in dealing with a sequence of successive approximations for an iterative method, as then typically fewer iterations are needed to yield a useful approximation if the rate of convergence is higher. 
+In numerical analysis, the speed at which a convergent sequence approaches its limit is what is commonly called the \textit{rate of convergence}. This concept is of practical importance in dealing with a sequence of successive approximations for an iterative method, as then typically fewer iterations are needed to yield a useful approximation if the rate of convergence is higher. 
 
-Similar concepts are used for \textbf{discretization methods}. The solution of the discretized problem converges to the solution of the continuous problem as the grid size goes to zero, and the speed of convergence is one of the factors of the efficiency of the method. However, the terminology in this case is different from the terminology for iterative methods.
-
-The \textit{Cauchy-Schwartz} inequality states
+We will first talk about this and we will use the \textit{Cauchy-Schwartz} inequality:
 %
 \begin{equation}
 \langle \vec{x}, \vec{y} \rangle \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
@@ -577,10 +579,30 @@ For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solu
 Given a sequence $\lbrace \hat{x}^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some norm $p$, we say that $\lbrace \hat{x}^{(k)} \rbrace$ converges to $\vec{x}$ if
 %
 \begin{equation}
-\displaystyle\text{lim}_{k \rightarrow \infty} ||\hat{x}^{(k)} - \vec{x}||_p = 0 \nonumber
+\lim_{k \rightarrow \infty} ||\hat{x}^{(k)} - \vec{x}||_p = 0 \nonumber
 \end{equation}
 
-A similar situation exists for discretization methods. The important parameter here for the convergence speed is not the iteration number $k$ but it depends on the number of grid points and grid spacing. In this case, the number of grid points $n$ in a discretization process is inversely proportional to the grid spacing.
+%http://fourier.eng.hmc.edu/e176/lectures/NM/node3.html
+When we think of the \textbf{rate of convergence}, we can look at how quickly this limit is reached. We measure this as
+\[ \lim_{k \rightarrow \infty} \frac{||\hat{x}^{(k+1)} - \vec{x}||_p}{||\hat{x}^{(k)} - \vec{x}||_p^q} = \mu\]
+Here $q \geq 1$ is called the \textit{order of convergence} and $\mu$ is the \textit{rate of convergences}. Also written as
+\[||\hat{x}^{(k+1)} - \vec{x}||_p = \mu ||\hat{x}^{(k)} - \vec{x}||_p^q \rightarrow ||e_{k+1}||_p = \mu||e_{k+1}||_p^p\:.
+\]
+Consider
+\begin{compactitem}
+\item If $q=1$ and $0<\mu<1$,  $||e_{k+1}||_p =\mu || e_k ||_p < || e_k ||_p$, then
+  \begin{compactitem}
+  \item if $\mu=1$, the convergence is sublinear
+  \item if $0<\mu<1$, the convergence is linear with the rate of convergence of $\mu$.
+  \item if $\mu=0$, the convergence is superlinear
+  \end{compactitem}
+\item If $q=2$,  $|| e_{k+1} ||_p = \mu || e_k ||_p^2,\;\;(\mu>0)$, the convergence is quadratic.
+\item If $q=3$,  $ || e_{k+1} ||_p = \mu || e_k ||_p^3,\;\;(\mu>0)$, the convergence is cubic.
+\end{compactitem}
+
+Similar concepts are used for \textbf{discretization methods}. The solution of the discretized problem converges to the solution of the continuous problem as the grid size goes to zero, and the speed of convergence is one of the factors of the efficiency of the method. The important parameter here for the convergence speed is not the iteration number $k$ but it depends on the number of grid points and grid spacing. In this case, the number of grid points $n$ in a discretization process is inversely proportional to the grid spacing. 
+
+We talked about this during integration.
 
 In this case, a sequence $x_{n}$ is said to converge to $L$ with order $p$ if there exists a constant $C$ such that
 \[ \|x_{n}-L\| < Cn^{-p} \quad \forall \:n\:.\]
