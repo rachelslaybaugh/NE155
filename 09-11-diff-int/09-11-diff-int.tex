@@ -336,7 +336,7 @@ I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
 &= \sum_{i=0}^{n} w_i f(x_i)\\
 \text{where } w_i &=  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} \\
 &\text{sub in } x = a + sh\\
-&=  (b-a)\frac{1}{n}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(i-k)}ds
+&=  (b-a)\frac{1}{n}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(k-i)}ds
 \end{align*}
 We can see $w_i$ are not dependent on $f(x)$.
 
@@ -492,7 +492,7 @@ $x_n$ & $b-h$ & $b$ \\
 %
 Now our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$), which gives
 \[
- w_i =  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} =  (b-a)\frac{1}{n+2}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(i-k)}ds
+ w_i =  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} =  (b-a)\frac{1}{n+2}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(k-i)}ds
  \]
 
 \begin{figure}
