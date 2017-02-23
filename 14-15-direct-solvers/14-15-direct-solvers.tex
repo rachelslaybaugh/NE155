@@ -49,8 +49,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 14 and 15, S17 \\
-Direct Solutions for Linear Systems \\ February 17 and 22, 2017}
+{\bf NE 155, Class 15, S17 \\
+Direct Solutions for Linear Systems \\ February 22, 2017}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -174,7 +174,8 @@ We want to solve $\ve{A}\vec{x} = \vec{b}$:
 %
 This requires $O(n^2)$ operations.
 
-The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^3)$ operations. $\ve{U}$ is the upper triangular matrix from Gaussian Elimination; $\ve{L}$ is the lower triangular matrix formed from performing the same operations on $\ve{I}$ that you performed on $\ve{U}$. 
+The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^3)$ operations. $\ve{U}$ is the upper triangular matrix from Gaussian Elimination; $\ve{L}$ is the lower triangular matrix formed by recording the operations you perform on $\ve{U}$ (explained below). To check, if you perform the operations on $\ve{L}$ that you perform on $\ve{U}$, you should get $\ve{I}$.
+%from performing the same operations on $\ve{I}$ that you performed on . 
 %
 \begin{equation}
    \ve{L} = \begin{pmatrix}
@@ -210,7 +211,7 @@ Here the $a^*$ are the the entries in the version of $\ve{A}$ \textit{that comes
 \end{equation}
 %
 %
-Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form. 
+Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form (remember to operate on $\ve{b}$ as well). 
 \begin{align}
 \ve{U} &= \begin{pmatrix}
   5  & 2 & 1 \\
@@ -218,8 +219,9 @@ Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form.
   -2 & 3 & -3
 \end{pmatrix} 
 &\begin{pmatrix}
- & \\ R_2 - m_{21}R_1, & m_{21} = 4/5 \\ 
-      R_3 - m_{31}R_1, & m_{31} = -2/5 \end{pmatrix} \nonumber \\
+ & \\ R_2 - m_{21}R_1, & m_{21} = 4/5 \:(a_{21}/a_{11})\\ 
+      R_3 - m_{31}R_1, & m_{31} = -2/5 \:(a_{31}/a_{11})\end{pmatrix}  
+\nonumber \\
 %
 &= \begin{pmatrix}
   5 & 2    & 1 \\
@@ -227,13 +229,13 @@ Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form.
   0 & 19/5 & -13/5
 \end{pmatrix} 
 &\begin{pmatrix}
- & \\ & \\ R_3 - m_{32}R_2, & m_{32} = -19/3 \end{pmatrix} \nonumber \\                   
+ & \\ & \\ R_3 - m_{32}R_2, & m_{32} = -19/3 \:(a^{*}_{32}/a^{*}_{22})\end{pmatrix} \nonumber \\                   
 %
 &= \begin{pmatrix}
   5 & 2    & 1 \\
   0 & -3/5 & -9/5 \\
   0 & 0    & -14
-\end{pmatrix} \nonumber
+\end{pmatrix} 
 \end{align}
 %
 Now, we fill the $m_{ij}$s we just discovered into the $\ve{L}$ matrix.
@@ -323,6 +325,10 @@ For example, if we have a situation where $u_{22}$ is very small but $u_{32}$ is
   0 & 1 & 0
 \end{pmatrix} \]
 
+** Note: the example we did above would have been easier if we had pivoted the second and third rows. If you use the scipy LU decomposition, it will do this (\texttt{scipy.linalg.lu}) **
+
+
+You can find another example both with and without pivoting here: \url{https://www.seas.ucla.edu/~vandenbe/103/lectures/lu.pdf}.
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
