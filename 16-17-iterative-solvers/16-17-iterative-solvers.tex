@@ -1,6 +1,6 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
+% Spring 2017
 
 % formatting
 \documentclass[12pt]{article}
@@ -50,8 +50,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 17 \& 18, S16 \\
-Iterative Solutions for Linear Systems \\ February 29 and March 2, 2016}
+{\bf NE 155, Classes 16 \& 17, S17 \\
+Iterative Solutions for Linear Systems \\ February 24 and 27, 2017}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -205,7 +205,7 @@ The algorithm for this method is, for $i = 1, \dots, n$:
 In matrix notation, this looks like:
 \[(\ve{D} + \ve{L})\vec{x}^{k+1} = -\ve{U} \vec{x}^{(k)} + \vec{b}\:, \]
 where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. This makes $\ve{P}_{GS} = -(\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
-converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly - especially in highly scattering systems \cite{LeVeque2007}. 
+converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly--especially in highly scattering systems \cite{LeVeque2007}. 
 
 The spectral radii for some materials of practical interest determined using cross sections with 41 thermal upscattering groups are: graphite = 0.9984, heavy water = 0.9998, and iron = 0.6120 \cite{Adams2002}, \cite{Evans2009d}.
 
@@ -233,7 +233,7 @@ Determining the best $\omega$, $\omega_{opt}$, is problem-dependent and is not p
 %
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[height=2.25in]{SOR-omega}
+\includegraphics[height=2.25in]{../figs/SOR-omega}
 \end{center}
 \end{figure}
 
@@ -270,9 +270,9 @@ k &\approx \frac{\log(\epsilon)}{\log(\rho(\ve{P}))} \nonumber
 \subsection*{Preconditioning}
 Condition number information is derived from Trefethen and Bau \cite{Trefethen1997}. Conditioning is one way to express the perturbation behavior of the mathematical problem. 
 
-A \emph{well-conditioned} problem is one in which all small perturbations of $x$ lead to only small changes in $f(x)$. 
+A \emph{well-conditioned} problem is one in which all small perturbations of $x$ lead to only small changes in $f(x)$. Why might this be desirable?
 
-An \emph{ill-conditioned} problem is one in which some small perturbation of $x$ leads to a large change in $f(x)$. 
+An \emph{ill-conditioned} problem is one in which some small perturbation of $x$ leads to a large change in $f(x)$. Why might this be \textit{undesirable}?
 
 The condition number is a quantity used to express how well-conditioned a matrix or problem is. A small condition number corresponds to a well-conditioned problem, and vice versa. 
 
