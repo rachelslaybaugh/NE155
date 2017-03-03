@@ -1,0 +1,135 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2017
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+% Equations
+\textbf{Elliptic} if $B^2 - 4 AC < 0$; \textbf{Parabolic} if $B^2 - 4 AC = 0$; \textbf{Hyperbolic} if $B^2 - 4 AC > 0$
+
+% TE and DE
+\begin{align*}
+\Sigma_s(\vOmega' \cdot \vOmega) &= \sum_{l=0}^{\infty} \frac{2l+1}{4\pi} \Sigma_{sl} P_l(\vOmega')P_l(\vOmega)\:; \quad P_0 (\vOmega) = 1\:, \quad P_1 (\vOmega) = \vOmega \\
+%
+D &= \frac{1}{3\Sigma_{tr}} = \frac{1}{3(\Sigma_t(\vec{r}) - \Sigma_{s1}(\vec{r}))}\:, \quad \Sigma_{tr} \equiv \Sigma_t - \Sigma_{s1}\\
+\Macro_{s1}  &= \int d\vOmega \:\vOmega \Macro_{s}\:, \text{when azimuthally symmetric }\Macro_{s1} = \bar{\mu}_{0}\Macro_{s}\\
+%
+\vec{J}(\vec{r}) &= -\frac{1}{3\Sigma_{tr}} \nabla \phi(\vec{r}) = -D\nabla \phi(\vec{r})\\
+%
+\tilde{x}_s &= x_s + 2D = x_s + \frac{2}{3}\lambda_{tr}\text{ is the extrapolation distance}
+\end{align*}
+
+
+% Differentiation
+\textbf{Taylor expansion} of a function about a point:
+\begin{equation}
+f(x) = \sum_{k=0}^{n-1}\frac{(x-a)^k}{k!}f^{(k)}(a) + R_n \qquad R_n = f^{(n)}(\mu(x)^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } \mu(x)^* \in [a, x]\nonumber
+%http://mathworld.wolfram.com/TaylorSeries.html
+\end{equation}
+
+% interpolation
+If we have $(n+1)$ distinct points $x_0, x_1,\dots, x_n$ and $f(x)$ is a function defined by these points, then $\exists$ a unique \textbf{polynomial}, $P_n(x)$, of degree $\leq n$ that \textbf{interpolates} $f$ at the $n + 1$ distinct points:
+\begin{align*}
+f(x_k) &= P_{n}(x_k)\:, \qquad \text{for }k= 0, 1, \dots, n\\
+%
+P_{n}(x) &= f(x_0)L_0(x) + \dots + f(x_n)L_n(x) = \sum_{k=0}^{n}f(x_k)L_k(x)\\
+%
+L_k(x) &= \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} \qquad
+%
+L_k(x) = \frac{(x-x_0)(x-x_1)\cdots(x-x_{k-1})(x-x_{k+1})\cdots(x-x_n)}{(x_k-x_0)(x_k-x_1)\cdots(x_k-x_{k-1})(x_k-x_{k+1})\cdots(x_k-x_n)}\nonumber
+\end{align*}
+ If $f$ is $C^{n+1} \in [a,b]$ then for each $x\in [a,b] \: \exists \: \xi(x) \in [a,b]$ s.t.
+\[
+f(x) - P_n(x) = R_{n}(x) = \frac{f^{(n+1)}(\xi(x))}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n) = \frac{f^{(n+1)}(\xi(x))}{(n+1)!}\prod_{i=0}^n (x-x_i)\]
+
+% approximation
+\textbf{normal equations} for $m$ with $n$ unknowns where $n<m$: $\ve{A}^T\ve{A} \vec{z} = \ve{A}^T\vec{b}$
+%
+\[\det(\ve{A}^T\ve{A}) = m \sum_{i=0}^m x_i^2 -  \bigl(\sum_{i=0}^m x_i\bigr)^2 = \frac{1}{2} \sum_{i=0}^m \sum_{j=0}^m (x_i - x_j)^2\]
+
+% integration
+\begin{align*}
+I(f) \approx I_n(f) &= \sum_{i=0}^n w_i f(x_i)\:, \quad \text{ and for \textbf{Newton-Cotes integration},} \: = I(P_n)\\
+%
+I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i)\:, \quad \text{here } w_i =  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} \\
+%
+&\text{sub in } x = a + sh\:, \quad w_{i}=  (b-a)\frac{1}{n}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(k-i)}ds
+\end{align*}
+%
+In \textbf{open NC} our real endpoints are $x_{-1}$ and $x_{n+1}$ (so we're doing $\int_{x_{-1}}^{x_{n+1}} f(x)dx$), which gives
+\[
+ w_i =  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} =  (b-a)\frac{1}{n+2}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(k-i)}ds
+ \]
+ 
+ % Linear Algebra
+ For a square matrix, the \textbf{first order minor}, $M_{ij}$, deletes the $i^{th}$ row and $j^{th}$ column and takes the determinant. The corresponding $i,j$ \textbf{cofactor} of $\ve{A}$ is $C_{ij} = (-1)^{i+j} M_{ij}$. Then
+%
+\begin{align*}
+\text{det}(\ve{A}) &= \sum_{j=1}^n a_{ij} C_{ij} \text{ for any i} \in \{1,...,n\} \quad\text{or}\quad = \sum_{i=1}^n a_{ij} C_{ij} \text{ for any j} \in \{1,...,n\} \\
+\ve{A}^{-1} &= \frac{1}{\text{det}(\ve{A})}\ve{C}^T
+\end{align*}
+%
+\begin{align*}
+||\ve{A}||_F &= \sqrt{ \sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2 } = \sqrt{\sigma_1^2 + \sigma_2^2 + \dots + \sigma_n^2}\\
+%
+||\ve{A}||_{1} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{1}}{||\vec{x}||_{1}} =
+\displaystyle \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}| \qquad \text{max absolute col sum} \nonumber \\
+%
+||\ve{A}||_{\infty} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{\infty}}{||\vec{x}||_{\infty}} = 
+\displaystyle \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| \qquad \text{max absolute row sum}\nonumber \\
+%
+||\ve{A}||_{2} &= \displaystyle \sup_{\vec{x} \neq \vec{0}} \frac{||\ve{A}\vec{x}||_{2}}{||\vec{x}||_{2}} = \text{ the sqrt of the max  eigenvalue of }\ve{A}^H\ve{A} \nonumber \\
+&\text{is largest singular value for any matrix, or the spectral radius of a square matrix} \nonumber 
+\end{align*}
+%
+The \textbf{spectrum} of $\ve{A}$: $\sigma(\ve{A}) = [ \lambda \in \mathbb{C} : \det(\ve{A} - \lambda \ve{I})=0] $
+
+\end{document}
