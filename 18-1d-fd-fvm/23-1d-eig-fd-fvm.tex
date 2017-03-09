@@ -1,6 +1,6 @@
 %--------------------------------------------------------------------
 % NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2015
+% Spring 2017
 
 % formatting
 \documentclass[12pt]{article}
@@ -50,14 +50,77 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 23-14, S16 \\
-Finite Difference and Volume Methods for the Eigenvalue form of the DE \\ March 14 \& 16, 2016}
+{\bf NE 155, Classes 22-23, S17 \\
+Finite Difference and Volume Methods for the Eigenvalue form of the DE \\ March 10 \& 13, 2017}
 \end{center}
 
 \setlength{\unitlength}{1in}
 \begin{picture}(6,.1) 
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
+
+%------------------------------------------
+\subsection*{Helmholtz Form}
+We skipped over when we derived the Diffusion Equation is the Helmholtz form. I am bringing it up now b/c it can be a convenient way to solve the DE. You will also need to generate an analytical solution in a homework, and this approach might be useful.
+
+In steady state, we can write the diffusion equation this way:
+%
+\begin{align*}
+-\nabla \cdot D(\vec{r})\nabla \phi(\vec{r}) + 
+\Sigma_a \phi(\vec{r}) &= Q(\vec{r})\:, \\
+%
+\text{where }\qquad Q(\vec{r}) &=
+\nu \Sigma_f \phi(\vec{r}) +
+S(\vec{r})\:,
+\end{align*}
+%
+which can be written as the Helmholtz equation of applied mathematics:
+%http://en.wikipedia.org/wiki/Helmholtz_equation
+%
+\begin{align*}
+\nabla^2 \phi(\vec{r}) - \frac{1}{L^2}\phi(\vec{r}) &= \frac{-Q(\vec{r})}{D}\:, \\
+\text{where }\qquad L &\equiv \sqrt{\frac{D}{\Sigma_a}}\:.
+\end{align*}
+%
+$L$ is called the neutron diffusion length. This is ``how far a neutron diffuses from a source prior to absorption". 
+
+In the Helmholtz formulation, $\phi$ is amplitude and $\frac{1}{L}$ is wave number. 
+
+This formulation is useful because we know how to solve it. We write
+\[\phi(\vec{r}) = \phi_H(\vec{r}) + \phi_P(\vec{r}) \:,\]
+
+For example, we often have:
+\[\phi_H(\vec{r}) = A\exp\bigl(-\frac{|\vec{r}|}{L}\bigr) + B\exp\bigl(\frac{|\vec{r}|}{L}\bigr) \:.\]
+
+Going through how to solve this analytically in a variety of circumstances, geometries, etc.\ is another class (NE 150/250). 
+
+%------------------------------------------
+\subsection*{Criticality Calculations}
+We also want to think about the details of how to configure a reactor to get it to work the way we want it to. 
+We can write our DE in steady state for a nuclear reactor core:
+%
+\begin{align*}
+-\nabla \cdot D\nabla \phi(\vec{r}) + 
+\Sigma_a \phi(\vec{r}) &= \nu \Sigma_f \phi(\vec{r})\:, \\
+\text{with} \qquad \phi(\tilde{x}_s) &= 0\:.
+\end{align*}
+%
+Unless we have the proper combination of core composition ($\Sigma_a$, $\Sigma_f$, $D$) and geometry ($\vec{r}$ ,$\vec{r}_s$) details, there is \underline{no} general solution. 
+
+To deal with this, we introduce a parameter $k$ into the equation:
+%
+\begin{equation}
+-\nabla \cdot D\nabla \phi(\vec{r}) + 
+\Sigma_a \phi(\vec{r}) = \frac{1}{k}\nu \Sigma_f \phi(\vec{r})\:. \nonumber
+\end{equation}
+%
+Then, for any value of $k$ we assert that there is always a solution. We use an iterative process to find the condition when $k=1$, called ``critical''.
+
+A reactor is called \textbf{``critical''} if the chain reaction is self-sustaining and time-independent. Another way to think of the addition of $k$ is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
+
+This substitution changes the transport equation into an \textbf{eigenvalue problem.} A spectrum of eigenvalues can be found, but at \textbf{long times only the non-negative solution corresponding to the largest real eigenvalue will dominate}, and that's $k$. 
+
+$k$ can also be thought of as the asymptotic ratio of the number of neutrons in one generation to the number in the next.
 
 %--------------------------------------------------------------------
 \section*{Finite Difference Method, Eigenvalue Problem}
@@ -111,7 +174,7 @@ We again have a spatial mesh:
 %
 and in this configuration $x_0 = 0$, $x_n = a$, and $h_i$ is the mesh spacing. There are $n+1$ points and $n$ mesh cells.
 
-Material discontinuities will coincide with the cell \textit{edges}, $x_i$. Thus, we can assume that the cross sections and the diffusion coefficient are constant in each cell:
+Material discontinuities will coincide with the cell \textit{edges}, $x_i$. Thus, we can assume that the cross sections and the diffusion coefficient are constant in each cell.
 %
 %\begin{align}
 %D(x) &= D_i \qquad \text{for } x_{i-1} \leq x \leq x_i \:,\nonumber \\
