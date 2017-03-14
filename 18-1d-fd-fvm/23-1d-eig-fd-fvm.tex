@@ -338,7 +338,7 @@ where:
 
 We are only going to talk about iterative solution methods for eigenvalue problems since no one uses direct methods in practice (dealing with directly solving an eigenvalue matrix problem rapidly becomes intractable). We will formulate the problem this way
 %
-\[ \ve{A} \vec{\phi}^{(1)} = \frac{1}{k^{(0)}}\ve{F}\vec{\phi^{(0)}}\]
+\[ \ve{A} \vec{\phi}^{(m+1)} = \frac{1}{k^{(m)}}\ve{F}\vec{\phi^{(m)}}\]
 
 There are a variety of ways you can choose to determine convergence. We will consider these convergence criteria:
 \begin{align}
@@ -364,17 +364,17 @@ F &= \nu\Sigma_f(x) \qquad \qquad \text{is the production operator.}\nonumber
 
 %Fortunately, the discretized versions of these operators are the matrices that we have $\ve{A}$ and $\ve{F}$, respectively. 
 This allows us to write an equation for $k$ as
-\[k^{(1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(1)}(x)dx}{\int_0^{\tilde{a}} A \vec{\phi}^{(1)}(x)dx}\:. \]
+\[k^{(m+1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(m+1)}(x)dx}{\int_0^{\tilde{a}} A \vec{\phi}^{(m+1)}(x)dx}\:. \]
 
 We can express our iterative method with our operators,
-\[ A \vec{\phi}^{(1)} = \frac{1}{k^{(0)}}F\vec{\phi^{(0)}}\]
+\[ A \vec{\phi}^{(m+1)} = \frac{1}{k^{(m)}}F\vec{\phi^{(m)}}\]
 %
 and substitute this into our $k$ equation to get
-\[k^{(1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(1)}(x)dx}{\frac{1}{k^{(0)}}\int_0^{\tilde{a}} F \vec{\phi}^{(0)}(x)dx\:.} \]
+\[k^{(m+1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(m+1)}(x)dx}{\frac{1}{k^{(m)}}\int_0^{\tilde{a}} F \vec{\phi}^{(m)}(x)dx\:.} \]
 %
 This idea applies to any discretization strategy. To use the finite difference formulation we've developed, we discretize the operators and this can be expressed as:
-\[k^{(1)} = k^{(0)}\Biggl(\frac{\nu\Sigma_{f,1} \phi_0^{(1)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(1)} \frac{h_{ii}}{2}}
-{\nu\Sigma_{f,1} \phi_0^{(0)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(0)} \frac{h_{ii}}{2}}\Biggr)\:.\]
+\[k^{(m+1)} = k^{(m)}\Biggl(\frac{\nu\Sigma_{f,1} \phi_0^{(m+1)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(m+1)} \frac{h_{ii}}{2}}
+{\nu\Sigma_{f,1} \phi_0^{(m)} \frac{h_1}{2} + \sum_{i=1}^{n-1} \nu\Sigma_{f,ii} \phi_i^{(m)} \frac{h_{ii}}{2}}\Biggr)\:.\]
 
 \subsection*{Power Method}
 
