@@ -29,11 +29,11 @@
 
 Write a 2D Diffusion solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. Adapt the advice below as applicable based on whether you use a compiled language like C++ or an interpreted language like Python. 
 
-Good programming practices (There are some tutorials for all of these things available through Berekeley's The Hacker Within.): 
+Good programming practices (there are some tutorials for all of these things available through Berekeley's The Hacker Within as well as Software Carpentry.): 
 \begin{itemize}
-\item Please version control your code on something like github. 
-\item Consider writing code comments with something like Doxygen (http://www.stack.nl/~dimitri/doxygen/) to document the API (application programming interface). 
-\item Consider writing tests for your code using something like gtest (https://code.google.com/\\p/googletest/) - this might be a good extension for a two person project in particular.
+\item Please version control your code on something like GitHub. 
+\item Consider writing code comments with something like Doxygen (\url{http://www.doxygen.org}) to document the API (application programming interface). 
+\item Consider writing tests for your code using something like gtest (\url{https://code.google.com/\\p/googletest/}) - this might be a good extension for a two person project in particular.
 \end{itemize}
 
 Components that you'll need to include with the code:
@@ -55,7 +55,7 @@ Components that you'll need to include with the code:
   \item Number of materials
   \item A way to assign materials
   \item Physical constants for each material: $D$, $\Sigma_a$
-  \item Fixed source term. You need to decide things like whether you want a source everywhere only in some cells, whether it must be constant or can be a function of space, etc. and how to express those choices in the input file.
+  \item Fixed source term. You need to decide things like whether you want a source everywhere or only in some cells, whether it must be constant or can be a function of space, etc. and how to express those choices in the input file.
   \item If you want to allow for different boundary condition choices, how to specify those.
   \end{itemize}
   
