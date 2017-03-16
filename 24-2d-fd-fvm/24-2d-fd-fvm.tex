@@ -359,7 +359,7 @@ Collecting all of the terms and separating them, we get a 5-point difference equ
 %
 \[a_{i-1,j}^{ij}\phi_{i-1,j} + a_{i+1,j}^{ij}\phi_{i+1,j} + a_{i,j-1}^{ij}\phi_{i,j-1} + a_{i,j+1}^{ij}\phi_{i,j+1} +  a_{i,j}^{ij}\phi_{i,j} = S_{ij} \:.\]
 %
-The lower index is the cell to which you are coupling, and the upper index is which cell you are in - this becomes important when we're ordering our matrix.
+The lower index is the cell to which you are coupling, and the upper index is which cell you are in--this becomes important when we're ordering our matrix.
 %
 \begin{align}
 a_{i-1,j}^{ij} &= -\frac{D_{i,j} \epsilon_{j} + D_{i,j+1} \epsilon_{j+1}}{2 \delta_{i}}  \nonumber \\
@@ -537,7 +537,7 @@ a_{L}^{12} & a_{C}^{12} & a_{R}^{12} \\
 \end{pmatrix} \nonumber
 \end{equation}
 
-This gives us a 5-banded matrix, which is not so difficult to represent with built in functions. We could still solve this directly with Gaussian elimination or LU decomposition, but the size of the system increases pretty rapidly with mesh size.
+This gives us a 5-banded matrix, which is not so difficult to represent with built in functions in Python or MATLAB. We could still solve this directly with Gaussian elimination or LU decomposition, but the size of the system increases pretty rapidly with mesh size.
 
 Therefore using an iterative method like Jacobi, GS, or SOR is probably a better plan. 
 
