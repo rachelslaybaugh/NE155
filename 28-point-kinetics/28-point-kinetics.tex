@@ -35,9 +35,9 @@
 \newcommand{\Macro}{\ensuremath{\Sigma}}
 
 %---------------------------------------------------------------------------
-\title{NE 155, Class 28, S17 \\
+\title{NE 155, Class 28 and 29, S17 \\
 Reactor Kinetics in Zero Dimensions}
-\date{March 24, 2017}
+\date{March 24 and April 3, 2017}
 \begin{document}
 \author{content provided by: Kathryn Huff}
 \maketitle
@@ -78,6 +78,8 @@ decreases during otherwise normal operation.
 Reactor control relies on a balance of neutrons. When an isotope fissions, it 
 produces neutrons, energy, and fission products.  Most of the neutrons emitted 
 due to fission are \emph{prompt}, nearly all released within $10^{-10}s$ of the fission. 
+The average lifetime of prompt neutrons in a thermal reactor is $10^{-4}s$ and in a fast
+reactor is $10^{-7}s$. 
 
 \subsection{Delayed Neutron Emission}
 However, a fraction of the neutrons appear later. Some fission products are 
@@ -103,7 +105,9 @@ t_{1/2} &= \mbox{half life} [s]\\
 \end{align*}
 
 These parameters are used to incorporate the contributions of delayed neutrons 
-into transient calculations.
+into transient calculations. Note that in this case the sum of the $\beta_{j}$ terms is 0.0065. That means 0.0065 of every 1.0 neutrons coming from fission is delayed.
+
+When we add in delayed neutrons, the average neutron lifetime because approximately 0.1 s, which is much higher than the prompt value of $10^{-6}s$ to $10^{-4}s$.
 
 \section{Delayed Neutrons and Reactor Control}
 These delayed neutrons are critical to controlling the reactor. 
@@ -152,7 +156,11 @@ What would it be like to try to control a reactor like that?
 
 \paragraph{Exercise}
 \emph{If a control rod were moved to introduce an excess reactivity of }$0.0005\Delta 
-k$\emph{, what would the power be one second later?}
+k$\emph{, what would the power be one second later?}\\
+\hspace*{2em}(a) with $l$ = 0.1s\\
+\hspace*{2em}(b) with $l$ = 1 $\times$ 10$^{-4}$s
+
+Here's what it looks like when something goes prompt supercritical on purpose: \url{https://www.youtube.com/watch?v=6I3JKYdGWTE}
 
 \section{Derivation}
 
