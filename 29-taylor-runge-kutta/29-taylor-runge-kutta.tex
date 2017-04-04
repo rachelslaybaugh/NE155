@@ -35,16 +35,16 @@
 \newcommand{\Macro}{\ensuremath{\Sigma}}
 
 %---------------------------------------------------------------------------
-\title{NE 155, Class 29, S16 \\
+\title{NE 155, Class 30, S17 \\
 Taylor Series Methods and Runge-Kutta}
-\date{April 4, 2016}
+\date{April 5, 2017}
 \begin{document}
 \author{materials from: Kathryn Huff}
 \maketitle
 
 \hrulefill
 
-\section{Introduction}
+\section*{Introduction}
 
 Recall that the initial value problem takes the form:
 \begin{align}
@@ -62,7 +62,7 @@ Runge-Kutta method as well, for higher accuracy.
 
 
 %------------------------------------------------------------------------------
-\section{Taylor Series Derivation of Forward Euler}
+\section*{Taylor Series Derivation of Forward Euler}
 
 The simplest method for finding $u(t_n)$ is Forward Euler, which approximates $u(t_n)$. Let's call this approximation, $U^n$. In this notation, Forward Euler is based on replacing $u'(t_n)$ with $(U^{n+1} - U^n)/k$, where $k$ is the width of the timestep.
 The Forward Euler method arises from a Taylor series expansion of $u(t_{n+1})$ 
@@ -92,7 +92,7 @@ $u'(t_n) = f(u(t_n),t_n)$, however, the computation of such schemes requires
 repeated recursive differentiation of this function, and can get quite messy.
 
 
-\section{Runge-Kutta Methods}
+\section*{Runge-Kutta Methods}
 LeVeque, Randall J. \textit{Finite Difference Methods for Ordinary and Partial Differential Equations}. Philadelphia, PA: SIAM, 2007. 
 
 Runge-Kutta is a method used in practice to get a higher order approximation 
@@ -136,7 +136,7 @@ U^{n+1} &= U^n + k\sum_{j=1}^r b_{j}f(Y_j, t_n + c_jk)\\
 There are different ways to determine the coefficients that give different orders of accuracy. See textbook referenced for more information.
 
 
-\section{Application to PRKE}
+\section*{Application to PRKE}
 
 Each of these can be applied to the PRKE. In particular, let's consider the 
 application of a Forward Euler.
