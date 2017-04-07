@@ -93,8 +93,8 @@
 % title stuff for footer
 \title{NE 155}
 \author{R.\ N.\ Slaybaugh \\
-(well, Richard Vasques!)}
-\date{April 13, 2016}
+Richard Vasques}
+\date{April 14, 2017}
 
 \begin{document}
 
@@ -102,7 +102,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
-\subtitle{Lecture 33: Random Number Generators}
+\subtitle{Lecture 34: Random Number Generators}
 \titlepage
 \end{frame}
 
@@ -206,7 +206,7 @@ There are two types of random sequences: \textit{truly random} and \textit{pseud
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Visual Comparison}
-\includegraphics[scale=0.4]{rng1}
+\includegraphics[scale=0.4]{../figs/rng1}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -250,7 +250,7 @@ where  $s_i, g, c, p$ are integers, and $r_i$ are real.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Typical Parameters}
-\includegraphics[scale=0.4]{rng2}
+\includegraphics[scale=0.4]{../figs/rng2}
 
 Note: $2^{45}$ random numbers can be generated in a few hours
 \end{frame}
@@ -273,7 +273,7 @@ Note: $2^{45}$ random numbers can be generated in a few hours
 \item Stride
 \begin{itemize}
 \item The first random number for history $i$ and history $i+1$ are separated by the stride
-\includegraphics[scale=0.35]{rng3}
+\includegraphics[scale=0.35]{../figs/rng3}
 \item Most PRNGs have formula to efficiently skip ahead
 \begin{itemize}
 \item Useful in parallel implementations to spread histories over different processors
@@ -318,7 +318,7 @@ gap size is $4/64$ = $1/16$ = $0.0625$)
 Consider a circle of radius $r$ inside a square square of side $2r$:
 \begin{columns}
 	\column{0.30\linewidth}
-	\includegraphics[scale=0.4]{rng4}
+	\includegraphics[scale=0.4]{../figs/rng4}
 	\column{0.65\linewidth}
 	\begin{itemize}
 	\item Choose $N$ random points in the Square
@@ -340,7 +340,7 @@ This suggests a way of computing the value of $\pi$ with the help of a PRNG.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Estimating $\pi$}
-\includegraphics[scale=0.5]{rng5}
+\includegraphics[scale=0.5]{../figs/rng5}
 \end{frame}
 
 \begin{frame}{Other PRNGs}
