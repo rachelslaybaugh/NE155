@@ -6,7 +6,7 @@
 \documentclass[12pt]{article}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
-\usepackage{setspace}
+\usepackage{setspace, multicol}
 \onehalfspacing
 
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
@@ -79,6 +79,42 @@ To reduce error by a factor of $\epsilon$, it takes $k \approx \frac{\log(\epsil
 If the 2-norm is used, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. %If $\mathbf{A}$ is singular, its condition number is infinity. 
 
 Let $\ve{G}$ be a non-singular \textbf{preconditioner}, then $\ve{A}\vec{x}=\vec{b}$ can be transformed as $\ve{G}^{-1}\ve{A}x = \ve{G}^{-1}b$.
+
+% finite difference
+\textbf{1D Finite Difference} for the DE: 
+\[-\phi_{i-1} + \bigl(2 + \frac{h^2}{L^2}\bigr)\phi_i - \phi_{i+1} = h^2 \frac{S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1\]
+
+% finite volume
+\textbf{1D Finite Volume} for the DE uses this grid 
+%
+\begin{multicols}{2}
+\begin{center}
+\begin{tikzpicture}
+\draw[dotted] (0,0)--(0.5,0);
+\draw (0.5,0)--(3.5,0);
+\draw (.5,-.25)--(.5,.25);
+\draw (2,-.1)--(2,.1);
+\draw (3.5,-.25)--(3.5,.25);
+\draw (0.5,0)--(6.5,0);
+\draw[dotted] (6.5,0)--(7,0);
+\draw (.5,-.25)--(.5,.25);
+\draw (5,-.1)--(5,.1);
+\draw (6.5,-.25)--(6.5,.25);
+\node[below] at (.5,-.25) {$x_{i-1}$};
+\node[below] at (6.5,-.25) {$x_{i+1}$};
+\node[below] at (3.5,-.25) {$x_i$};
+\node[above] at (2, 0.75) {$x_{i-1/2}$};
+\node[above] at (5, 0.75) {$x_{i+1/2}$};
+\node[below] at (2, -.75) {$h_{i}$};
+\node[below] at (5, -.75) {$h_{i+1}$};
+\node[above] at (4.25, .2) {$h_{i+1}/2$};
+\node[above] at (2.75, .2) {$h_{i}/2$};
+\end{tikzpicture}
+\end{center}
+\columnbreak
+where physics values are defined in each cell (cell-centered) and the flux and source are defined at the mesh points (edge-centered.
+\end{multicols}
+We integrate the DE in each cell from $x_{i-1/2}$ to $x_{i+1/2}$. At the boundaries we apply the BCs as appropriate to get the $i=0$ and $i=n$ equations.
 
 
 \end{document}
