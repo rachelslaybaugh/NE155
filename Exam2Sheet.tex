@@ -101,7 +101,7 @@ Let $\ve{G}$ be a non-singular \textbf{preconditioner}, then $\ve{A}\vec{x}=\vec
 
 % finite difference
 \textbf{Finite Difference} for the DE in \underline{1D} we use central difference for the derivative: 
-\[-\phi_{i-1} + \bigl(2 + \frac{h^2}{L^2}\bigr)\phi_i - \phi_{i+1} = h^2 \frac{S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1\]
+\[-\phi_{i-1} + \bigl(2 + \frac{h^2}{L^2}\bigr)\phi_i - \phi_{i+1} = h^2 \frac{S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1 \qquad L \equiv \sqrt{\frac{D}{\Sigma_a}}\]
 
 In \underline{2D} we use a 5-point stencil and use central in each dimension for the derivative, giving
 \[ \nabla^2 \phi_{i,j} = \frac{\phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} - 4\phi_{i,j}}{h^2}\]
@@ -143,6 +143,46 @@ We integrate the DE in each cell from $x_{i-1/2}$ to $x_{i+1/2}$. At the boundar
 The \underline{2D} version uses a 2D stencil (not needed for exam). The physics values are again defined in each cell (cell-centered) and the flux and source are defined at the mesh points (edge-centered.\\
 We again integrate over the partial cell, which is now in two dimensions: $x_{i-1/2}$ to $x_{i+1/2}$ and $y_{j-1/2}$ to $y_{j+1/2}$.\\
 We use Gauss Theorem for the streaming term: $-\int_V d\vec{r}\:\bigl[\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr)\bigr] = \int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r})$.
+
+% Criticality
+\textbf{Critical/eigenvalue} equations have the addition of $k$, allowing us to adjust the equation such that the rhs of the DE becomes $\frac{1}{k}\nu \Sigma_f(x) \phi(x)$. \\
+This means the rhs of our FD or FVM matrix formulation contains flux instead of only a fixed source. 
+\vspace*{-1.25em}
+\begin{align*}
+A &= -\frac{d}{dx}D(x)\frac{d}{dx} + \Sigma_a(x) \qquad F = \nu\Sigma_f(x) \qquad k = \frac{\text{total production rate}}{\text{total loss rate}}\\
+%
+\ve{A} &\vec{\phi}^{(m+1)} = \frac{1}{k^{(m)}}\ve{F}\vec{\phi^{(m)}} \qquad 
+k^{(m+1)} = \frac{\int_0^{\tilde{a}} F \vec{\phi}^{(m+1)}(x)dx}{\frac{1}{k^{(m)}}\int_0^{\tilde{a}} F \vec{\phi}^{(m)}(x)dx}
+\end{align*}
+
+\vspace*{-1.5em}
+We also add an eigenvalue solver method, like Power Iteration. This uses the idea that \\$\vec{v}_0 = \gamma_1 \vec{x}_1 + \gamma_2 \vec{x}_2 + \cdots + \gamma_n \vec{x}_n$, where $\vec{x}_{j}$ is the $j$th eigenvector and $\gamma_{j}$ is some constant.
+
+% PRKE
+\textbf{Delayed neutrons} let us deal with time variation. $\beta$ fraction of the total neutrons released from fission are delayed. We use $\rho =\mbox{reactivity} = \frac{k-1}{k}$, and $l$ is mean neutron lifetime. 
+\begin{align*}
+  n(t) &= n_0e^{\frac{(k-1)t}{l}}\:; \qquad T = \text{reactor period} = \frac{l}{k-1}\\
+  &\phi(r,t) = vn(t)\psi_1(r)\:; \qquad
+  \hat{C}_i(r,t) = C_i(t)\psi_1(r)\\
+  &\text{where $\psi_1$ is the fundamental mode solution of }   \nabla^2\psi_n + B_g^2\psi_n = 0%\\
+  %
+%  \frac{1}{v}\frac{\partial \phi(r,t)}{\partial t} &- \nabla D(r,t) \nabla \phi(r,t) + \
+%  \Sigma_a(r,t)\phi(r,t) = (1-\beta)\nu\Sigma_F(r,t)\phi(r,t) + \
+%  \sum_{i=1}^6\lambda_i\hat{C}_i(r,t)
+\end{align*}
+\textbf{PRKE}
+\vspace*{-1em}
+\begin{align*}
+  \frac{dn(t)}{dt} = \frac{\rho(t)-\beta}{\Lambda}n(t) + \sum_{i=1}^{6}\lambda_iC_i(t) \:; \qquad
+  \frac{dC_i(t)}{dt} = \frac{\beta_i}{\Lambda}n(t) - \lambda_i C_i(t)
+ \end{align*}
+ 
+ \vspace*{-1.5em}
+$C_i(t)$ = delayed neutron concentration from ith precursor; $\Lambda$ = effective n lifetime = $(v\nu\Sigma_F)^{-1}$.
+
+\textbf{Runge Kutta} methods use stages to avoid higher order derivates to get better accuracy. Two stage:
+\vspace*{-.5em}
+\[U^{n+1/2} = U^n + \frac{1}{2}kf(U^n)\qquad U^{n+1} = U^n + kf(U^{n+1/2}) \qquad U^{n+1} = U^n + kf(U^n + \frac{1}{2}kf(U^n))\]
 
 
 \end{document}
