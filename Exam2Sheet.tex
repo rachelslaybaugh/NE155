@@ -1,0 +1,84 @@
+%--------------------------------------------------------------------
+% NE 155 (intro to numerical simulation of radiation transport)
+% Spring 2017
+
+% formatting
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0mm} \setlength{\parskip}{1em}
+
+
+% packages
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage{amsmath}
+\usepackage{graphicx} % for graphics files
+
+% Draw figures yourself
+\usepackage{tikz} 
+
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
+\usepackage{xspace}
+
+% from Denovo methods manual
+\usepackage{mathrsfs}
+\usepackage[mathcal]{euscript}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage[pdftex]{hyperref}
+
+\newcommand{\nth}{n\ensuremath{^{\text{th}}} }
+\newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
+
+\newcommand{\Macro}{\ensuremath{\Sigma}}
+
+
+\newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\begin{document}
+% Iterative methods
+The \textbf{fixed-point} iterative process and associated error are (where $\rho(\ve{P})$ is the spectral radius of $\ve{P}$.):
+\[\vec{x}^{(0)} = \text{ arbitrary}\:; \qquad
+\vec{x}^{(k+1)} = \ve{P}\vec{x}^{(k)} + \tilde{\vec{b}} \]
+\[\vec{e}^{(k+1)} = \ve{P}\vec{e}^{(k)}\:; 
+ \qquad ||\vec{e}^{(k+1)}|| \leq ||\ve{P}^{k+1}||\: ||\vec{e}^{(0)}||\:;
+ \qquad || \ve{P}^k || \approx \rho^k (\ve{P})\]
+%
+To reduce error by a factor of $\epsilon$, it takes $k \approx \frac{\log(\epsilon)}{\log(\rho(\ve{P}))}$ iterations. 
+%
+\begin{align*}
+\text{Richardson} \qquad &\vec{x}^{(k+1)} = (\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b}\:;
+ \qquad x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \\
+%
+\text{Jacobi} \qquad & \vec{x}^{(k+1)} = \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b}\:;
+  \qquad x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\\
+%
+\text{GS} \qquad &  x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\\
+%
+\text{SOR} \qquad & x^{(k+1)}_i = (1-\omega)x_i^{(k)} + \frac{\omega}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) 
+\end{align*}
+%
+\textbf{condition number} of a matrix $\mathbf{A}$ is defined as $\kappa(\mathbf{A}) = ||\mathbf{A}|| \text{ }||\mathbf{A}^{-1}||$.
+%
+If the 2-norm is used, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. %If $\mathbf{A}$ is singular, its condition number is infinity. 
+
+Let $\ve{G}$ be a non-singular \textbf{preconditioner}, then $\ve{A}\vec{x}=\vec{b}$ can be transformed as $\ve{G}^{-1}\ve{A}x = \ve{G}^{-1}b$.
+
+
+\end{document}
