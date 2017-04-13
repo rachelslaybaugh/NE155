@@ -62,18 +62,37 @@ The \textbf{fixed-point} iterative process and associated error are (where $\rho
 %
 To reduce error by a factor of $\epsilon$, it takes $k \approx \frac{\log(\epsilon)}{\log(\rho(\ve{P}))}$ iterations. 
 %
-\begin{align*}
-\text{Richardson} \qquad &\vec{x}^{(k+1)} = (\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b}\:;
- \qquad x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \\
+    \begin{table}[h!]
+    \centering
+      \begin{tabular}{| c | c | }
+        \hline
+        Richardson & Jacobi \\ \hline
+        \hline
+        $(\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b}$   &  
+        $ \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b}$  \\
+        \hline  
+        GS & SOR \\ \hline
+        $ (\ve{D} + \ve{L})^{-1} \bigl[-\ve{U} \vec{x}^{(k)} + \vec{b}\bigr] $ &  
+        $ (\ve{D} + \omega \ve{L})^{-1} \Bigl( [(1-\omega)\ve{D} - \omega \ve{U}] \vec{x}^{(k)} + \omega\vec{b} \Bigr)$ \\
+        \hline        
+      \end{tabular}
+      \caption{$\vec{x}^{(k+1)}$ for several iterative methods}
+      \label{tab:delayedneutrons}
+    \end{table}
+%\begin{align*}
+%\text{Richardson} \qquad &\vec{x}^{(k+1)} = (\ve{I} - \omega^{(k)}\ve{A})\vec{x}^{(k)} + \omega^{(k)}\vec{b}\:;
+% \qquad x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \\
+%%
+%\text{Jacobi} \qquad & \vec{x}^{(k+1)} = \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b}\:;
+%  \qquad x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\\
+%%
+%\text{GS} \qquad &  x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\\
+%%
+%\text{SOR} \qquad & x^{(k+1)}_i = (1-\omega)x_i^{(k)} + \frac{\omega}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) 
+%\end{align*}
 %
-\text{Jacobi} \qquad & \vec{x}^{(k+1)} = \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b}\:;
-  \qquad x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\\
-%
-\text{GS} \qquad &  x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)})\\
-%
-\text{SOR} \qquad & x^{(k+1)}_i = (1-\omega)x_i^{(k)} + \frac{\omega}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) 
-\end{align*}
-%
+
+\vspace*{-1em}
 \textbf{condition number} of a matrix $\mathbf{A}$ is defined as $\kappa(\mathbf{A}) = ||\mathbf{A}|| \text{ }||\mathbf{A}^{-1}||$.
 %
 If the 2-norm is used, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. %If $\mathbf{A}$ is singular, its condition number is infinity. 
@@ -81,11 +100,15 @@ If the 2-norm is used, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1
 Let $\ve{G}$ be a non-singular \textbf{preconditioner}, then $\ve{A}\vec{x}=\vec{b}$ can be transformed as $\ve{G}^{-1}\ve{A}x = \ve{G}^{-1}b$.
 
 % finite difference
-\textbf{1D Finite Difference} for the DE: 
+\textbf{Finite Difference} for the DE in \underline{1D} we use central difference for the derivative: 
 \[-\phi_{i-1} + \bigl(2 + \frac{h^2}{L^2}\bigr)\phi_i - \phi_{i+1} = h^2 \frac{S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1\]
 
+In \underline{2D} we use a 5-point stencil and use central in each dimension for the derivative, giving
+\[ \nabla^2 \phi_{i,j} = \frac{\phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} - 4\phi_{i,j}}{h^2}\]
+
+
 % finite volume
-\textbf{1D Finite Volume} for the DE uses this grid 
+\textbf{Finite Volume} for the DE in \underline{1D} uses this grid 
 %
 \begin{multicols}{2}
 \begin{center}
@@ -112,9 +135,14 @@ Let $\ve{G}$ be a non-singular \textbf{preconditioner}, then $\ve{A}\vec{x}=\vec
 \end{tikzpicture}
 \end{center}
 \columnbreak
-where physics values are defined in each cell (cell-centered) and the flux and source are defined at the mesh points (edge-centered.
-\end{multicols}
+The physics values are defined in each cell (cell-centered) and the flux and source are defined at the mesh points (edge-centered.\\
 We integrate the DE in each cell from $x_{i-1/2}$ to $x_{i+1/2}$. At the boundaries we apply the BCs as appropriate to get the $i=0$ and $i=n$ equations.
+\end{multicols}
+
+
+The \underline{2D} version uses a 2D stencil (not needed for exam). The physics values are again defined in each cell (cell-centered) and the flux and source are defined at the mesh points (edge-centered.\\
+We again integrate over the partial cell, which is now in two dimensions: $x_{i-1/2}$ to $x_{i+1/2}$ and $y_{j-1/2}$ to $y_{j+1/2}$.\\
+We use Gauss Theorem for the streaming term: $-\int_V d\vec{r}\:\bigl[\nabla \cdot \bigl(D(\vec{r})\nabla \phi(\vec{r})\bigr)\bigr] = \int_S d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r})$.
 
 
 \end{document}
