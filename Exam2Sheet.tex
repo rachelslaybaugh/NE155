@@ -184,5 +184,33 @@ $C_i(t)$ = delayed neutron concentration from ith precursor; $\Lambda$ = effecti
 \vspace*{-.5em}
 \[U^{n+1/2} = U^n + \frac{1}{2}kf(U^n)\qquad U^{n+1} = U^n + kf(U^{n+1/2}) \qquad U^{n+1} = U^n + kf(U^n + \frac{1}{2}kf(U^n))\]
 
+\textbf{Monte Carlo} uses random numbers, sampling rules, tallies, and \underline{statistics}
+\begin{align*}
+\mu &= E(x) = \int x f(x) dx \:;  \qquad \bar{x} = \frac{1}{N}\sum_{i=1}^N x_i \quad \lim_{N \to \infty} \bar{x} \rightarrow \mu \\
+%
+\sigma^2 &= E(x^2) - \mu^2 \:; \qquad S_x^2 \approx \bar{x^2} - \bar{x}^2\:; \qquad S_{\bar{x}}^2 = \frac{S_x^2}{N}
+\end{align*}
+%
+\begin{align*}
+    p\left\lbrace a \leq x \leq b \right\rbrace &= \int_a^b p(x)dx\:; \qquad    p(x)  \geq 0 \:; \qquad    \int_{-\infty}^{\infty} p(x)dx = 1\\
+    %
+    p(x = x_k) &= p_k \equiv p(x_k)\:,  k = 1, \dots, N \:; \qquad  p_k  \geq 0\:; \qquad \sum_{k=1}^N p_k = 1\\
+    % 
+    P\left\lbrace x' \leq x \right\rbrace &= P(x) = \int_{-\infty}^x p(x')dx'\ \:; \qquad P(-\infty) = 0 \:,\quad P(\infty) = 1\\
+    %
+    P\left\lbrace x' \leq x \right\rbrace &= P_k \equiv P(x_k) = \sum_{j=1}^k p_j\:, k = 1, \dots, N \:; \qquad P_0 = 0 \:,\quad P_N = 1
+\end{align*}
+Deal with \underline{normalization} using $p(x) = \frac{g(x)}{G(\infty)}$, where $p(x)$ is the numerical PDF, $g(x)$ is the physical PDF, and $G(x)$ is the physical CDF.
+
+With \underline{rejection sampling}, create $g(x)\geq p(x)$ for all $x$; Generate pair of random variables, $(\xi, \eta)$; $x' = G^{-1} (\xi)$; If $\eta < p(x')/g(x')$, accept $x'$;  Else, reject $x'$.
+
+Probability of \underline{distance to collision}
+    \begin{align*}
+    p_c(s) &= \Sigma_t(s) e^{-\Sigma_t(s) s} ds \\
+    P_c(n) &= \int_0^s \Sigma_t(s) e^{-\Sigma_t(s) s'}ds' = -e^{-\Sigma_t(s) s'} |_0^s = 1 - e^{-\Sigma_t(s) s}
+  \end{align*}
+After a collision, which nuclide from $p_i = \frac{\Sigma_{t,j}}{\Sigma_t}$ and which reaction from $p_x = \frac{\Sigma_{x,j}}{\Sigma_{t,j}}$.
+  
+In scattering, ihe new direction is $\bigl(\sin(\phi) \cos(\theta), \sin(\phi) \sin(\theta), \cos(\theta)\bigr) =\\ \bigl(\sqrt{1 - \mu^2} \cos(\theta),  \sqrt{1 - \mu^2} \sin(\theta), \mu \bigr)$.
 
 \end{document}

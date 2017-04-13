@@ -4,6 +4,7 @@ Project/Quandos.pdf
 *.blg
 *.aux
 *.bak
+*.DS_Store
 *.log
 *.synctex.gz
 *.snm
