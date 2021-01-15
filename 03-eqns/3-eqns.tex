@@ -1,24 +1,21 @@
-\documentclass[12pt]{article}
-\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz, pgflibraryplotmarks}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumerate, paralist}
+\parindent 0ex
 
-\usepackage{setspace}
 \onehalfspacing
 
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
 \renewcommand{\ttdefault}{cmtt}
-\usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
-
-% Draw figures yourself
-\usepackage{tikz} 
 
 % The float package HAS to load before hyperref
 \usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
 
 % from Denovo Methods Manual
 \usepackage{mathrsfs}
@@ -66,9 +63,14 @@ In science and engineering in general, and nuclear engineering and reactor analy
 \section{ODEs}
 The most general form of an \nth order linear ordinary differential eqn.\ is
 %
+\ifprintanswers
 \begin{equation}
 a_{n}(x)y^{(n)}(x) + a_{n-1}(x)y^{(n-1)}(x) + \cdots + a_{2}(x)y^{(2)}(x) + a_{1}(x)y'(x) + a_0(x)y(x) = f(x) \nonumber
 \end{equation}
+\else
+ \\ \\ 
+ \hspace*{8em}\textit{Equation here}\\
+\fi
 %
 \noindent where
 \begin{itemize}
@@ -93,9 +95,15 @@ Boundary conditions:
 
 %-------------------------------------------------------------
 \underline{Linear 1st order ODE Example}:
+\ifprintanswers
 \begin{equation}
 \frac{dy}{dx} + 3y(x) = \sin(x) \qquad x \in [0, 1] \nonumber
 \end{equation}
+\else
+ \\ \\ 
+ \hspace*{8em}\textit{Equation here}
+\fi
+%
 %
 \begin{itemize}
 \item IVP if boundary conditions are $y$(0) = 1; $y$'(0) = 2
@@ -109,11 +117,16 @@ In this case the general solution is obtained through the use of an integrating 
 
 Point Kinetics analysis of a nuclear reactor is an IVP, linear, 1st order ODE.
 %
+\ifprintanswers
 \begin{align}
 \frac{dn(t)}{dt} &= \frac{\rho(t) - \beta}{l^*}n(t) + \sum_{i=1}^{N} \lambda_i C_i(t) \nonumber \\
 %
 \frac{dC_i(t)}{dt} &= \frac{\beta_i}{l^*}n(t) - \lambda_i C_i(t) \qquad i=1,\dots,N \nonumber
 \end{align}
+\else
+ \\ \\ 
+ \hspace*{8em}\textit{Equations here}\\ \\
+\fi
 %
 Where (we'll talk  more about what these terms mean later)
 %
@@ -134,12 +147,17 @@ BCs: $n(0) = n_0$ and $C_i(0) = C_{i,0}$ for $i=1,\dots,N$.
 
 The number of atoms in a sample during radioactive decay (assuming decay only here) is described by the Bateman equation, which is a linear, 1st order ODE that is in an IVP:
 %
+\ifprintanswers
 \begin{align}
 \frac{dN_1(t)}{dt} &= -\lambda_1 N_1(t) \nonumber \\
 \frac{dN_i(t)}{dt} &= -\lambda_i N_i(t) + \lambda_{i-1}N_{i-1}(t) \qquad 1 < i < I \nonumber\\
 \frac{dN_I(t)}{dt} &= \lambda_{I-1} N_{I-1}(t) \nonumber \\
 \text{BC: }& N_i(t=0) = N_{i,0}\nonumber
 \end{align}
+\else
+ \\ \\ 
+ \hspace*{8em}\textit{Equations here}\\ \\
+\fi
 %
 note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and becomes more complicated if we have neutrons that transmute isotopes. 
 
@@ -147,11 +165,15 @@ note: isotope $i$ decays into $i+1$. This can be adapted for decay branches, and
 \vspace*{1em}
 \underline{2nd order ODE Example}:
 
+\ifprintanswers
 \begin{align}
 -\frac{d}{dx}p(x) \frac{d}{dx}\phi(x) &+ q(x)\phi(x) = S(x) \nonumber \\
 \text{defined for }& \alpha \le x \le \beta \nonumber \\
 \text{BC: }& a\frac{d\phi}{dx} + \gamma \phi = \sigma \qquad \text{at } x=\alpha \text{ and } x = \beta \text{ (BVP)}\nonumber
 \end{align}
+\else
+ \hspace*{8em}\textit{Equations here}\\
+\fi
 %
 This has
 \begin{itemize}
@@ -167,7 +189,11 @@ This has
 We can formulate systems of equations as matrix-vector systems that look like \ve{A}$x = \lambda x$. 
 \begin{itemize}
 \item An eigenvector is a non-zero vector $x$ that, when multiplied by the matrix \ve{A}, yields a constant multiple of $x$. 
+\ifprintanswers
 \item The constant multiple, $\lambda$, is the eigenvalue corresponding to the eigenvector.
+\else
+ \item \textit{Text here}
+\fi
 \item There can be (and usually are) more than one eigenvalue, and more than one eigenvector. 
 %\item Several eigenvectors can have the same eigenvalue
 \item Sometime the equation can be reformulated as as $y\ve{A} = \alpha y$ (the left eigenvector). In nuclear, we're used to seeing the right eigenvector formulation.
@@ -191,9 +217,13 @@ is known as the \underline{Sturm-Liouville} eigenvalue problem. (If $\gamma_L = 
 
 The solution has an infinite number of eigenfunctions, $\phi_i(x)$ with corresponding \textbf{REAL} and \textbf{DISTINCT} eigenvalues, $\lambda_i$. 
 
+\ifprintanswers
 If we number them in sequence: $\lambda_0 < \lambda_1 < \lambda_2 < \dots < \lambda_{\infty}$, then $\lambda_0$ is the lowest eigenvalue and $\phi_0(x)$ is the fundamental eigenmode. 
 
 If $q(x) \geq 0$, then all $\lambda_i$ are positive.
+\else
+ \vspace*{1em} \hspace*{8em} \textit{Text here} 
+\fi
 
 %-------------------------------------------------------------
 \vspace*{1em}
@@ -224,9 +254,13 @@ A partial differential equation is an equation containing an unknown function of
 
 If the PDE is linear in $u$ and all derivatives of $u$, then we say that the PDE is linear.
 %
+\ifprintanswers
 \begin{equation}
 A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial  y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu(x,y) = G \nonumber
 \end{equation}
+\else
+ \\ \\ \hspace*{8em}\textit{Equation here}\\ \\
+\fi
 %
 This equation is a 2nd order PDE in two variables. It is linear if $A$ through $G$ do not depend on $u$ (they may depend on $x$ and/or $y$). 
 %If $A^2 + B^2 + C^2 > 0$ over a region of the $xy$ plane, the PDE is second-order in that region (analogous to the eqn.\ for a conic section: $Ax^2 + Bxy + Cy^2 + \cdots = 0$. 
@@ -243,11 +277,15 @@ Just as one classifies conic sections and quadratic forms into parabolic, hyperb
 \textit{Note:} these classifications only apply to second order PDEs. 
 
 \noindent The reason we care about this in the context of the Transport Equation:
+\ifprintanswers
 \begin{itemize}
 \item In a void, the transport equation is like a \textit{hyperbolic} wave equation. 
 \item For highly-scattering regions where $\Macro_{s}$ is close to $\Macro$, the equation becomes \textit{elliptic} for the steady-state case. 
 \item If the scattering is forward-peaked then the equation is \textit{parabolic}.
 \end{itemize}
+\else
+ \\ \\  \hspace*{8em} \textit{Text here} 
+\fi
 
 Let's look at the classifications:
 %-------------------------------------------------------------
@@ -266,10 +304,14 @@ One property of constant coefficient elliptic equations is that their solutions 
 
  %------------------------------------------------------------- 
 \item \textbf{Parabolic} if $B^2 - 4 AC = 0$, e.g.
+\ifprintanswers
 \begin{align}
 \frac{\partial u}{\partial t} &= k \frac{\partial^2 u}{\partial x^2} \qquad \text{ 1-D heat eqn.} \nonumber \\
 \frac{1}{v}\frac{\partial \phi(x,t)}{\partial t} &= \frac{\partial}{\partial x}D(x,t)\frac{\partial}{\partial x}\phi(x,t) + \bigl(\nu \Macro_f(x,t)\ - \Macro_a(x,t)\bigr) \phi(x,t) + S(x,t)\nonumber
 \end{align}
+\else
+ \\ \\ \hspace*{8em}\textit{Equations here}\\ \\
+\fi
 There aren't $B$ or $C$ terms, so $-4AC = 0$
 
 Equations that are parabolic at every point can be transformed into a form analogous to the heat equation by a change of independent variables. Solutions smooth out as the transformed time variable increases.
@@ -327,16 +369,16 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 %\end{itemize}
 %%
 %There's no $B$ term, so $-4AC < 0$ since $k$ is positive.
-
-%\begin{itemize}
+%
+%%\begin{itemize}
 %\item Dirichlet BCs if $f(a,b) =$ constant
 %\item Neumann BCs if 
 %\begin{equation}
 %\vec{n} \cdot \nabla f = n_x \frac{\partial f} {\partial x} + n_y \frac{\partial f} {\partial y}  +n_z \frac{\partial f} {\partial z} \nonumber
 %\end{equation}
 %\end{itemize}
-
-%-------------------------------------------------------------
+%
+%%-------------------------------------------------------------
 %\vspace*{1em}
 %\noindent \underline{Parabolic Examples}:
 %
@@ -349,8 +391,8 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 %where $\rho$ = mass density and $c$ = specific heat capacity
 %
 %\noindent There aren't $B$ or $C$ terms, so $-4AC = 0$
-
-
+%
+%
 %\vspace*{2em}
 %(2) Time-dependent, 1-group neutron diffusion equation
 %%
@@ -359,8 +401,8 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 %\end{equation}
 %%
 %There aren't $B$ or $C$ terms, so $-4AC = 0$
-
-%-------------------------------------------------------------
+%
+%%-------------------------------------------------------------
 %\vspace*{1em}
 %\noindent \underline{Hyperbolic Example}:
 %
@@ -373,8 +415,8 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 %where $f(x,t)$ is the displacement and $c$ is the speed of wave propagation.
 %
 %\noindent There's no $B$ term, and $C$ is negative so $-4AC > 0$
-
-%\noindent \textbf{1st order Hyperbolic equations}
+%
+%%\noindent \textbf{1st order Hyperbolic equations}
 %
 %For a system of the form
 %%
@@ -397,14 +439,14 @@ The classification depends upon the signature of the eigenvalues of the coeffici
 %    %
 %\end{align} 
 %http://www.siam.org/books/textbooks/OT88sample.pdf
-
-%\vspace*{2em}
+%
+%%\vspace*{2em}
 %(2) 1-D, unsteady flow of compressible fluids (in a uniform conduit)
 %%
 %\begin{equation}
 %\frac{\partial \rho}{\partial t} + \gamma \frac{\partial \rho}{\partial x} + \rho \frac{\partial v}{\partial x} = 0
 %\end{equation}
-%%
+%
 %where $\rho$ is the fluid density and $v$ is the fluid velocity.
 
 %\vspace*{2em}
