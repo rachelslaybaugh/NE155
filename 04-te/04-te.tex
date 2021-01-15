@@ -1,36 +1,21 @@
-\documentclass[12pt]{article}
-\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz, pgflibraryplotmarks}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumerate, paralist}
+\parindent 0ex
 
-\usepackage{setspace}
 \onehalfspacing
 
-\usepackage[hang,flushmargin]{footmisc} 
-% 'hang' flushes the footnote marker to the left,  'flushmargin'  flushes the text as well.
-
-\def\baselinestretch{1}
-\setlength{\parindent}{0mm} \setlength{\parskip}{0.8em}
-
-\newlength{\up}
-\setlength{\up}{-4mm}
-
-\newlength{\hup}
-\setlength{\hup}{-2mm}
-
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
 \renewcommand{\ttdefault}{cmtt}
-\usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
-
-% Draw figures yourself
-\usepackage{tikz} 
 
 % The float package HAS to load before hyperref
 \usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
 
 % from Denovo Methods Manual
 \usepackage{mathrsfs}
@@ -39,6 +24,7 @@
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
 \usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
@@ -48,8 +34,8 @@
 
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 4-5, S17 \\
-TE \\ January 25 -- 27, 2017}
+{\bf NE 155, Classes 4-5, S21 \\
+TE \\ January 28, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -78,7 +64,11 @@ Spatial logistics
 %
 \item $v$ = speed (scaler)
 \item $\vec{v}$ = velocity (vector)
+\ifprintanswers
 \item $d\vec{v} = d^3v$ = velocity volume = $v^2 \sin(\theta')d\theta' d\varphi' dr$
+\else
+ \item \textit{Text here}
+\fi
 \item $v = \sqrt{(2E)/m}$ where $m$ is the rest mass of the particle. Thus, we can relate energy and speed.
 
 \item $\vOmega$: unit directional vector in velocity space, $\vec{v} = v\vOmega$
@@ -92,7 +82,11 @@ These are the possible reactions we're generally going to worry about:
 \begin{itemize}
 \item scattering (s): a neutron interacts with an atom and bounces off either elastically or inelastically.
 \item absorption (a): a neutron is absorbed by a nucleus. If this happens it might
+\ifprintanswers
 \item fission (f): cause the nucleus to split into two pieces, releasing more neutrons.
+\else
+ \item \textit{Text here}
+\fi
 \end{itemize}
 
 Physics terms we will use:
@@ -107,8 +101,12 @@ where N is the atomic density of the target.
 
 \item \textbf{fission yield} ($\nu(E)$): average \# of neutrons released by a fission induced by a neutron of energy E.
 
+\ifprintanswers
 \item \textbf{fission spectrum} ($\chi(E)dE$): average \# of neutrons produced from fission that are born with energy in $[E, E + dE]$. This is normalized such that
 \[\int_0^{\infty} \chi(E)dE =1\:.\]
+\else
+ \item \textit{Text here}
+\fi
 
 \item \textbf{particle angular density} ($n(\vec{r}, E, \vOmega, t)d\vec{r} d\vOmega dE$): expected number of particles in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$.
 
@@ -122,7 +120,11 @@ n(\vec{r}, \vec{v}, t) &= \frac{m}{v}n(\vec{r}, E, \vOmega, t)
 \item \textbf{particle density}: ($N(\vec{r},E,t)d^3r dE$): expected number of particles in $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ at time $t$.
 \[N(\vec{r},E,t)d^3r dE = \int_{4\pi} d\vOmega\: n(\vec{r}, E, \vOmega, t)d^3r dE \]
 
+\ifprintanswers
 \item \textbf{angular flux}: $\psi(\vec{r}, E, \vOmega, t) \equiv v n(\vec{r}, E, \vOmega, t)$.
+\else
+ \item \textit{Text here}
+\fi
 
 \item \textbf{scalar flux}: $\phi(\vec{r},E,t) \equiv v N(\vec{r},E,t)$.
 %
@@ -146,6 +148,7 @@ $\vec{j}(\vec{r}, E, \vOmega, t) \cdot \hat{e}\: dA\: dE\: d\vOmega$ is the expe
 \begin{enumerate}
 \item Particles are point objects ($\lambda = h/(mv))$ is small compared to the atomic diameter): its state is fully described by its location, velocity vector, and a given time. This ignores rotation and quantum effects.
 
+\ifprintanswers
 \item Neutral particles travel in straight lines between collisions.
 
 \item Particle-particle collisions are negligible (makes TE linear).
@@ -155,6 +158,13 @@ $\vec{j}(\vec{r}, E, \vOmega, t) \cdot \hat{e}\: dA\: dE\: d\vOmega$ is the expe
 \item Material composition is time-independent (generally valid over short time scales).
 
 \item Quantities are expected values: fluctuations about the mean for very low densities are not accounted for.
+\else
+ \item \textit{Text here}
+  \item \textit{Text here}
+   \item \textit{Text here}
+    \item \textit{Text here}
+     \item \textit{Text here}
+\fi
 \end{enumerate}
 
 
@@ -170,8 +180,12 @@ For a given $\vOmega$, define $S^+$ as that part of $S$ for which $\hat{e}_S \cd
 
 Then, for this volume $V$ for a fixed $E$ and $\vOmega$, the general rate equation can be written for particles satisfying $\vec{r} \in V$, energies in $[E, E+dE]$ and direction $[\vOmega, \vOmega + d\vOmega]$ as:
 
+\ifprintanswers
 \hspace*{3 em} \boxed{\text{Rate of change of the particle (neutron) population 
  = rate of production - rate of loss}}
+\else
+ \hspace*{8em}\textit{Text here}
+\fi
 
 %--------------
 \subsection*{Rate of Change}
@@ -179,7 +193,11 @@ Recall the definition of $n$: expected number of particles in volume element $d^
 
 To get the rate of change of particles within the volume, we need to integrate over volume and take the derivative with respect to time:
 
+\ifprintanswers
 \[\boxed{\Bigl[ \int_V \frac{\partial}{\partial t} n(\vec{r}, E, \vOmega, t) d\vec{r} \Bigr] dE d\vOmega }\]
+\else
+ \hspace*{8em}\textit{Equation here}
+\fi
 
 
 %--------------
@@ -187,7 +205,11 @@ To get the rate of change of particles within the volume, we need to integrate o
 How can we produce neutrons in volume element $d^3r$ at $\vec{r}$ whose energies are in $[E, E + dE]$ and direction of motion is in $[\vOmega, \vOmega + d\vOmega]$ at time $t$?
 %
 \begin{enumerate}
+\ifprintanswers
 \item Inscattering (from some other energy and/or angle into our energy and angle),
+\else
+ \item \textit{Text here}
+\fi
 \item Fission neutrons, or
 \item Fixed/interior sources.
 \end{enumerate}
@@ -203,7 +225,11 @@ Note: fission neutrons are isotropic, thus they are produced at $\frac{1}{4\pi}$
 
 Also, recall that $\chi(E)dE$ is the fraction of neutrons born into $[E, E + dE]$. Thus
 %
+\ifprintanswers
 \[\boxed{\frac{\chi(E)}{4\pi}\Bigl[\int_V d^3r \int_{4\pi} d\vOmega' \int_0^{\infty} dE' \: \nu(E') \Sigma_f(E') v' n(\vec{r}, E', \vOmega', t) \Bigr] dE d\vOmega}\]
+\else
+\\ \\ \hspace*{8em}\textit{Equation here}
+\fi
 
 3) Production from a fixed source
 
@@ -224,7 +250,11 @@ How can we lose neutrons from volume element $d^3r$ at $\vec{r}$ whose energies 
 
 4) Total interaction: any collision can lead to (a) absorption or (b) a change in $E$ or $\vOmega$ or both.
 
+\ifprintanswers
 \[\boxed{\Bigl[\int_V d^3r \Sigma_t(E) v n(\vec{r}, E, \vOmega, t) \Bigr] dE d\vOmega }\]
+\else
+\hspace*{8em}\textit{Equation here}
+\fi
 
 5) Net leakage out of phase space
 
@@ -251,7 +281,11 @@ We can use divergence theorem to rewrite this w.r.t.\ $V$ (rather than $S$):
 %is the gradient operator.
 
 This gives
+\ifprintanswers
 \[\Bigl[\int_V d^3r \: \nabla \cdot \bigl( \underbrace{\vec{j}(\vec{r}_s, E, \vOmega, t)}_{=\vec{v}n = v \vOmega n} \bigr) \Bigr] dE d\vOmega \]
+\else
+\\ \hspace*{8em}\textit{Equation here}\\
+\fi
 %
 And we can use this identity:
 \begin{align}
@@ -260,7 +294,11 @@ And we can use this identity:
 \nabla \cdot \vOmega f &= f(\underbrace{\nabla \cdot \vOmega}_{0}) + \vOmega \cdot (\nabla f) \nonumber
 \end{align}
 %
+\ifprintanswers
 \[\therefore \:\: \boxed{\Bigl[\int_V d^3r \: \vOmega \cdot \nabla \bigl(v n(\vec{r}_s, E, \vOmega, t) \bigr) \Bigr] dE d\vOmega }\]
+\else
+\hspace*{8em}\textit{Equation here}
+\fi
 
 Note: $\vOmega \cdot \nabla$ represents the derivative along the direction of motion.
 
@@ -299,7 +337,11 @@ s(\vec{r}, E, \vOmega, t) \nonumber
 \subsection*{Initial and Boundary Conditions}
 \begin{enumerate}
 \item \underline{Initial Condition}: we start with some initial ``known" state:
+\ifprintanswers
 \[\psi(\vec{r}, E, \vOmega, 0) = \psi_0(\vec{r}, E, \vOmega)\]
+\else
+\\ \hspace*{8em}\textit{Equation here}\\
+\fi
 for the problem domain. Note, the initial flux can be a functional expression.
 
 \item \underline{Interface Condition}: the angular flux must be continuous along $\vOmega$ at all points, including material interfaces.
@@ -332,7 +374,11 @@ This is equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{
 \end{minipage}
 
 \item \underline{Reflective Condition}: there is mirror symmetry at some surface:
+\ifprintanswers
 \[\psi(\vOmega_{IN}) = \psi(\vOmega_{OUT})\:.\]
+\else
+\\ \\ \hspace*{8em}\textit{Equation here}
+\fi
 
 \item \underline{Periodic Condition}: you know there is a repetition in the system
 \[\psi(\vec{r}_S, E, \vOmega, t) = \psi(\vec{r}_S \pm \vec{p}, E, \vOmega, t)\:.\]
@@ -342,10 +388,14 @@ This is equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{
 \item which we handle with the \underline{Source Condition}: localized sources are introduced as mathematical singularities at the location of the source.
 
 For a source $s(\vec{r}_0, E, \vOmega, t)$:
+\ifprintanswers
 \begin{align*}
 &\lim_{\vec{r} \rightarrow \vec{r}_0} \int_S dS\: \vec{e} \cdot \vOmega \psi(\vec{r}, E, \vOmega, t) = s(\vec{r}_0, E, \vOmega, t)\:, \\
 &s(\vec{r}, E, \vOmega, t) = s(\vec{r}_0, E, \vOmega, t)\delta(\vec{r} - \vec{r}_0)\:.
 \end{align*}
+\else
+\\ \\ \hspace*{8em}\textit{Equations here}
+\fi
 \end{enumerate}
 
 
