@@ -1,36 +1,21 @@
-\documentclass[12pt]{article}
-\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumerate, paralist}
+\parindent 0ex
 
-\usepackage{setspace}
 \onehalfspacing
 
-\usepackage[hang,flushmargin]{footmisc} 
-% 'hang' flushes the footnote marker to the left,  'flushmargin'  flushes the text as well.
-
-\def\baselinestretch{1}
-\setlength{\parindent}{0mm} \setlength{\parskip}{0.8em}
-
-\newlength{\up}
-\setlength{\up}{-4mm}
-
-\newlength{\hup}
-\setlength{\hup}{-2mm}
-
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
 \renewcommand{\ttdefault}{cmtt}
-\usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
-
-% Draw figures yourself
-\usepackage{tikz} 
 
 % The float package HAS to load before hyperref
 \usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
 
 % from Denovo Methods Manual
 \usepackage{mathrsfs}
@@ -39,6 +24,7 @@
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
 \usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
@@ -48,8 +34,8 @@
 
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 6-7, S17 \\
-Diffusion Equation \\ January 30 -- February 1, 2017}
+{\bf NE 155, S21\\
+Diffusion Equation \\ February 4, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -94,10 +80,14 @@ Why derive the diffusion equation from the transport equation?
 The diffusion equation is derived by starting with the transport equation and \textbf{integrating over all angles}. We'll use the \underline{one-group} version for simplicity, but this assumption is not needed for the derivation. 
 
 Recall the definition of scalar flux and net current:
+\ifprintanswers
 \begin{align*}
 \phi(\vec{r}, t) &= \int_{4\pi} d\vOmega \:\psi(\vec{r}, \vOmega, t) \\
 \vec{J}(\vec{r}, t) &= \int_{4\pi} d\vOmega \:\vOmega \psi(\vec{r}, \vOmega, t)
 \end{align*}
+\else
+  \vspace*{4em}
+\fi
 
 %----------------------------
 \subsection*{Neutron Continuity Equation}
@@ -128,10 +118,14 @@ This is called the zeroeth order moment w.r.t.\ $\vOmega$.
 \textbf{5.} No approximations; but we will make use of the identity
 \[\int_{4\pi} d\vOmega = \int_0^{\pi} \sin(\theta) d\theta \int_0^{2\pi} d\varphi = 4\pi \]
 Thus
+\ifprintanswers
 \begin{align*}
 \int_{4\pi} d\vOmega\: \frac{\nu \Sigma_f}{4\pi} &\int_{4\pi} d\vOmega' \:\psi(\vec{r},\vOmega', t) = \\
 & 4\pi \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega'\: \psi(\vec{r},\vOmega', t) = \boxed{\nu \Sigma_f \phi(\vec{r}, t)}
 \end{align*}
+\else
+  \vspace*{4em}
+\fi
 
 %%%%
 \textbf{6.} No approximations
@@ -149,16 +143,27 @@ Let's interchange the order of integrations over $\vOmega$ and $\vOmega'$:
 &= \int_{4\pi} d\vOmega'\: \bigl[ \int_{4\pi} d\vOmega\: \Sigma_s(\vOmega' \rightarrow \vOmega)\bigr] \psi(\vec{r}, \vOmega', t)
 \end{align*}
 
-Then we can simplify the scattering term with the assumption (which is often true) that $\Sigma_s(\vOmega' \rightarrow \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu =\vOmega' \cdot \vOmega$.  This implies
+Then we can simplify the scattering term with the assumption (which is often true) that 
+\ifprintanswers
+$\Sigma_s(\vOmega' \rightarrow \vOmega)$ is \textbf{azimuthally symmetric}, meaning it only depends on the angle of the scattering cosine $\mu =\vOmega' \cdot \vOmega$.  
+\else
+  \\\vspace*{1em}\\
+\fi
+This implies
 \[\int_{4\pi} d\vOmega \:\Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu\: \Sigma_s(\mu) = \Sigma_s\]
 %
 And therefore:
 %
+\ifprintanswers
 \begin{align*}
 \text{scattering integral }&= \Sigma_s \int_{4\pi} d\vOmega'\: \psi(\vec{r}, \vOmega', t) \\
 %
 &= \boxed{\Sigma_s \phi(\vec{r}, t)}
 \end{align*}
+\else
+  \vspace*{4em}
+\fi
+
 %%%%%%%
 \textbf{2.} Finally, we get to the trouble term: streaming
 %
@@ -216,9 +221,13 @@ Multiplying by $\vOmega$ and dropping dependencies when appropriate:
 Now we can go through term by term, just like how we did to obtain the continuity equation.
 
 \textbf{1.}
+\ifprintanswers
 \begin{equation}
 \frac{1}{v}\frac{\partial}{\partial t} \int_{4\pi} d\vOmega\: \vOmega \psi(\vec{r}, \vOmega, t) = \boxed{\frac{1}{v}\frac{\partial \vec{J}}{\partial t}} \nonumber
 \end{equation}
+\else
+  \vspace*{2em}\\
+\fi
 %%%%
 \textbf{3.} 
 \begin{equation}
@@ -226,9 +235,13 @@ Now we can go through term by term, just like how we did to obtain the continuit
 \end{equation}
 %%%%
 \textbf{5.} (was 6)
+\ifprintanswers
 \begin{equation}
 \int_{4\pi} d\vOmega\: \vOmega s(\vec{r}, \vOmega, t) \equiv \boxed{S_{1}(\vec{r}, t)}  \nonumber
 \end{equation}
+\else
+  \vspace*{4em}
+\fi
 This is the definition of the first angular moment of the source term. 
 
 %%%%
@@ -247,7 +260,11 @@ This is the definition of the first angular moment of the source term.
 
 Expand the scattering cross section in Legendre Polynomials, which are a sequence of orthogonal polynomials:
 %
+\ifprintanswers
 \[P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n} \bigl[\bigl( x^2 -1 \bigr)^n\bigr] \:.\]
+\else
+ \\ \vspace*{3em}
+\fi
 
 Use the polynomials as follows and begin writing out terms of the expansion:
 \begin{align*}
@@ -255,10 +272,16 @@ Use the polynomials as follows and begin writing out terms of the expansion:
 %
 &l=0 \text{ is isotropic; (note } P_0 (\vOmega) = 1 \text{)}\\
 &\qquad \Sigma_s(\vOmega' \cdot \vOmega) \cong \frac{1}{4\pi}\Sigma_{s0} \\
+\end{align*}
 %
+\ifprintanswers
+\begin{align*}
 &l=1 \text{ is linearly isotropic; (note } P_1 (\vOmega) = \vOmega \text{)}\\
 &\qquad \Sigma_s(\vOmega' \cdot \vOmega) \cong \frac{1}{4\pi}\bigl( \Sigma_{s0} + 3\vOmega' \vOmega \Sigma_{s1} \bigr) 
 \end{align*}
+\else
+ \vspace*{4em}
+\fi
 
 We're going to \textbf{assume that scattering is at most linearly anisotropic}, so we will stop expanding here.
 
@@ -277,7 +300,11 @@ Substitute the $l=1$ linearly anisotropic truncation into the equation and use s
 %%%%%%%%
 \textbf{2.} And once again, the trouble term: streaming
 %
+\ifprintanswers
 \[\int_{4\pi} d\vOmega \:\vOmega \vOmega \cdot \nabla \psi(\vec{r}, \vOmega, t) = \nabla \cdot \int_{4\pi} d\vOmega \:\vOmega \vOmega \psi(\vec{r}, \vOmega, t) \]
+\else
+ \vspace*{2em}
+\fi
 
 \vspace*{2em}
 All together this is the \textbf{current continuity equation}:
@@ -302,11 +329,15 @@ And finally, \underline{we introduce an approximation about the angular flux} (s
 
 To implement this assumption, the angular flux is expanded in angle and only the first two terms are retained (similar to what we just did with scattering):  
 %
+\ifprintanswers
 \begin{align*}
 \psi(\vOmega) &\cong  \frac{1}{4\pi}\bigl( \psi_{0} + 3\vOmega \cdot \vec{\psi_{1}} \bigr) \qquad l=1 \text{; linearly isotropic} \\
 %
 \psi(\vOmega) &\cong \frac{1}{4\pi}\bigl(\phi(\vec{r}, t) + 3 \vOmega \cdot \vec{J}(\vec{r}, t)\bigr) \:.
 \end{align*}
+\else
+ \vspace*{6em}
+\fi
 The truncated angular flux expansion is then inserted into the streaming term in the current continuity equation, Eqn.\ \eqref{eq:currentcont}, giving 
 %
 \begin{align*}
@@ -322,6 +353,7 @@ The truncated angular flux expansion is then inserted into the streaming term in
 \end{align*}
 
 With this approximation, the current continuity equation becomes:
+\ifprintanswers
 \begin{equation}
 \frac{1}{v}\frac{\partial \vec{J}}{\partial t} 
 + \frac{1}{3} \nabla \phi(\vec{r}, t) +
@@ -329,6 +361,9 @@ With this approximation, the current continuity equation becomes:
 \Sigma_{s1} \vec{J}(\vec{r},t)
 + S_{1}(\vec{r}, t) \nonumber
 \end{equation}
+\else
+ \vspace*{4em}\\
+\fi
 %
 Next we'll define:
 \begin{align*}
@@ -356,11 +391,16 @@ These are the $P_1$ equations because they are derived from the 0th and 1st Lege
 \subsection*{Fick's Law}
 If we also assume \underline{steady state} (or weak temporal dependence) and \underline{an isotropic source} ($S_1 = 0$), the current continuity equation becomes
 %
+
+\ifprintanswers
 \begin{align*}
 \frac{1}{3} \nabla \phi(\vec{r}, t) +
 \Sigma_{tr}  &\vec{J}(\vec{r}) = 0 \\
 &\boxed{\vec{J}(\vec{r}) = -\frac{1}{3\Sigma_{tr}} \nabla \phi(\vec{r}) = -D\nabla \phi(\vec{r}) } \qquad \text{Fick's Law}
 \end{align*}
+\else
+ \vspace*{6em}
+\fi
 %
 where
 \[D = \frac{1}{3\Macro_{tr}} = \frac{1}{3(\Macro_t(\vec{r}) - \Macro_{s1}(\vec{r}))}\] 
@@ -380,6 +420,7 @@ With all of this, $\Sigma_{tr} = \Sigma_t - \bar{\mu}_0 \Sigma_s$.
 
 \underline{Punchline:} Fick's Law gives us a clear relationship between current and scalar flux. Now we can write the diffusion equation in terms of only $\phi$!
 %
+\ifprintanswers
 \begin{equation}
 \boxed{\frac{1}{v}\frac{\partial}{\partial t}\phi(\vec{r}, t) 
 -\nabla \cdot D\nabla \phi(\vec{r}, t) + 
@@ -387,15 +428,27 @@ With all of this, $\Sigma_{tr} = \Sigma_t - \bar{\mu}_0 \Sigma_s$.
 \nu \Sigma_f \phi(\vec{r}, t) +
 S(\vec{r}, t)} \:. \nonumber
 \end{equation}
+\else
+ \vspace*{4em}
+\fi
 
 This equation \textit{now includes several assumptions} that are \textbf{valid} when the solution is \textbf{not} near
 %
+\ifprintanswers
 \begin{enumerate}
 \item  a void, 
 \item boundary, 
 \item source, 
 \item or strong absorber.
 \end{enumerate} 
+\else
+\begin{enumerate}
+\item  
+\item 
+\item 
+\item 
+\end{enumerate} 
+\fi
 %
 While these requirements can be quite restrictive, the diffusion equation has been used frequently for analysis of nuclear systems throughout the history of the nuclear industry.
 
@@ -420,10 +473,17 @@ We now need one initial condition and two boundary conditions. We will also use 
 \[\lambda_{t} = \frac{1}{\Sigma_t} \qquad \lambda_{tr} = \frac{1}{\Sigma_{tr}}\]
 %
 If scattering is 
+\ifprintanswers
 \begin{itemize}
 \item isotropic, then $\bar{\mu}_0 = 0$ and $\lambda_{tr} = \lambda_{t}$
 \item forward peaked, then $\bar{\mu}_0 > 0$ and $\lambda_{tr} > \lambda_{t}$
 \end{itemize}	
+\else 
+\begin{itemize}
+\item 
+\item 
+\end{itemize}	
+\fi
 
 \textbf{Initial conditions} are pretty easy:
 \[\phi(\vec{r}, 0) = \phi_0(\vec{r}) \qquad \forall \vec{r} \in V \:.\]
