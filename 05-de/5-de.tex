@@ -517,7 +517,11 @@ J_{+}(\vec{r},t) &= \int_{\vOmega \cdot \hat{e} > 0} d\vOmega \: \vOmega \cdot \
 We will also say $\int_{\vOmega \cdot \hat{e} < 0} = \int_{2\pi^{-}}$ and  $\int_{\vOmega \cdot \hat{e} > 0} = \int_{2\pi^{+}}$. 
 
 With this notation we can re-write our boundary condition:
+\ifprintanswers
 \[J_{-}(\vec{r}_s,t) = \int_{2\pi^{-}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vOmega, t) = 0 \:,\]
+\else
+\\ \vspace*{2em} \\
+\fi
 note that in diffusion theory
 \[\psi(\vec{r}_s, \vOmega, t) \cong \frac{1}{4\pi}\bigl(\phi(\vec{r}_s, t)  -\frac{1}{\Sigma_{tr}} \nabla \phi(\vec{r}_s, t)\bigr)\]
 %
@@ -530,10 +534,14 @@ J_{-} &= \int_{2\pi^{-}} d\vOmega \: \vOmega \cdot \hat{e}_s \psi(\vec{r}_s, \vO
 %
 For a 1-D slab with a vacuum boundary at $x=x_s$:
 %
+\ifprintanswers
 \begin{align*}
 J_{-}(\vec{r}_s, t) = J_{-}(x_s, t) &= \frac{1}{4} \phi(x_s, t) + \frac{D}{2}\frac{d \phi}{dx}\Bigm\lvert_{x_s} = 0 \\
 \text{Or } \qquad \frac{1}{\phi(x_s, t)}\frac{d \phi}{dx}\Bigm\lvert_{x_s} &= -\frac{1}{2D}
 \end{align*}
+\else
+ \vspace*{5em} 
+\fi
 
 This relationship implies that linearly extrapolating the flux beyond the vacuum boundary would lead to a vanishing flux at the point
 \[\tilde{x}_s = x_s + 2D = x_s + \frac{2}{3}\lambda_{tr}\:.\]
@@ -565,12 +573,16 @@ S(\vec{r})\:,
 \end{align*}
 %
 which can be written as the Helmholtz equation of applied mathematics:
+\ifprintanswers
 %http://en.wikipedia.org/wiki/Helmholtz_equation
 %
 \begin{align*}
 \nabla^2 \phi(\vec{r}) - \frac{1}{L^2}\phi(\vec{r}) &= \frac{-Q(\vec{r})}{D}\:, \\
 \text{where }\qquad L &\equiv \sqrt{\frac{D}{\Sigma_a}}\:.
 \end{align*}
+\else
+\\ \vspace*{4em} \\
+\fi
 %
 $L$ is called the neutron diffusion length. This is ``how far a neutron diffuses from a source prior to absorption". 
 
@@ -599,11 +611,15 @@ Unless we have the proper combination of core composition ($\Sigma_a$, $\Sigma_f
 
 To deal with this, we introduce a parameter $k$ into the equation:
 %
+\ifprintanswers
 \begin{equation}
 -\nabla \cdot D\nabla \phi(\vec{r}) + 
 \Sigma_a \phi(\vec{r}) = \frac{1}{k}\nu \Sigma_f \phi(\vec{r})\:. \nonumber
 \end{equation}
 %
+\else
+\\ \vspace*{3em} \\
+\fi
 Then, for any value of $k$ we assert that there is always a solution. We use an iterative process to find the condition when $k=1$, called ``critical''.
 
 A reactor is called \textbf{``critical''} if the chain reaction is self-sustaining and time-independent. Another way to think of the addition of $k$ is to assume $\nu$ can be adjusted to obtain a time-independent solution by replacing it with $\frac{\nu}{k}$, where $k$ is the parameter expressing the deviation from critical. 
