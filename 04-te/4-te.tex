@@ -1,5 +1,5 @@
-%\documentclass[12pt, answers]{exam}
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
 \RequirePackage{tikz, pgflibraryplotmarks}
 \usepackage[margin=1in]{geometry}
@@ -49,16 +49,21 @@ TE \\ January 28, 2021}
 Largely from Lewis and Miller Chp.\ 1 \cite{Lewis1993} and Duderstadt and Hamilton Chp.\ 4 \cite{Duderstadt1976}. Note: Duderstadt and Martin \cite{Duderstadt1979} is a very good general reference. It goes through all of this same stuff, but from a slightly more generic point of view (since this applies to \underline{any} collection of neutral particles).
 
 \subsection*{Definitions}
-
-\begin{figure}[h!]
-    \begin{center}
-    \includegraphics[keepaspectratio, width = 2.7 in]{../figs/phase_space}
-    \end{center}
-    \caption{Schematic of Phase Space}
-    \label{fig:phase_space}
+Spatial logistics\\
+\begin{minipage}{0.55\textwidth}
+\begin{center}
+\begin{figure}[H]
+    \includegraphics[width = 2.5 in]{../figs/phase_space}
 \end{figure}
-
-Spatial logistics
+\end{center}
+\end{minipage} \hfill
+%
+\begin{minipage}{0.45\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1.5in]{../figs/differential-element}
+\end{figure}
+\end{minipage}
+%
 \begin{itemize}
 \item $d\vec{r} = d^3r$ = ordinary volume = $r^2 \sin(\theta) d\theta d\varphi dr$
 %
@@ -348,7 +353,7 @@ for the problem domain. Note, the initial flux can be a functional expression.
 
 \begin{minipage}{0.45\textwidth}
 \begin{figure}[H]
-\includegraphics[height=2in]{../figs/InterfaceCondition}
+\includegraphics[height=2in]{../figs/interface}
 %\caption{\label{fig:interfaceCondition} Interface Condition}
 \end{figure}
 \end{minipage} \hfill
@@ -373,21 +378,42 @@ $\psi(\vec{r}_S, E, \vOmega, t) = \psi_{IN}(\vec{r}_S, E, \vOmega, t)$ for \\$\v
 This is equivalent to specifying the incoming partial current, $$\vec{j}^-(\vec{r}_S, E, t) = \int_{\vec{e} \cdot \vOmega < 0} d\vOmega \:(\vec{e} \cdot \vOmega) \psi(\vec{r}_S, E, \vOmega, t)\:.$$
 \end{minipage}
 
-\item \underline{Reflective Condition}: there is mirror symmetry at some surface:
+\item \underline{Reflective Condition}: there is mirror symmetry at some surface:\\
+\begin{minipage}{0.75\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1.25in]{../figs/reflecting-bc}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.25\textwidth}
 \ifprintanswers
 \[\psi(\vOmega_{IN}) = \psi(\vOmega_{OUT})\:.\]
 \else
 \\ \\ \vspace*{2em}
 \fi
+\end{minipage}
 
-\item \underline{Periodic Condition}: you know there is a repetition in the system
+\item \underline{Periodic Condition}: you know there is a repetition in the system\\
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1.25in]{../figs/periodic-bc}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
 \[\psi(\vec{r}_S, E, \vOmega, t) = \psi(\vec{r}_S \pm \vec{p}, E, \vOmega, t)\:.\]
+\end{minipage}
 
 \item \underline{Finiteness Condition}: to by physically valid we need to meet the condition \\$0 < \psi(\vec{r}, E, \vOmega, t) < \infty$, with the possible exception of point sources,
 
 \item which we handle with the \underline{Source Condition}: localized sources are introduced as mathematical singularities at the location of the source.
 
 For a source $s(\vec{r}_0, E, \vOmega, t)$:
+\\
+\begin{minipage}{0.25\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1.25in]{../figs/source}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.75\textwidth}
 \ifprintanswers
 \begin{align*}
 &\lim_{\vec{r} \rightarrow \vec{r}_0} \int_S dS\: \vec{e} \cdot \vOmega \psi(\vec{r}, E, \vOmega, t) = s(\vec{r}_0, E, \vOmega, t)\:, \\
@@ -396,6 +422,7 @@ For a source $s(\vec{r}_0, E, \vOmega, t)$:
 \else
 \\ \\ \vspace*{2em}
 \fi
+\end{minipage}
 \end{enumerate}
 
 
@@ -438,23 +465,24 @@ Assume all particles are at the same speed, so we no longer need energy dependen
 
 We'd like to simplify even farther by only worrying about one dimension, so we'll get rid of $y$ and $z$.
 
-%\begin{minipage}{0.5\textwidth}
+\begin{minipage}{0.5\textwidth}
 $\vec{r} = (x, y, z)$
-
 $d\vOmega = \sin(\theta) d\theta	d\varphi = d\mu d\varphi$
 
 Note $\mu = \cos(\theta)$ so $d\mu = \sin(\theta)$
 
 $\Omega_x = \cos(\theta) = \mu$
-%\end{minipage} \hfill
-%\begin{minipage}{0.45\textwidth}
-%\begin{figure}[H]
-%\includegraphics[height=1in]{1Dspace}
-%\caption{swap z for y, y for x, and x for z}
-%\end{figure}
-%\end{minipage}
 
-% \vec{r} switched to x
+(in the image mentally swap $x$ and $z$ to get the notation we are using)
+\end{minipage}
+%
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[height=1.5in]{../figs/azimuthal}
+%\caption{\label{fig:FixedCondition} Fixed Condition}
+\end{figure}
+\end{minipage} \hfill
+%
 \begin{align*}
 \frac{1}{v}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
 \bigl(\Omega_x \frac{\partial}{\partial x} + \cancel{\Omega_y \frac{\partial}{\partial y}} + \cancel{\Omega_z \frac{\partial}{\partial z}} \bigr)\psi(x, \vOmega, t) +
@@ -464,61 +492,50 @@ $\Omega_x = \cos(\theta) = \mu$
 \frac{\nu \Sigma_f}{4\pi} \int_{4\pi} d\vOmega' \psi(x,  \vOmega', t) + s(x, \vOmega, t)%+ Q(x, \vOmega, t) \nonumber
 \end{align*}
 
+Using this idea we can write things more cleanly:
+%
+% switch to just \mu
+\begin{align*}
+\frac{1}{v_0}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
+\mu \frac{\partial}{\partial x}\psi(x, \vOmega, t) +
+\Sigma_t \psi(x, \vOmega, t) = \nonumber\\
+%
+& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 
+\frac{1}{4\pi} \nu \Sigma_f \int_0^{2\pi} d\phi \psi(x, \mu, t) + s(x, \mu, t)% 2\pi Q(x, \mu, t)
+\end{align*}
 
-%\begin{minipage}{0.3\textwidth}
-%\begin{figure}[H]
-%\includegraphics[height=1.5in]{AzimuthalSymmetry}
-%%\caption{\label{fig:FixedCondition} Fixed Condition}
-%\end{figure}
-%\end{minipage} \hfill
-%\begin{minipage}{0.65\textwidth}
+If \textbf{scattering is also isotropic}:
+\[\Sigma_s(\vOmega' \cdot \vOmega) = \frac{\Sigma_s}{4\pi} \]
+
+And we get the 1-group, 1-D, isotropic neutron TE:
 %
-%\end{minipage}
+% scattering is now iso, add in sources
+\begin{align*}
+\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
+\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
+\Sigma_t \psi(x, \mu, t) = \nonumber\\
 %
-%Using this idea we can write things more cleanly:
-%%
-%% switch to just \mu
-%\begin{align*}
-%\frac{1}{v_0}\frac{\partial \psi(x, \vOmega, t)}{\partial t} &+ 
-%\mu \frac{\partial}{\partial x}\psi(x, \vOmega, t) +
-%\Sigma_t \psi(x, \vOmega, t) = \nonumber\\
-%%
-%& \int_0^{2\pi} d\phi \int_{4\pi} d\vOmega' \Sigma_s(\vOmega' \cdot \vOmega) \frac{\psi(x, \mu', t)}{2\pi}  + 
-%\frac{1}{4\pi} \nu \Sigma_f \int_0^{2\pi} d\phi \psi(x, \mu, t) + s(x, \mu, t)% 2\pi Q(x, \mu, t)
-%\end{align*}
+& \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu', t)  
++  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x, t) + S(x, t) \bigr)
+\end{align*}
+
+%---------------------------------------------
+\subsection*{Steady State}
+If we get rid of time dependence.
 %
-%If \textbf{scattering is also isotropic}:
-%\[\Sigma_s(\vOmega' \cdot \vOmega) = \frac{\Sigma_s}{4\pi} \]
+\begin{equation}
+\mu \frac{\partial}{\partial x}\psi(x, \mu) +
+\Sigma_t \psi(x, \mu) = \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu')  
++  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr) \nonumber
+\end{equation}
+
+
+And very finally - we can have the unrealistic case of \textbf{purely absorbing media}:
 %
-%And we get the 1-group, 1-D, isotropic neutron TE:
-%%
-%% scattering is now iso, add in sources
-%\begin{align*}
-%\frac{1}{v_0}\frac{\partial \psi(x, \mu, t)}{\partial t} &+ 
-%\mu \frac{\partial}{\partial x}\psi(x, \mu, t) +
-%\Sigma_t \psi(x, \mu, t) = \nonumber\\
-%%
-%& \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu', t)  
-%+  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x, t) + S(x, t) \bigr)
-%\end{align*}
-%
-%%---------------------------------------------
-%\subsection*{Steady State}
-%If we get rid of time dependence.
-%%
-%\begin{equation}
-%\mu \frac{\partial}{\partial x}\psi(x, \mu) +
-%\Sigma_t \psi(x, \mu) = \frac{1}{2} \Sigma_s \int_{-1}^{1} d\mu' \psi(x, \mu')  
-%+  \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr) \nonumber
-%\end{equation}
-%
-%
-%And very finally - we can have the unrealistic case of \textbf{purely absorbing media}:
-%%
-%\begin{equation}
-%\mu \frac{\partial}{\partial x}\psi(x, \mu) +
-%\Sigma_a \psi(x, \mu) = \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr) \nonumber
-%\end{equation}
+\begin{equation}
+\mu \frac{\partial}{\partial x}\psi(x, \mu) +
+\Sigma_a \psi(x, \mu) = \frac{1}{2} \bigl( \nu \Sigma_f \phi(x) + S(x) \bigr) \nonumber
+\end{equation}
 
 
 %--------------------------------------------
