@@ -1,5 +1,5 @@
-%\documentclass[12pt, answers]{exam}
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
 \RequirePackage{tikz}
 \usepackage[margin=1in]{geometry}
@@ -149,6 +149,7 @@ $\Sigma_s(\vOmega' \rightarrow \vOmega)$ is \textbf{azimuthally symmetric}, mean
 \else
   \\\vspace*{1em}\\
 \fi
+
 This implies
 \[\int_{4\pi} d\vOmega \:\Sigma_s(\vOmega' \cdot \vOmega) = 2\pi \int_{-1}^{1} d\mu\: \Sigma_s(\mu) = \Sigma_s\]
 %
@@ -394,7 +395,7 @@ If we also assume \underline{steady state} (or weak temporal dependence) and \un
 
 \ifprintanswers
 \begin{align*}
-\frac{1}{3} \nabla \phi(\vec{r}, t) +
+\frac{1}{3} \nabla \phi(\vec{r}) +
 \Sigma_{tr}  &\vec{J}(\vec{r}) = 0 \\
 &\boxed{\vec{J}(\vec{r}) = -\frac{1}{3\Sigma_{tr}} \nabla \phi(\vec{r}) = -D\nabla \phi(\vec{r}) } \qquad \text{Fick's Law}
 \end{align*}
@@ -499,8 +500,8 @@ These are also fairly straightforward. With the transport equation, we require t
 \[\psi_1(\vec{r}_S, \vOmega, t) = \psi_2(\vec{r}_S,\vOmega, t)\qquad \forall \vOmega\:.\]
 For diffusion, we take the 0th and 1st moments of our TE condition and get two equations rather than one. Now
 \begin{align*}
-\phi_1(\vec{r}, t) &= \phi_2(\vec{r}, t) \\
-\vec{J}_1(\vec{r}, t) &= \vec{J}_2(\vec{r}, t)
+\phi_1(\vec{r}_s, t) &= \phi_2(\vec{r}_s, t) \\
+\vec{J}_1(\vec{r}_s, t) &= \vec{J}_2(\vec{r}_s, t)
 \end{align*}
 
 \subsubsection*{Vacuum Boundary Condition}
