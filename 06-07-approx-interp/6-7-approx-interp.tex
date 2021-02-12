@@ -2,18 +2,18 @@
 % NE 155 (intro to numerical simulation of radiation transport)
 
 % formatting
-\documentclass[12pt]{article}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
-
 \usepackage{setspace}
 \onehalfspacing
-
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
-
 % packages
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz}
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
@@ -24,26 +24,20 @@
 % for creating indented blocks
 \usepackage{scrextend}
 
-% Draw figures yourself
-\usepackage{tikz} 
-
-% The float package HAS to load before hyperref
-\usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
-
-% from Denovo methods manual
+% from Denovo Methods Manual
 \usepackage{mathrsfs}
 \usepackage[mathcal]{euscript}
 \usepackage{color}
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
 \newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
-
 \newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
 \newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
 
@@ -52,8 +46,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 8 \& 9, S17 \\
-Interpolation and Approximation\\ February 3 and 5, 2017}
+{\bf NE 155, Topics 6 \& 7, S21 \\
+Interpolation and Approximation\\ February 16, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
