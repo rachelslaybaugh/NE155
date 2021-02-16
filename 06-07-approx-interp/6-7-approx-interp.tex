@@ -2,8 +2,8 @@
 % NE 155 (intro to numerical simulation of radiation transport)
 
 % formatting
-%\documentclass[12pt, answers]{exam}
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -155,7 +155,7 @@ f(x) &= f(a) + f'(a)(x-a) + f''(a)\frac{(x-a)^2}{2!} + \cdots + f^{(n-1)}(a)\fra
 %
 \end{align}
 \ifprintanswers
-\[R_n &= f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]\]
+\[R_n = f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]\]
 %http://mathworld.wolfram.com/TaylorSeries.html
 \else
 \vspace*{3em}
