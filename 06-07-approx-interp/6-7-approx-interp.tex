@@ -2,8 +2,8 @@
 % NE 155 (intro to numerical simulation of radiation transport)
 
 % formatting
-\documentclass[12pt, answers]{exam}
-%\documentclass[12pt]{exam}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -60,7 +60,11 @@ Interpolation and Approximation\\ February 16, 2021}
 Sometimes rather than calculating values of a function, we need to approximate or interpolate them instead. Why might we do this?
 %
 \begin{itemize}
+\ifprintanswers
 \item It may be difficult or impossible to analytically evaluate the function
+\else
+\item
+\fi
 \item We may have only a table of values at certain points and need to
 determine the values in between
 \item It may be much faster to compute values of an approximate
@@ -74,13 +78,22 @@ Interpolation and/or approximation is used in numerical \textbf{integration/diff
 \underline{Problem:} given a function $f(x)$ or a set  of discrete values $\{x_i, f(x_i)\}$, try to find $g(x)$ that in some sense represents $f(x)$. 
 
 \begin{enumerate}
-\item \textbf{Approximation} An approximation function \underline{does not} need to fit through all given function values. 
+\item \textbf{Approximation} 
+\ifprintanswers
+An approximation function \underline{does not} need to fit through all given function values. 
+\else
+\\ \vspace*{1 em}
+\fi
 
 Why would we do this? Perhaps we know there are errors in the data, or we only care about the general trend. 
 
 Example: Least Squares
 
-\item \textbf{Interpolation} An interpolation function \underline{does} need to go through all given values of the function.
+\item \textbf{Interpolation} 
+\ifprintanswers An interpolation function \underline{does} need to go through all given values of the function.
+\else
+\\ \vspace*{1 em}
+\fi
 
 We do this because we \textit{believe} the data points and therefore want to make sure we match them. We will discuss this strategy first.
 \end{enumerate}
@@ -109,7 +122,11 @@ Why polynomials?
 \[g(x) = a_0 + a_1 x + a_2 x^2 + \dots +a_n x^n\]
 
 \begin{enumerate}
+\ifprintanswers
 \item derivatives and integrals are easy to compute $\rightarrow$ after either operation we still have a polynomial
+\else
+\item
+\fi
 \item efficient to evaluate
 \[g(x) = a_0 + x(a_1 + x(a_2 + x(\dots)))\]
 \end{enumerate}
@@ -117,8 +134,11 @@ Why polynomials?
 \textbf{Theorem:} (Weierstrauss approximation theorem)
 
 let $f$ be $C^0 \in [a,b]$. Given $\epsilon > 0$, $\exists$ a polynomial, $P(x)$, such that 
+\ifprintanswers
 \[|f(x) - P(x)| \leq \epsilon, \qquad x \in [a,b] \:.\]
-
+\else
+\vspace*{2em}
+\fi
 
 \begin{addmargin}[3em]{1em}
 \underline{Aside about terminology:} In mathematical analysis, \textit{smoothness} has to do with how many derivatives of a function exist and are continuous. The function $f$ is said to be of (differentiability) class $C^k$ if the derivatives $f', f'', \cdots, f^{(k)}$ exist and are continuous (the continuity is implied by differentiability for all the derivatives except for $f^{(k)}$). 
@@ -131,12 +151,17 @@ If $f(x)$ is known but difficult to evaluate, we can replace it by a Taylor poly
 \begin{align}
 f(x) &= f(a) + f'(a)(x-a) + f''(a)\frac{(x-a)^2}{2!} + \cdots + f^{(n-1)}(a)\frac{(x-a)^{n-1}}{(n-1)!} + R_n \nonumber \\
 %
-  &= \sum_{k=0}^{n-1}\frac{(x-a)^k}{k!}f^{(k)}(a) + R_n \nonumber\\
+  &= \sum_{k=0}^{n-1}\frac{(x-a)^k}{k!}f^{(k)}(a) + R_n \nonumber
 %
-R_n &= f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]\nonumber
-%http://mathworld.wolfram.com/TaylorSeries.html
 \end{align}
-[finite difference]
+\ifprintanswers
+\[R_n &= f^{(n)}(x^*)\frac{(x-a)^{n}}{n!} \qquad \text{for some } x^* \in [a, x]\]
+%http://mathworld.wolfram.com/TaylorSeries.html
+\else
+\vspace*{3em}
+\fi
+
+[note: we will use this in finite difference later on]
 
 
 %--------------------------------------------------------------------
@@ -148,7 +173,11 @@ Instead, if we have $(n+1)$ distinct points $x_0, x_1,\dots, x_n$ and $f(x)$ is 
 %
 This polynomial is given by
 %
+\ifprintanswers
 \[P(x) = f(x_0)L_0(x) + \dots + f(x_n)L_n(x) = \sum_{k=0}^{n}f(x_k)L_k(x)\:,\]
+\else
+\vspace*{3em}
+\fi
 %
 where the $L_k(x)$ are Lagrange polynomials:
 %
@@ -176,7 +205,13 @@ f(x) - P_n(x)& = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n)\nonumb
 %
 %For all polynomial interpolations, the error is related to the $n+1$st derivative of the function. If we have more points than derivatives, this might not work well. This is related to our next idea.
 
-What is a variable here that will affect the error? \\ \textit{How we choose the $x_i$.} \\We will not get into this here, but in general equally-spaced points don't work well and there are specific sets of differently-spaced points that are designed to be optimal in different ways. 
+What is a variable here that will affect the error? \\ 
+\ifprintanswers
+\textit{How we choose the $x_i$.} \\
+\else
+\vspace*{1em}\\
+\fi
+We will not get into this here, but in general equally-spaced points don't work well and there are specific sets of differently-spaced points that are designed to be optimal in different ways. 
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
@@ -199,7 +234,11 @@ An alternative approach is to divide the interval into small sub-intervals (usua
 %Thus, we often select splines. 
 %\end{enumerate}
 %
+\ifprintanswers
 A \textbf{spline} is a polynomial function that is piecewise-defined, and possesses a ``high" degree of smoothness at the places where the polynomial pieces connect (which are known as \textit{knots}).
+\else
+\vspace*{3em}
+\fi
 
 The simplest way to do this is \textbf{piecewise linear}.\\ What might be a problem with that?\\ \textit{Piecewise linear is only $C^0$}.
 
@@ -212,8 +251,13 @@ The most common approach is to use \textbf{cubic splines}: a cubic polynomial be
 \item on each sub-interval $[x_j, x_{j+1}]$, $S$ is a cubic polynomial:
 \[S(x) = S_j(x) = a_j + b_j(x-x_j) + c_j(x-x_j)^2 + d_j(x-x_j)^3 \text{ for } j = 0, 1, ..., n-1\]
 
+\ifprintanswers
 \item $S$ interpolates $f$ (gives n+1 constraints)
 \[S(x_j) = f(x_j)\text{ for } j = 0, 1, ..., n\]
+\else
+\item
+ \vspace*{3em}
+\fi
 
 \item $S$ is continuous (gives n-1 constraints)
 \[S_{j+1}(x_{j+1}) = S_{j}(x_{j+1})\text{ for } j = 0, 1, ..., n-2\]
@@ -231,7 +275,11 @@ Thus, we select one of these boundary conditions:
 \begin{itemize}
 \item ``not-a-knot": remove two analysis points
 \item ``free" or ``natural": $S''(x_0) = S''(x_n) = 0$ 
+\ifprintanswers
 \item ``clamped" or ``complete": $S'(x_0) = f'(x_0)$ and $S'(x_n) = f'(x_n)$ 
+\else
+\item
+\fi
 \end{itemize}
 
 Which of these do you expect to be the most accurate and why? The least?
@@ -261,7 +309,11 @@ We can approximate the data to get an expression for the functional form.
 
 %--------------------------------------------------------------------
 \subsection*{Least Squares}
+\ifprintanswers
 Least Squares finds the best approximating line (function) that minimizes the least squares error of the representation.
+\else
+\vspace*{3em}
+\fi
 
 \subsubsection*{Linear}
 If we assume the form is linear, we are trying to find
@@ -272,8 +324,10 @@ where these coefficients provide the best fit for
 y_0 &= a_0 + a_1 x_0 \nonumber \\
 y_1 &= a_0 + a_1 x_1 \nonumber\\
 & \vdots \nonumber\\
-y_m &= a_0 + a_1 x_m \nonumber\\
+y_m &= a_0 + a_1 x_m \nonumber
 %
+\end{align}
+\begin{align*}
 \begin{pmatrix}
 1 & x_0 \\ 1 & x_1 \\ \vdots & \vdots \\ 1 & x_m
 \end{pmatrix}
@@ -282,15 +336,19 @@ a_0 \\ a_1
 \end{pmatrix}}_{\vec{z}} &=
 \begin{pmatrix}
 y_0 \\ y_1 \\ \vdots \\ y_m
-\end{pmatrix}\nonumber
-\end{align}
+\end{pmatrix}
+\end{align*}
 %
 Why can't we just solve this matrix system?\\ $n < m$ and the system is overdetermined.\\ Instead, we look to minimize the error, $E = ||\ve{A}\vec{z} - \vec{b}||$.
 
 In the \textit{least squares} procedure, we minimize the \textit{square} of the error in some norm. 
 
 We must choose a norm in which to minimize the error. It is quite common to choose the 2-norm; the error in the 2-norm squared , which we will call $e$, is
+\ifprintanswers
 \[E^2 = e = \sum_{i=0}^m \bigl(y_i - (a_o + a_1 x_i)\bigr)^2\]
+\else
+\\ \vspace*{3em}\\
+\fi
 %
 To minimize this w.r.t.\ the $a$s, we take the partial derivative and set equal to zero:
 %
@@ -347,11 +405,14 @@ You can do the least square procedure by taking the two-norm squared, taking the
 
 you can simply take the log and treat it like the linear case
 %
+\ifprintanswers
 \begin{align}
 \underbrace{\ln(y)}_{y} &= \underbrace{\ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} x \qquad \text{ or}\nonumber\\
 \underbrace{\ln(y)}_{y} &= \underbrace{\ln(\beta)}_{a_0} + \underbrace{\alpha}_{a_1} \underbrace{\ln(x)}_{x}\nonumber
 \end{align}
-
+\else
+\\\vspace*{5em}
+\fi
 
 %--------------------------------------------------------------------
 \subsubsection*{Polynomial}
@@ -387,10 +448,14 @@ Least Squares and Fourier Series are actually related to one another.
 
 It is possible to approximate a function with a polynomial, as we know, but now we will write the way we're considering the error a bit differently:
 %
+\ifprintanswers
 \begin{align}
 e &=\int_a^b \bigl[f(x) - P_n(x)\bigr]^2 dx \nonumber\\
 \text{where }& P_n(x) = \sum_{j=0}^{n} c_j \phi_j(x) \nonumber
 \end{align}
+\else
+\\\vspace*{5em}
+\fi
 
 In general, approximations to functions require that the basis set (the $\phi$s) be orthogonal. 
 
@@ -424,10 +489,14 @@ To see the relationship with Fourier series, we use the orthonormal basis set on
 
 Then, the least squares approximation to $f$ on $[-\pi,\pi]$ with this set of functions is
 %
+\ifprintanswers
 \begin{align*}
 S_n(x) &= \sum_{j=0}^{2n-1} c_j(x) \phi_j(x) \\
 c_j &= \int_{-\pi}^{\pi} \phi_j(x)f(x)dx \:, \qquad j=0, 1, \dots, 2n-1 \:,
 \end{align*}
+\else
+\\\vspace*{5em}\\
+\fi
 %
 and in the limit as $n \rightarrow \infty$, $S_n(x) \rightarrow$ the Fourier series of $f(x)$.  
 
