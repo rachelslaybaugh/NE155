@@ -1,5 +1,5 @@
-%\documentclass[12pt, answers]{exam}
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -184,7 +184,7 @@ c &= -\frac{1}{2h} \\
 \end{align*}
 \ifprintanswers
 \[
-\therefore \quad &\boxed{f'(x_i) = \frac{-3 f(x_i) + 4f(x_i + h) - f(x_i + 2h)}{2h} -\frac{1}{3}h^2 f'''(\mu)}\]
+\therefore \quad \boxed{f'(x_i) = \frac{-3 f(x_i) + 4f(x_i + h) - f(x_i + 2h)}{2h} -\frac{1}{3}h^2 f'''(\mu)}\]
 \else
 \vspace*{2em}
 \fi
@@ -370,7 +370,7 @@ I(P_n(x)) &= \sum_{i=0}^{n} \bigl[ \int_a^b L_i(x)dx \bigr] f(x_i) \\
 \end{align*}
 \ifprintanswers
 \begin{align*}
-\text{where } w_i &=  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)} \\
+\text{where } w_i &=  \int_a^b L_i(x)dx = \int_a^b \prod_{\substack{i=0\\ i \neq k}}^n \frac{(x-x_i)}{(x_k-x_i)}dx \\
 &\text{sub in } x = a + sh\\
 &=  (b-a)\frac{1}{n}\int_0^n \prod_{\substack{i=0\\ i \neq k}}^n \frac{(s-i)}{(k-i)}ds
 \end{align*}
