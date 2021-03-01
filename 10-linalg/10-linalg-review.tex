@@ -2,6 +2,8 @@
 \documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{tabu}
 \onehalfspacing
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
@@ -630,8 +632,13 @@ Norm equivalence is very important because if we can prove some property (usuall
 For $\vec{x}$ (the real solution) and $\hat{x}$ (representing our numerical solution) $\in \mathbb{R}^n$ and some norm $p$ we define
 %
 \begin{itemize}
+\ifprintanswers
 \item Absolute error: $||\hat{x} - \vec{x}||_p$
 \item Relative error: $\dfrac{||\hat{x} - \vec{x}||_p}{||\vec{x}||_p}$, where $\vec{x} \neq 0$
+\else
+\item
+\item 
+\fi
 \end{itemize}
 
 \subsubsection*{Convergence}
@@ -644,7 +651,11 @@ Given a sequence $\lbrace \hat{x}^{(k)} \rbrace_{k=1,2,\dots,\infty}$ and some n
 %http://fourier.eng.hmc.edu/e176/lectures/NM/node3.html
 %https://en.wikipedia.org/wiki/Rate_of_convergence
 When we think of the \textbf{rate of convergence}, we can look at how quickly this limit is reached. We measure this as
+\ifprintanswers
 \[ \lim_{k \rightarrow \infty} \frac{||\hat{x}^{(k+1)} - \vec{x}||_p}{||\hat{x}^{(k)} - \vec{x}||_p^q} = \mu\]
+\else
+\\ \vspace*{2em}\\
+\fi
 Here $q \geq 1$ is called the \textit{order of convergence} and $\mu$ is the \textit{rate of convergences}. Also written as
 \[||\hat{x}^{(k+1)} - \vec{x}||_p = \mu ||\hat{x}^{(k)} - \vec{x}||_p^q \rightarrow ||e_{k+1}||_p = \mu||e_{k}||_p^q\:.
 \]
@@ -677,7 +688,11 @@ This is the relevant definition when discussing methods for numerical quadrature
 Given $\ve{A}, \ve{B} \in \mathbb{R}^{m \times n}$, a matrix norm, denoted by $|| \cdot ||$, has the following properties:
 %
 \begin{enumerate}
+\ifprintanswers
 \item $||\ve{A}|| > 0$ and $||\ve{A}|| = 0$ iff $\ve{A} = 0$ (positive definite)
+\else
+\item
+\fi
 \item $||\ve{A} + \ve{B}|| \leq ||\ve{A}|| + ||\ve{B}||$ (triangle inequality)
 \item $||\alpha \ve{A}|| = |\alpha|\: ||\ve{A}||$ (homogeneous)
 \end{enumerate}
@@ -693,10 +708,14 @@ E.g., the Frobenius norm
 \item submultiplicative if $||\ve{A} \ve{B}|| \leq ||\ve{A}||\: ||\ve{B}||$
 
 \item Not all norms are submultiplicative; \textit{we will only deal with those that are.} 
-
+\ifprintanswers
 \item subordinate matrix norm for $\ve{A} \in \mathbb{R}^{m \times n}$ and $\vec{x} \in \mathbb{R}^n$:
 
 $||\ve{A}|| \equiv \displaystyle \sup_{\vec{x} \neq \vec{0}} \dfrac{||\ve{A}\vec{x}||}{||\vec{x}||}$
+\else
+\item
+\vspace*{3em}
+\fi
 
 \item \textbf{supremum}, or least upper bound, of a set $S$ of real numbers is denoted by sup$S$ and is defined to be the smallest real number that is greater than or equal to every number in $S$.
 
@@ -737,7 +756,11 @@ Eigenvalues are a special set of scalars associated with a linear system of equa
 
 Each eigenvalue is paired with a corresponding so-called eigenvector (or, in general, a corresponding right eigenvector and a corresponding left eigenvector; there is no analogous distinction between left and right for eigenvalues).
 
+\ifprintanswers
 The decomposition of a square matrix $\ve{A}$ into eigenvalues and eigenvectors is known as eigen decomposition, and the fact that \textbf{this decomposition is always possible as long as the matrix consisting of the eigenvectors of $\ve{A}$ is square} is known as the eigen decomposition theorem.
+\else
+\vspace*{4em}
+\fi
 
 Let $\ve{A} \in \mathbb{R}^{n \times n}$. If there is a vector $\vec{x} \in \mathbb{R}^{n}$ such that
 %
@@ -745,9 +768,13 @@ Let $\ve{A} \in \mathbb{R}^{n \times n}$. If there is a vector $\vec{x} \in \mat
 %
 for some scalar $\lambda$, then $\lambda$ is an eigenvalue of $\ve{A}$ with a corresponding (right) eigenvector $\vec{x}$. Note that the eigenvalue represents the ``stretching factor" in the direction of its associated eigenvector. 
 
-(\href{http://math.stackexchange.com/questions/54176/is-there-a-geometric-meaning-of-the-frobenius-norm}{http://math.stackexchange.com/questions/54176/is-there-a-geometric-meaning-of-the-frobenius-norm})
+(\url{http://math.stackexchange.com/questions/54176/is-there-a-geometric-meaning-of-the-frobenius-norm})
  
+\ifprintanswers
 We find eigenvalues by re-writing the stated relationship as $(\ve{A} - \lambda \ve{I})\vec{x}=0$ and solving for the $\lambda$s that make this true. The $\lambda$s are then the eigenvalues and the $\vec{x}$s that go with them are the corresponding eigenvectors. 
+\else
+\vspace*{4em}
+\fi
 
 A linear system of equations has nontrivial solutions iff the determinant vanishes (Cramer's rule; related to the theorem for finding out if a solution exits that we talked about above), so the solutions of this equation are given by
 %
@@ -776,7 +803,11 @@ This equation is known as the characteristic equation of $\ve{A}$, and the left-
 
 
 \begin{itemize}
+\ifprintanswers
 \item Eigenvalues may be real or complex. 
+\else
+\item
+\fi
 
 \item Since an \nth degree polynomial has $n$ roots, $\ve{A}_{n \times n}$ is guaranteed to have $n$ real and/or complex eigenvalues, some of which may be repeated: $\lambda_1, \lambda_2, \dots, \lambda_n$.
 
@@ -787,7 +818,11 @@ This gives $\ve{A}\vec{u}_1 = \lambda_1 \vec{u}_1$, etc.
 
 
 The spectrum of eigenvalues of a matrix $\ve{A}$ are defined formally as
+\ifprintanswers
 \[\sigma(\ve{A}) = [ \lambda \in \mathbb{C} : \det(\ve{A} - \lambda \ve{I})=0] \] 
+\else
+\\ \vspace*{2em} \\ 
+\fi
 and an eigenvalue is 
 \[ \lambda \in \sigma(\ve{A})\:,\]
 and
@@ -812,7 +847,7 @@ To see the geometric meaning we can note that
 look at one column at a time and see
 \[\ve{A}\vec{v}_i = \sigma_i \vec{q}_i \:, \qquad i = 1, \cdots, n \:.\]
 
-Now you can see that these are like eigenvalues in terms geometric stretching. Finally, we note that $||\ve{A}||_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \dots + \sigma_n^2}$, effectively meaning that the Frobenius norm measures the size of the distortion a matrix creates in a system. (see this reference for a good explanation: \href{http://www.math.iit.edu/~fass/477577_Chapter_2.pdf}{http://www.math.iit.edu/$\sim$fass/477577\_Chapter\_2.pdf}).
+Now you can see that these are like eigenvalues in terms geometric stretching. Finally, we note that $||\ve{A}||_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \dots + \sigma_n^2}$, effectively meaning that the Frobenius norm measures the size of the distortion a matrix creates in a system. (see this reference for a good explanation: \url{http://www.math.iit.edu/$\sim$fass/477577\_Chapter\_2.pdf}).
 
 
 %--------------------------------------------------------------------------
@@ -823,9 +858,15 @@ The spectral radius of $\ve{A} \in \mathbb{C}^{n \times n}$ is defined as
 With the properties:
 %
 \begin{itemize}
+\ifprintanswers
 \item $\rho(\ve{A})^k = \rho(\ve{A}^k)$
 \item $\rho(\ve{A}) = \rho(\ve{A}^T)$
 \item $\rho(\xi \ve{A}) = |\xi| \rho(\ve{A})$
+\else
+\item
+\item
+\item
+\fi
 \end{itemize}
 %
 Let's think about the meaning of the spectral radius. \textit{This is the largest change a matrix can induce on a vector while maintaining it's direction.} That is what the matrix 2-norm means, which is analogous to the vector idea of length.
@@ -855,11 +896,15 @@ Let's think about the meaning of the spectral radius. \textit{This is the larges
  %--------------------------------------------------------------------------
 \section*{Spectral radii are bounded}
 
-(reference: \href{http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf}{http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf})
+(reference: \url{http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf})
 
 For $\lambda \in \sigma(\ve{A})$ 
+\ifprintanswers
 \[|\lambda | \leq ||\ve{A}||\]
 \[\rho(\ve{A}) \leq ||\ve{A}||\]
+\else
+\\ \vspace*{3em}
+\fi
 
 \underline{proof:} 
 \begin{enumerate}
