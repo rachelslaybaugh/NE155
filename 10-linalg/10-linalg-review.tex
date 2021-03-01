@@ -1,18 +1,15 @@
-%--------------------------------------------------------------------
-% NE 155 (intro to numerical simulation of radiation transport)
-
-% formatting
-\documentclass[12pt]{article}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
-
-\usepackage{setspace, paralist}
+\usepackage{setspace}
 \onehalfspacing
-
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
 % packages
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz}
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
@@ -20,26 +17,24 @@
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
 
-% Draw figures yourself
-\usepackage{tikz} 
+% for creating indented blocks
+\usepackage{scrextend}
+\usepackage{paralist, tabularx}
 
-% The float package HAS to load before hyperref
-\usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
-
-% from Denovo methods manual
+% from Denovo Methods Manual
 \usepackage{mathrsfs}
 \usepackage[mathcal]{euscript}
 \usepackage{color}
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
 \newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
-
 \newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
 \newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
 
@@ -48,8 +43,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Class 12, 13, \&14, S17 \\
- Vectors and Matrices: Feb 13-17, 2017}
+{\bf NE 155, Topic 10, S21 \\
+ Vectors and Matrices: March 2-4, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -80,13 +75,21 @@ A real $n$-dimensional vector $\vec{x}$ is an ordered set of $n$ real numbers th
 
 Algebraically, it is the sum of the products of the corresponding entries of the two sequences of numbers: $\vec{x} \cdot \vec{y} = \sum_{i=1}^n a_i b_i = x_1 y_1 + x_2 y_2 + \dots + x_n y_n$
 
+\ifprintanswers
 Geometrically, it is the product of the magnitudes of the two vectors and the cosine of the angle between them. $\vec{x} \cdot \vec{y} = ||\vec{x}|| ||\vec{y}|| cos\theta$.
+\else
+\vspace{2em}
+\fi
 
 \item $||\vec{x}||^2 = \vec{x} \cdot \vec{x}$
 
 \item distance from $\vec{x}$ to $\vec{y}$: $||\vec{x} - \vec{y}|| = ((x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_n - y_n)^2)^{1/2}$
 
+\ifprintanswers
 \item commutative property: $\vec{x} + \vec{y} = \vec{y} + \vec{x}$
+\else
+\item
+\fi
 
 \item associative property: $(\vec{x} + \vec{y}) + \vec{z} = \vec{x} + (\vec{y} + \vec{z})$
 
@@ -120,11 +123,16 @@ $\ve{A} \in \mathbb{C}^{m \times n}$ is an $m \times n$ complex matrix
 
 \item scalar multiple: $c\ve{A} = [c a_{ij}]_{m \times n}$
 
+\ifprintanswers
 \item multiplication: $\ve{C} = \ve{A}\ve{B}$;
 
 $\ve{A} \in \mathbb{C}^{m \times n}$, and $\ve{B} \in \mathbb{C}^{n \times p}$, and $\ve{C} \in \mathbb{C}^{m \times p}$, then $c_{ij} = \sum_{k=1}^n a_{ik} b_{kj}$
 
 $\ve{A}\ve{B} \neq \ve{B}\ve{A}$
+\else
+\item
+\vspace{4em}
+\fi
 
 \item commutative property: $\ve{A} + \ve{B} = \ve{B} + \ve{A}$
 
@@ -207,7 +215,11 @@ Recall that complex conjugates are a pair of complex numbers, both the same exce
 
 
 %--------------------
+\ifprintanswers
 \item Regular if $\ve{A}^{-1}$ exists
+\else
+\item
+\fi
 
 %--------------------
 \item Hermitian / self-adjoint if $\ve{A} = \ve{A}^H$
@@ -346,9 +358,14 @@ Recall that complex conjugates are a pair of complex numbers, both the same exce
 
 \end{enumerate}
 
+
 Among complex matrices, all unitary ($\ve{AA}^H = \ve{I}$), Hermitian/self-adjoint ($\ve{A} = \ve{A}^H$), and skew-Hermitian ($\ve{A}^H = -\ve{A}$) matrices are normal (($\ve{AA}^H = \ve{A}^H\ve{A}$)). 
 
+\ifprintanswers
 Likewise, among real matrices, all orthogonal ($\ve{AA}^T = \ve{A}^T\ve{A}$), symmetric ($\ve{A} = \ve{A}^T$), and skew-symmetric ($\ve{A}^T = -\ve{A}$) matrices are normal. 
+\else
+\vspace{3em}
+\fi
 
 However, it is \textit{not} the case that all normal matrices are either unitary or (skew-)Hermitian (see example above).% http://en.wikipedia.org/wiki/Normal_matrix
 
@@ -368,8 +385,13 @@ To find $\vec{x}$, we need to find a way to affect $\ve{A}^{-1}\vec{b}$. This ca
 
 \begin{itemize}
 \item Tridiagonal matrix has entries on only the main, upper, and lower diagonal
+\ifprintanswers
 \item Lower triangular has entries on the diagonal and below
 \item Upper triangular has entries on the diagonal and above 
+\else
+\item
+\item
+\fi
 \item Block Tridagonal has blocks of elements (like sub-matrices) on the diagonal. The blocks may be full or only partially full. The blocks look like $\ve{D}_k = [\ve{D_{ij}}]_k$
 \end{itemize}
 
@@ -380,7 +402,11 @@ The inverse of a diagonal is simply: $d_{ii}^{-1} = 1/d_{ii}$, another diagonal 
 \begin{enumerate}
 \item $\ve{A}$ is regular ($\ve{A}^{-1}$ exists)
 \item Rank($\ve{A}$) = n
+\ifprintanswers
 \item $\ve{A}\vec{x} = 0$ iff $x=0$
+\else
+\item
+\fi
 \item $\ve{A}\vec{x} = \vec{b}$ is uniquely solveable $\forall \vec{b}$
 \item det($\ve{A}) \neq 0$
 \end{enumerate}
@@ -394,7 +420,11 @@ If the determinant is zero, then the matrix is singular, meaning we cannot inver
 \begin{itemize}
 \item det($\alpha\ve{A}$) = $\alpha^n$ det($\ve{A}$)
 
+\ifprintanswers
 \item det($\ve{A}^T$) = det($\ve{A}$)
+\else
+\item
+\fi
 
 \item det($\ve{A}^{-1}$) = 1/det($\ve{A}$)
 
@@ -425,11 +455,15 @@ For a square matrix, the \textbf{first order minor}, $M_{ij}$, just deletes the 
     = ((1 \times 9) - (4 \times -1)) = 13 \nonumber
 \end{align} 
 
+\ifprintanswers
 The corresponding $i,j$ \textbf{cofactor} of $\ve{A}$ is
 %
 \begin{equation}
 C_{ij} = (-1)^{i+j} M_{ij} \nonumber
 \end{equation}
+\else
+\vspace*{3em}
+\fi
 %
 You can compute minors and cofactors for all of $\ve{A}$. The $n \times n$ matrix containing all of the cofactors is denoted $\ve{C}$ in this context.
 
@@ -442,6 +476,7 @@ Using these terms, the \underline{determinant} (which we use for lots of stuff) 
 \end{align*}
 
 For the above matrix, lets look at the Laplace expansion along the second column ($j = 2$; sum runs over $i$)
+
 \begin{align}
 \text{det}(\ve{A}) &= (-1)^{1+2} a_{12} M_{12} + (-1)^{2+2} a_{22} M_{22} + (-1)^{3+2} a_{32} M_{32} \nonumber \\
 %
@@ -456,11 +491,15 @@ For the above matrix, lets look at the Laplace expansion along the second column
 &= -4 \cdot ((3 \cdot 11) - (5 \cdot -1)) + 0 -9 \cdot ((1 \cdot 5) - (7 \cdot 3)) = -8 \nonumber
 \end{align}
 
+\ifprintanswers
 The inverse of $\ve{A}$ (which we often need) can be obtained from the determinant and cofactor matrix:
 %
 \begin{equation}
 \ve{A}^{-1} = \frac{1}{\text{det}(\ve{A})}\ve{C}^T \nonumber
 \end{equation}
+\else
+\vspace*{3em}
+\fi
 %
 The benefit is that if we've used the cofactor method to get the determinant then we get the inverse for free. 
 
@@ -474,7 +513,11 @@ Given $\vec{x}, \vec{y} \in \mathbb{R}^n$, a vector norm, denoted by $|| \cdot |
 %
 \begin{enumerate}
 \item $||\vec{x}|| > 0$; $||\vec{x}|| = 0$ iff $\vec{x} = 0$ (positive definite)
+\ifprintanswers
 \item $||\vec{x} + \vec{y}|| \leq ||\vec{x}|| + ||\vec{y}||$ (triangle inequality)
+\else
+\item
+\fi
 \item $||\alpha \vec{x}|| = |\alpha|\: ||\vec{x}||$ (homogeneous)
 \end{enumerate}
 
@@ -486,7 +529,11 @@ The p-norm:
 %
 \begin{itemize}
 \item $||\vec{x}||_1 \equiv |x_1| + |x_2| + \dots + |x_n|$
-\item Euclidean norm (length) $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$
+\ifprintanswers
+\item Euclidean norm (length) $||\vec{x}||_2 \equiv (|x_1|^2 + |x_2|^2 + \dots + |x_n|^2)^{1/2}$\\
+\else
+\item
+\fi
 \item $||\vec{x}||_{\infty} \equiv \displaystyle \max_{1 \leq i \leq n} |x_i|$
 \end{itemize}
 
@@ -498,7 +545,11 @@ Inner products are symmetric and bilinear form in $\mathbb{R}^n$:
 \item bi-linear (depends on two arguments) $\langle \vec{x}, \vec{y} \rangle$
 \item symmetric $\langle \vec{x}, \vec{y} \rangle = \langle \vec{y}, \vec{x} \rangle$
 \item linear $\langle \vec{x} + \alpha \vec{z}, \vec{y} \rangle = \langle \vec{x}, \vec{y} \rangle + \alpha \langle \vec{y}, \vec{z} \rangle$
+\ifprintanswers
 \item positive $\langle \vec{x}, \vec{x} \rangle$ $>$ 0 for $\vec{x} \neq 0$
+\else
+\item
+\fi
 \end{itemize}
 
 The dot product is also known as the Euclidean inner product. One can define many inner products, but \textit{in this class assume we're using the Euclidean inner product} (dot product) unless otherwise specified. 
@@ -507,17 +558,25 @@ The dot product is also known as the Euclidean inner product. One can define man
 We can use the concepts of norms and inner products to develop some relationships and talk about convergence. Note that there are two ways we think of convergence in numerical methods:
 \begin{enumerate}
 \item the \textbf{method}: the speed at which a numerical guess approaches the true solution with iteration count;
+\ifprintanswers
 \item the \textbf{discretization}: speed at which a numerical guess approaches the true solution with reduction in  grid size.
+\else
+\item
+\fi
 \end{enumerate}
 
 %https://en.wikipedia.org/wiki/Rate_of_convergence
 In numerical analysis, the speed at which a convergent sequence approaches its limit is what is commonly called the \textit{rate of convergence}. This concept is of practical importance in dealing with a sequence of successive approximations for an iterative method, as then typically fewer iterations are needed to yield a useful approximation if the rate of convergence is higher. 
 
+\ifprintanswers
 We will first talk about this and we will use the \textit{Cauchy-Schwartz} inequality:
 %
 \begin{equation}
 \langle \vec{x}, \vec{y} \rangle \leq ||\vec{x}||_2 ||\vec{y}||_2 \nonumber
 \end{equation}
+\else
+\vspace{4em}
+\fi
 %
 Two norms, denoted $|| \cdot ||_a$ and $|| \cdot ||_b$ here, are defined as being equivalent if there exists $C_1$ and $C_2$ such that $\forall \vec{x} \in \mathbb{R}^n$
 %
