@@ -745,7 +745,7 @@ The equivalence of norms we talked about with vectors also holds here. Some of t
 %
 \frac{1}{\sqrt{n}}||\ve{A}||_{\infty} &\leq ||\ve{A}||_{2} \leq \sqrt{m}||\ve{A}||_{\infty} \nonumber \\
 %
-\frac{1}{\sqrt{m}}||\ve{A}||_{1} &\leq ||\ve{A}||_{2} \leq \sqrt{n}||\ve{A}||_{2} \nonumber
+\frac{1}{\sqrt{m}}||\ve{A}||_{1} &\leq ||\ve{A}||_{2} \leq \sqrt{n}||\ve{A}||_{1} \nonumber
 \end{align}
 
 Again, as with vector norms, showing a property in some matrix norms implies that property in other matrix norms (which may be harder to compute). The inequalities above may not be `sharp'.
@@ -793,7 +793,7 @@ This equation is known as the characteristic equation of $\ve{A}$, and the left-
         3 & -6 - \lambda
     \end{pmatrix} \nonumber \\
 %  
-\det(\ve{A} - \lambda \vec{I}) &= (2 - \lambda)(-6 - \lambda) - (3)(3) \nonumber \\
+\det(\ve{A} - \lambda \ve{I}) &= (2 - \lambda)(-6 - \lambda) - (3)(3) \nonumber \\
 %
 &= -12 + 6\lambda -2\lambda + \lambda^2 -9 \nonumber \\
 &= \lambda^2 + 4\lambda -21 = 0 \nonumber \\
