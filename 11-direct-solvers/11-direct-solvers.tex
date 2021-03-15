@@ -1,5 +1,5 @@
-\documentclass[12pt, answers]{exam}
-%\documentclass[12pt]{exam}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \PassOptionsToPackage{hyphens}{url}
@@ -66,8 +66,13 @@ Given $\ve{A}\vec{x} = \vec{b}$, how do you find $\vec{x}$?
   \item compute (explicitly or implicitly) $\ve{A}^{-1} \rightarrow \vec{x} = \ve{A}^{-1}\vec{b}$
   \item typically requires many operations (FLOPs), large storage (even if $\ve{A}$ is sparse, $\ve{A}^{-1}$ may not be)
   \item seldom parallelizes well
+  \ifprintanswers
   \item \emph{not} used in practice
   \item incomplete factorizations (which we'll cover) \emph{are} used as pre-conditioners for iterative methods
+  \else
+  \item
+  \item
+  \fi
 \end{itemize}
 
 We can also use iterative and semi-iterative methods, which we will talk about in a later class.
@@ -76,7 +81,11 @@ We can reduce a matrix to echelon form (discussed later) to determine uniqueness
 \begin{enumerate}
 \item A system has \textbf{a unique solution} when there is one unknown for each equation when expressed in echelon form.
 
+ \ifprintanswers
 \item A system \textbf{does not have a solution} when the determinant of its matrix is zero but reduction to echelon form does not yield any free variables.
+  \else
+  \item
+  \fi
 
 \item A system has \textbf{infinitely many} solutions when the determinant of its matrix is zero and reduction to echelon form does yield a free variable. 
 \end{enumerate}
@@ -106,7 +115,11 @@ To solve this, simply
 %
 \begin{itemize}
 \item this requires $O(n)$ operations.
+\ifprintanswers
 \item if $a_{ii}=0$, then $\det(\ve{A})=0$ (the determinant of a diagonal matrix is the product of its diagonal entries) and the system does not have a solution.
+  \else
+  \item
+  \fi
 \item If, however, $b_i = 0$ for the $a_{ii}$ is question, then the system has an infinite number of solutions.
 \end{itemize}
 
@@ -129,11 +142,15 @@ To solve this, simply
 %
 To solve this, solve the first equation for the one unknown, which becomes know. Then the second equation for the (now) one unknown, etc. This is called forward substitution.
 %
+\ifprintanswers
 \begin{align}
 &x_1 = \frac{b_1}{a_{11}} \nonumber \\
 &\text{for } i = 2, n \nonumber \\
 &\qquad x_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j) \nonumber
 \end{align}
+\else
+\vspace*{6em}
+\fi
 
 %--------------------------------------------------------------------
 Upper triangular systems work the same way, but you go in the reverse order $\rightarrow$ backward substitution. 
@@ -143,8 +160,12 @@ Upper triangular systems work the same way, but you go in the reverse order $\ri
 &\text{for } i = n-1, -1, 1 \nonumber \\
 &\qquad x_i = \frac{1}{a_{ii}}(b_i - \sum_{j=i+1}^{n} a_{ij} x_j) \nonumber
 \end{align}
-
+%
+\ifprintanswers
 These both require $O(n^2)$ operations, and each have the same caveats about zeros as the diagonal system.
+\else
+\\\vspace*{1em}
+\fi
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
@@ -165,8 +186,13 @@ We want to solve $\ve{A}\vec{x} = \vec{b}$:
 \end{align}
 %
 \begin{enumerate}
+\ifprintanswers
 \item Solve $\ve{L}\vec{y} = \vec{b}$ for $\vec{y}$ using forward substitution
 \item Solve $\ve{U}\vec{x} = \vec{y}$ for $\vec{x}$ using backward substitution
+\else
+\item
+\item
+\fi
 \end{enumerate}
 %
 This requires $O(n^2)$ operations.
@@ -190,7 +216,7 @@ The \textbf{LU decomposition} is formed by Gaussian Elimination, requiring $O(n^
     \nonumber   
 \end{equation} 
 %
-For a given column, $j = 1, \dots, n$, the $m_{ij}$ (which as you'll see below we can think of as $m$ultipliers) are $a^*_{ij} / a^*_{jj}$ for $i = j, \dots, n$. 
+For a given column, $j = 1, \dots, n$, the $m_{ij}$ (which, as you'll see below, we can think of as $m$ultipliers) are $a^*_{ij} / a^*_{jj}$ for $i = j, \dots, n$. 
 
 Here the $a^*$ are the the entries in the version of $\ve{A}$ \textit{that comes from the process of row-reducing} $\ve{A}$ to get $\ve{U}$. This will be made clearer through an example:
 
@@ -292,8 +318,13 @@ x_1 \\ x_2 \\ x_3
 \end{align}
 
 \begin{itemize}
+\ifprintanswers
 \item The LU decomposition and solution are exact
 \item given the LU decomposition, multiple solution vectors can be computed for a small cost
+\else
+\item 
+\item 
+\fi
 \item the LU decomposition can overwrite the original matrix, if desired
 \item the LU decomposition requires $O(n^3)$ FLOPS
 \item the LU decomposition `fills' a sparse matrix
@@ -312,8 +343,12 @@ ABSTRACT: THERMIX is a software package for analyzing the thermal-hydraulic and 
 %--------------------------------------------------------------------
 \subsection*{Pivoting}
 When any of the diagonal coefficients are equal to zero (or close to zero), one way of avoiding it is row or column pivoting (exchange of rows or columns). We keep track of pivoting through a permutation matrix:
+\ifprintanswers
 \[\ve{P}\ve{A} = \ve{L}\ve{U}\]
 where $\ve{P}$ has one entry of unity per column and row.
+\else
+\\\vspace*{3em}
+\fi
 
 For example, if we have a situation where $u_{22}$ is very small but $u_{32}$ isn't, we could flip rows 2 and 3. Note: this also requires flipping $b_2$ and $b_3$. In this case, 
 \[\ve{P} = \begin{pmatrix}
