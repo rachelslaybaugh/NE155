@@ -1,20 +1,17 @@
-%--------------------------------------------------------------------
-% NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2017
-
-% formatting
-\documentclass[12pt]{article}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
-
 \usepackage{setspace}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{tabu}
 \onehalfspacing
-
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
-
 % packages
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz}
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
@@ -22,26 +19,24 @@
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
 
-% Draw figures yourself
-\usepackage{tikz} 
+% for creating indented blocks
+\usepackage{scrextend}
+\usepackage{paralist, tabularx}
 
-% The float package HAS to load before hyperref
-\usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
-
-% from Denovo methods manual
+% from Denovo Methods Manual
 \usepackage{mathrsfs}
 \usepackage[mathcal]{euscript}
 \usepackage{color}
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
 \newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
-
 \newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
 \newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
 
@@ -50,8 +45,8 @@
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 16 \& 17, S17 \\
-Iterative Solutions for Linear Systems \\ February 24 and 27, 2017}
+{\bf NE 155, Topic 12, S21 \\
+Iterative Solutions for Linear Systems \\ March 18, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -416,6 +411,6 @@ $x_3$ & 1 & -6.65015 & -4.60042 & -5.096686 & -4.97349 & 0.02651 \\ \hline
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
 \bibliographystyle{plain}
-\bibliography{13-14-iterative-solvers} 
+\bibliography{12-iter-solvers} 
 
 \end{document}
