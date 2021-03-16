@@ -1,5 +1,5 @@
-%\documentclass[12pt, answers]{exam}
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \PassOptionsToPackage{hyphens}{url}
@@ -234,7 +234,7 @@ Here the $a^*$ are the the entries in the version of $\ve{A}$ \textit{that comes
 \end{equation}
 %
 %
-Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form (remember to operate on $\ve{b}$ as well). 
+Create $\ve{U}$ by row-reducing $\ve{A}$ to echelon form. 
 \begin{align}
 \ve{U} &= \begin{pmatrix}
   5  & 2 & 1 \\
@@ -368,18 +368,18 @@ You can find another example both with and without pivoting here: \url{https://w
 Begin with $n \times n$ matrices $\ve{U}$ and $\ve{L}$ filled with zeros.
 %
 \begin{enumerate}
-\item For $i = 1, \dots, n$: $l_{ii} = 1$
-\item $u_{11} = a_{11}$
+\item For $i = 1, \dots, n$: $l_{ii} = 1$ (set the diagonal on $\ve{L}$)
+\item $u_{11} = a_{11}$ (set the first entry of $\ve{U}$)
 
 \item For $j = 2, \dots, n$\\
-  \hspace*{1 em} $u_{1j} = a_{1j}$\\
-  \hspace*{1 em} $l_{j1} = a_{j1}/u_{11}$
+  \hspace*{1 em} $u_{1j} = a_{1j}$ (the first row of $\ve{U}$ is the same as $\ve{A}$)\\
+  \hspace*{1 em} $l_{j1} = a_{j1}/u_{11}$ (set the first column of $\ve{L}$ below the diagonal)
  
 \item For $i = 2, \dots, n-1$\\
-  \hspace*{1 em} $u_{ii} = a_{ii} - \sum_{k=1}^{i-1} l_{ik} u_{ki}$\\
-  \hspace*{1 em} For $j = i+1, \dots, n$\\   
-    \hspace*{3 em} $u_{ij} = a_{ij} - \sum_{k=1}^{i-1} l_{ik} u_{ki}$\\
-    \hspace*{3 em} $l_{ji} = 1/u_{ii}[a_{ij} - \sum_{k=1}^{i-1} l_{jk} u_{ki}$
+  \hspace*{1 em} $u_{ii} = a_{ii} - \sum_{k=1}^{i-1} l_{ik} u_{ki}$ (diagonal for next row of $\ve{U}$)\\
+  \hspace*{1 em} For $j = i+1, \dots, n$ (the rest of the columns for that row)\\   
+    \hspace*{3 em} $u_{ij} = a_{ij} - \sum_{k=1}^{i-1} l_{ik} u_{kj}$\\
+    \hspace*{3 em} $l_{ji} = \frac{1}{u_{ii}} [a_{ij} - \sum_{k=1}^{i-1} l_{jk} u_{kj}]$
     
 \item $u_{nn} = a_{nn} - \sum_{k=1}^{n-1} l_{nk} u_{kn}$
 \end{enumerate}
@@ -387,7 +387,7 @@ Begin with $n \times n$ matrices $\ve{U}$ and $\ve{L}$ filled with zeros.
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
 \subsection*{Tridiagonal}
-If $\ve{A}$ is tridiagonal, LU decomposition can be streamlined by using the Thomas algorithm:
+If $\ve{A}$ is tridiagonal, LU decomposition can be streamlined and $\vec{x}$ solved for all in one process by using the Thomas algorithm. In this case operations need to happen on $\vec{b}$ as well.
 %
 \begin{align}
     \ve{T} &= \begin{pmatrix}
