@@ -1,5 +1,5 @@
-\documentclass[12pt, answers]{exam}
-%\documentclass[12pt]{exam}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \PassOptionsToPackage{hyphens}{url}
@@ -64,8 +64,12 @@ We talked about how to do this directly, now we'll talk about how to do this oth
 \begin{itemize}  
 \item Iterative Methods
   \begin{itemize}
+  \ifprintanswers
   \item produce a sequence of vectors, $\vec{x}^{(1)}, \vec{x}^{(2)}, \dots$ based on the prescription
   \[\vec{x}^{(k+1)} = F(\vec{x}^{(k)}, \vec{b})\:, \qquad \text{where } \displaystyle \lim_{k \rightarrow \infty} \vec{x}^{(k)} = \vec{x}\]
+  \else
+  \item \vspace*{2em}
+  \fi
   \item can require many FLOPs; storage requirements for $\ve	{A}$ can be an issue (if stored)
   \item may parallelize well
   \item \emph{often} used in practice
@@ -75,9 +79,13 @@ We talked about how to do this directly, now we'll talk about how to do this oth
   
 \item Semi-Iterative Methods
   \begin{itemize}
+    \ifprintanswers
     \item produce a sequence of vectors, $\vec{x}^{(1)}, \vec{x}^{(2)}, \dots$ based on the prescription
   \[\vec{x}^{(k+1)} = F(\vec{x}^{(k)}, \vec{x}^{(k-1)}, \dots, \vec{x}^{(0)}, \vec{b})\:, \qquad \text{where } \displaystyle \lim_{k \rightarrow \infty} \vec{x}^{(k)} = \vec{x}\]  
   The function does not necessarily have to use all previous $\vec{x}$ iterates.
+    \else
+  \item \vspace*{3em}
+  \fi
   \item can require many FLOPs; storage requirements for $\ve	{A}$ can be an issue (if stored)
   \item may parallelize well
   \item Commonly used in conjugate gradients, generalized minimal residuals methods
@@ -95,6 +103,7 @@ We will write this as \[\vec{x}^{(k+1)} = \ve{P}\vec{x}^{(k)} +  \tilde{\vec{b}}
 
 We will add a matrix $\ve{S}$ to both sides to execute our process.
 %
+\ifprintanswers
 \begin{align}
 (\ve{A} + \ve{S}) \vec{x} &= \ve{S}\vec{x} + \vec{b} \nonumber \\
 %
@@ -104,6 +113,9 @@ We will add a matrix $\ve{S}$ to both sides to execute our process.
 \vec{x} &= \underbrace{\ve{Q}^{-1} \ve{S}}_{\ve{P}}\vec{x} + \underbrace{\ve{Q}^{-1} \vec{b}}_{\tilde{\vec{b}} }
 \qquad\text{assuming regular } \ve{Q}\nonumber
 \end{align}
+\else
+\\\vspace*{5em}\\
+\fi
 %
 The \textbf{fixed-point} iterative process is:
 \begin{align}
@@ -132,18 +144,30 @@ To determine convergence, we define the iterative error as follows, noting that 
 \end{align}
 %
 Now we can use norms  to determine a rate of convergence:
+\ifprintanswers
 \[||\vec{e}^{(k+1)}|| = ||\ve{P}^{k+1}\vec{e}^{(0)}|| \leq ||\ve{P}^{k+1}||\: ||\vec{e}^{(0)}||\:, \]
+\else
+\\ \vspace*{2em}\\
+\fi
 and the rate of convergence is therefore governed by $||\ve{P}^{k+1}||$.
 
 There is a theorem (offered without proof):
 \[\lim_{k \rightarrow \infty} || \ve{P}^k ||^{1/k} = \rho	(\ve{P})\:,\]
 where $\rho(\ve{P})$ is the spectral radius of $\ve{P}$, and this implies
+\ifprintanswers
 \[|| \ve{P}^k || \approx \rho^k (\ve{P})\:.\]
+\else
+\\ \vspace*{2em}
+\fi
 
 \underline{Alternative:} Recall that $|| \ve{P}^k ||_2$ = $\rho(\ve{P}^k)$ and that $ \rho^k (\ve{P}) = \rho(\ve{P}^k)$. We also know that all norms can be related, so finding an error bound in one norm bounds all norms. 
 
 Thus, a sufficient \textit{and} necessary condition for convergence is:
+\ifprintanswers
 \[\rho^{k+1}(\ve{P}) < 1 \rightarrow \rho(\ve{P}) < 1 \]
+\else
+\\ \vspace*{2em}
+\fi
 
 \underline{\textbf{Note:}} $\ve{Q}^{-1}$ must be easy to compute. We often select $\ve{Q}$ to be diagonal, triangular, or tri-diagonal. Further, $\ve{Q}$ must be chosen such that $\rho(\ve{P}) < 1$.
 
@@ -160,19 +184,27 @@ One of the simplest methods out there is Richardson/Source Iteration. There are 
 If $\omega^{(k)}$ is constant, then this is the \textit{stationary} Richardson method. 
 
 The algorithm for this method is, for $i = 1, \dots, n$:
+\ifprintanswers
 \[ x^{(k+1)}_i =  x^{(k)}_i - \omega^{(k)} \sum_{j=1}^{n} a_{ij}x_j^{(k)} + \omega^{(k)} b_i \:.\]
+\else
+\\ \vspace*{3em}
+\fi
 
-People still use these methods. I've written a preconditioner that uses Richardson Iteration. The spectral radius of $\ve{P}_R$ determines the speed of convergence and is $c = \Sigma_s / \Sigma$. For problems dominated by scattering, this method will converge very slowly \cite{Evans2009d}. Fortunately, there are other more sophisticated methods available. 
+People still use these methods. I've written a preconditioner that uses Richardson Iteration. The spectral radius of $\ve{P}_R$ determines the speed of convergence and is $c = \Sigma_s / \Sigma$ in nuclear applications. For problems dominated by scattering, this method will converge very slowly \cite{Evans2009d}. Fortunately, there are other more sophisticated methods available. 
 
 %--------------------------------------------------------------------
 \subsection*{Jacobi Iteration}
 
 Let $\ve{D} = \text{diag}(\ve{A})$, then
+\ifprintanswers
 \begin{align}
 \ve{D} \vec{x}^{k+1} &= (\ve{D} - \ve{A})\vec{x}^{(k)} + \vec{b} \nonumber \\
 %
 \vec{x}^{k+1} &= \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b} \nonumber
 \end{align}
+\else
+\\ \vspace*{4em}\\
+\fi
 %
 Now, $\ve{P}_J = \ve{I} -  \ve{D}^{-1}\ve{A}$ and $\tilde{\vec{b}} =\ve{D}^{-1}\vec{b}$.
 
@@ -186,7 +218,12 @@ A \underline{sufficient} but not necessary condition for convergence is that $\v
 %
 \[|a_{ii}| \geq \sum_{j \neq i} |a_{ij}| \qquad \forall i \:.\]
 
-Jacobi isn't a very sophisticated method, but it's easy to parallelize. Why might that be? \\The Jacobi method is order independent since all terms on the right are at the old iteration level. 
+Jacobi isn't a very sophisticated method, but it's easy to parallelize. Why might that be? \\
+\ifprintanswers
+The Jacobi method is order independent since all terms on the right are at the old iteration level.
+\else
+\vspace*{2em}
+\fi 
 
 
 %--------------------------------------------------------------------
@@ -195,12 +232,16 @@ Jacobi isn't a very sophisticated method, but it's easy to parallelize. Why migh
 Gauss Seidel is a simple modification of Jacobi, but becomes a bit more complicated. How can you think of changing Jacobi than might incorporate more information that we already have?
 
 The algorithm for this method is, for $i = 1, \dots, n$:
+\ifprintanswers
 \[ x^{(k+1)}_i = \frac{1}{a_{ii}}(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}) \:.\]
+\else
+\\ \vspace*{2em} \\
+\fi
 %
 In matrix notation, this looks like:
 \[(\ve{D} + \ve{L})\vec{x}^{k+1} = -\ve{U} \vec{x}^{(k)} + \vec{b}\:, \]
 where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. This makes $\ve{P}_{GS} = -(\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
-converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly--especially in highly scattering systems \cite{LeVeque2007}. 
+converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly--especially in highly scattering systems in nuclear applications \cite{LeVeque2007}. 
 
 The spectral radii for some materials of practical interest determined using cross sections with 41 thermal upscattering groups are: graphite = 0.9984, heavy water = 0.9998, and iron = 0.6120 \cite{Adams2002}, \cite{Evans2009d}.
 
@@ -208,7 +249,12 @@ A \underline{sufficient} but not necessary condition to converge is that $\ve{A}
 
 An $n \times n$ Hermitian matrix $\ve{A}$ is said to be positive definite if $\vec{z}^H \ve{A} \vec{z}$ is real and positive for all non-zero complex vectors $\vec{z}$. This also simplifies to the pure-real case.
 
-Gauss Seidel is not so easy to parallelize. Why not? \\The GS method is order dependent, containing terms on the right hand side at both the new and old iterates.
+Gauss Seidel is not so easy to parallelize. Why not? \\
+\ifprintanswers
+The GS method is order dependent, containing terms on the right hand side at both the new and old iterates.
+\else
+\vspace*{2em} 
+\fi
 
 
 %--------------------------------------------------------------------
@@ -216,7 +262,11 @@ Gauss Seidel is not so easy to parallelize. Why not? \\The GS method is order de
 
 SOR is similar to GS, but now we add a splash of control to try to converge faster than GS (sort of like weighted Richardson). 
 %
+\ifprintanswers
 \[(\ve{D} + \omega \ve{L})\vec{x}^{(k+1)} = [(1-\omega)\ve{D} - \omega \ve{U}] \vec{x}^{(k)} + \omega\vec{b}\:, \]
+\else
+\\ \vspace*{2em} \\
+\fi
 %
 where $0 < \omega < 2$. Now $\ve{P}_{SOR} = (\ve{D} + \omega\ve{L})^{-1} [(1-\omega)\ve{D} - \omega \ve{U}]$. 
 
@@ -265,9 +315,13 @@ k &\approx \frac{\log(\epsilon)}{\log(\rho(\ve{P}))} \nonumber
 \subsection*{Preconditioning}
 Condition number information is derived from Trefethen and Bau \cite{Trefethen1997}. Conditioning is one way to express the perturbation behavior of the mathematical problem. 
 
+\ifprintanswers
 A \emph{well-conditioned} problem is one in which all small perturbations of $x$ lead to only small changes in $f(x)$. Why might this be desirable?
 
 An \emph{ill-conditioned} problem is one in which some small perturbation of $x$ leads to a large change in $f(x)$. Why might this be \textit{undesirable}?
+\else
+\vspace*{6em}
+\fi
 
 The condition number is a quantity used to express how well-conditioned a matrix or problem is. A small condition number corresponds to a well-conditioned problem, and vice versa. 
 
@@ -277,9 +331,14 @@ The \textbf{condition number} of a matrix $\mathbf{A}$ is defined as
 %
 If the 2-norm is used, then $||\mathbf{A}||_{2} = \sigma_{1}$, $||\mathbf{A}^{-1}||_{2} = 1 / \sigma_{m}$, and $\kappa_{2}(\mathbf{A}) = \sigma_{1} / \sigma_{m}$; $\sigma_{m}$ is the $m$th singular value of $\ve{A}$. If $\mathbf{A}$ is singular, its condition number is infinity. 
 
-The base-b logarithm of $\kappa$ is an estimate of how many base-b digits are lost in solving a linear system with that matrix. In other words, it estimates worst-case loss of precision. A system is said to be singular if the condition number is infinite, and ill-conditioned if it is too large, where ``too large" means roughly $\log(\kappa) >\sim$ the precision of matrix entries. %http://mathworld.wolfram.com/ConditionNumber.html
+%The base-b logarithm of $\kappa$ is an estimate of how many base-b digits are lost in solving a linear system with that matrix. 
+The logarithm of $\kappa$ is an estimate of how many digits are lost in solving a linear system with that matrix. In other words, it estimates worst-case loss of precision. A system is said to be singular if the condition number is infinite, and ill-conditioned if it is too large, where ``too large" means roughly $\log(\kappa) >\sim$ the precision of matrix entries. %http://mathworld.wolfram.com/ConditionNumber.html
 
+\ifprintanswers
 The general idea of \textbf{preconditioning} is to transform the system of interest into another equivalent system that has more favorable properties, for example one with a smaller condition number. 
+\else
+\vspace*{3em}
+\fi
 
 A \textbf{preconditioner} is a matrix that induces such a transformation by improving the spectral properties of the problem being solved. 
 
