@@ -1,5 +1,5 @@
-%\documentclass[12pt, answers]{exam}
-\documentclass[12pt]{exam}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{setspace}
 \PassOptionsToPackage{hyphens}{url}
@@ -198,9 +198,9 @@ People still use these methods. I've written a preconditioner that uses Richards
 Let $\ve{D} = \text{diag}(\ve{A})$, then
 \ifprintanswers
 \begin{align}
-\ve{D} \vec{x}^{k+1} &= (\ve{D} - \ve{A})\vec{x}^{(k)} + \vec{b} \nonumber \\
+\ve{D} \vec{x}^{(k+1)} &= (\ve{D} - \ve{A})\vec{x}^{(k)} + \vec{b} \nonumber \\
 %
-\vec{x}^{k+1} &= \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b} \nonumber
+\vec{x}^{(k+1)} &= \ve{D}^{-1}(\ve{D} - \ve{A})\vec{x}^{(k)} + \ve{D}^{-1}\vec{b} \nonumber
 \end{align}
 \else
 \\ \vspace*{4em}\\
@@ -239,7 +239,7 @@ The algorithm for this method is, for $i = 1, \dots, n$:
 \fi
 %
 In matrix notation, this looks like:
-\[(\ve{D} + \ve{L})\vec{x}^{k+1} = -\ve{U} \vec{x}^{(k)} + \vec{b}\:, \]
+\[(\ve{D} + \ve{L})\vec{x}^{(k+1)} = -\ve{U} \vec{x}^{(k)} + \vec{b}\:, \]
 where we have separated $\ve{A}$ as $\ve{L} + \ve{D} + \ve{U}$. This makes $\ve{P}_{GS} = -(\ve{D} + \ve{L})^{-1}\ve{U}$. Gauss Seidel %is also unconditionally stable and linearly convergent, and 
 converges twice as fast as Jacobi (not proven here). However, both methods may converge very slowly--especially in highly scattering systems in nuclear applications \cite{LeVeque2007}. 
 
