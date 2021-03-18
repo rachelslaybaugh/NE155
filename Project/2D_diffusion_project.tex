@@ -10,6 +10,7 @@
 \usepackage[top=0.75in, bottom=0.75in, left=1in, right=1in]{geometry}
 \pagestyle{empty}
 \usepackage{tabu}
+\usepackage{url}
 
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
@@ -29,7 +30,7 @@
 
 Write a 2D Diffusion solver that has vacuum boundaries on the bottom and left faces and reflecting boundaries on the top and right boundaries. Adapt the advice below as applicable based on whether you use a compiled language like C++ or an interpreted language like Python. 
 
-Good programming practices (there are some tutorials for all of these things available through Berekeley's The Hacker Within as well as Software Carpentry.): 
+Good programming practices (there are some tutorials for all of these things available through Berkeley's The Hacker Within as well as Software Carpentry.): 
 \begin{itemize}
 \item Please version control your code on something like GitHub. 
 \item Consider writing code comments with something like Doxygen (\url{http://www.doxygen.org}) to document the API (application programming interface). 
@@ -74,6 +75,16 @@ The general framework for your code should be:
 \item \textit{Diffusion solver subroutine:} implement the discretized diffusion solver here. While building the surrounding structure you can just have this print ``will solve DE here". 
 
 \end{itemize}
+
+\textbf{Modifications to consider if you are working in a team.} You can choose some of these to add complexity, which would be appropriate for a team. 
+\begin{itemize}
+\item allow the option to choose which boundaries have which boundary conditions
+\item allow  variable mesh size
+\item allow more flexibility in how to assign the source
+\item implement comments that can be easily made into an API
+\item implement testing
+\end{itemize}
+
 
 
 \end{document}
