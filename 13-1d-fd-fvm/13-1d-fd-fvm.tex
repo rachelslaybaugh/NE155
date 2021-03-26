@@ -1,58 +1,51 @@
-%--------------------------------------------------------------------
-% NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2014
-
-% formatting
-\documentclass[12pt]{article}
+%\documentclass[12pt, answers]{exam}
+\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
-
 \usepackage{setspace}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{tabu}
 \onehalfspacing
-
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
-
 % packages
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz}
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
 \renewcommand{\ttdefault}{cmtt}
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
-\usepackage{multicol}
 
-% Draw figures yourself
-\usepackage{tikz} 
+% for creating indented blocks
+\usepackage{scrextend}
+\usepackage{paralist, tabularx}
 
-% The float package HAS to load before hyperref
-\usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
-
-% from Denovo methods manual
+% from Denovo Methods Manual
 \usepackage{mathrsfs}
 \usepackage[mathcal]{euscript}
 \usepackage{color}
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\macro}{\ensuremath{\Sigma}}
+\newcommand{\Macro}{\ensuremath{\Sigma}}
 \newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
-
 \newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
 \newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
-
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 18, 21, 22 S17 \\
-1-D Finite Difference and Volume Methods for 1D \\ March 1, 8, 10, 2017}
+{\bf NE 155, Topic 13 S21\\
+1-D Finite Difference and Volume Methods for 1D \\ March 30, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
@@ -112,11 +105,14 @@ f''(x_i) &= \frac{f(x_i + h) - 2f(x_i) + f(x_i - h)}{h^2} + \frac{h^2}{12}f^{(4)
 We will also define $p_i = p(x_i)$, $q_i = q(x_i)$, $r_i = r(x_i)$ and use the notation $f(x_i) = f_i$, $f(x_i+h) = f_{i+i}$, etc., which also means $f_0 = \alpha$ and $f_n = \beta$.
 
 Substituting into the original equation, we get:
+\ifprintanswers
 \begin{align}
 \frac{f_{i+1} - 2f_i + f_{i-1}}{h^2} &= p_i \frac{f_{i+1} - f_{i-1}}{2h} + q_i f_i + r_i \qquad i = 1, 2, \dots, n-1 \:,\nonumber \\
 %
 \bigl(\frac{-h}{2}p_i - 1\bigr) f_{i-1} &+ \bigl(2 + h^2q_i\bigr)f_i + \bigl(\frac{h}{2}p_i - 1\bigr) f_{i+1} = -h^2 r_i \qquad i = 1, 2, \dots, n-1 \:.\nonumber
 \end{align}
+\else
+\\ \vspace*{4em}
 
 We only have $n-1$ equations, but because the boundaries are fixed that is all we need. This is clear when we look at the $i=1$ and $i=n-1$ cases:
 \begin{align}
@@ -160,13 +156,19 @@ What does this look like if we apply it to the steady-state, 1-D diffusion equat
 \[-D\frac{d^2 \phi(x)}{dx^2} + \Sigma_a \phi(x) = S\:,\]
 \[\frac{d^2 \phi}{dx^2} - \frac{1}{L^2}\phi(x) = \frac{-S}{D}\:.\]
 %
+Where $L = \sqrt{\frac{D}{\Sigma_a}}$. 
+
 Let $\phi(a) = \phi(b) = 0$ (vacuum bcs). Then we get
 %
+\ifprintanswers
 \begin{align}
 \frac{\phi_{i+1} - 2\phi_i + \phi_{i-1}}{h^2} - \frac{1}{L^2}\phi_i &= \frac{-S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1 \:,\nonumber \\
 %
 -\phi_{i-1} &+ \bigl(2 + \frac{h^2}{L^2}\bigr)\phi_i - \phi_{i+1} = h^2 \frac{S_{0,i}}{D} \qquad i = 1, 2, \dots, n-1\:. \nonumber
 \end{align}
+\else
+\\ \vspace*{4em}
+\fi
 
 One problem with this formulation is that we only have values at the cell edges: \underline{edge centered}. 
 
@@ -175,7 +177,12 @@ If we have \textit{material discontinuities} it's going to be difficult to enfor
 
 Note: $L$ and $D$ are not functions of space; we wouldn't know which cell's values to assign when using edge-centered values. 
 
-What could we do instead? \underline{cell-centered}, which leads us to our next topic.
+What could we do instead? 
+\ifprintanswers
+\underline{cell-centered}, which leads us to our next topic.
+\else
+\\ 
+\fi
 
 
 %-----------------------------------------------------
