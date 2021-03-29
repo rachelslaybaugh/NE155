@@ -113,6 +113,7 @@ Substituting into the original equation, we get:
 \end{align}
 \else
 \\ \vspace*{4em}
+\fi
 
 We only have $n-1$ equations, but because the boundaries are fixed that is all we need. This is clear when we look at the $i=1$ and $i=n-1$ cases:
 \begin{align}
@@ -212,7 +213,11 @@ Rather than pointwise approximations on a grid, FVM approximates an average inte
 \end{center}
 
 Consider the elliptic equation $f''(x) = r(x)$ on a control volume $V_i = [x_{i-1/2}, x_{i+1/2}]$, then
+\ifprintanswers
 \[\int_{x_{i-1/2}}^{x_{i+1/2}} f''(x)dx = \int_{x_{i-1/2}}^{x_{i+1/2}} r(x) dx\:.\]
+\else
+\\ \vspace*{2em} \\
+\fi
 %
 We can evaluate the lhs analytically and the rhs using some integration rule. For simplicity, let's use the midpoint rule:
 
@@ -244,11 +249,15 @@ Consider the value centered at the half point and use the integer points on eith
 \end{tikzpicture}
 \end{center}
 %
+\ifprintanswers
 \begin{align*}
 f'(x_{i - 1/2}) &= \frac{f(x_{i - 1/2} + h/2) - f(x_{i - 1/2} - h/2)}{2*(h/2)}\:, \\
 &=\frac{f(x_{i}) - f(x_{i - 1})}{h} = \frac{f_i - f_{i - 1}}{h}\:.
 \end{align*} 
 %
+\else
+\vspace*{4em} 
+\fi
 And similarly for $f'(x_{i + 1/2})$. We plug those into the integrated equation above to get
 \[\frac{f_{i+1} - 2f_i + f_{i-1}}{h} = hr(x_i)\:.\]
 
@@ -280,23 +289,27 @@ Let's also assume we have an equilibrium (reflecting) condition at the centerlin
 
 We again have a spatial mesh, and material discontinuities will coincide with cell edges, $x_i$. Thus, we assume the cross section and diffusion coefficient are constant in each cell and the unknown fluxes and known sources are defined at the cell edges:
 \begin{align}
-D(x) &= D_i\;, \qquad x_{i-1} \leq x \leq x_i \:,\nonumber \\
-\Sigma_a(x) &= \Sigma_{a,i}\;, \qquad x_{i-1} \leq x \leq x_i \:,\nonumber \\
-h_i &\equiv x_{i} - x_{i-1} \:,\nonumber \\
-\phi(x_i) &= \phi_i \:,\nonumber \\
-S(x_i) &= S_i \:.\nonumber 
+D(x) &= D_i\;, \qquad x_{i-1} \leq x \leq x_i \quad i = 1, \dots, n\:,\nonumber \\
+\Sigma_a(x) &= \Sigma_{a,i}\;, \qquad x_{i-1} \leq x \leq x_i \quad i = 1, \dots, n\:,\nonumber \\
+h_i &\equiv x_{i} - x_{i-1} \quad i = 1, \dots, n\:,\nonumber \\
+\phi(x_i) &= \phi_i \qquad i = 0, \dots, n\:,\nonumber \\
+S(x_i) &= S_i \qquad i = 0, \dots, n\:.\nonumber 
 \end{align}
 %
 \begin{figure}[h!]
 \includegraphics[height=2.5in]{FVM-DE}
 \end{figure}
-
-We further assume that the fluxes and sources are constant over the interval centered around $x_i$:
 %
+We further assume that the fluxes and sources are constant over the interval centered around $x_i$:
+
+\ifprintanswers
 \begin{align}
 \phi(x) &= \phi_i \qquad \text{for } \bigl(x_i - \frac{h_i}{2}\bigr) \leq x \leq \bigl(x_i + \frac{h_{i+1}}{2}\bigr)\:, \nonumber \\
 S(x) &= S_i \qquad \text{for } \bigl(x_i - \frac{h_i}{2}\bigr) \leq x \leq \bigl(x_i + \frac{h_{i+1}}{2}\bigr)\:. \nonumber 
 \end{align}
+\else
+\vspace*{4em}
+\fi
 
 Now, we integrate the differential equation over each cell, $\bigl(x_i - \frac{h_i}{2}\bigr) \leq x \leq \bigl(x_i + \frac{h_{i+1}}{2}\bigr)$:
 %
@@ -312,7 +325,9 @@ Term by term:
 %
 \\
 &= \biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i\nonumber \qquad \text{defined at cell center,}\\
-&\nonumber\\
+&\nonumber
+\end{align*}
+\begin{align*}
 %
  \int_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \biggl(  -\frac{d}{dx}D(x)\frac{d \phi(x)}{dx}\biggr) dx &=
 -\biggl[D(x)\frac{d \phi(x)}{dx} \biggr]_{(x_i - \frac{h_i}{2})}^{(x_i + \frac{h_{i+1}}{2})} \qquad \text{defined at cell center,}\nonumber \\
@@ -326,9 +341,13 @@ Term by term:
 
 Collecting all of the terms:
 %
+\ifprintanswers
 \begin{equation}
 -D_{i+1}\biggl(\frac{\phi_{i+1} - \phi_i}{h_{i+1}}\biggr) + D_{i}\biggl(\frac{\phi_{i} - \phi_{i-1}}{h_{i}}\biggr) + \biggl(\frac{\Sigma_{a,i}h_i + \Sigma_{a,i+1}h_{i+1}}{2} \biggr)\phi_i =   S_i \bigl(\frac{h_i + h_{i+1}}{2}\bigr) \:.\nonumber
 \end{equation}
+\else
+\vspace{4em}
+\fi
 
 We can express this in matrix form, but we'll use some abbreviations to make it more compact:
 \begin{align}
@@ -342,11 +361,15 @@ Divide through by $h_{ii}$, then
 %
 where
 %
+\ifprintanswers
 \begin{align}
 a_{i,i-1} &= \frac{-D_i}{h_i h_{ii}} \:,\nonumber \\
 a_{i,i} &= \frac{D_i}{h_i h_{ii}} + \frac{D_{i+1}}{h_{i+1} h_{ii}} +\Sigma_{a,ii} \:, \nonumber \\
 a_{i,i+1} &= \frac{-D_{i+1}}{h_{i+1} h_{ii}} \:.\nonumber
 \end{align}
+\else
+\\\vspace*{7em}
+\fi
 
 Now we have a set of $n-1$ linear algebraic equations with $n+1$ unknowns. \\
 Next up: boundary conditions.
@@ -358,7 +381,12 @@ Next up: boundary conditions.
 If we assume $x_n = \tilde{a}$, then the \textbf{vacuum condition} becomes
 \[\phi_n = 0\:,\]
 and the equation for $i=n-1$ becomes
+\ifprintanswers
 \[a_{n-1,n-2} \phi_{n-2} + a_{n-1,n-1}\phi_{n-1} + a_{n-1, n} \underbrace{\phi_{n}}_{0} = S_{n-1}\:.\]
+\else
+\\\vspace*{3em}\\
+\fi
+And analogously for $\phi_0$ if the vacuum BC was on the other side. 
 
 Next we'll worry about the \textbf{reflecting} or zero current condition. The first step is to integrate over $[0, h_{1}/2]$.
 %
@@ -371,21 +399,29 @@ Next we'll worry about the \textbf{reflecting} or zero current condition. The fi
 %
 &\\
 %
--D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \:.\nonumber 
+-D_1(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} &+ D_1(x)\frac{d \phi(x)}{dx}\big|_{0} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2} \:.\nonumber 
 \end{align*}
 %
 Now we can apply the boundary condition $\frac{d \phi(x)}{dx}\big|_{0} = 0$ to get:
-\[-D(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\:.\]
+\ifprintanswers
+\[-D_1(x)\frac{d \phi(x)}{dx}\big|_{\frac{h_{1}}{2}} + \Sigma_{a,1}\phi_0 \frac{h_1}{2} = S_0 \frac{h_1}{2}\:.\]
+\else
+\\\vspace*{3em}
+\fi
 
 And the first equation ($i=0$) becomes
 \[a_{00}^*\phi_0 + a_{01}^* \phi_1 = S_0\:,\]
 %
 where we redefine the $a$s to be (I've added the * to indicate that these have different definitions than the rest of the terms):
 %
+\ifprintanswers
 \begin{align}
 a_{00}^* &= \frac{2D_1}{h_1^2} + \Sigma_{a,1} \:,\nonumber \\
 a_{01}^* &= -\frac{2D_1}{h_1^2} \:.\nonumber 
 \end{align}
+\else
+\\\vspace*{6em}
+\fi
 
 We now have $n$ equations and $n$ unknowns
 \begin{equation}
@@ -431,10 +467,13 @@ There are a few ways that we can solve these.
 
 %----------------------------------------------------------------
 \subsection*{Directly}
-
+\ifprintanswers
 Tridiagonal systems can be solved directly using Gaussian elimination. 
 
 This is not a bad option in our case because $\ve{A}$ is diagonally dominant\\
+\else
+\vspace*{3em}
+\fi
 ----------\\
 Recall:  
 each diagonal element is greater than the sums of the absolute values of the off-diagonal elements in the same row):
@@ -443,7 +482,7 @@ each diagonal element is greater than the sums of the absolute values of the off
 %
 The general algorithm to solve a tridiagonal system is short and easy, it's called the \textbf{Thomas Algorithm}. We covered it back with general linear solution methods. 
 
-\underline{Would you like to go through that a little more slowly or move to the next thing?}
+\underline{What follows is a spelled out version of the algorithm.}
 
 Slowly: let's start by writing our system this way:
 %
@@ -462,7 +501,7 @@ B_0  & -C_0 & 0    & 0    & \cdots & 0 \\
 \begin{pmatrix}S_0 \\ S_1 \\ S_2 \\ \vdots \\ S_{n-2} \\ S_{n-1} \end{pmatrix} \:. \nonumber
 \end{equation}
 %
-Recall that $\phi_n = 0$. 
+Recall that $\phi_n = 0$ for our system with a right vacuum boundary condition. 
 
 To develop the algorithm, let's look at a 3$\times$3 system of equations.
 \begin{align}
@@ -508,8 +547,8 @@ u_2\phi_2 &= v_2 \nonumber
 %
 that we can solve with \textbf{backward substitution}.
 
-\clearpage
-Here's the compact form of the (Thomas) algorithm:
+
+\underline{Here's the compact form of the (Thomas) algorithm:}
 \begin{enumerate}
 \item \[u_0 = B_0 \qquad v_0 = S_0\]
 
@@ -523,7 +562,7 @@ Here's the compact form of the (Thomas) algorithm:
 \[\phi_i = \frac{1}{u_i}\bigl(v_i + C_i \phi_{i+1}\bigr)\]
 \end{enumerate}
 
-That was pretty easy, but we typically try to \textit{avoid direct inversion of matrices} because it might be expensive in time and/or memory, be sensitive to round-off error, exhibit instability, etc.
+That wasn't too tough, but we typically try to \textit{avoid direct inversion of matrices} because it might be expensive in time and/or memory, be sensitive to round-off error, exhibit instability, etc.
 
 We often use an iterative method instead. 
 
