@@ -1,21 +1,18 @@
-%--------------------------------------------------------------------
-% NE 155 (intro to numerical simulation of radiation transport)
-% Spring 2017
-
-% formatting
-\documentclass[12pt]{article}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
-\usepackage{lscape}
-
 \usepackage{setspace}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{tabu}
+\usepackage{lscape}
 \onehalfspacing
-
 \setlength{\parindent}{0mm} \setlength{\parskip}{1em}
 
-
 % packages
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz}
+% The float package HAS to load before hyperref
+\usepackage{float} % for psuedocode formatting
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
@@ -23,39 +20,34 @@
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
 
-% Draw figures yourself
-\usepackage{tikz} 
-\usetikzlibrary{petri}
+% for creating indented blocks
+\usepackage{scrextend}
+\usepackage{paralist, tabularx}
 
-% The float package HAS to load before hyperref
-\usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
-
-% from Denovo methods manual
+% from Denovo Methods Manual
 \usepackage{mathrsfs}
 \usepackage[mathcal]{euscript}
 \usepackage{color}
 \usepackage{array}
 
 \usepackage[pdftex]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{cancel}
 
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\macro}{\ensuremath{\Sigma}}
-\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
 \newcommand{\Macro}{\ensuremath{\Sigma}}
-
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
 \newcommand{\cc}[1]{\ensuremath{\overline{#1}}}
 \newcommand{\ccm}[1]{\ensuremath{\overline{\mathbf{#1}}}}
-
 
 %--------------------------------------------------------------------
 %--------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, Classes 25-27, S17 \\
+{\bf NE 155, Topic 15, S21 \\
 2-D Finite Difference/Volume methods\\ 
-March 17, 20, \& 22, 2017}
+April 8, 2021}
 \end{center}
 
 \setlength{\unitlength}{1in}
