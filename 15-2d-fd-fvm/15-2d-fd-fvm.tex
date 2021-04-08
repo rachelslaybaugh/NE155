@@ -113,7 +113,7 @@ The Laplacian is used in many of the equations that are commonly found in physic
 \end{itemize}
 
 % -----------------------------------------------------
-\subsection*{Meshing}
+\section*{2-D Finite Difference}
 
 We will use 5 points to define our central-differenced Laplacian:
 
@@ -261,12 +261,55 @@ with $x \in [-a,a]$ and $y \in [-b,b]$.
 % ---------------------------------------------------------
 % ---------------------------------------------------------
 \subsection*{Finite Volume}
+%
+%\begin{figure}[h!]
+%\begin{center}
+%\includegraphics[height=5in]{../figs/2DfvmGrid}
+%\end{center}
+%\end{figure}
 
-\begin{figure}[h!]
 \begin{center}
-\includegraphics[height=5in]{../figs/2DfvmGrid}
+\begin{tikzpicture}
+% grid
+\draw[step=2cm] (2,2) grid (6,6);
+% volume labels
+\node at (5,3) {$V_{i+1,j}$};
+\node at (5,5) {$V_{i+1,j+1}$};
+\node at (3,3) {$V_{i,j}$};
+\node at (3,5) {$V_{i,j+1}$};
+\node at (1,7) {$D_{i,j+1}$};
+% surface labels
+\node[left] at (1.75,3) {$s_1$};
+\node[left] at (1.75,5) {$s_8$};
+\node[above] at (3,6.25) {$s_7$};
+\node[above] at (5,6.25) {$s_6$};
+\node[right] at (6.25,5) {$s_5$};
+\node[right] at (6.25,3) {$s_4$};
+\node[below] at (3,1.75) {$s_2$};
+\node[below] at (5,1.75) {$s_3$};
+% surrounding grid and markers
+\draw plot[mark=*, mark options={fill=black}] (4,4) node[below] {$(i,j)$};
+\draw (4,4) -- plot[mark=*, mark options={fill=black}] (8,4) node[right] {$(i+1,j)$};
+\draw (4,4)-- plot[mark=*, mark options={fill=black}] (4,0) node[below] {$(i,j-1)$};
+\draw (4,4)-- plot[mark=*, mark options={fill=black}] (4,8) node[above] {$(i,j+1)$};
+\draw (4,4)-- plot[mark=*, mark options={fill=black}] (0,4) node[above] {$(i-1,j)$};
+% arrows
+\draw[<->](7.5,4) -- (7.5,8);
+\node[right] at (7.5,6) {$\epsilon_{j+1}$};
+\draw[<->](7.5,0) -- (7.5,4);
+\node[right] at (7.5,2) {$\epsilon_{j}$};
+\draw[<->](1,2) -- (1,4);
+\node[left] at (1,3) {$\epsilon_{j}/2$};
+\draw[<->](4,0.5) -- (8,0.5);
+\node[below] at (6, 0.5) {$\delta_{i+1}$};
+\draw[<->](0,0.5) -- (4,0.5);
+\node[below] at (2, 0.5) {$\delta_{i}$};
+\draw[<->](4,7) -- (6,7);
+\node[above] at (5, 7) {$\delta_{i+1}/2$};
+\end{tikzpicture}
 \end{center}
-\end{figure}
+
+
 
 We assume the diffusion coefficient, absorption cross section, and source are constant in each cell (cell-centered), e.g., for $V_{i,j}$:
 \begin{align}
@@ -311,13 +354,13 @@ Use Gauss Theorem to replace the first volume integral with a surface integral:
 Next, we define the partial derivative w.r.t.\ direction on each surface, using $O(h)$ forward and backward difference schemes since they're simple:
 
 \begin{align}
-\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i,j-1} - \phi_{i,j}}{\epsilon_j} \qquad \text{on } S_2 \:, S_3 \nonumber \\
+\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \frac{\phi_{i,j-1} - \phi_{i,j}}{\epsilon_j} \qquad \text{on } S_2 \:, S_3 \quad \text{(bottom)} \nonumber \\
 %
-&= \frac{\phi_{i,j+1} - \phi_{i,j}}{\epsilon_{j+1}} \qquad \text{on } S_7 \:, S_6 \nonumber \\
+&= \frac{\phi_{i,j+1} - \phi_{i,j}}{\epsilon_{j+1}} \qquad \text{on } S_7 \:, S_6 \quad \text{(top)} \nonumber \\
 %
-&= \frac{\phi_{i-1,j} - \phi_{i,j}}{\delta_{i}} \qquad \text{on } S_1 \:, S_8 \nonumber \\
+&= \frac{\phi_{i-1,j} - \phi_{i,j}}{\delta_{i}} \qquad \text{on } S_1 \:, S_8 \quad \text{(left)} \nonumber \\
 %
-&= \frac{\phi_{i+1,j} - \phi_{i,j}}{\delta_{i+1}} \qquad \text{on } S_4 \:, S_5 \nonumber 
+&= \frac{\phi_{i+1,j} - \phi_{i,j}}{\delta_{i+1}} \qquad \text{on } S_4 \:, S_5 \quad \text{(right)} \nonumber 
 \end{align}
 %
 We then use the midpoint rule for the integration and integrate along each surface. Recall that the physics values are cell-centered while the flux is edge-centered. E.g., surfaces $S_2$ and $S_3$:
@@ -325,11 +368,11 @@ We then use the midpoint rule for the integration and integrate along each surfa
 \begin{align*}
 -\int_{S_2+S_3} d\vec{S} \:D(\vec{r})\frac{\partial}{\partial \hat{n}}\phi(\vec{r}) &= \boxed{\frac{\phi_{i,j} - \phi_{i,j-1}}{\epsilon_{j}} \biggl(\frac{D_{i,j} \delta_{i} + D_{i+1,j} \delta_{i+1}}{2}\biggr)}\:,\\
 %
-S_6+S_7 &= \boxed{\frac{\phi_{i,j+1} - \phi_{i,j}}{\epsilon_{j+1}} \biggl(\frac{D_{i,j+1} \delta_{i} + D_{i+1,j+1} \delta_{i+1}}{2}\biggr)}\:,\\
+S_6+S_7 &= \boxed{\frac{\phi_{i,j} - \phi_{i,j+1}}{\epsilon_{j+1}} \biggl(\frac{D_{i,j+1} \delta_{i} + D_{i+1,j+1} \delta_{i+1}}{2}\biggr)}\:,\\
 %
-S_1+S_8 &= \boxed{\frac{\phi_{i-1,j} - \phi_{i,j}}{\delta_{i}} \biggl(\frac{D_{i,j} \epsilon_{j} + D_{i,j+1} \epsilon_{j+1}}{2}\biggr)}\:,\\
+S_1+S_8 &= \boxed{\frac{\phi_{i,j} - \phi_{i-1,j}}{\delta_{i}} \biggl(\frac{D_{i,j} \epsilon_{j} + D_{i,j+1} \epsilon_{j+1}}{2}\biggr)}\:,\\
 %
-S_4+S_5 &= \boxed{\frac{\phi_{i+1,j} - \phi_{i,j}}{\delta_{i+1}} \biggl(\frac{D_{i+1,j} \epsilon_{j} + D_{i+1,j+1} \epsilon_{j+1}}{2}\biggr)}\:,
+S_4+S_5 &= \boxed{\frac{\phi_{i,j} - \phi_{i+1,j}}{\delta_{i+1}} \biggl(\frac{D_{i+1,j} \epsilon_{j} + D_{i+1,j+1} \epsilon_{j+1}}{2}\biggr)}\:,
 \end{align*}
 %
 and we do this for each set of surfaces. 
