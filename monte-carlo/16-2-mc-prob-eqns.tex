@@ -1,46 +1,30 @@
-\documentclass[12pt]{article}
-\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\documentclass[12pt, answers]{exam}
+%\documentclass[12pt]{exam}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz, pgflibraryplotmarks}
 
-\usepackage{setspace}
-\onehalfspacing
-
-\usepackage{amssymb}
-%% The amsthm package provides extended theorem environments
+% By default LaTeX uses large margins.  This doesn't work well on exams; problems
+% end up in the "middle" of the page, reducing the amount of space for students
+% to work on them.
+\usepackage[margin=1in]{geometry}
+\usepackage{enumerate, paralist}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+\usepackage{float} % for psuedocode formatting
 \usepackage{amsthm}
 \usepackage{epsfig}
 \usepackage{times}
 \renewcommand{\ttdefault}{cmtt}
 \usepackage{amsmath}
 \usepackage{graphicx} % for graphics files
-\usepackage{tabu}
 
-% Draw figures yourself
-\usepackage{tikz} 
-
-% writing elements
-\usepackage{mhchem}
-
-% The float package HAS to load before hyperref
-\usepackage{float} % for psuedocode formatting
-\usepackage{xspace}
-
-% from Denovo Methods Manual
-\usepackage{mathrsfs}
-\usepackage[mathcal]{euscript}
-\usepackage{color}
-\usepackage{array}
-
-\usepackage[pdftex]{hyperref}
-\usepackage[parfill]{parskip}
-
-% math syntax
 \newcommand{\nth}{n\ensuremath{^{\text{th}}} }
 \newcommand{\ve}[1]{\ensuremath{\mathbf{#1}}}
 \newcommand{\Macro}{\ensuremath{\Sigma}}
+\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
 \newcommand{\rvec}{\ensuremath{\vec{r}}}
 \newcommand{\vecr}{\ensuremath{\vec{r}}}
 \newcommand{\omvec}{\ensuremath{\hat{\Omega}}}
-\newcommand{\vOmega}{\ensuremath{\hat{\Omega}}}
 \newcommand{\sigs}{\ensuremath{\Sigma_s(\rvec,E'\rightarrow E,\omvec'\rightarrow\omvec)}}
 \newcommand{\el}{\ensuremath{\ell}}
 \newcommand{\sigso}{\ensuremath{\Sigma_{s,0}}}
@@ -49,25 +33,29 @@
 %---------------------------------------------------------------------------
 \begin{document}
 \begin{center}
-{\bf NE 155, S17\\
-April 10, 2017
+{\bf NE 155, S21\\
+Probability and Statistics MC board work
 }
 \end{center}
 
 
 %-------------------------------------------------------
-\textbf{Probability Distributions}\\
+\noindent\textbf{Probability Distributions}\\
 We need to figure out all of these things about how particles are moving around in our system, but how do we do it?\\
 We get functional expressions of the probability that various things will happen and try to take enough samples to effectively capture those expressions.
 %
 \begin{itemize}
 \item For a random variable, $x$, the probability that $x$ will have a value between $a$ and $b$ is $P\{a \leq x \leq b\}$.
 %
+\ifprintanswers
 \item The \textit{probability density fuction} expresses the likelihood that $x'$ will take on a value between $x$ and $x+\Delta x$:
 \begin{align*}
 \lim_{\Delta x \to 0} f(x)\Delta x &= P \{ x \leq x' \leq x + \Delta x \}\\
 \int_a^b f(x) dx &= P\{a \leq x \leq b\}
 \end{align*}
+\else
+\item \vspace*{4em}
+\fi
 %
 \item We often normalize this PDF to integrate to one, using one of
 \begin{equation}
@@ -85,7 +73,7 @@ P \{ a \leq x' \leq b \} &= F(b) - F(a)
 \end{align*}
 \end{itemize}
 
-Various physical phenomena can be represented by probability distributions
+Various physical phenomena can be represented by probability distributions, e.g.
 \begin{itemize}
   \item Photon emission energy: Each possible energy has a different probability (intensity)
   \item Scattering cross-sections: Each possible scattering angle has a different probability as a function of the energy
@@ -100,19 +88,27 @@ We in one way or another get these PDFs and/or CDFs and use random numbers to se
 -------------------------------------------------------\\
 \textbf{Statistics}\\
 The ``true" mean value, $\mu$, of any PDF is the expected value, $E(x)$
+\ifprintanswers
 \[
 \mu = E(x) = \int x f(x) dx
 \]
+\else
+\\ \vspace*{1em}\\
+\fi
 Because we can't usually do this, we use random samples and estimate the true mean from the ``sample" mean, $\bar{x}$
 \[
 \bar{x} = \frac{1}{N}\sum_{i=1}^N x_i \qquad \lim_{N \to \infty} \bar{x} \rightarrow \mu\:.
 \]
 The variance of a PDF is the measure of spread in that PDF
+\ifprintanswers
 \begin{align*}
 \sigma^2 &= E[(x - \mu)^2] = \int (x - \mu)^2 f(x) dx \\
 &= \int x^2 f(x) dx - 2 \mu \int x f(x) dx + \mu^2 \int f(x) dx\\
 &= E(x^2) - \mu^2
 \end{align*}
+\else
+\\ \vspace*{5em}\\
+\fi
 %
 However, we don't know the PDF so we use the samples to get the sample variances
 \begin{align*}
@@ -151,9 +147,13 @@ The error in the results decreases with the square of increasing the number of h
 \end{figure}
 
 \textbf{Relative Error} is 
+\ifprintanswers
 \[
 R = \frac{S_{\bar{x}}}{\bar{x}} = \sqrt{\frac{\sum_{i=1}^N x_i^2}{\bigl(\sum_{i=1}^N x_i\bigr)^2} - \frac{1}{N}} 
 \]
+\else
+\\ \vspace*{2em}\\
+\fi
 If $x_i$ are equal and non-zero, R=0.\\
 Thus, we can reduce the error by reducing the spread in $x_i$.
 
