@@ -99,7 +99,7 @@ Because we can't usually do this, we use random samples and estimate the true me
 \[
 \bar{x} = \frac{1}{N}\sum_{i=1}^N x_i \qquad \lim_{N \to \infty} \bar{x} \rightarrow \mu\:.
 \]
-The variance of a PDF is the measure of spread in that PDF
+The variance of a PDF is the measure of spread in that PDF. If we knew the PDF, we could directly say: 
 \ifprintanswers
 \begin{align*}
 \sigma^2 &= E[(x - \mu)^2] = \int (x - \mu)^2 f(x) dx \\
@@ -110,12 +110,27 @@ The variance of a PDF is the measure of spread in that PDF
 \\ \vspace*{5em}\\
 \fi
 %
-However, we don't know the PDF so we use the samples to get the sample variances
+However, we don't know the PDF so we use the samples to get the sample variances (how much the samples vary from the true mean)
 \begin{align*}
 S_x^2 &= \frac{1}{N-1}\sum_{i=1}^N (x_i - \bar{x})^2 \\
 &= \frac{1}{N-1} \biggl[\sum_{i=1}^N x_i^2 - 2 \bar{x}\sum_{i=1}^N x_i + \bar{x}^2 \sum_{i=1}^N 1 \biggr] \\
 &\approx \bar{x^2} - \bar{x}^2
 \end{align*}
+
+One step beyond the sample variances gives us the variance of the sample mean (how much the sample mean varies from the true mean). 
+\begin{align*}
+S_{\bar{x}}^2 &= E[(\bar{x} - \mu)^2] = E\biggl[ \biggl(\frac{1}{N}\sum_{i=1}^N x_i - \mu\biggr)^2\biggr] \\
+%
+&=\frac{1}{N^2} E\biggl[ \sum_{i=1}^N (x_i - \mu) \sum_{j=1}^N (x_j - \mu)\biggr] = \frac{1}{N^2} E\biggl[ \sum_{i=1}^N \sum_{j=1}^N (x_i - \mu)  (x_j - \mu)\biggr]\\
+%
+&= \frac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N E\bigl[  (x_i - \mu)  (x_j - \mu)\bigr] = \frac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N S^2_x \delta_{ij} = \frac{1}{N^2} \sum_{i=1}^N S_x^2 \\
+%
+&= \frac{N S_x^2}{N^2} = \boxed{\frac{S_x^2}{N}}
+\end{align*}
+The error in the results decreases with the square of increasing the number of histories.
+
+We can apply the variance through the standard deviation (the square root of the variance) to express the confidence we have in our answer.\\
+\vspace*{1em}
 
 The \underline{Central Limit Theorem} states that
 For $N$ \textit{independent} random variables, $x_i$, sampled from \textit{identical distributions}, their mean follows a Normal (Gaussian) distribution.\\
@@ -126,17 +141,8 @@ We can use this information to define \textit{confidence intervals}
 \bar{x} - 2S_{\bar{x}} &< E(x) < \bar{x} + 2S_{\bar{x}} \quad \text{about 95\% of the time}
 \end{align*}
 
-The \textbf{standard deviation} of the mean is a measure of the error in the result
-\begin{align*}
-S_{\bar{x}}^2 &= E[(\bar{x} - \mu)^2] = E\biggl[ \biggl(\frac{1}{N}\sum_{i=1}^N x_i - \mu\biggr)^2\biggr] = E\biggl[ \biggl(\frac{1}{N^2}\sum_{i=1}^N (x_i - \mu)\biggr)^2\biggr]\\
-%
-&=\frac{1}{N^2} E\biggl[ \sum_{i=1}^N (x_i - \mu) \sum_{j=1}^N (x_j - \mu)\biggr] = \frac{1}{N^2} E\biggl[ \sum_{i=1}^N \sum_{j=1}^N (x_i - \mu)  (x_j - \mu)\biggr]\\
-%
-&= \frac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N E\bigl[  (x_i - \mu)  (x_j - \mu)\bigr] = \frac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N S^2_x \delta_{ij} = \frac{1}{N^2} \sum_{i=1}^N S_x^2 \\
-%
-&= \frac{N S_x^2}{N^2} = \boxed{\frac{S_x^2}{N}}
-\end{align*}
-The error in the results decreases with the square of increasing the number of histories.
+The \textbf{standard deviation} of the mean is a measure of the error in the result.
+
 %
 \begin{figure}[h!]
 \begin{center}
@@ -155,7 +161,8 @@ R = \frac{S_{\bar{x}}}{\bar{x}} = \sqrt{\frac{\sum_{i=1}^N x_i^2}{\bigl(\sum_{i=
 \\ \vspace*{2em}\\
 \fi
 If $x_i$ are equal and non-zero, R=0.\\
-Thus, we can reduce the error by reducing the spread in $x_i$.
+Thus, we can reduce the error by reducing the spread in $x_i$.\\
+\vspace*{1em}
 
 \textbf{Accuracy vs.\ Precision}\\
 The distinction between accuracy and precision can be seen in Fig.~\ref{fig:accuracy}.\\
