@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Class 35, NE 155
+%%  NE 155
 %%
 
-\documentclass[xcolor=x11names,compress]{beamer}
+\documentclass[xcolor=x11names,compress, handout]{beamer}
 
 \definecolor{CoolBlack}{rgb}{0.0, 0.18, 0.39}
 %% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -92,9 +92,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % title stuff for footer
 \title{NE 155}
-\author{R.\ N.\ Slaybaugh \\
-Richard Vasques}
-\date{April 16, 2017}
+\author{R.\ N.\ Slaybaugh}
+\date{April 22, 2021}
 
 \begin{document}
 
@@ -102,7 +101,7 @@ Richard Vasques}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \title{NE 155\\Introduction to Numerical Simulations in Radiation Transport}
-\subtitle{Lecture 35: Geometry and Collisions}
+\subtitle{Geometry and Collisions}
 \titlepage
 \end{frame}
 
@@ -177,7 +176,7 @@ Notes derived from Jasmina Vujic and Paul Wilson
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Possible Futures for a Particle}
 
-After we've gotten to \alert{Circle B}, we have a neutral particle:
+After we've gotten to \alert{Circle B} on the chart, we have a neutral particle:
 \begin{itemize}
   \item At point $(x_p , y_p , z_p)$
   \item Moving in direction $(u, v, w)$
@@ -206,9 +205,9 @@ Collisions are probabilistic
   \item Along a particular path, the \textit{probability of a collision at distance $s$} from the start:
     \begin{align*}
     p_c(s) &= \Sigma_t(s) e^{-\Sigma_t(s) s} ds \\
-    P_c(n) &= \int_0^s \Sigma_t(s) e^{-\Sigma_t(s) s'}ds' = -e^{-\Sigma_t(s) s'} |_0^s = 1 - e^{-\Sigma_t(s) s}
+    P_c(s) &= \int_0^s \Sigma_t(s) e^{-\Sigma_t(s) s'}ds' = -e^{-\Sigma_t(s) s'} |_0^s = 1 - e^{-\Sigma_t(s) s}
   \end{align*}
-  %\item This is the probability of interaction per unit distance $\times$ probability of traveling $s$ without interacting
+  \item This is the probability of interaction per unit distance $\times$ probability of traveling $s$ without interacting
 %  \vspace*{0.5 em}
 %  \pause
   \item The cross section, $\Sigma_t(s)$, is piecewise constant, \underline{but changing}
@@ -248,9 +247,9 @@ Collisions are probabilistic
 Randomly sample to determine number of mean free paths until next collision, $n_c$
 
 \begin{itemize}
-  \item $g(n_c) dn_c = e^{-n_c} dn_c$ 
+  \item $p(n_c) dn_c = e^{-n_c} dn_c$ 
   \vspace{.5em}
-  \item $G(n_c) dn_c = 1 - e^{-n_c}$ 
+  \item $P(n_c) dn_c = 1 - e^{-n_c}$ 
   \vspace{.5em}
   \item Directly invert to get: $\boxed{n_c = - \ln(1 - \xi)}$ \\
    \hspace*{1.5em} (note $1-\xi$ is equivalent to $\xi$)
@@ -382,7 +381,7 @@ We're skipping how to find $n_b$, just know that we can find it
   \item \textit{Discrete PDF} to determine which nuclide is hit
     \[p_i = \frac{\Sigma_{t,j}}{\Sigma_t}\]
   \pause
-  \item Sample \textbf{reaction type} for an nuclide with R types of reactions
+  \item Sample \textbf{reaction type} for a nuclide with R types of reactions
      \[\Sigma_{t,j} = \sum_{x=1}^R \Sigma_{x,j}\]
   \item \textit{Discrete PDF} to determine which reaction occurs
     \[p_x = \frac{\Sigma_{x,j}}{\Sigma_{t,j}}\]
@@ -448,9 +447,9 @@ We've developed a general sense of using MC for neutron transport
     \item We can determine if particles have collisions or cross boundaries
     \item \textit{After a collisions} we need to determine many things associated with the collisions (target, reaction, direction, energy)
     \item Repeat analysis for collisions/crossing until particle \textbf{terminates}
-    \pause
-    \vspace*{0.5 em}
-    \item Next time: tallying results
+%    \pause
+%    \vspace*{0.5 em}
+%    \item Next time: tallying results
 \end{itemize}
 
 
